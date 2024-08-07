@@ -3,6 +3,8 @@ package cc.cassian.pyrite;
 import net.minecraft.block.*;
 import net.minecraft.particle.DustParticleEffect;
 import net.minecraft.particle.ParticleTypes;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import static cc.cassian.pyrite.functions.BlockCreator.*;
 import static cc.cassian.pyrite.functions.ModLists.*;
@@ -10,6 +12,7 @@ import static cc.cassian.pyrite.functions.ModHelpers.*;
 
 public class Pyrite {
 	public final static String modID = "pyrite";
+	public static final Logger LOGGER = LogManager.getLogger(modID);
 
 
     public static void init(String platform) {

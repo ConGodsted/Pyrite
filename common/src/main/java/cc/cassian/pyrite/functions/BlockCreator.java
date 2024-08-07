@@ -89,7 +89,7 @@ public class BlockCreator {
         if (isFabric(platform)) {
             switch (blockType) {
                 case "fence_gate":
-                    FabricRegistry.registerPyriteBlock(blockID, blockSettings, WoodType.CRIMSON);
+                    FabricRegistry.registerPyriteBlock(blockID, blockType, blockSettings, WoodType.CRIMSON);
                     break;
                 case "door", "trapdoor":
                     FabricRegistry.registerPyriteBlock(blockID, blockType, blockSettings, BlockSetType.IRON);
@@ -102,7 +102,7 @@ public class BlockCreator {
         else {
             switch (blockType) {
                 case "fence_gate":
-                    CommonRegistry.registerPyriteBlock(blockID, blockSettings, WoodType.CRIMSON);
+                    CommonRegistry.registerPyriteBlock(blockID, blockType, blockSettings, WoodType.CRIMSON);
                     break;
                 case "door", "trapdoor":
                     CommonRegistry.registerPyriteBlock(blockID, blockType, blockSettings, BlockSetType.IRON);
@@ -194,12 +194,12 @@ public class BlockCreator {
                     CommonRegistry.registerPyriteBlock(blockID, blockType, blockSettings, set);
                 }
                 break;
-            case "fence_gate":
+            case "fence_gate", "wall_gate", "sign":
                 if (isFabric(platform)) {
-                    FabricRegistry.registerPyriteBlock(blockID, blockSettings, type);
+                    FabricRegistry.registerPyriteBlock(blockID, blockType, blockSettings, type);
                 }
                 else {
-                    CommonRegistry.registerPyriteBlock(blockID, blockSettings, type);
+                    CommonRegistry.registerPyriteBlock(blockID, blockType, blockSettings, type);
                 }
                 break;
             default:
@@ -275,6 +275,8 @@ public class BlockCreator {
         //Crafting Tables
         createPyriteBlock( blockID+"_crafting_table", "crafting", Blocks.CRAFTING_TABLE, color, blockLux, platform);
         createPyriteBlock( blockID+"_ladder", "ladder", Blocks.LADDER, color, blockLux, platform);
+        createPyriteBlock(blockID+"_sign", "sign", Blocks.OAK_SIGN, color, blockLux, GENERATED_SET, GENERATED_TYPE, platform);
+
 
 
     }

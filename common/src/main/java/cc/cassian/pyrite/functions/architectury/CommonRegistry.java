@@ -101,20 +101,28 @@ public class CommonRegistry {
                 break;
         }
         addBlockItem(newBlock);
-        if (blockID.contains("grass")) {
-            addGrassBlock(newBlock);
-        }
-        else if (blockID.equals("cobblestone_bricks")) {
-            creativeTabIcon = newBlock;
-        }
-
+        if (blockID.contains("grass")) addGrassBlock(newBlock);
+        else if (blockID.equals("cobblestone_bricks")) creativeTabIcon = newBlock;
     }
 
 
     //Add Pyrite blocks that require Wood Types - Fence gates.
-    public static void registerPyriteBlock(String blockID, AbstractBlock.Settings blockSettings, WoodType type) {
-        RegistrySupplier<Block> newBlock = pyriteBlocks.register(blockID, () -> new FenceGateBlock(blockSettings, type));
+    public static void registerPyriteBlock(String blockID, String blockType, AbstractBlock.Settings blockSettings, WoodType type) {
+        RegistrySupplier<Block> newBlock;
+        switch (blockType) {
+            case "fence_gate", "wall_gate":
+                newBlock = pyriteBlocks.register(blockID, () -> new FenceGateBlock(blockSettings, type));
+                break;
+            case "sign":
+                newBlock = pyriteBlocks.register(blockID, () -> new SignBlock(blockSettings, type));
+                break;
+            default:
+                System.out.println(blockID + "created as a generic block.");
+                newBlock = pyriteBlocks.register(blockID, () -> new Block(blockSettings));
+                break;
+        }
         addBlockItem(newBlock);
+
     }
 
     //Add Pyrite blocks that require Block Sets.
