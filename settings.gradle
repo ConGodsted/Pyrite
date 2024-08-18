@@ -11,4 +11,3 @@ rootProject.name = 'pyrite'
 
 include 'common'
 include 'fabric'
-include 'neoforge'
