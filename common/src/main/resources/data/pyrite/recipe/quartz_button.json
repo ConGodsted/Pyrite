@@ -1,17 +1,13 @@
 {
-      "type": "minecraft:crafting_shapeless",
-      "category": "misc",
-      "ingredients": [
-        {
-          "item": "minecraft:quartz_block"
-        },
-        {
-          "tag": "minecraft:buttons"
-        }
-      ],
-      "result": {
-        "count": 1,
-        "item": "pyrite:quartz_button",
-        "id": "pyrite:quartz_button"
-      }
-    }
+ "type": "minecraft:crafting_shapeless",
+ "category": "misc",
+ "ingredients": [
+  "minecraft:quartz_block",
+  "#minecraft:buttons"
+ ],
+ "result": {
+  "count": 1,
+  "item": "pyrite:quartz_button",
+  "id": "pyrite:quartz_button"
+ }
+}

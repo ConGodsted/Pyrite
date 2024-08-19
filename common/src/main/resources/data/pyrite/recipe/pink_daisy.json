@@ -1,17 +1,13 @@
 {
-      "type": "minecraft:crafting_shapeless",
-      "category": "misc",
-      "ingredients": [
-        {
-          "item": "pyrite:nostalgia_dye"
-        },
-        {
-          "item": "minecraft:oxeye_daisy"
-        }
-      ],
-      "result": {
-        "count": 1,
-        "item": "pyrite:pink_daisy",
-        "id": "pyrite:pink_daisy"
-      }
-    }
+ "type": "minecraft:crafting_shapeless",
+ "category": "misc",
+ "ingredients": [
+  "pyrite:nostalgia_dye",
+  "minecraft:oxeye_daisy"
+ ],
+ "result": {
+  "count": 1,
+  "item": "pyrite:pink_daisy",
+  "id": "pyrite:pink_daisy"
+ }
+}

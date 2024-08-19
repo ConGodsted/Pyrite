@@ -1,17 +1,13 @@
 {
-      "type": "minecraft:crafting_shapeless",
-      "category": "misc",
-      "ingredients": [
-        {
-          "item": "pyrite:nostalgia_dye"
-        },
-        {
-          "item": "minecraft:poppy"
-        }
-      ],
-      "result": {
-        "count": 1,
-        "item": "pyrite:rose",
-        "id": "pyrite:rose"
-      }
-    }
+ "type": "minecraft:crafting_shapeless",
+ "category": "misc",
+ "ingredients": [
+  "pyrite:nostalgia_dye",
+  "minecraft:poppy"
+ ],
+ "result": {
+  "count": 1,
+  "item": "pyrite:rose",
+  "id": "pyrite:rose"
+ }
+}

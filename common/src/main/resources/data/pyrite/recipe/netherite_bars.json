@@ -1,17 +1,15 @@
-        {
-    "type": "minecraft:crafting_shaped",
-    "pattern": [
-      "DDD",
-      "DDD"
-    ],
-    "key": {
-      "D": {
-        "item": "pyrite:cut_netherite"
-      }
-    },
-    "result": {
-      "item": "pyrite:netherite_bars",
-      "id": "pyrite:netherite_bars",
-      "count": 32
-    }
-    }
+{
+ "type": "minecraft:crafting_shaped",
+ "pattern": [
+  "DDD",
+  "DDD"
+ ],
+ "key": {
+  "D": "pyrite:cut_netherite"
+ },
+ "result": {
+  "item": "pyrite:netherite_bars",
+  "id": "pyrite:netherite_bars",
+  "count": 32
+ }
+}

@@ -1,17 +1,14 @@
-        
-      {
-        "type": "minecraft:crafting_shaped",
-        "pattern": [
-          "CCC"
-        ],
-        "key": {
-          "C": {
-            "item": "pyrite:white_bricks"
-          }
-        },
-        "result": {
-          "item": "pyrite:white_brick_slab",
-          "id": "pyrite:white_brick_slab",
-          "count": 6
-        }
-      }
+{
+ "type": "minecraft:crafting_shaped",
+ "pattern": [
+  "CCC"
+ ],
+ "key": {
+  "C": "pyrite:white_bricks"
+ },
+ "result": {
+  "item": "pyrite:white_brick_slab",
+  "id": "pyrite:white_brick_slab",
+  "count": 6
+ }
+}

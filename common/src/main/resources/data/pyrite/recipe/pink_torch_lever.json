@@ -1,16 +1,12 @@
 {
-      "type": "minecraft:crafting_shapeless",
-      "ingredients": [
-        {
-          "item": "pyrite:pink_torch"
-        },
-        {
-          "item": "minecraft:lever"
-        }
-      ],
-      "result": {
-        "item": "pyrite:pink_torch_lever",
-        "id": "pyrite:pink_torch_lever",
-        "count": 1
-      }
-    }
+ "type": "minecraft:crafting_shapeless",
+ "ingredients": [
+  "pyrite:pink_torch",
+  "minecraft:lever"
+ ],
+ "result": {
+  "item": "pyrite:pink_torch_lever",
+  "id": "pyrite:pink_torch_lever",
+  "count": 1
+ }
+}

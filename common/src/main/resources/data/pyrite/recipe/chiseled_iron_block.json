@@ -1,17 +1,15 @@
-        {
-    "type": "minecraft:crafting_shaped",
-    "pattern": [
-      "D",
-      "D"
-    ],
-    "key": {
-      "D": {
-        "item": "minecraft:iron_block"
-      }
-    },
-    "result": {
-      "item": "pyrite:chiseled_iron_block",
-      "id": "pyrite:chiseled_iron_block",
-      "count": 4
-    }
-    }
+{
+ "type": "minecraft:crafting_shaped",
+ "pattern": [
+  "D",
+  "D"
+ ],
+ "key": {
+  "D": "minecraft:iron_block"
+ },
+ "result": {
+  "item": "pyrite:chiseled_iron_block",
+  "id": "pyrite:chiseled_iron_block",
+  "count": 4
+ }
+}

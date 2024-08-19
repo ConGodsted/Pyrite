@@ -1,17 +1,13 @@
 {
-      "type": "minecraft:crafting_shapeless",
-      "category": "misc",
-      "ingredients": [
-        {
-          "item": "pyrite:nostalgia_dye"
-        },
-        {
-          "item": "minecraft:white_wool"
-        }
-      ],
-      "result": {
-        "count": 1,
-        "item": "pyrite:nostalgia_wool",
-        "id": "pyrite:nostalgia_wool"
-      }
-    }
+ "type": "minecraft:crafting_shapeless",
+ "category": "misc",
+ "ingredients": [
+  "pyrite:nostalgia_dye",
+  "minecraft:white_wool"
+ ],
+ "result": {
+  "count": 1,
+  "item": "pyrite:nostalgia_wool",
+  "id": "pyrite:nostalgia_wool"
+ }
+}

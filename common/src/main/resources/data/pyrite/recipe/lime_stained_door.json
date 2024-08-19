@@ -1,19 +1,16 @@
-        
-      {
-        "type": "minecraft:crafting_shaped",
-        "pattern": [
-          "CC",
-          "CC",
-          "CC"
-        ],
-        "key": {
-          "C": {
-            "item": "pyrite:lime_stained_planks"
-          }
-        },
-        "result": {
-          "item": "pyrite:lime_stained_door",
-          "id": "pyrite:lime_stained_door",
-          "count": 3
-        }
-      }
+{
+ "type": "minecraft:crafting_shaped",
+ "pattern": [
+  "CC",
+  "CC",
+  "CC"
+ ],
+ "key": {
+  "C": "pyrite:lime_stained_planks"
+ },
+ "result": {
+  "item": "pyrite:lime_stained_door",
+  "id": "pyrite:lime_stained_door",
+  "count": 3
+ }
+}

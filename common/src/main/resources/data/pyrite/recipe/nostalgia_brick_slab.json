@@ -1,17 +1,14 @@
-        
-      {
-        "type": "minecraft:crafting_shaped",
-        "pattern": [
-          "CCC"
-        ],
-        "key": {
-          "C": {
-            "item": "pyrite:nostalgia_bricks"
-          }
-        },
-        "result": {
-          "item": "pyrite:nostalgia_brick_slab",
-          "id": "pyrite:nostalgia_brick_slab",
-          "count": 6
-        }
-      }
+{
+ "type": "minecraft:crafting_shaped",
+ "pattern": [
+  "CCC"
+ ],
+ "key": {
+  "C": "pyrite:nostalgia_bricks"
+ },
+ "result": {
+  "item": "pyrite:nostalgia_brick_slab",
+  "id": "pyrite:nostalgia_brick_slab",
+  "count": 6
+ }
+}

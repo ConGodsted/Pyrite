@@ -1,20 +1,16 @@
-        {
-      "type": "minecraft:crafting_shaped",
-      "pattern": [
-        "C",
-        "D"
-      ],
-      "key": {
-        "C": {
-          "item": "minecraft:redstone_lamp"
-        },
-        "D": {
-          "item": "minecraft:redstone_torch"
-        }
-      },
-      "result": {
-        "item": "pyrite:lit_redstone_lamp",
-        "id": "pyrite:lit_redstone_lamp",
-        "count": 1
-      }
-  }
+{
+ "type": "minecraft:crafting_shaped",
+ "pattern": [
+  "C",
+  "D"
+ ],
+ "key": {
+  "C": "minecraft:redstone_lamp",
+  "D": "minecraft:redstone_torch"
+ },
+ "result": {
+  "item": "pyrite:lit_redstone_lamp",
+  "id": "pyrite:lit_redstone_lamp",
+  "count": 1
+ }
+}

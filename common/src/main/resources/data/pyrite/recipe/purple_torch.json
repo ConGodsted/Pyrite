@@ -1,16 +1,12 @@
 {
-      "type": "minecraft:crafting_shapeless",
-      "ingredients": [
-        {
-          "item": "minecraft:purple_dye"
-        },
-        {
-          "item": "minecraft:torch"
-        }
-      ],
-      "result": {
-        "item": "pyrite:purple_torch",
-        "id": "pyrite:purple_torch",
-        "count": 1
-      }
-    }
+ "type": "minecraft:crafting_shapeless",
+ "ingredients": [
+  "minecraft:purple_dye",
+  "minecraft:torch"
+ ],
+ "result": {
+  "item": "pyrite:purple_torch",
+  "id": "pyrite:purple_torch",
+  "count": 1
+ }
+}

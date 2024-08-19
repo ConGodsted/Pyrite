@@ -1,19 +1,16 @@
-        
-      {
-        "type": "minecraft:crafting_shaped",
-        "pattern": [
-          "CC",
-          "CC",
-          "CC"
-        ],
-        "key": {
-          "C": {
-            "item": "minecraft:quartz_block"
-          }
-        },
-        "result": {
-          "item": "pyrite:quartz_door",
-          "id": "pyrite:quartz_door",
-          "count": 3
-        }
-      }
+{
+ "type": "minecraft:crafting_shaped",
+ "pattern": [
+  "CC",
+  "CC",
+  "CC"
+ ],
+ "key": {
+  "C": "minecraft:quartz_block"
+ },
+ "result": {
+  "item": "pyrite:quartz_door",
+  "id": "pyrite:quartz_door",
+  "count": 3
+ }
+}
