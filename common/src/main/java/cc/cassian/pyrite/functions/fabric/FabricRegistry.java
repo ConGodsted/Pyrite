@@ -1,6 +1,7 @@
 package cc.cassian.pyrite.functions.fabric;
 
 import cc.cassian.pyrite.blocks.*;
+import com.mojang.serialization.MapCodec;
 import dev.architectury.injectables.annotations.ExpectPlatform;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntityType;
@@ -122,19 +123,19 @@ public class FabricRegistry {
     public static void registerPyriteBlock(String blockID, String blockType, AbstractBlock.Settings blockSettings, WoodType type) {
         switch (blockType) {
             case "fence_gate", "wall_gate":
-                pyriteBlocks.add(new FenceGateBlock(blockSettings, type));
+                pyriteBlocks.add(new FenceGateBlock(type, blockSettings));
                 pyriteBlockIDs.add(blockID);
                 break;
             case "sign":
                 //Sign Blocks
-                pyriteItemlessBlocks.add(new SignBlock(blockSettings, type) {
+                pyriteItemlessBlocks.add(new SignBlock(type, blockSettings) {
                     public ModSign createBlockEntity(BlockPos pos, BlockState state) {
                         return new ModSign(pos, state);
                     }
                 });
                 pyriteItemlessBlockIDs.add(blockID);
                 //Wall Sign Blocks
-                pyriteItemlessBlocks.add(new WallSignBlock(blockSettings, type) {
+                pyriteItemlessBlocks.add(new WallSignBlock(type, blockSettings) {
                     public ModSign createBlockEntity(BlockPos pos, BlockState state) {
                         return new ModSign(pos, state);
                     }

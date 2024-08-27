@@ -117,10 +117,10 @@ public class CommonRegistry {
         RegistrySupplier<Block> newBlock;
         switch (blockType) {
             case "fence_gate", "wall_gate":
-                newBlock = pyriteBlocks.register(blockID, () -> new FenceGateBlock(blockSettings, type));
+                newBlock = pyriteBlocks.register(blockID, () -> new FenceGateBlock(type, blockSettings));
                 break;
             case "sign":
-                newBlock = pyriteBlocks.register(blockID, () -> new SignBlock(blockSettings, type));
+                newBlock = pyriteBlocks.register(blockID, () -> new SignBlock(type, blockSettings));
                 break;
             default:
                 System.out.println(blockID + "created as a generic block.");
