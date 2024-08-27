@@ -2,7 +2,9 @@ package cc.cassian.pyrite.functions.fabric;
 
 import cc.cassian.pyrite.blocks.*;
 import com.mojang.serialization.MapCodec;
+import dev.architectury.injectables.annotations.ExpectPlatform;
 import net.minecraft.block.*;
+import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
@@ -11,19 +13,24 @@ import net.minecraft.particle.ParticleTypes;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.math.BlockPos;
 
 import java.util.ArrayList;
 import java.util.Objects;
 
+import static cc.cassian.pyrite.Pyrite.LOGGER;
 import static cc.cassian.pyrite.Pyrite.modID;
+import static cc.cassian.pyrite.functions.ModHelpers.identifier;
 import static cc.cassian.pyrite.functions.fabric.FabricCommonHelpers.*;
 
 public class FabricRegistry {
 
     //Deferred registry entries
     public static ArrayList<Block> pyriteBlocks = new ArrayList<>();
+    public static ArrayList<Block> pyriteItemlessBlocks = new ArrayList<>();
     public static ArrayList<Item> pyriteItems = new ArrayList<>();
     static ArrayList<String> pyriteBlockIDs = new ArrayList<>();
+    static ArrayList<String> pyriteItemlessBlockIDs = new ArrayList<>();
     static ArrayList<String> pyriteItemIDs = new ArrayList<>();
 
 
@@ -103,21 +110,52 @@ public class FabricRegistry {
                 addTransparentBlock();
                 break;
             default:
-                System.out.println(blockID + "created as a generic block, block provided" + blockType);
+                LOGGER.error(blockID + "created as a generic block, block provided" + blockType);
                 pyriteBlocks.add(new Block(blockSettings));
                 break;
         }
-        if (blockID.contains("grass")) {
-            addGrassBlock();
-        }
+        if (blockID.contains("grass")) addGrassBlock();
 
     }
 
 
     //Add Pyrite blocks that require Wood Types - Fence gates.
-    public static void registerPyriteBlock(String blockID, AbstractBlock.Settings blockSettings, WoodType type) {
-        pyriteBlockIDs.add(blockID);
-        pyriteBlocks.add(new FenceGateBlock(type, blockSettings));
+    public static void registerPyriteBlock(String blockID, String blockType, AbstractBlock.Settings blockSettings, WoodType type) {
+        switch (blockType) {
+            case "fence_gate", "wall_gate":
+                pyriteBlocks.add(new FenceGateBlock(type, blockSettings));
+                pyriteBlockIDs.add(blockID);
+                break;
+            case "sign":
+                //Sign Blocks
+                pyriteItemlessBlocks.add(new SignBlock(type, blockSettings) {
+                    public ModSign createBlockEntity(BlockPos pos, BlockState state) {
+                        return new ModSign(pos, state);
+                    }
+                });
+                pyriteItemlessBlockIDs.add(blockID);
+                //Wall Sign Blocks
+                pyriteItemlessBlocks.add(new WallSignBlock(type, blockSettings) {
+                    public ModSign createBlockEntity(BlockPos pos, BlockState state) {
+                        return new ModSign(pos, state);
+                    }
+                });
+                pyriteItemlessBlockIDs.add(blockID + "_wall");
+                //Register block entity for standard signs.
+                registerSignBlockEntity(pyriteItemlessBlocks.get(pyriteItemlessBlocks.size()-2), pyriteItemlessBlocks.get(pyriteItemlessBlockIDs.size()-1));
+                break;
+            default:
+                LOGGER.error(blockID + " created as a generic block without its Wood Type - " + blockType);
+                pyriteBlocks.add(new Block(blockSettings));
+                break;
+        }
+    }
+
+
+
+    @ExpectPlatform
+    static BlockEntityType<ModSign> registerSignBlockEntity(Block sign, Block wall_sign) {
+        throw new AssertionError();
     }
 
     //Add Pyrite blocks that require Block Sets.
@@ -139,7 +177,7 @@ public class FabricRegistry {
                 pyriteBlocks.add(new ModPressurePlate(blockSettings, type));
                 break;
             default:
-                System.out.println(blockID + "created as a generic block.");
+                LOGGER.error(blockID + "created as a generic block without its Block Set.");
                 pyriteBlocks.add(new Block(blockSettings));
                 break;
         }
@@ -175,14 +213,16 @@ public class FabricRegistry {
     public static void register() {
         //Register blocks and block items.
         for (int x = 0; x < pyriteBlockIDs.size(); x++) {
-            Registry.register(Registries.BLOCK, Identifier.of(modID, pyriteBlockIDs.get(x)), pyriteBlocks.get(x));
-            Registry.register(Registries.ITEM, Identifier.of(modID, pyriteBlockIDs.get(x)), new BlockItem(pyriteBlocks.get(x), new Item.Settings()));
+            Registry.register(Registries.BLOCK, identifier(pyriteBlockIDs.get(x)), pyriteBlocks.get(x));
+            Registry.register(Registries.ITEM, identifier(pyriteBlockIDs.get(x)), new BlockItem(pyriteBlocks.get(x), new Item.Settings()));
+        }
+        //Registers blocks without block items.
+        for (int x = 0; x < pyriteItemlessBlockIDs.size(); x++) {
+            Registry.register(Registries.BLOCK, identifier(pyriteItemlessBlockIDs.get(x)), pyriteItemlessBlocks.get(x));
         }
         //Registers items.
         for (int x = 0; x < pyriteItemIDs.size(); x++) {
-            Registry.register(Registries.ITEM, Identifier.of(modID, pyriteItemIDs.get(x)), pyriteItems.get(x));
+            Registry.register(Registries.ITEM, identifier(pyriteItemIDs.get(x)), pyriteItems.get(x));
         }
-        //Registers the Pyrite item group.
-//        Registry.register(Registries.ITEM_GROUP, new Identifier(modID, "pyrite_group"), PYRITE_GROUP);
     }
 }

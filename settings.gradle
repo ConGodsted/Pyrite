@@ -7,7 +7,7 @@ pluginManagement {
     }
 }
 
-rootProject.name = 'pyrite'
+rootProject.name = 'Pyrite'
 
 include 'common'
 include 'fabric'
