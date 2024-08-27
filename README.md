@@ -52,7 +52,7 @@ Pyrite is required on both the client and server. Pyrite currently supports 1.19
 - On Fabric, Fabric Loader and Fabric API is required. Architectury API is required for 1.19.2.
 - On Quilt, Quilt Loader and Quilted Fabric API is required.
 - On Forge, Forge Loader and Architectury API is required.
-- On NeoForge, Forge Loader and Architectury API is required.
+- On NeoForge, Neoforge Loader and Architectury API is required.
 
 ## Contributing
 Pyrite is available on GitHub under the open source MIT license. If you are interested in helping to make Pyrite better, through improved textures, translations, or bugfixes, please see the [Pyrite Wiki](https://github.com/cassiancc/Pyrite/wiki/Contributing-to-Pyrite).
