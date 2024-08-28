@@ -119,15 +119,9 @@ public class CommonRegistry {
                 break;
         }
         addBlockItem(newBlock);
-        if (blockID.contains("grass")) {
-            addGrassBlock(newBlock);
-        }
-        else if (blockID.equals("cobblestone_bricks")) {
-            creativeTabIcon = newBlock;
-        }
-
+        if (blockID.contains("grass")) addGrassBlock(newBlock);
+        else if (blockID.equals("cobblestone_bricks")) creativeTabIcon = newBlock;
     }
-
 
     //Add blocks with particles - torches/torch levers
     public static void registerPyriteBlock(String blockID, String blockType, AbstractBlock.Settings blockSettings, ParticleEffect particle) {

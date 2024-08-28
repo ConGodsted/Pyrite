@@ -6,10 +6,13 @@ import net.minecraft.particle.ParticleTypes;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.DyeColor;
+import net.minecraft.util.Identifier;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;
 import java.util.function.ToIntFunction;
+
+import static cc.cassian.pyrite.Pyrite.modID;
 
 
 public class ModHelpers {
@@ -24,6 +27,10 @@ public class ModHelpers {
 
     public static String findVanillaBlockID(Block block) {
         return block.toString().substring(block.toString().indexOf(":") + 1, block.toString().indexOf("}"));
+    }
+
+    public static Identifier identifier(String id) {
+        return Identifier.of(modID, id);
     }
 
     public static MapColor checkDyeMapColour(String dye) {
