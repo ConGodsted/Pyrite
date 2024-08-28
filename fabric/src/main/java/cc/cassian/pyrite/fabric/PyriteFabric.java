@@ -9,12 +9,13 @@ import net.minecraft.util.Identifier;
 
 import static cc.cassian.pyrite.Pyrite.modID;
 import static cc.cassian.pyrite.fabric.FabricHelpers.PYRITE_GROUP;
+import static cc.cassian.pyrite.fabric.FabricHelpers.registerFuelBlocks;
 
 public class PyriteFabric implements ModInitializer {
     @Override
     public void onInitialize() {
         Pyrite.init(SharedConstants.WORLD_VERSION + "-fabric");
         Registry.register(Registries.ITEM_GROUP, Identifier.of(modID, "pyrite_group"), PYRITE_GROUP);
-//        registerFuelBlocks();
+        registerFuelBlocks();
     }
 }
