@@ -1,13 +1,17 @@
 {
- "type": "minecraft:crafting_shapeless",
- "category": "misc",
- "ingredients": [
-  "pyrite:nostalgia_dye",
-  "minecraft:netherrack"
- ],
- "result": {
-  "count": 1,
-  "item": "pyrite:nostalgia_netherrack",
-  "id": "pyrite:nostalgia_netherrack"
- }
-}
+    "type": "minecraft:crafting_shapeless",
+    "category": "misc",
+    "ingredients": [
+      {
+        "item": "pyrite:nostalgia_dye"
+      },
+      {
+        "item": "minecraft:netherrack"
+      }
+    ],
+    "result": {
+      "count": 1,
+      "item": "pyrite:nostalgia_netherrack",
+      "id": "pyrite:nostalgia_netherrack"
+    }
+  }

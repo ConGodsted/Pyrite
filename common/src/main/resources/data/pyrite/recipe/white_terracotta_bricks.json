@@ -1,15 +1,17 @@
-{
- "type": "minecraft:crafting_shaped",
- "pattern": [
-  "CC",
-  "CC"
- ],
- "key": {
-  "C": "minecraft:white_terracotta"
- },
- "result": {
-  "item": "pyrite:white_terracotta_bricks",
-  "id": "pyrite:white_terracotta_bricks",
-  "count": 4
- }
+        {
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+      "CC",
+      "CC"
+    ],
+    "key": {
+      "C": {
+        "item": "minecraft:white_terracotta"
+      }
+    },
+    "result": {
+      "item": "pyrite:white_terracotta_bricks",
+      "id": "pyrite:white_terracotta_bricks",
+      "count": 4
+    }
 }

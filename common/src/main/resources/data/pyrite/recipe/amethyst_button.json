@@ -1,13 +1,17 @@
 {
- "type": "minecraft:crafting_shapeless",
- "category": "misc",
- "ingredients": [
-  "minecraft:amethyst_block",
-  "#minecraft:buttons"
- ],
- "result": {
-  "count": 1,
-  "item": "pyrite:amethyst_button",
-  "id": "pyrite:amethyst_button"
- }
-}
+      "type": "minecraft:crafting_shapeless",
+      "category": "misc",
+      "ingredients": [
+        {
+          "item": "minecraft:amethyst_block"
+        },
+        {
+          "tag": "minecraft:buttons"
+        }
+      ],
+      "result": {
+        "count": 1,
+        "item": "pyrite:amethyst_button",
+        "id": "pyrite:amethyst_button"
+      }
+    }

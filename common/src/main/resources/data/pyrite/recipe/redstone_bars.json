@@ -1,15 +1,17 @@
-{
- "type": "minecraft:crafting_shaped",
- "pattern": [
-  "DDD",
-  "DDD"
- ],
- "key": {
-  "D": "pyrite:cut_redstone"
- },
- "result": {
-  "item": "pyrite:redstone_bars",
-  "id": "pyrite:redstone_bars",
-  "count": 32
- }
-}
+        {
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+      "DDD",
+      "DDD"
+    ],
+    "key": {
+      "D": {
+        "item": "pyrite:cut_redstone"
+      }
+    },
+    "result": {
+      "item": "pyrite:redstone_bars",
+      "id": "pyrite:redstone_bars",
+      "count": 32
+    }
+    }

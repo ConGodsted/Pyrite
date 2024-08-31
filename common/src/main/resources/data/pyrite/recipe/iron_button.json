@@ -1,13 +1,17 @@
 {
- "type": "minecraft:crafting_shapeless",
- "category": "misc",
- "ingredients": [
-  "minecraft:iron_block",
-  "#minecraft:buttons"
- ],
- "result": {
-  "count": 1,
-  "item": "pyrite:iron_button",
-  "id": "pyrite:iron_button"
- }
-}
+      "type": "minecraft:crafting_shapeless",
+      "category": "misc",
+      "ingredients": [
+        {
+          "item": "minecraft:iron_block"
+        },
+        {
+          "tag": "minecraft:buttons"
+        }
+      ],
+      "result": {
+        "count": 1,
+        "item": "pyrite:iron_button",
+        "id": "pyrite:iron_button"
+      }
+    }

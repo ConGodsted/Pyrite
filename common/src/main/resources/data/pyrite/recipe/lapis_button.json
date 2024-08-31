@@ -1,13 +1,17 @@
 {
- "type": "minecraft:crafting_shapeless",
- "category": "misc",
- "ingredients": [
-  "minecraft:lapis_block",
-  "#minecraft:buttons"
- ],
- "result": {
-  "count": 1,
-  "item": "pyrite:lapis_button",
-  "id": "pyrite:lapis_button"
- }
-}
+      "type": "minecraft:crafting_shapeless",
+      "category": "misc",
+      "ingredients": [
+        {
+          "item": "minecraft:lapis_block"
+        },
+        {
+          "tag": "minecraft:buttons"
+        }
+      ],
+      "result": {
+        "count": 1,
+        "item": "pyrite:lapis_button",
+        "id": "pyrite:lapis_button"
+      }
+    }

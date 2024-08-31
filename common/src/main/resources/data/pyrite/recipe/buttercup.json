@@ -1,13 +1,17 @@
 {
- "type": "minecraft:crafting_shapeless",
- "category": "misc",
- "ingredients": [
-  "pyrite:nostalgia_dye",
-  "minecraft:dandelion"
- ],
- "result": {
-  "count": 1,
-  "item": "pyrite:buttercup",
-  "id": "pyrite:buttercup"
- }
-}
+      "type": "minecraft:crafting_shapeless",
+      "category": "misc",
+      "ingredients": [
+        {
+          "item": "pyrite:nostalgia_dye"
+        },
+        {
+          "item": "minecraft:dandelion"
+        }
+      ],
+      "result": {
+        "count": 1,
+        "item": "pyrite:buttercup",
+        "id": "pyrite:buttercup"
+      }
+    }

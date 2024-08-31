@@ -1,15 +1,17 @@
-{
- "type": "minecraft:crafting_shaped",
- "pattern": [
-  "CCC",
-  "CCC"
- ],
- "key": {
-  "C": "pyrite:pink_bricks"
- },
- "result": {
-  "item": "pyrite:pink_brick_wall",
-  "id": "pyrite:pink_brick_wall",
-  "count": 6
- }
+        {
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+      "CCC",
+      "CCC"
+    ],
+    "key": {
+      "C": {
+        "item": "pyrite:pink_bricks"
+      }
+    },
+    "result": {
+      "item": "pyrite:pink_brick_wall",
+      "id": "pyrite:pink_brick_wall",
+      "count": 6
+    }
 }

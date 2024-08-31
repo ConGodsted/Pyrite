@@ -1,13 +1,17 @@
 {
- "type": "minecraft:crafting_shapeless",
- "category": "misc",
- "ingredients": [
-  "pyrite:nostalgia_dye",
-  "minecraft:lapis_block"
- ],
- "result": {
-  "count": 1,
-  "item": "pyrite:nostalgia_lapis_block",
-  "id": "pyrite:nostalgia_lapis_block"
- }
-}
+      "type": "minecraft:crafting_shapeless",
+      "category": "misc",
+      "ingredients": [
+        {
+          "item": "pyrite:nostalgia_dye"
+        },
+        {
+          "item": "minecraft:lapis_block"
+        }
+      ],
+      "result": {
+        "count": 1,
+        "item": "pyrite:nostalgia_lapis_block",
+        "id": "pyrite:nostalgia_lapis_block"
+      }
+    }

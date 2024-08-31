@@ -1,15 +1,18 @@
-{
- "type": "minecraft:crafting_shaped",
- "pattern": [
-  "CC",
-  "CC"
- ],
- "key": {
-  "C": "minecraft:mycelium"
- },
- "result": {
-  "item": "pyrite:mycelium_turf",
-  "id": "pyrite:mycelium_turf",
-  "count": 3
- }
-}
+        
+      {
+        "type": "minecraft:crafting_shaped",
+        "pattern": [
+          "CC",
+          "CC"
+        ],
+        "key": {
+          "C": {
+            "item": "minecraft:mycelium"
+          }
+        },
+        "result": {
+          "item": "pyrite:mycelium_turf",
+          "id": "pyrite:mycelium_turf",
+          "count": 3
+        }
+      }

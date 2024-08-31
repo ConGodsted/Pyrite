@@ -1,13 +1,17 @@
 {
- "type": "minecraft:crafting_shapeless",
- "category": "misc",
- "ingredients": [
-  "pyrite:nostalgia_dye",
-  "minecraft:peony"
- ],
- "result": {
-  "count": 1,
-  "item": "pyrite:paeonia",
-  "id": "pyrite:paeonia"
- }
-}
+      "type": "minecraft:crafting_shapeless",
+      "category": "misc",
+      "ingredients": [
+        {
+          "item": "pyrite:nostalgia_dye"
+        },
+        {
+          "item": "minecraft:peony"
+        }
+      ],
+      "result": {
+        "count": 1,
+        "item": "pyrite:paeonia",
+        "id": "pyrite:paeonia"
+      }
+    }

@@ -1,13 +1,17 @@
 {
- "type": "minecraft:crafting_shapeless",
- "category": "misc",
- "ingredients": [
-  "minecraft:exposed_copper",
-  "#minecraft:buttons"
- ],
- "result": {
-  "count": 1,
-  "item": "pyrite:exposed_copper_button",
-  "id": "pyrite:exposed_copper_button"
- }
-}
+      "type": "minecraft:crafting_shapeless",
+      "category": "misc",
+      "ingredients": [
+        {
+          "item": "minecraft:exposed_copper"
+        },
+        {
+          "tag": "minecraft:buttons"
+        }
+      ],
+      "result": {
+        "count": 1,
+        "item": "pyrite:exposed_copper_button",
+        "id": "pyrite:exposed_copper_button"
+      }
+    }
