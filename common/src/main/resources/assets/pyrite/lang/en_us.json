@@ -1015,5 +1015,8 @@
   "item.pyrite.star_dye": "Star Dye",
   "itemGroup.pyrite.group": "Pyrite",
   "tag.item.pyrite.crafting_tables": "Crafting Tables",
-  "tag.item.pyrite.mushroom_stem": "Mushroom Stems"
+  "tag.item.pyrite.mushroom_stem": "Mushroom Stems",
+  "block.pyrite.polished_tuff_wall_gate": "Polished Tuff Wall Gate",
+  "block.pyrite.tuff_wall_gate": "Tuff Wall Gate",
+  "block.pyrite.tuff_brick_wall_gate": "Tuff Brick Wall Gate"
 }
