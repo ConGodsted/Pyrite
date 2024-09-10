@@ -1,6 +1,9 @@
 {
   "replace": false,
   "values": [
-    "#pyrite:brick_slabs"
+    "#pyrite:brick_slabs",
+    "#pyrite:metal_slabs",
+    "#pyrite:turf_slabs"
+
   ]
 }
