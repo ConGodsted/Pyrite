@@ -1274,5 +1274,7 @@
   "item.pyrite.star_dye": "Star Dye",
   "itemGroup.pyrite.group": "Pyrite",
   "tag.item.pyrite.crafting_tables": "Crafting Tables",
+  "tag.item.pyrite.copper_doors": "Copper Doors",
+  "tag.item.pyrite.metal_doors": "Metal Doors",
   "tag.item.pyrite.mushroom_stem": "Mushroom Stems"
 }

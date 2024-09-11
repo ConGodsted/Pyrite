@@ -1,7 +1,6 @@
 {
     "replace": false,
     "values": [
-      "pyrite:iron_bars",
       "pyrite:diamond_bars",
       "pyrite:amethyst_bars",
       "pyrite:emerald_bars",
