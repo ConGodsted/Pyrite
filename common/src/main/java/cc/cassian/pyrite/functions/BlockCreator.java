@@ -5,7 +5,6 @@ import net.minecraft.block.*;
 import net.minecraft.block.piston.PistonBehavior;
 import net.minecraft.particle.ParticleEffect;
 
-import java.util.ArrayList;
 import java.util.Map;
 import java.util.Objects;
 
@@ -147,19 +146,19 @@ public class BlockCreator {
 
     }
 
-    public static void createFlowers() {
+    public static void generateFlowers() {
         for (Map.Entry<String, Block> entry : flowers.entrySet()) {
             createPyriteBlock(entry.getKey(), "flower", entry.getValue());
         }
     }
 
-    public static void createTurfSets() {
+    public static void generateTurfSets() {
         for (Map.Entry<String, Block> entry : turfSets.entrySet()) {
             createTurfSet(entry.getKey(), entry.getValue());
         }
     }
 
-    public static void createNostalgia() {
+    public static void generateNostalgiaBlocks() {
         for (Map.Entry<String, Block> entry : nostalgiaBlocks.entrySet()) {
             createPyriteBlock(entry.getKey(), "block", entry.getValue());
         }

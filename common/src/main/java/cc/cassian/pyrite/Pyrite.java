@@ -26,7 +26,7 @@ public class Pyrite {
 		generateBrickSet("mossy_cobblestone_brick", Blocks.MOSSY_COBBLESTONE, MapColor.STONE_GRAY, 0);
 		generateBrickSet("smooth_stone_brick", Blocks.COBBLESTONE, MapColor.STONE_GRAY, 0);
 		//Grass Set
-		createTurfSets();
+		generateTurfSets();
 		//Nether Brick Fence Gate
 		createPyriteBlock("nether_brick_fence_gate","fence_gate", Blocks.NETHER_BRICK_FENCE);
 		//Resource Blocks
@@ -42,9 +42,9 @@ public class Pyrite {
 		createPyriteBlock("glowing_obsidian","obsidian", 50f, MapColor.RED, 15);
 		createPyriteBlock("nostalgia_glowing_obsidian","obsidian", 50f, MapColor.RED, 15);
 		createPyriteBlock("locked_chest", "facing", Blocks.CHEST, 15);
-		createNostalgia();
+		generateNostalgiaBlocks();
 		//Classic Flowers
-		createFlowers();
+		generateFlowers();
 		//Charred Nether Bricks
 		generateBrickSet("charred_nether_brick", Blocks.NETHER_BRICKS, MapColor.BLACK, 0);
 		//Blue Nether Bricks
