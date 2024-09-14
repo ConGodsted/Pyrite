@@ -1,7 +1,6 @@
 package cc.cassian.pyrite.forge;
 
 import dev.architectury.platform.forge.EventBuses;
-import net.minecraft.SharedConstants;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
@@ -15,7 +14,7 @@ public final class PyriteForge {
         EventBuses.registerModEventBus(Pyrite.modID, FMLJavaModLoadingContext.get().getModEventBus());
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
         // Run our common setup.
-        Pyrite.init(SharedConstants.WORLD_VERSION + "-forge");
+        Pyrite.init();
         modEventBus.addListener(PyriteClient::registerBlockColors);
         modEventBus.addListener(PyriteClient::registerItemColorHandlers);
 
