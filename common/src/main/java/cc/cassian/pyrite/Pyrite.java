@@ -65,7 +65,7 @@ public class Pyrite {
 			MapColor color = checkDyeMapColour(dye);
 			if (dyeIndex > 15) {
 				//Dye items.
-				createPyriteItem(dye + "_dye", platform);
+				registerPyriteItem(dye + "_dye");
 				//Dyed Wool
 				createPyriteBlock(dye + "_wool", "block", Blocks.WHITE_WOOL, color, blockLux, platform);
 				//Terracotta Block
@@ -111,7 +111,7 @@ public class Pyrite {
 			//Create block.
 			createPyriteBlock(block + "_gate","fence_gate", wallsBlock, platform);
 		}
-		register(platform);
+		register();
 
 	}
 

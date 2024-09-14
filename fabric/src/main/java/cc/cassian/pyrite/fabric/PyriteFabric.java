@@ -8,8 +8,8 @@ import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
 
 import static cc.cassian.pyrite.Pyrite.modID;
-import static cc.cassian.pyrite.fabric.FabricHelpers.PYRITE_GROUP;
-import static cc.cassian.pyrite.fabric.FabricHelpers.registerFuelBlocks;
+import static cc.cassian.pyrite.functions.fabric.FabricHelpers.PYRITE_GROUP;
+import static cc.cassian.pyrite.functions.fabric.FabricHelpers.registerFuelBlocks;
 
 public class PyriteFabric implements ModInitializer {
     @Override
