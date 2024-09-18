@@ -9,7 +9,7 @@ import net.minecraft.block.*;
 import net.minecraft.client.color.world.BiomeColors;
 import net.minecraft.client.render.RenderLayer;
 
-import static cc.cassian.pyrite.functions.fabric.FabricCommonHelpers.*;
+import static cc.cassian.pyrite.functions.fabric.FabricHelpers.*;
 
 
 @Environment(EnvType.CLIENT)

@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "#pyrite:brick_stairs",
+    "#pyrite:metal_stairs",
+    "#pyrite:turf_stairs"
+
+  ]
+}

@@ -1,5 +1,4 @@
-package cc.cassian.pyrite.fabric;
-
+package cc.cassian.pyrite.functions.fabric;
 
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.fabricmc.fabric.api.registry.FuelRegistry;
@@ -9,9 +8,11 @@ import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.text.Text;
 
-import static cc.cassian.pyrite.functions.fabric.FabricCommonHelpers.fuel;
-import static cc.cassian.pyrite.functions.fabric.FabricRegistry.pyriteBlocks;
-import static cc.cassian.pyrite.functions.fabric.FabricRegistry.pyriteItems;
+import java.util.ArrayList;
+import java.util.HashMap;
+
+import static cc.cassian.pyrite.functions.fabric.BlockCreatorImpl.pyriteBlocks;
+import static cc.cassian.pyrite.functions.fabric.BlockCreatorImpl.pyriteItems;
 
 public class FabricHelpers {
     public static void registerFuelBlocks() {
@@ -31,4 +32,24 @@ public class FabricHelpers {
                 }
             })
             .build();
+
+    public static ArrayList<Block> transparentBlocks = new ArrayList<>();
+    public static ArrayList<Block> translucentBlocks = new ArrayList<>();
+    public static ArrayList<Block> grassBlocks = new ArrayList<>();
+    public static HashMap<Block, Integer> fuel = new HashMap<>();
+
+    public static void addGrassBlock() {
+        grassBlocks.add(getLastBlock());
+    }
+    public static void addTransparentBlock() {
+        transparentBlocks.add(getLastBlock());
+    }
+    public static void addTranslucentBlock() {
+        translucentBlocks.add(getLastBlock());
+    }
+    public static Block getLastBlock() {
+        return pyriteBlocks.get(pyriteBlocks.size() - 1);
+    }
+
+
 }

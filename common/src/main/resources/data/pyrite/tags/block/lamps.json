@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
+    "pyrite:glowstone_lamp",
     "pyrite:white_lamp",
     "pyrite:orange_lamp",
     "pyrite:magenta_lamp",
