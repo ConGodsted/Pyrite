@@ -2,15 +2,11 @@ package cc.cassian.pyrite.functions.architectury;
 
 import dev.architectury.registry.registries.RegistrySupplier;
 import net.minecraft.block.*;
-import net.minecraft.sound.BlockSoundGroup;
-import net.minecraft.sound.SoundEvents;
-import net.minecraft.util.DyeColor;
-import org.jetbrains.annotations.NotNull;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemGroup;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Objects;
-import java.util.function.ToIntFunction;
 
 
 public class ArchitecturyHelpers {
@@ -27,6 +23,10 @@ public class ArchitecturyHelpers {
     }
     public static void addGrassBlock(RegistrySupplier<Block> newBlock) {
         grassBlocks.add(newBlock);
+    }
+
+    public static Item.Settings newItem(RegistrySupplier<ItemGroup> group) {
+        return new Item.Settings().arch$tab(group);
     }
 
 }
