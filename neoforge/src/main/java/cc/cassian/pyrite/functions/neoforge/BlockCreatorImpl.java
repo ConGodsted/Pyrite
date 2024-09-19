@@ -1,4 +1,4 @@
-package cc.cassian.pyrite.functions.forge;
+package cc.cassian.pyrite.functions.neoforge;
 
 import cc.cassian.pyrite.blocks.*;
 import com.mojang.serialization.MapCodec;
@@ -96,17 +96,17 @@ public class BlockCreatorImpl {
                 addTransparentBlock(newBlock);
                 break;
             case "fence_gate", "wall_gate":
-                newBlock = pyriteBlocks.register(blockID, () -> new FenceGateBlock(blockSettings, woodType));
+                newBlock = pyriteBlocks.register(blockID, () -> new FenceGateBlock(woodType, blockSettings));
                 break;
             case "sign":
-                newBlock = pyriteBlocks.register(blockID, () -> new SignBlock(blockSettings, woodType));
+                newBlock = pyriteBlocks.register(blockID, () -> new SignBlock(woodType, blockSettings));
                 break;
             case "door":
-                newBlock = pyriteBlocks.register(blockID, () -> new DoorBlock(blockSettings.nonOpaque(), blockSetType));
+                newBlock = pyriteBlocks.register(blockID, () -> new DoorBlock(blockSetType, blockSettings.nonOpaque()));
                 addTransparentBlock(newBlock);
                 break;
             case "trapdoor":
-                newBlock = pyriteBlocks.register(blockID, () -> new TrapdoorBlock(blockSettings.nonOpaque(), blockSetType));
+                newBlock = pyriteBlocks.register(blockID, () -> new TrapdoorBlock(blockSetType, blockSettings.nonOpaque()));
                 addTransparentBlock(newBlock);
                 break;
             case "button":

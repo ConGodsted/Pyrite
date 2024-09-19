@@ -253,10 +253,10 @@ public class BlockCreator {
         createPyriteBlock(smoothBlockID+"_wall_gate","fence_gate", block);
     }
 
-    public static void createTrialWallGates(String platform) {
+    public static void createTrialWallGates() {
         for (String block : getVanillaTrialsWalls()) {
                 //Create block.
-                createPyriteBlock(block + "_gate","fence_gate", Blocks.TUFF, platform);
+                createPyriteBlock(block + "_gate","fence_gate", Blocks.TUFF);
             }
     }
 
@@ -270,7 +270,7 @@ public class BlockCreator {
             createPyriteBlock(blockID+"_bricks", block);
             //Chiseled Blocks - Copper Blocks
             if (!blockID.contains("copper")) {
-                createPyriteBlock("chiseled_"+blockID+"_block", "log", block, platform);
+                createPyriteBlock("chiseled_"+blockID+"_block", "log", block);
             }
             //Pillar Blocks
             createPyriteBlock(blockID+"_pillar", "log", block);
@@ -283,11 +283,11 @@ public class BlockCreator {
         //Create Bars/Doors/Trapdoors/Plates for those that don't already exist (Iron)
         if (!Objects.equals(blockID, "iron")) {
             //Bars
-            createPyriteBlock(blockID+"_bars","bars", block, platform);
+            createPyriteBlock(blockID+"_bars","bars", block);
             //Disable Copper doors in 1.21+
             if (!blockID.contains("copper")) {
-                createPyriteBlock(blockID+"_door","door", block, set, platform);
-                createPyriteBlock(blockID+"_trapdoor","trapdoor", block, set, platform);
+                createPyriteBlock(blockID+"_door","door", block, set);
+                createPyriteBlock(blockID+"_trapdoor","trapdoor", block, set);
             }
             //Create Plates for those that don't already exist (Iron and Gold)
             if (!Objects.equals(blockID, "gold")) {

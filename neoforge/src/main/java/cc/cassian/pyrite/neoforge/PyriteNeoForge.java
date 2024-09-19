@@ -13,7 +13,7 @@ import net.neoforged.fml.common.Mod;
 public final class PyriteNeoForge {
     public PyriteNeoForge(IEventBus eventBus, ModContainer container) {
         // Run our common setup.
-        Pyrite.init(SharedConstants.WORLD_VERSION + "-neoforge");
+        Pyrite.init();
         eventBus.addListener(PyriteClient::registerBlockColors);
         eventBus.addListener(PyriteClient::registerItemColorHandlers);
 

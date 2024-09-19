@@ -1,6 +1,7 @@
 package cc.cassian.pyrite.functions.fabric;
 
 import cc.cassian.pyrite.blocks.*;
+import com.mojang.serialization.MapCodec;
 import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntityType;
@@ -98,7 +99,12 @@ public class BlockCreatorImpl {
                 addTranslucentBlock();
                 break;
             case "gravel":
-                pyriteBlocks.add(new GravelBlock(blockSettings));
+                pyriteBlocks.add(new FallingBlock(blockSettings) {
+                    @Override
+                    protected MapCodec<? extends FallingBlock> getCodec() {
+                        return null;
+                    }
+                });
                 pyriteBlockIDs.add(blockID);
                 break;
             case "flower":
@@ -107,19 +113,19 @@ public class BlockCreatorImpl {
                 addTransparentBlock();
                 break;
             case "fence_gate", "wall_gate":
-                pyriteBlocks.add(new FenceGateBlock(blockSettings, woodType));
+                pyriteBlocks.add(new FenceGateBlock(woodType, blockSettings));
                 pyriteBlockIDs.add(blockID);
                 break;
             case "sign":
                 //Sign Blocks
-                pyriteItemlessBlocks.add(new SignBlock(blockSettings, woodType) {
+                pyriteItemlessBlocks.add(new SignBlock(woodType, blockSettings) {
                     public ModSign createBlockEntity(BlockPos pos, BlockState state) {
                         return new ModSign(pos, state);
                     }
                 });
                 pyriteItemlessBlockIDs.add(blockID);
                 //Wall Sign Blocks
-                pyriteItemlessBlocks.add(new WallSignBlock(blockSettings, woodType) {
+                pyriteItemlessBlocks.add(new WallSignBlock(woodType, blockSettings) {
                     public ModSign createBlockEntity(BlockPos pos, BlockState state) {
                         return new ModSign(pos, state);
                     }
@@ -129,12 +135,12 @@ public class BlockCreatorImpl {
                 registerSignBlockEntity(pyriteItemlessBlocks.get(pyriteItemlessBlocks.size()-2), pyriteItemlessBlocks.get(pyriteItemlessBlockIDs.size()-1));
                 break;
             case "door":
-                pyriteBlocks.add(new DoorBlock(blockSettings.nonOpaque(), blockSetType));
+                pyriteBlocks.add(new DoorBlock(blockSetType, blockSettings.nonOpaque()));
                 pyriteBlockIDs.add(blockID);
                 addTransparentBlock();
                 break;
             case "trapdoor":
-                pyriteBlocks.add(new TrapdoorBlock(blockSettings.nonOpaque(), blockSetType));
+                pyriteBlocks.add(new TrapdoorBlock(blockSetType, blockSettings.nonOpaque()));
                 pyriteBlockIDs.add(blockID);
                 addTransparentBlock();
                 break;
