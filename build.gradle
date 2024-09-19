@@ -2,6 +2,7 @@ plugins {
     id 'dev.architectury.loom' version '1.6-SNAPSHOT' apply false
     id 'architectury-plugin' version '3.4-SNAPSHOT'
     id 'com.github.johnrengelman.shadow' version '8.1.1' apply false
+    id "io.github.pacifistmc.forgix" version "1.2.9"
 }
 
 architectury {
@@ -11,6 +12,11 @@ architectury {
 allprojects {
     group = rootProject.maven_group
     version = rootProject.mod_version
+}
+
+forgix {
+    group = "cc.cassian.pyrite"
+    mergedJarName = "pyrite-${version}.jar"
 }
 
 subprojects {
@@ -67,4 +73,6 @@ subprojects {
             // retrieving dependencies.
         }
     }
+    build.finalizedBy(mergeJars)
+    assemble.finalizedBy(mergeJars)
 }

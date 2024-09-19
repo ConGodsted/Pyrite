@@ -25,7 +25,11 @@
     "pyrite:rose_stained_door",
     "pyrite:poisonous_stained_door",
     "pyrite:red_mushroom_door",
-    "pyrite:brown_mushroom_door"
+    "pyrite:brown_mushroom_door",
+    {
+      "id": "#pyrite:metal_doors",
+      "required": false
+    }
   ]
 }
 

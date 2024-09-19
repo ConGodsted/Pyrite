@@ -1,0 +1,18 @@
+{
+    "replace": false,
+    "values": [
+      "pyrite:diamond_door",
+      "pyrite:amethyst_door",
+      "pyrite:emerald_door",
+      "pyrite:redstone_door",
+      "pyrite:gold_door",
+      {
+        "id": "#pyrite:copper_doors",
+        "required": false
+      },
+      "pyrite:quartz_door",
+      "pyrite:lapis_door",
+      "pyrite:netherite_door"
+    ]
+  }
+

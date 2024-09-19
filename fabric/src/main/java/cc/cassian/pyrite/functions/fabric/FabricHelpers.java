@@ -1,10 +1,8 @@
-package cc.cassian.pyrite.fabric;
-
+package cc.cassian.pyrite.functions.fabric;
 
 import net.fabricmc.fabric.api.registry.FuelRegistry;
 
 import static cc.cassian.pyrite.functions.architectury.ArchitecturyHelpers.fuel;
-
 
 public class FabricHelpers {
     public static void registerFuelBlocks() {

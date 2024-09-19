@@ -2,7 +2,10 @@
   "replace": false,
   "values": [
     "pyrite:grass_stairs",
-    "pyrite:mycelium_slab"
+    "pyrite:nostalgia_grass_stairs",
+    "pyrite:mycelium_stairs",
+    "pyrite:podzol_stairs",
+    "pyrite:path_stairs"
 
   ]
 }
