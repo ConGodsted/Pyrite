@@ -25,8 +25,8 @@ public class ArchitecturyHelpers {
         grassBlocks.add(newBlock);
     }
 
-    public static Item.Settings newItem(RegistrySupplier<ItemGroup> group) {
-        return new Item.Settings().arch$tab(group);
+    public static Item.Settings newItem(ItemGroup group) {
+        return new Item.Settings().group(group);
     }
 
 }
