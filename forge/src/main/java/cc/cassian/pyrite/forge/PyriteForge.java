@@ -1,11 +1,13 @@
 package cc.cassian.pyrite.forge;
 
 import dev.architectury.platform.forge.EventBuses;
+import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 
 import cc.cassian.pyrite.Pyrite;
+import net.minecraftforge.fml.loading.FMLEnvironment;
 
 @Mod(Pyrite.modID)
 public final class PyriteForge {
@@ -15,8 +17,10 @@ public final class PyriteForge {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
         // Run our common setup.
         Pyrite.init();
-        modEventBus.addListener(PyriteClient::registerBlockColors);
-        modEventBus.addListener(PyriteClient::registerItemColorHandlers);
+        if (FMLEnvironment.dist == Dist.CLIENT) {
+            modEventBus.addListener(PyriteClient::registerBlockColors);
+            modEventBus.addListener(PyriteClient::registerItemColorHandlers);
+        }
 
 
 
