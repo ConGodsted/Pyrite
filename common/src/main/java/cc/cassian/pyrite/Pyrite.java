@@ -111,7 +111,6 @@ public class Pyrite {
 			//Create block.
 			createPyriteBlock(block + "_gate","fence_gate", wallsBlock);
 		}
-		createTrialWallGates();
 		register();
 
 	}

@@ -69,14 +69,10 @@ public class ModLists {
             Blocks.BLACKSTONE_WALL,
             Blocks.POLISHED_BLACKSTONE_WALL,
             Blocks.POLISHED_BLACKSTONE_BRICK_WALL,
-            Blocks.END_STONE_BRICK_WALL
-    };
-
-    //List of Wall Blocks to generated Wall Gates for.
-    private final static String[] vanillaTrialsWalls = {
-            "polished_tuff_wall",
-            "tuff_brick_wall",
-            "tuff_wall"
+            Blocks.END_STONE_BRICK_WALL,
+            Blocks.POLISHED_TUFF_WALL,
+            Blocks.TUFF_BRICK_WALL,
+            Blocks.TUFF_WALL
     };
 
     final private static Block[] vanillaResourceBlocks = {
@@ -132,10 +128,6 @@ public class ModLists {
 
     public static Block[] getVanillaWalls() {
         return vanillaWalls;
-    }
-
-    public static String[] getVanillaTrialsWalls() {
-        return vanillaTrialsWalls;
     }
 
     public static Block[] getVanillaResourceBlocks() {
