@@ -253,13 +253,6 @@ public class BlockCreator {
         createPyriteBlock(smoothBlockID+"_wall_gate","fence_gate", block);
     }
 
-    public static void createTrialWallGates() {
-        for (String block : getVanillaTrialsWalls()) {
-                //Create block.
-                createPyriteBlock(block + "_gate","fence_gate", Blocks.TUFF);
-            }
-    }
-
     //Create a set of Resource Blocks
     public static void createResourceBlockSet(String blockID, Block block) {
         //Create Cut Blocks for those that don't already exist (Copper)
