@@ -21,7 +21,7 @@ public class FabricHelpers {
 
     //Add items to the Pyrite Item Group
     public static final ItemGroup PYRITE_GROUP = FabricItemGroup.builder()
-            .icon(() -> new ItemStack(pyriteBlocks.get(2)))
+            .icon(() -> new ItemStack(pyriteBlocks.get(3)))
             .displayName(Text.translatable("itemGroup.pyrite.group"))
             .entries((context, entries) -> {
                 for (Block block : pyriteBlocks) {
@@ -48,7 +48,7 @@ public class FabricHelpers {
         translucentBlocks.add(getLastBlock());
     }
     public static Block getLastBlock() {
-        return pyriteBlocks.get(pyriteBlocks.size() - 1);
+        return pyriteBlocks.getLast();
     }
 
 
