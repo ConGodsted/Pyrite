@@ -1,14 +1,1 @@
-{
-  "replace": false,
-  "values": [
-    "pyrite:rose",
-    "pyrite:blue_rose",
-    "pyrite:orange_rose",
-    "pyrite:white_rose",
-    "pyrite:pink_rose",
-    "pyrite:paeonia",
-    "pyrite:buttercup",
-    "pyrite:pink_daisy"
-
-  ]
-}
+{"replace":false,"values":["pyrite:rose","pyrite:blue_rose","pyrite:orange_rose","pyrite:white_rose","pyrite:pink_rose","pyrite:paeonia","pyrite:pink_daisy","pyrite:buttercup"]}

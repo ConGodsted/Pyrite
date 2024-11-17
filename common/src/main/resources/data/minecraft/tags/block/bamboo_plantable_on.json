@@ -1,8 +1,1 @@
-{
-  "replace": false,
-  "values": [
-    "pyrite:nostalgia_gravel"
-
-  ]
-}
-
+{"replace":false,"values":[{"id":"pyrite:nostalgia_gravel","optional":true}]}
