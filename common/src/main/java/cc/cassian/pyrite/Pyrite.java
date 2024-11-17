@@ -1,5 +1,7 @@
 package cc.cassian.pyrite;
 
+import cc.cassian.pyrite.functions.ModHelpers;
+import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.block.*;
 import net.minecraft.particle.DustParticleEffect;
 import net.minecraft.particle.ParticleTypes;
@@ -53,6 +55,9 @@ public class Pyrite {
 		generateBrickSet("blue_nether_brick", Blocks.NETHER_BRICKS, MapColor.BLUE, 0);
 		// Vanilla Crafting Tables
 		generateVanillaCraftingTables();
+		// Modded Crafting Tables
+		if (ModHelpers.isModLoaded("aether"))
+			createPyriteBlock("skyroot_crafting_table","crafting", Blocks.CRAFTING_TABLE);
 		// Red Mushroom Blocks
 		createPyriteBlock("red_mushroom_stem", "log", Blocks.MUSHROOM_STEM);
 		createWoodSet("red_mushroom", MapColor.RED, 0);
