@@ -56,8 +56,19 @@ public class Pyrite {
 		// Vanilla Crafting Tables
 		generateVanillaCraftingTables();
 		// Modded Crafting Tables
-		if (ModHelpers.isModLoaded("aether"))
+		if (ModHelpers.isModLoaded("aether")) {
 			createPyriteBlock("skyroot_crafting_table","crafting", Blocks.CRAFTING_TABLE);
+			createPyriteBlock( "holystone_wall_gate","fence_gate", Blocks.STONE);
+			createPyriteBlock( "mossy_holystone_wall_gate","fence_gate", Blocks.STONE);
+			createPyriteBlock( "holystone_brick_wall_gate","fence_gate", Blocks.STONE);
+			createPyriteBlock( "icestone_wall_gate","fence_gate", Blocks.STONE);
+			createPyriteBlock( "aerogel_wall_gate","fence_gate", Blocks.STONE);
+			createPyriteBlock( "carved_wall_gate","fence_gate", Blocks.STONE);
+			createPyriteBlock( "angelic_wall_gate","fence_gate", Blocks.STONE);
+			createPyriteBlock( "hellfire_wall_gate","fence_gate", Blocks.STONE);
+
+
+		}
 		// Red Mushroom Blocks
 		createPyriteBlock("red_mushroom_stem", "log", Blocks.MUSHROOM_STEM);
 		createWoodSet("red_mushroom", MapColor.RED, 0);
