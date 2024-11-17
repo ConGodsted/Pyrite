@@ -76,7 +76,7 @@ public class Pyrite {
 				//Concrete Powder Block
 				//coming soon - createPyriteBlock(dye+"_concrete", "block", Blocks.TERRACOTTA,color, blockLux);
 				//Concrete Block
-				//coming soon - createPyriteBlock(dye+"_concrete", "block", Blocks.CONCRETE,color, blockLux);
+				createPyriteBlock(dye+"_concrete", "block", Blocks.WHITE_CONCRETE, color, blockLux);
 				//Carpet block
 				createPyriteBlock(dye + "_carpet", "carpet", Blocks.WHITE_CARPET, color, blockLux);
 			}
@@ -96,6 +96,10 @@ public class Pyrite {
 			createTorch(dye+"_torch", getTorchParticle(dye));
 			//Dyed Torch Levers
 			createTorchLever(dye+"_torch_lever", Blocks.TORCH, getTorchParticle(dye));
+			//Concrete Stairs
+			createPyriteBlock( dye+"_concrete_stairs", "stairs", Blocks.WHITE_CONCRETE, color, blockLux);
+			//Concrete Slab
+			createPyriteBlock( dye+"_concrete_slab", "slab", Blocks.WHITE_CONCRETE, color, blockLux);
 
 
 
