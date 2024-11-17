@@ -70,13 +70,12 @@ public class Pyrite {
 				createPyriteBlock(dye + "_wool", "block", Blocks.WHITE_WOOL, color, blockLux);
 				//Terracotta Block
 				createPyriteBlock(dye+"_terracotta", "block", Blocks.TERRACOTTA,color, blockLux);
-
 				//Glazed Terracotta Block
 				//coming soon - createPyriteBlock(dye+"_glazed_terracotta", "block", Blocks.TERRACOTTA,color, blockLux);
-				//Concrete Powder Block
-				//coming soon - createPyriteBlock(dye+"_concrete", "block", Blocks.TERRACOTTA,color, blockLux);
 				//Concrete Block
 				createPyriteBlock(dye+"_concrete", "block", Blocks.WHITE_CONCRETE, color, blockLux);
+				//Concrete Powder Block
+				createPyriteBlock(dye+"_concrete_powder", "concrete_powder", Blocks.WHITE_CONCRETE_POWDER, color, blockLux);
 				//Carpet block
 				createPyriteBlock(dye + "_carpet", "carpet", Blocks.WHITE_CARPET, color, blockLux);
 			}

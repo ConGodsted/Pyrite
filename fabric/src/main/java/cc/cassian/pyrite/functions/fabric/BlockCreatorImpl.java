@@ -165,6 +165,10 @@ public class BlockCreatorImpl {
                 pyriteBlockIDs.add(blockID);
                 addTransparentBlock();
                 break;
+            case "concrete_powder":
+                pyriteBlocks.add(new ConcretePowderBlock(getLastBlock(), blockSettings));
+                pyriteBlockIDs.add(blockID);
+                break;
             default:
                 LOGGER.error("{}created as a generic block, block provided{}", blockID, blockType);
                 pyriteBlocks.add(new Block(blockSettings));

@@ -15,6 +15,7 @@ import net.minecraft.particle.ParticleEffect;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.text.Text;
+import net.minecraft.util.Identifier;
 
 import static cc.cassian.pyrite.Pyrite.LOGGER;
 import static cc.cassian.pyrite.Pyrite.modID;
@@ -125,6 +126,9 @@ public class BlockCreatorImpl {
             case "torch_lever":
                 newBlock = pyriteBlocks.register(blockID, () -> new TorchLever(blockSettings.nonOpaque(), particle));
                 addTransparentBlock(newBlock);
+                break;
+            case "concrete_powder":
+                newBlock = pyriteBlocks.register(blockID, () -> new ConcretePowderBlock(pyriteBlocks.getRegistrar().get(Identifier.of(modID, blockID.replace("_powder", ""))), blockSettings));
                 break;
             default:
                 LOGGER.error("{}created as a generic block, block provided{}", blockID, blockType);
