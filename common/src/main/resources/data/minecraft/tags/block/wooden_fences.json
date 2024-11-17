@@ -1,11 +1,1 @@
-{
-  "replace": false,
-  "values": [
-    "#pyrite:wooden_fences"
-
-
-
-
-  ]
-}
-
+{"replace":false,"values":["#pyrite:wooden_fences",{"id":"pyrite:white_stained_fence","optional":true},{"id":"pyrite:orange_stained_fence","optional":true},{"id":"pyrite:magenta_stained_fence","optional":true},{"id":"pyrite:light_blue_stained_fence","optional":true},{"id":"pyrite:yellow_stained_fence","optional":true},{"id":"pyrite:lime_stained_fence","optional":true},{"id":"pyrite:pink_stained_fence","optional":true},{"id":"pyrite:gray_stained_fence","optional":true},{"id":"pyrite:light_gray_stained_fence","optional":true},{"id":"pyrite:cyan_stained_fence","optional":true},{"id":"pyrite:purple_stained_fence","optional":true},{"id":"pyrite:blue_stained_fence","optional":true},{"id":"pyrite:brown_stained_fence","optional":true},{"id":"pyrite:green_stained_fence","optional":true},{"id":"pyrite:red_stained_fence","optional":true},{"id":"pyrite:black_stained_fence","optional":true},{"id":"pyrite:glow_stained_fence","optional":true},{"id":"pyrite:dragon_stained_fence","optional":true},{"id":"pyrite:star_stained_fence","optional":true},{"id":"pyrite:honey_stained_fence","optional":true},{"id":"pyrite:nostalgia_stained_fence","optional":true},{"id":"pyrite:rose_stained_fence","optional":true},{"id":"pyrite:poisonous_stained_fence","optional":true},{"id":"pyrite:red_mushroom_fence","optional":true},{"id":"pyrite:brown_mushroom_fence","optional":true}]}

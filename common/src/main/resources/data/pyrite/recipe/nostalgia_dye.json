@@ -1,14 +1,1 @@
-{
-  "type": "minecraft:crafting_shapeless",
-  "category": "misc",
-  "ingredients": [
-    {
-      "item": "minecraft:apple"
-    }
-  ],
-  "result": {
-    "count": 1,
-    "item": "pyrite:nostalgia_dye",
-    "id": "pyrite:nostalgia_dye"
-  }
-}
+{"type":"minecraft:crafting_shapeless","ingredients":[{"item":"minecraft:apple"}],"result":{"id":"pyrite:nostalgia_dye","count":1}}

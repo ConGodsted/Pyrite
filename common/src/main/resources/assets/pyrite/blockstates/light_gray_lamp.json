@@ -1,7 +1,1 @@
-{
-    "variants": {
-      "": {
-        "model": "pyrite:block/light_gray_lamp"
-      }
-    }
-  }
+{"variants":{"":{"model":"pyrite:block/light_gray_lamp"}}}

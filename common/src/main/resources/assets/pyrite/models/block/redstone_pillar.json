@@ -1,7 +1,1 @@
-{
-    "parent": "minecraft:block/cube_column",
-    "textures": {
-      "end": "pyrite:block/redstone_pillar_top",
-      "side": "pyrite:block/redstone_pillar"
-    }
-  }
+{"parent":"minecraft:block/cube_column","textures":{"end":"pyrite:block/redstone_pillar_top","side":"pyrite:block/redstone_pillar"}}

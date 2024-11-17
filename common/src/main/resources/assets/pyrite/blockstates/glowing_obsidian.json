@@ -1,7 +1,1 @@
-{
-    "variants": {
-      "": {
-        "model": "pyrite:block/glowing_obsidian"
-      }
-    }
-  }
+{"variants":{"":{"model":"pyrite:block/glowing_obsidian"}}}

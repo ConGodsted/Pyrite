@@ -1,1 +1,1 @@
-{"parent":"minecraft:block/cross","textures":{"cross":"pyrite:block/white_rose"},"render_type":"cutout"}
+{"parent":"minecraft:block/cross","textures":{"cross":"pyrite:block/white_rose"}}

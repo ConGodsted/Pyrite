@@ -1,6 +1,1 @@
-{
-  "replace": false,
-  "values": [
-    "#pyrite:wooden_buttons"
-
-  ]}
+{"replace":false,"values":["#pyrite:wooden_buttons",{"id":"pyrite:white_stained_button","optional":true},{"id":"pyrite:orange_stained_button","optional":true},{"id":"pyrite:magenta_stained_button","optional":true},{"id":"pyrite:light_blue_stained_button","optional":true},{"id":"pyrite:yellow_stained_button","optional":true},{"id":"pyrite:lime_stained_button","optional":true},{"id":"pyrite:pink_stained_button","optional":true},{"id":"pyrite:gray_stained_button","optional":true},{"id":"pyrite:light_gray_stained_button","optional":true},{"id":"pyrite:cyan_stained_button","optional":true},{"id":"pyrite:purple_stained_button","optional":true},{"id":"pyrite:blue_stained_button","optional":true},{"id":"pyrite:brown_stained_button","optional":true},{"id":"pyrite:green_stained_button","optional":true},{"id":"pyrite:red_stained_button","optional":true},{"id":"pyrite:black_stained_button","optional":true},{"id":"pyrite:glow_stained_button","optional":true},{"id":"pyrite:dragon_stained_button","optional":true},{"id":"pyrite:star_stained_button","optional":true},{"id":"pyrite:honey_stained_button","optional":true},{"id":"pyrite:nostalgia_stained_button","optional":true},{"id":"pyrite:rose_stained_button","optional":true},{"id":"pyrite:poisonous_stained_button","optional":true},{"id":"pyrite:red_mushroom_button","optional":true},{"id":"pyrite:brown_mushroom_button","optional":true}]}

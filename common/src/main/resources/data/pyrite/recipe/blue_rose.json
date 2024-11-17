@@ -1,17 +1,1 @@
-{
-      "type": "minecraft:crafting_shapeless",
-      "category": "misc",
-      "ingredients": [
-        {
-          "item": "pyrite:nostalgia_dye"
-        },
-        {
-          "item": "minecraft:cornflower"
-        }
-      ],
-      "result": {
-        "count": 1,
-        "item": "pyrite:blue_rose",
-        "id": "pyrite:blue_rose"
-      }
-    }
+{"type":"minecraft:crafting_shapeless","ingredients":[{"item":"pyrite:nostalgia_dye"},{"item":"minecraft:blue_orchid"}],"result":{"id":"pyrite:blue_rose","count":1}}

@@ -1,9 +1,1 @@
-{
-  "replace": false,
-  "values": [
-    "pyrite:nostalgia_gravel",
-    "#pyrite:turf_blocks"
-
-  ]
-}
-
+{"replace":false,"values":["pyrite:nostalgia_gravel","#pyrite:turf_blocks","#pyrite:turf_slabs","#pyrite:turf_stairs"]}

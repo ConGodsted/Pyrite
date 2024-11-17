@@ -1,17 +1,1 @@
-{
-      "type": "minecraft:crafting_shapeless",
-      "category": "misc",
-      "ingredients": [
-        {
-          "item": "minecraft:weathered_copper"
-        },
-        {
-          "tag": "minecraft:buttons"
-        }
-      ],
-      "result": {
-        "count": 1,
-        "item": "pyrite:weathered_copper_button",
-        "id": "pyrite:weathered_copper_button"
-      }
-    }
+{"type":"minecraft:crafting_shapeless","ingredients":[{"item":"minecraft:weathered_copper"},{"tag":"minecraft:buttons"}],"result":{"id":"pyrite:weathered_copper_button","count":1}}

@@ -1,8 +1,1 @@
-{
-    "parent": "minecraft:block/outer_stairs",
-    "textures": {
-      "bottom": "pyrite:block/smooth_redstone",
-      "top": "pyrite:block/smooth_redstone",
-      "side": "pyrite:block/smooth_redstone"
-    }
-  }
+{"parent":"minecraft:block/outer_stairs","textures":{"bottom":"pyrite:block/smooth_redstone","top":"pyrite:block/smooth_redstone","side":"pyrite:block/smooth_redstone"}}

@@ -1,8 +1,1 @@
-{
-        "parent": "minecraft:block/slab",
-        "textures": {
-        "bottom": "pyrite:block/red_bricks",
-        "top": "pyrite:block/red_bricks",
-        "side": "pyrite:block/red_bricks"
-        }
-    }
+{"parent":"minecraft:block/slab","textures":{"bottom":"pyrite:block/red_bricks","top":"pyrite:block/red_bricks","side":"pyrite:block/red_bricks"}}

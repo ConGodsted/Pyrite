@@ -1,7 +1,1 @@
-{
-    "variants": {
-      "": {
-        "model": "pyrite:block/smooth_weathered_copper"
-      }
-    }
-  }
+{"variants":{"":{"model":"pyrite:block/smooth_weathered_copper"}}}

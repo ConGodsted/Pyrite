@@ -1,3 +1,1 @@
-{
-        "parent": "pyrite:block/cut_quartz_wall_inventory"
-      }
+{"parent":"pyrite:block/cut_quartz_wall_inventory"}

@@ -1,8 +1,1 @@
-{
-        "parent": "minecraft:block/slab_top",
-        "textures": {
-        "bottom": "pyrite:block/poisonous_stained_planks",
-        "top": "pyrite:block/poisonous_stained_planks",
-        "side": "pyrite:block/poisonous_stained_planks"
-        }
-    }
+{"parent":"minecraft:block/slab_top","textures":{"bottom":"pyrite:block/poisonous_stained_planks","top":"pyrite:block/poisonous_stained_planks","side":"pyrite:block/poisonous_stained_planks"}}

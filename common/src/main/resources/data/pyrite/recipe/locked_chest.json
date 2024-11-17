@@ -1,17 +1,1 @@
-{
-      "type": "minecraft:crafting_shapeless",
-      "category": "misc",
-      "ingredients": [
-        {
-          "item": "pyrite:nostalgia_dye"
-        },
-        {
-          "item": "minecraft:chest"
-        }
-      ],
-      "result": {
-        "count": 1,
-        "item": "pyrite:locked_chest",
-        "id": "pyrite:locked_chest"
-      }
-    }
+{"type":"minecraft:crafting_shapeless","ingredients":[{"item":"pyrite:nostalgia_dye"},{"item":"minecraft:chest"}],"result":{"id":"pyrite:locked_chest","count":1}}

@@ -1,7 +1,1 @@
-{
-    "variants": {
-      "": {
-        "model": "pyrite:block/weathered_copper_bricks"
-      }
-    }
-  }
+{"variants":{"":{"model":"pyrite:block/weathered_copper_bricks"}}}

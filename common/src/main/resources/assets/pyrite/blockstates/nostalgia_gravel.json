@@ -1,7 +1,1 @@
-{
-    "variants": {
-      "": {
-        "model": "pyrite:block/nostalgia_gravel"
-      }
-    }
-  }
+{"variants":{"":{"model":"pyrite:block/nostalgia_gravel"}}}

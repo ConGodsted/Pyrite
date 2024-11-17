@@ -1,10 +1,1 @@
-{
-  "replace": false,
-  "values": [
-    "pyrite:nostalgia_grass_block",
-    "pyrite:grass_turf",
-    "pyrite:mycelium_turf"
-
-  ]
-}
-
+{"replace":false,"values":["pyrite:nostalgia_grass_block","pyrite:grass_turf","pyrite:mycelium_turf",{"id":"pyrite:nostalgia_grass_turf","optional":true},{"id":"pyrite:podzol_turf","optional":true},{"id":"pyrite:path_turf","optional":true}]}
