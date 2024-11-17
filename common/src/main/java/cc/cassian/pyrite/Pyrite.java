@@ -64,41 +64,44 @@ public class Pyrite {
 			int blockLux = checkDyeLux(dye);
 			MapColor color = checkDyeMapColour(dye);
 			if (dyeIndex > 15) {
-				//Dye items.
+				// Dye items.
 				registerPyriteItem(dye + "_dye");
-				//Dyed Wool
+				// Dyed Wool
 				createPyriteBlock(dye + "_wool", "block", Blocks.WHITE_WOOL, color, blockLux);
-				//Terracotta Block
-				createPyriteBlock(dye+"_terracotta", "block", Blocks.TERRACOTTA,color, blockLux);
-				//Glazed Terracotta Block
-				//coming soon - createPyriteBlock(dye+"_glazed_terracotta", "block", Blocks.TERRACOTTA,color, blockLux);
-				//Concrete Block
-				createPyriteBlock(dye+"_concrete", "block", Blocks.WHITE_CONCRETE, color, blockLux);
-				//Concrete Powder Block
-				createPyriteBlock(dye+"_concrete_powder", "concrete_powder", Blocks.WHITE_CONCRETE_POWDER, color, blockLux);
-				//Carpet block
+				// Dyed Carpet
 				createPyriteBlock(dye + "_carpet", "carpet", Blocks.WHITE_CARPET, color, blockLux);
+				// Dyed Concrete
+				createPyriteBlock(dye+"_concrete", "block", Blocks.WHITE_CONCRETE, color, blockLux);
+				// Dyed Concrete Powder
+				createPyriteBlock(dye+"_concrete_powder", "concrete_powder", Blocks.WHITE_CONCRETE_POWDER, color, blockLux);
 			}
-			//Planks and plank products
-			createWoodSet(dye + "_stained", color, blockLux);
-			//Bricks and brick products
-			generateBrickSet(dye + "_brick", Blocks.BRICKS, color, blockLux);
-			//Terracotta Bricks
-			generateBrickSet(dye+"_terracotta_brick", Blocks.TERRACOTTA, color, blockLux);
-			//Dyed Framed Glass
-			createPyriteBlock(dye+"_framed_glass","tinted_glass", 2.0f, color, blockLux);
-			//Dyed Framed Glass Pane
-			createPyriteBlock( dye+"_framed_glass_pane","tinted_glass_pane", 2.0f, color, blockLux);
-			//Dyed Lamps
-			createPyriteBlock(dye + "_lamp","block", 0.3f, color, 15);
-			//Dyed Torches
-			createTorch(dye+"_torch", getTorchParticle(dye));
-			//Dyed Torch Levers
-			createTorchLever(dye+"_torch_lever", Blocks.TORCH, getTorchParticle(dye));
-			//Concrete Stairs
+			// Dyed Concrete Stairs
 			createPyriteBlock( dye+"_concrete_stairs", "stairs", Blocks.WHITE_CONCRETE, color, blockLux);
-			//Concrete Slab
+			// Dyed Concrete Slab
 			createPyriteBlock( dye+"_concrete_slab", "slab", Blocks.WHITE_CONCRETE, color, blockLux);
+			//Dyed Planks and plank products
+			createWoodSet(dye + "_stained", color, blockLux);
+			// Dyed Bricks and brick products
+			generateBrickSet(dye + "_brick", Blocks.BRICKS, color, blockLux);
+			if (dyeIndex > 15) {
+				// Dyed Terracotta
+				createPyriteBlock(dye+"_terracotta", "block", Blocks.TERRACOTTA,color, blockLux);
+				// Dyed Glazed Terracotta
+				//coming soon - createPyriteBlock(dye+"_glazed_terracotta", "block", Blocks.TERRACOTTA,color, blockLux);
+			}
+			// Dyed Terracotta Bricks
+			generateBrickSet(dye+"_terracotta_brick", Blocks.TERRACOTTA, color, blockLux);
+			// Dyed Framed Glass
+			createPyriteBlock(dye+"_framed_glass","tinted_glass", 2.0f, color, blockLux);
+			// Dyed Framed Glass Pane
+			createPyriteBlock( dye+"_framed_glass_pane","tinted_glass_pane", 2.0f, color, blockLux);
+			// Dyed Lamps
+			createPyriteBlock(dye + "_lamp","block", 0.3f, color, 15);
+			// Dyed Torches
+			createTorch(dye+"_torch", getTorchParticle(dye));
+			// Dyed Torch Levers
+			createTorchLever(dye+"_torch_lever", Blocks.TORCH, getTorchParticle(dye));
+
 
 
 
