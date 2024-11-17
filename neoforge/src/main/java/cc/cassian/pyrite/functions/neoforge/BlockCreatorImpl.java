@@ -130,6 +130,9 @@ public class BlockCreatorImpl {
             case "concrete_powder":
                 newBlock = pyriteBlocks.register(blockID, () -> new ConcretePowderBlock(pyriteBlocks.getRegistrar().get(Identifier.of(modID, blockID.replace("_powder", ""))), blockSettings));
                 break;
+            case "switchable_glass":
+                newBlock = pyriteBlocks.register(blockID, () -> new SwitchableGlass(blockSettings));
+                break;
             default:
                 LOGGER.error("{}created as a generic block, block provided{}", blockID, blockType);
                 newBlock = pyriteBlocks.register(blockID, () -> new Block(blockSettings));

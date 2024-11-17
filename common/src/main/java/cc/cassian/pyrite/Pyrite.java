@@ -27,6 +27,8 @@ public class Pyrite {
 		generateBrickSet("smooth_stone_brick", Blocks.COBBLESTONE, MapColor.STONE_GRAY, 0);
 		//Grass Set
 		generateTurfSets();
+		// Switchable Glass
+		createPyriteBlock("switchable_glass", "switchable_glass", Blocks.GLASS);
 		//Nether Brick Fence Gate
 		createPyriteBlock("nether_brick_fence_gate","fence_gate", Blocks.NETHER_BRICK_FENCE);
 		//Resource Blocks

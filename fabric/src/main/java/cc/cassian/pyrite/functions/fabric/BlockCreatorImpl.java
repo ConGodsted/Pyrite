@@ -169,6 +169,11 @@ public class BlockCreatorImpl {
                 pyriteBlocks.add(new ConcretePowderBlock(getLastBlock(), blockSettings));
                 pyriteBlockIDs.add(blockID);
                 break;
+            case "switchable_glass":
+                pyriteBlocks.add(new SwitchableGlass(blockSettings));
+                pyriteBlockIDs.add(blockID);
+                addTranslucentBlock();
+                break;
             default:
                 LOGGER.error("{}created as a generic block, block provided{}", blockID, blockType);
                 pyriteBlocks.add(new Block(blockSettings));
@@ -179,7 +184,6 @@ public class BlockCreatorImpl {
             addGrassBlock();
         }
     }
-
 
     //Create and add Pyrite items.
     @SuppressWarnings("unused")
