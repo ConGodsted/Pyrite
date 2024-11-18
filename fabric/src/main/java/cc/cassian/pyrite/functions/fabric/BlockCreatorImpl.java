@@ -28,6 +28,7 @@ public class BlockCreatorImpl {
     public static ArrayList<String> pyriteItemlessBlockIDs = new ArrayList<>();
     public static ArrayList<String> pyriteItemIDs = new ArrayList<>();
 
+    @SuppressWarnings("unused")
     public static WoodType createWoodType(String blockID, BlockSetType setType) {
         return WoodTypeBuilder.copyOf(WoodType.OAK).register(identifier(blockID), setType);
     }
@@ -130,7 +131,7 @@ public class BlockCreatorImpl {
                 pyriteItemlessBlocks.add(WALL_SIGN);
                 pyriteItemlessBlockIDs.add(blockID.replace("_sign", "_wall_sign"));
                 // Register item for signs.
-                pyriteItems.add(new SignItem(new Item.Settings(), SIGN, WALL_SIGN));
+                pyriteItems.add(new SignItem(new Item.Settings().maxCount(16), SIGN, WALL_SIGN));
                 pyriteItemIDs.add(blockID);
                 BlockEntityType.SIGN.addSupportedBlock(SIGN);
                 BlockEntityType.SIGN.addSupportedBlock(WALL_SIGN);

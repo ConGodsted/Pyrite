@@ -2,31 +2,35 @@ package cc.cassian.pyrite.functions.neoforge;
 
 import cc.cassian.pyrite.blocks.*;
 import com.mojang.serialization.MapCodec;
-import dev.architectury.registry.CreativeTabRegistry;
-import dev.architectury.registry.registries.DeferredRegister;
-import dev.architectury.registry.registries.RegistrySupplier;
 import net.minecraft.block.*;
+import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.effect.StatusEffects;
-import net.minecraft.item.BlockItem;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemGroup;
-import net.minecraft.item.ItemStack;
+import net.minecraft.item.*;
 import net.minecraft.particle.ParticleEffect;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.neoforge.event.BlockEntityTypeAddBlocksEvent;
+import net.neoforged.neoforge.registries.DeferredHolder;
+import net.neoforged.neoforge.registries.DeferredRegister;
+
+import java.util.ArrayList;
+import java.util.function.Supplier;
 
 import static cc.cassian.pyrite.Pyrite.LOGGER;
 import static cc.cassian.pyrite.Pyrite.modID;
-import static cc.cassian.pyrite.functions.architectury.ArchitecturyHelpers.*;
+import static cc.cassian.pyrite.functions.neoforge.NeoHelpers.*;
 
 @SuppressWarnings("unused")
 public class BlockCreatorImpl {
-    public static RegistrySupplier<Block> creativeTabIcon;
+    public static DeferredHolder<Block, ?> creativeTabIcon;
     //Deferred registry entries
-    public static final DeferredRegister<Block> pyriteBlocks = DeferredRegister.create(modID, RegistryKeys.BLOCK);
-    public static final DeferredRegister<Item> pyriteItems = DeferredRegister.create(modID, RegistryKeys.ITEM);
+    public static final DeferredRegister<Block> pyriteBlocks = DeferredRegister.create(RegistryKeys.BLOCK, modID);
+    public static final DeferredRegister<Item> pyriteItems = DeferredRegister.create(RegistryKeys.ITEM, modID);
+    public static final ArrayList<DeferredHolder<Item, ?>> ALL_ITEMS = new ArrayList<>();
+    public static final ArrayList<DeferredHolder<Block, ?>> pyriteSigns = new ArrayList<>();
 
     public static WoodType createWoodType(String blockID, BlockSetType setType) {
         var woodType = new WoodType(blockID, setType);
@@ -39,7 +43,7 @@ public class BlockCreatorImpl {
         int power;
         if (blockID.contains("redstone")) power = 15;
         else power = 0;
-        RegistrySupplier<Block> newBlock;
+        DeferredHolder<Block, ?> newBlock;
         switch (blockType.toLowerCase()) {
             case "block":
                 newBlock = pyriteBlocks.register(blockID, () -> new ModBlock(blockSettings, power));
@@ -107,6 +111,10 @@ public class BlockCreatorImpl {
                 break;
             case "sign":
                 newBlock = pyriteBlocks.register(blockID, () -> new SignBlock(woodType, blockSettings));
+                DeferredHolder<Block, WallSignBlock> wallSign = pyriteBlocks.register(blockID.replace("_sign", "_wall_sign"), () -> new WallSignBlock(woodType, blockSettings));
+                pyriteSigns.add(newBlock);
+                pyriteSigns.add(wallSign);
+                addSignItem(newBlock, wallSign);
                 break;
             case "door":
                 newBlock = pyriteBlocks.register(blockID, () -> new DoorBlock(blockSetType, blockSettings.nonOpaque()));
@@ -134,7 +142,7 @@ public class BlockCreatorImpl {
                 addTransparentBlock(newBlock);
                 break;
             case "concrete_powder":
-                newBlock = pyriteBlocks.register(blockID, () -> new ConcretePowderBlock(pyriteBlocks.getRegistrar().get(Identifier.of(modID, blockID.replace("_powder", ""))), blockSettings));
+                newBlock = pyriteBlocks.register(blockID, () -> new ConcretePowderBlock(pyriteBlocks.getRegistry().get().get(Identifier.of(modID, blockID.replace("_powder", ""))), blockSettings));
                 break;
             case "switchable_glass":
                 newBlock = pyriteBlocks.register(blockID, () -> new SwitchableGlass(blockSettings));
@@ -144,36 +152,52 @@ public class BlockCreatorImpl {
                 newBlock = pyriteBlocks.register(blockID, () -> new Block(blockSettings));
                 break;
         }
-        addBlockItem(newBlock);
+        if (!blockType.equals("sign"))
+            addBlockItem(newBlock);
         if (blockID.contains("grass")) addGrassBlock(newBlock);
         else if (blockID.equals("cobblestone_bricks")) creativeTabIcon = newBlock;
     }
 
-    public static void addBlockItem(RegistrySupplier<Block> newBlock) {
-        pyriteItems.register(newBlock.getId(), () -> new BlockItem(newBlock.get(), newItem(PYRITE_GROUP)));
+    public static void addBlockItem(DeferredHolder<Block, ? extends Block> newBlock) {
+        ALL_ITEMS.add(pyriteItems.register(newBlock.getId().getPath(), () -> new BlockItem(newBlock.get(), new Item.Settings())));
     }
-    public static final DeferredRegister<ItemGroup> pyriteTabs =
-            DeferredRegister.create(modID, RegistryKeys.ITEM_GROUP);
 
-    public static final RegistrySupplier<ItemGroup> PYRITE_GROUP = pyriteTabs.register(
-            "pyrite", // Tab ID
-            () -> CreativeTabRegistry.create(
-                    Text.translatable("itemGroup.pyrite.group"), // Tab Name
-                    () -> new ItemStack(creativeTabIcon.get()) // Icon
-            )
+    public static void addSignItem(DeferredHolder<Block, ? extends Block> newBlock, DeferredHolder<Block, ? extends Block> wallSign) {
+        ALL_ITEMS.add(pyriteItems.register(newBlock.getId().getPath(), () -> new SignItem(new Item.Settings().maxCount(16), newBlock.get(), wallSign.get())));
+    }
+
+    public static final DeferredRegister<ItemGroup> pyriteTabs =
+            DeferredRegister.create(RegistryKeys.ITEM_GROUP, modID);
+
+    public static final Supplier<ItemGroup> PYRITE_GROUP = pyriteTabs.register(modID, () -> ItemGroup.builder()
+            //Set the title of the tab.
+            .displayName(Text.translatable("itemGroup." + modID + ".group"))
+            //Set the icon of the tab.
+            .icon(() -> new ItemStack(creativeTabIcon.get()))
+            //Add your items to the tab.
+            .entries((params, output) -> {
+                for (DeferredHolder<Item, ?> item : ALL_ITEMS) {
+                    output.add(item.get());
+                }
+            })
+            .build()
     );
 
 
     //Create and add Pyrite items.
     @SuppressWarnings("unused")
     public static void registerPyriteItem(String itemID) {
-        pyriteItems.register(itemID, () -> (new Item(newItem(PYRITE_GROUP))));
+        ALL_ITEMS.add(pyriteItems.register(itemID, () -> (new Item(new Item.Settings()))));
     }
 
     @SuppressWarnings("unused")
     public static void register() {
-        pyriteBlocks.register();
-        pyriteItems.register();
-        pyriteTabs.register();
+    }
+
+    @SubscribeEvent
+    public static void signBlockEntityType(BlockEntityTypeAddBlocksEvent event) {
+        for (DeferredHolder<Block, ?> sign : pyriteSigns) {
+            event.modify(BlockEntityType.SIGN, sign.get());
+        }
     }
 }
