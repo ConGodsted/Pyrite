@@ -8,15 +8,18 @@ import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
+import net.minecraft.item.SignItem;
 import net.minecraft.particle.ParticleEffect;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 
 import java.util.ArrayList;
 
 import static cc.cassian.pyrite.Pyrite.LOGGER;
+import static cc.cassian.pyrite.Pyrite.modID;
 import static cc.cassian.pyrite.functions.ModHelpers.identifier;
 import static cc.cassian.pyrite.functions.fabric.FabricHelpers.*;
 
@@ -118,21 +121,25 @@ public class BlockCreatorImpl {
                 break;
             case "sign":
                 //Sign Blocks
-                pyriteItemlessBlocks.add(new SignBlock(woodType, blockSettings) {
+                final SignBlock SIGN = new SignBlock(woodType, blockSettings) {
                     public ModSign createBlockEntity(BlockPos pos, BlockState state) {
                         return new ModSign(pos, state);
                     }
-                });
+                };
+                pyriteItemlessBlocks.add(SIGN);
                 pyriteItemlessBlockIDs.add(blockID);
                 //Wall Sign Blocks
-                pyriteItemlessBlocks.add(new WallSignBlock(woodType, blockSettings) {
+                final WallSignBlock WALL_SIGN = new WallSignBlock(woodType, blockSettings) {
                     public ModSign createBlockEntity(BlockPos pos, BlockState state) {
                         return new ModSign(pos, state);
                     }
-                });
-                pyriteItemlessBlockIDs.add(blockID + "_wall");
-                //Register block entity for standard signs.
-                registerSignBlockEntity(pyriteItemlessBlocks.get(pyriteItemlessBlocks.size()-2), pyriteItemlessBlocks.get(pyriteItemlessBlockIDs.size()-1));
+                };
+                pyriteItemlessBlocks.add(WALL_SIGN);
+                pyriteItemlessBlockIDs.add(blockID.replace("_sign", "_wall_sign"));
+                // Register block entity for standard signs.
+                Registry.register(Registries.BLOCK_ENTITY_TYPE, Identifier.of(modID, blockID), registerSignBlockEntity(SIGN, WALL_SIGN));
+                // Register item for signs.
+                Registry.register(Registries.ITEM, blockID, new SignItem(new Item.Settings(), SIGN, WALL_SIGN));
                 break;
             case "door":
                 pyriteBlocks.add(new DoorBlock(blockSetType, blockSettings.nonOpaque()));
@@ -210,7 +217,12 @@ public class BlockCreatorImpl {
     }
 
     public static BlockEntityType<ModSign> registerSignBlockEntity(Block sign, Block wall_sign) {
-        return FabricBlockEntityTypeBuilder.create(ModSign::new, sign, wall_sign).build();
+        return BlockEntityType.Builder.create(ModSign::new, sign, wall_sign).build();
+
+    }
+
+    public static BlockEntityType<ModHangingSign> registerHangingSignBlockEntity(Block sign, Block wall_sign) {
+        return BlockEntityType.Builder.create(ModHangingSign::new, sign, wall_sign).build();
 
     }
 }
