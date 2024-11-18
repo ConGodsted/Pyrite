@@ -5,6 +5,7 @@ import com.mojang.serialization.MapCodec;
 import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntityType;
+import net.minecraft.block.entity.SignBlockEntity;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
@@ -137,9 +138,12 @@ public class BlockCreatorImpl {
                 pyriteItemlessBlocks.add(WALL_SIGN);
                 pyriteItemlessBlockIDs.add(blockID.replace("_sign", "_wall_sign"));
                 // Register block entity for standard signs.
-                Registry.register(Registries.BLOCK_ENTITY_TYPE, Identifier.of(modID, blockID), registerSignBlockEntity(SIGN, WALL_SIGN));
+                final BlockEntityType<ModSign> SIGN_BLOCK_ENTITY = registerSignBlockEntity(SIGN, WALL_SIGN);
+                signBlocks.add(SIGN_BLOCK_ENTITY);
+                Registry.register(Registries.BLOCK_ENTITY_TYPE, Identifier.of(modID, blockID), SIGN_BLOCK_ENTITY);
                 // Register item for signs.
-                Registry.register(Registries.ITEM, blockID, new SignItem(new Item.Settings(), SIGN, WALL_SIGN));
+                pyriteItems.add(new SignItem(new Item.Settings(), SIGN, WALL_SIGN));
+                pyriteItemIDs.add(blockID);
                 break;
             case "door":
                 pyriteBlocks.add(new DoorBlock(blockSetType, blockSettings.nonOpaque()));

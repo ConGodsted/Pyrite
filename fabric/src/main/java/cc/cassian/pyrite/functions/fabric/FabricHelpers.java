@@ -1,8 +1,10 @@
 package cc.cassian.pyrite.functions.fabric;
 
+import cc.cassian.pyrite.blocks.ModSign;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.fabricmc.fabric.api.registry.FuelRegistry;
 import net.minecraft.block.Block;
+import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
@@ -35,6 +37,7 @@ public class FabricHelpers {
 
     public static ArrayList<Block> transparentBlocks = new ArrayList<>();
     public static ArrayList<Block> translucentBlocks = new ArrayList<>();
+    public static ArrayList<BlockEntityType<ModSign>> signBlocks = new ArrayList<>();
     public static ArrayList<Block> grassBlocks = new ArrayList<>();
     public static HashMap<Block, Integer> fuel = new HashMap<>();
 

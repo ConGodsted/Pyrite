@@ -1,7 +1,6 @@
 package cc.cassian.pyrite;
 
 import cc.cassian.pyrite.functions.ModHelpers;
-import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.block.*;
 import net.minecraft.particle.DustParticleEffect;
 import net.minecraft.particle.ParticleTypes;

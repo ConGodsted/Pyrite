@@ -15,4 +15,8 @@ public class ModSign extends SignBlockEntity {
         return BlockEntityType.SIGN;
     }
 
+    public boolean supports(BlockState state) {
+        return true;
+    }
+
 }
