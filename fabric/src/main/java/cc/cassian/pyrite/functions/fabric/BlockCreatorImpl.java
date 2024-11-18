@@ -2,11 +2,9 @@ package cc.cassian.pyrite.functions.fabric;
 
 import cc.cassian.pyrite.blocks.*;
 import com.mojang.serialization.MapCodec;
-import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder;
 import net.fabricmc.fabric.api.object.builder.v1.block.type.WoodTypeBuilder;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.block.entity.SignBlockEntity;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
@@ -15,15 +13,11 @@ import net.minecraft.particle.ParticleEffect;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.math.BlockPos;
 
 import java.util.ArrayList;
 
 import static cc.cassian.pyrite.Pyrite.LOGGER;
-import static cc.cassian.pyrite.Pyrite.modID;
 import static cc.cassian.pyrite.functions.ModHelpers.identifier;
-import static cc.cassian.pyrite.functions.ModHelpers.signBlocks;
 import static cc.cassian.pyrite.functions.fabric.FabricHelpers.*;
 
 public class BlockCreatorImpl {
@@ -135,10 +129,6 @@ public class BlockCreatorImpl {
                 final WallSignBlock WALL_SIGN = new WallSignBlock(woodType, blockSettings);
                 pyriteItemlessBlocks.add(WALL_SIGN);
                 pyriteItemlessBlockIDs.add(blockID.replace("_sign", "_wall_sign"));
-                // Register block entity for standard signs.
-                final BlockEntityType<ModSign> SIGN_BLOCK_ENTITY = BlockEntityType.Builder.create(ModSign::new, SIGN, WALL_SIGN).build();
-                signBlocks.add(SIGN_BLOCK_ENTITY);
-                Registry.register(Registries.BLOCK_ENTITY_TYPE, Identifier.of(modID, blockID), SIGN_BLOCK_ENTITY);
                 // Register item for signs.
                 pyriteItems.add(new SignItem(new Item.Settings(), SIGN, WALL_SIGN));
                 pyriteItemIDs.add(blockID);
