@@ -143,6 +143,7 @@ public class BlockCreatorImpl {
                 pyriteItems.add(new SignItem(new Item.Settings(), SIGN, WALL_SIGN));
                 pyriteItemIDs.add(blockID);
                 BlockEntityType.SIGN.addSupportedBlock(SIGN);
+                BlockEntityType.SIGN.addSupportedBlock(WALL_SIGN);
                 break;
             case "door":
                 pyriteBlocks.add(new DoorBlock(blockSetType, blockSettings.nonOpaque()));
