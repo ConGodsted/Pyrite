@@ -3,6 +3,7 @@ package cc.cassian.pyrite.functions.fabric;
 import cc.cassian.pyrite.blocks.*;
 import com.mojang.serialization.MapCodec;
 import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder;
+import net.fabricmc.fabric.api.object.builder.v1.block.type.WoodTypeBuilder;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.block.entity.SignBlockEntity;
@@ -22,6 +23,7 @@ import java.util.ArrayList;
 import static cc.cassian.pyrite.Pyrite.LOGGER;
 import static cc.cassian.pyrite.Pyrite.modID;
 import static cc.cassian.pyrite.functions.ModHelpers.identifier;
+import static cc.cassian.pyrite.functions.ModHelpers.signBlocks;
 import static cc.cassian.pyrite.functions.fabric.FabricHelpers.*;
 
 public class BlockCreatorImpl {
@@ -31,6 +33,10 @@ public class BlockCreatorImpl {
     public static ArrayList<String> pyriteBlockIDs = new ArrayList<>();
     public static ArrayList<String> pyriteItemlessBlockIDs = new ArrayList<>();
     public static ArrayList<String> pyriteItemIDs = new ArrayList<>();
+
+    public static WoodType createWoodType(String blockID, BlockSetType setType) {
+        return WoodTypeBuilder.copyOf(WoodType.OAK).register(identifier(blockID), setType);
+    }
 
     @SuppressWarnings("unused")
     public static void platfomRegister(String blockID, String blockType, AbstractBlock.Settings blockSettings, WoodType woodType, BlockSetType blockSetType, ParticleEffect particle, Block copyBlock) {
@@ -122,28 +128,21 @@ public class BlockCreatorImpl {
                 break;
             case "sign":
                 //Sign Blocks
-                final SignBlock SIGN = new SignBlock(woodType, blockSettings) {
-                    public ModSign createBlockEntity(BlockPos pos, BlockState state) {
-                        return new ModSign(pos, state);
-                    }
-                };
+                final SignBlock SIGN = new SignBlock(woodType, blockSettings);
                 pyriteItemlessBlocks.add(SIGN);
                 pyriteItemlessBlockIDs.add(blockID);
                 //Wall Sign Blocks
-                final WallSignBlock WALL_SIGN = new WallSignBlock(woodType, blockSettings) {
-                    public ModSign createBlockEntity(BlockPos pos, BlockState state) {
-                        return new ModSign(pos, state);
-                    }
-                };
+                final WallSignBlock WALL_SIGN = new WallSignBlock(woodType, blockSettings);
                 pyriteItemlessBlocks.add(WALL_SIGN);
                 pyriteItemlessBlockIDs.add(blockID.replace("_sign", "_wall_sign"));
                 // Register block entity for standard signs.
-                final BlockEntityType<ModSign> SIGN_BLOCK_ENTITY = registerSignBlockEntity(SIGN, WALL_SIGN);
+                final BlockEntityType<ModSign> SIGN_BLOCK_ENTITY = BlockEntityType.Builder.create(ModSign::new, SIGN, WALL_SIGN).build();
                 signBlocks.add(SIGN_BLOCK_ENTITY);
                 Registry.register(Registries.BLOCK_ENTITY_TYPE, Identifier.of(modID, blockID), SIGN_BLOCK_ENTITY);
                 // Register item for signs.
                 pyriteItems.add(new SignItem(new Item.Settings(), SIGN, WALL_SIGN));
                 pyriteItemIDs.add(blockID);
+                BlockEntityType.SIGN.addSupportedBlock(SIGN);
                 break;
             case "door":
                 pyriteBlocks.add(new DoorBlock(blockSetType, blockSettings.nonOpaque()));
@@ -218,11 +217,6 @@ public class BlockCreatorImpl {
         for (int x = 0; x < pyriteItemIDs.size(); x++) {
             Registry.register(Registries.ITEM, identifier(pyriteItemIDs.get(x)), pyriteItems.get(x));
         }
-    }
-
-    public static BlockEntityType<ModSign> registerSignBlockEntity(Block sign, Block wall_sign) {
-        return BlockEntityType.Builder.create(ModSign::new, sign, wall_sign).build();
-
     }
 
     public static BlockEntityType<ModHangingSign> registerHangingSignBlockEntity(Block sign, Block wall_sign) {

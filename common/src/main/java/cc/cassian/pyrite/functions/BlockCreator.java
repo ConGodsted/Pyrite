@@ -187,11 +187,16 @@ public class BlockCreator {
         createSlab(blockID, copyBlock);
         createCarpet(blockID+"_carpet");
     }
+    
+    @ExpectPlatform
+    public static WoodType createWoodType(String blockID, BlockSetType setType) {
+        throw new AssertionError();
+    }
 
     //Generate an entire wood set.
     public static void createWoodSet(String blockID, MapColor color, int blockLux) {
         BlockSetType GENERATED_SET = new BlockSetType(blockID);
-        WoodType GENERATED_TYPE = new WoodType(blockID, GENERATED_SET);
+        WoodType GENERATED_TYPE = createWoodType(blockID, GENERATED_SET);
         //Stained Planks
         createPyriteBlock( blockID+"_planks", "block", Blocks.OAK_PLANKS, color, blockLux);
         //Stained Stairs

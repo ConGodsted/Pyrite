@@ -28,6 +28,12 @@ public class BlockCreatorImpl {
     public static final DeferredRegister<Block> pyriteBlocks = DeferredRegister.create(modID, RegistryKeys.BLOCK);
     public static final DeferredRegister<Item> pyriteItems = DeferredRegister.create(modID, RegistryKeys.ITEM);
 
+    public static WoodType createWoodType(String blockID, BlockSetType setType) {
+        var woodType = new WoodType(blockID, setType);
+        WoodType.register(woodType);
+        return woodType;
+    }
+
     @SuppressWarnings("unused")
     public static void platfomRegister(String blockID, String blockType, AbstractBlock.Settings blockSettings, WoodType woodType, BlockSetType blockSetType, ParticleEffect particle, Block copyBlock) {
         int power;

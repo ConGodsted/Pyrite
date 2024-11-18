@@ -37,7 +37,6 @@ public class FabricHelpers {
 
     public static ArrayList<Block> transparentBlocks = new ArrayList<>();
     public static ArrayList<Block> translucentBlocks = new ArrayList<>();
-    public static ArrayList<BlockEntityType<ModSign>> signBlocks = new ArrayList<>();
     public static ArrayList<Block> grassBlocks = new ArrayList<>();
     public static HashMap<Block, Integer> fuel = new HashMap<>();
 

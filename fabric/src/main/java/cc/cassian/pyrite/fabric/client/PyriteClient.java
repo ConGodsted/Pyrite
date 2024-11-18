@@ -1,17 +1,13 @@
 package cc.cassian.pyrite.fabric.client;
 
-import cc.cassian.pyrite.blocks.ModSign;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry;
 import net.minecraft.block.*;
-import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.client.color.world.BiomeColors;
 import net.minecraft.client.render.RenderLayer;
-import net.minecraft.client.render.block.entity.BlockEntityRendererFactories;
-import net.minecraft.client.render.block.entity.SignBlockEntityRenderer;
 
 import static cc.cassian.pyrite.functions.fabric.FabricHelpers.*;
 
@@ -29,10 +25,6 @@ public class PyriteClient implements ClientModInitializer {
         }
         for (Block translucentBlock : translucentBlocks) {
             BlockRenderLayerMap.INSTANCE.putBlock(translucentBlock, RenderLayer.getTranslucent());
-        }
-        for (BlockEntityType<ModSign> signBlock : signBlocks) {
-            System.out.println(signBlock);
-            BlockEntityRendererFactories.register(signBlock, SignBlockEntityRenderer::new);
         }
 
     }

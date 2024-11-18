@@ -1,8 +1,10 @@
 package cc.cassian.pyrite.functions;
 
+import cc.cassian.pyrite.blocks.ModSign;
 import dev.architectury.injectables.annotations.ExpectPlatform;
 import net.minecraft.SharedConstants;
 import net.minecraft.block.*;
+import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.particle.ParticleEffect;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.sound.BlockSoundGroup;
@@ -11,6 +13,7 @@ import net.minecraft.util.DyeColor;
 import net.minecraft.util.Identifier;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
 import java.util.Objects;
 import java.util.function.ToIntFunction;
 
@@ -19,6 +22,8 @@ import static java.lang.Integer.parseInt;
 
 
 public class ModHelpers {
+    public static ArrayList<BlockEntityType<ModSign>> signBlocks = new ArrayList<>();
+
 
     public static AbstractBlock.Settings copyBlock(Block copyBlock) {
         return AbstractBlock.Settings.copy(copyBlock);
