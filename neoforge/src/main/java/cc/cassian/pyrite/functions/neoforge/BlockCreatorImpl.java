@@ -4,6 +4,7 @@ import cc.cassian.pyrite.blocks.*;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntityType;
+import net.minecraft.client.render.TexturedRenderLayers;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.item.*;
 import net.minecraft.particle.ParticleEffect;
@@ -21,6 +22,7 @@ import java.util.function.Supplier;
 
 import static cc.cassian.pyrite.Pyrite.LOGGER;
 import static cc.cassian.pyrite.Pyrite.modID;
+import static cc.cassian.pyrite.functions.ModHelpers.identifier;
 import static cc.cassian.pyrite.functions.neoforge.NeoHelpers.*;
 
 @SuppressWarnings("unused")
@@ -33,7 +35,7 @@ public class BlockCreatorImpl {
     public static final ArrayList<DeferredHolder<Block, ?>> pyriteSigns = new ArrayList<>();
 
     public static WoodType createWoodType(String blockID, BlockSetType setType) {
-        var woodType = new WoodType(blockID, setType);
+        WoodType woodType = new WoodType(identifier(blockID).toString(), setType);
         WoodType.register(woodType);
         return woodType;
     }
