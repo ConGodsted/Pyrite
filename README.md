@@ -48,11 +48,9 @@ _985 blocks and counting..._
 <a href='https://modrinth.com/mod/qsl'><img alt="quilt" height="56" src="https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/cozy-minimal/supported/quilt_vector.svg"></a>
 
 
-Pyrite is required on both the client and server. Pyrite currently supports 1.19.2, 1.20.1, 1.20.6, and 1.21, with occasional backports after major content updates. EMI is recommended to view crafting recipes.
-- On Fabric, Fabric Loader and Fabric API is required. Architectury API is required for 1.19.2.
-- On Quilt, Quilt Loader and Quilted Fabric API is required.
-- On Forge, Forge Loader and Architectury API is required.
-- On NeoForge, Neoforge Loader and Architectury API is required.
+Pyrite is required on both the client and server. Pyrite currently supports 1.21, with occasional backports after major content updates. EMI is recommended to view crafting recipes.
+- On Fabric and Quilt, Fabric API or QSL is required.
+- On versions below 0.15.0, Architectury API is required.
 
 ## Contributing
 Pyrite is available on GitHub under the open source MIT license. If you are interested in helping to make Pyrite better, through improved textures, translations, or bugfixes, please see the [Pyrite Wiki](https://github.com/cassiancc/Pyrite/wiki/Contributing-to-Pyrite).
