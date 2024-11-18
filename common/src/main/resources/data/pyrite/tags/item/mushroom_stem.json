@@ -1,7 +1,1 @@
-{
-    "replace": false,
-    "values": [
-      "pyrite:red_mushroom_stem",
-      "pyrite:brown_mushroom_stem"    ]
-  }
-
+{"replace":false,"values":["pyrite:red_mushroom_stem","pyrite:brown_mushroom_stem"]}

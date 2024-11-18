@@ -1,12 +1,1 @@
-{
-  "replace": false,
-  "values": [
-    "pyrite:grass_stairs",
-    "pyrite:nostalgia_grass_stairs",
-    "pyrite:mycelium_stairs",
-    "pyrite:podzol_stairs",
-    "pyrite:path_stairs"
-
-  ]
-}
-
+{"replace":false,"values":["pyrite:nostalgia_grass_stairs","pyrite:podzol_stairs","pyrite:grass_stairs","pyrite:mycelium_stairs","pyrite:path_stairs"]}
