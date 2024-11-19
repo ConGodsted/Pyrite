@@ -198,28 +198,32 @@ public class BlockCreator {
     public static void createWoodSet(String blockID, MapColor color, int blockLux) {
         BlockSetType GENERATED_SET = new BlockSetType(blockID);
         WoodType GENERATED_TYPE = createWoodType(blockID, GENERATED_SET);
-        //Stained Planks
+        // Planks
         createPyriteBlock( blockID+"_planks", "block", Blocks.OAK_PLANKS, color, blockLux);
-        //Stained Stairs
+        // Stairs
         createPyriteBlock(blockID+"_stairs", "stairs",Blocks.OAK_STAIRS, color, blockLux);
-        //Stained Slabs
+        // Slabs
         createPyriteBlock( blockID+"_slab", "slab", Blocks.OAK_SLAB, color, blockLux);
-        //Stained Pressure Plates
+        // Pressure Plates
         createPyriteBlock( blockID+"_pressure_plate", "pressure_plate", Blocks.OAK_PRESSURE_PLATE, color, blockLux, GENERATED_SET, GENERATED_TYPE);
-        //Stained Buttons
+        // Buttons
         createPyriteBlock(blockID+"_button", "button", Blocks.OAK_BUTTON, color, blockLux, GENERATED_SET, GENERATED_TYPE);
-        //Stained Fences
+        // Fences
         createPyriteBlock(blockID+"_fence", "fence", Blocks.OAK_FENCE, color, blockLux, GENERATED_SET, GENERATED_TYPE);
-        //Stained Fence Gates
+        // Fence Gates
         createPyriteBlock(blockID+"_fence_gate", "fence_gate", Blocks.OAK_FENCE_GATE, color, blockLux, GENERATED_SET, GENERATED_TYPE);
-        //Stained Doors
+        // Doors
         createPyriteBlock(blockID+"_door", "door", Blocks.OAK_DOOR, color, blockLux, GENERATED_SET, GENERATED_TYPE);
-        //Stained Trapdoors
+        // Trapdoors
         createPyriteBlock(blockID+"_trapdoor", "trapdoor", Blocks.OAK_TRAPDOOR, color, blockLux, GENERATED_SET, GENERATED_TYPE);
-        //Crafting Tables
+        // Crafting Tables
         createPyriteBlock( blockID+"_crafting_table", "crafting", Blocks.CRAFTING_TABLE, color, blockLux);
+        // Ladders
         createPyriteBlock( blockID+"_ladder", "ladder", Blocks.LADDER, color, blockLux);
+        // Signs
         createPyriteBlock(blockID+"_sign", "sign", Blocks.OAK_SIGN, color, blockLux, GENERATED_SET, GENERATED_TYPE);
+        // Hanging Signs
+        createPyriteBlock(blockID+"_hanging_sign", "hanging_sign", Blocks.OAK_HANGING_SIGN, color, blockLux, GENERATED_SET, GENERATED_TYPE);
     }
 
     //Generate an entire Cut Block set.
