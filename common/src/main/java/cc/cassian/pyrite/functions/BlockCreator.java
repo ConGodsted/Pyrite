@@ -204,10 +204,6 @@ public class BlockCreator {
         createPyriteBlock(blockID+"_stairs", "stairs",Blocks.OAK_STAIRS, color, blockLux);
         // Slabs
         createPyriteBlock( blockID+"_slab", "slab", Blocks.OAK_SLAB, color, blockLux);
-        // Pressure Plates
-        createPyriteBlock( blockID+"_pressure_plate", "pressure_plate", Blocks.OAK_PRESSURE_PLATE, color, blockLux, GENERATED_SET, GENERATED_TYPE);
-        // Buttons
-        createPyriteBlock(blockID+"_button", "button", Blocks.OAK_BUTTON, color, blockLux, GENERATED_SET, GENERATED_TYPE);
         // Fences
         createPyriteBlock(blockID+"_fence", "fence", Blocks.OAK_FENCE, color, blockLux, GENERATED_SET, GENERATED_TYPE);
         // Fence Gates
@@ -216,6 +212,10 @@ public class BlockCreator {
         createPyriteBlock(blockID+"_door", "door", Blocks.OAK_DOOR, color, blockLux, GENERATED_SET, GENERATED_TYPE);
         // Trapdoors
         createPyriteBlock(blockID+"_trapdoor", "trapdoor", Blocks.OAK_TRAPDOOR, color, blockLux, GENERATED_SET, GENERATED_TYPE);
+        // Pressure Plates
+        createPyriteBlock( blockID+"_pressure_plate", "pressure_plate", Blocks.OAK_PRESSURE_PLATE, color, blockLux, GENERATED_SET, GENERATED_TYPE);
+        // Buttons
+        createPyriteBlock(blockID+"_button", "button", Blocks.OAK_BUTTON, color, blockLux, GENERATED_SET, GENERATED_TYPE);
         // Crafting Tables
         createPyriteBlock( blockID+"_crafting_table", "crafting", Blocks.CRAFTING_TABLE, color, blockLux);
         // Ladders

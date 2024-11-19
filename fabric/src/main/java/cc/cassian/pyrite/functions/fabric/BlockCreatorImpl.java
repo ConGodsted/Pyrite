@@ -209,7 +209,7 @@ public class BlockCreatorImpl {
                 break;
             case "concrete_powder":
                 BLOCKS.add(new ConcretePowderBlock(getLastBlock(), blockSettings));
-                BLOCK_IDS.add(blockID);
+                BLOCK_IDS.add(BLOCK_IDS.indexOf(blockID.replace("_powder", "")), blockID);
                 break;
             case "switchable_glass":
                 BLOCKS.add(new SwitchableGlass(blockSettings));
