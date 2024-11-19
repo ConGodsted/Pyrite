@@ -108,14 +108,14 @@ public class Pyrite {
 			}
 			// Dyed Terracotta Bricks
 			generateBrickSet(dye+"_terracotta_brick", Blocks.TERRACOTTA, color, blockLux);
+			// Dyed Torches
+			createTorch(dye+"_torch", getTorchParticle(dye));
+			// Dyed Lamps
+			createPyriteBlock(dye + "_lamp","block", 0.3f, color, 15);
 			// Dyed Framed Glass
 			createPyriteBlock(dye+"_framed_glass","tinted_glass", 2.0f, color, blockLux);
 			// Dyed Framed Glass Pane
 			createPyriteBlock( dye+"_framed_glass_pane","tinted_glass_pane", 2.0f, color, blockLux);
-			// Dyed Lamps
-			createPyriteBlock(dye + "_lamp","block", 0.3f, color, 15);
-			// Dyed Torches
-			createTorch(dye+"_torch", getTorchParticle(dye));
 			// Dyed Torch Levers
 			createTorchLever(dye+"_torch_lever", Blocks.TORCH, getTorchParticle(dye));
 
