@@ -1,6 +1,7 @@
 package cc.cassian.pyrite.functions.neoforge;
 
 import cc.cassian.pyrite.blocks.*;
+import cc.cassian.pyrite.functions.ModLists;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntityType;
@@ -8,6 +9,8 @@ import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.item.*;
 import net.minecraft.particle.ParticleEffect;
 import net.minecraft.particle.ParticleTypes;
+import net.minecraft.registry.Registries;
+import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
@@ -18,16 +21,24 @@ import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
 import java.util.ArrayList;
+import java.util.Map;
+import java.util.Objects;
 import java.util.function.Supplier;
 
 import static cc.cassian.pyrite.Pyrite.LOGGER;
 import static cc.cassian.pyrite.Pyrite.modID;
 import static cc.cassian.pyrite.functions.ModHelpers.identifier;
+import static cc.cassian.pyrite.functions.ModLists.getDyes;
 import static cc.cassian.pyrite.functions.neoforge.NeoHelpers.*;
 
 @SuppressWarnings("unused")
 public class BlockCreatorImpl {
-    public static DeferredHolder<Block, ?> creativeTabIcon;
+    // Creative tab icon holders
+    public static DeferredHolder<Block, ?> WOOD_ICON;
+    public static DeferredHolder<Block, ?> RESOURCE_ICON;
+    public static DeferredHolder<Block, ?> REDSTONE_ICON;
+    public static DeferredHolder<Block, ?> BRICK_ICON;
+    public static DeferredHolder<Block, ?> MISC_ICON;
     //Deferred registry entries
     public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(RegistryKeys.BLOCK, modID);
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(RegistryKeys.ITEM, modID);
@@ -35,6 +46,14 @@ public class BlockCreatorImpl {
     public static final ArrayList<DeferredHolder<Item, ?>> ALL_ITEMS = new ArrayList<>();
     public static final ArrayList<DeferredHolder<Block, ?>> SIGN_BLOCKS = new ArrayList<>();
     public static final ArrayList<DeferredHolder<Block, ?>> HANGING_SIGN_BLOCKS = new ArrayList<>();
+    // Sublists for Item Groups
+    public static final ArrayList<DeferredHolder<?, ?>> WOOD_BLOCKS = new ArrayList<>();
+    public static final ArrayList<DeferredHolder<?, ?>> RESOURCE_BLOCKS = new ArrayList<>();
+    public static final ArrayList<DeferredHolder<?, ?>> BRICK_BLOCKS = new ArrayList<>();
+    public static final ArrayList<DeferredHolder<?, ?>> REDSTONE_BLOCKS = new ArrayList<>();
+    public static final ArrayList<DeferredHolder<?, ?>> MISC_BLOCKS = new ArrayList<>();
+    public static final ArrayList<Block> MISC_BLOCKS_UNSORTED = new ArrayList<>();
+
 
     /**
      * Implements {@link cc.cassian.pyrite.functions.BlockCreator#createWoodType(String, BlockSetType)} on NeoForge.
@@ -56,6 +75,13 @@ public class BlockCreatorImpl {
         switch (blockType.toLowerCase()) {
             case "block":
                 newBlock = BLOCKS.register(blockID, () -> new ModBlock(blockSettings, power));
+                if (power == 15)
+                    if (blockID.equals("lit_redstone_lamp"))
+                        REDSTONE_BLOCKS.addFirst(newBlock);
+                    else
+                        REDSTONE_BLOCKS.add(newBlock);
+                if (Objects.equals(copyBlock, Blocks.OAK_PLANKS))
+                    WOOD_BLOCKS.add(newBlock);
                 break;
             case "crafting":
                 AbstractBlock.Settings craftingSettings;
@@ -67,33 +93,53 @@ public class BlockCreatorImpl {
                 if (!(blockID.contains("crimson") || blockID.contains("warped"))) {
                     FUEL_BLOCKS.put(newBlock, 300);
                 }
+                WOOD_BLOCKS.add(newBlock);
                 break;
             case "ladder":
                 newBlock = BLOCKS.register(blockID, () -> new LadderBlock(blockSettings));
+                WOOD_BLOCKS.add(newBlock);
                 break;
             case "carpet":
                 newBlock = BLOCKS.register(blockID, () -> new ModCarpet(blockSettings));
                 break;
             case "slab":
                 newBlock = BLOCKS.register(blockID, () -> new ModSlab(blockSettings, power));
+                if (Objects.equals(copyBlock, Blocks.OAK_SLAB))
+                    WOOD_BLOCKS.add(newBlock);
+                if (power == 15)
+                    REDSTONE_BLOCKS.add(newBlock);
                 break;
             case "stairs":
                 newBlock = BLOCKS.register(blockID, () -> new ModStairs(copyBlock.getDefaultState(), blockSettings));
+                if (Objects.equals(copyBlock, Blocks.OAK_STAIRS))
+                    WOOD_BLOCKS.add(newBlock);
                 break;
             case "wall":
                 newBlock = BLOCKS.register(blockID, () -> new ModWall(blockSettings, power));
+                if (power == 15)
+                    REDSTONE_BLOCKS.add(newBlock);
                 break;
             case "fence":
                 newBlock = BLOCKS.register(blockID, () -> new FenceBlock(blockSettings));
+                if (power == 15)
+                    REDSTONE_BLOCKS.add(newBlock);
                 break;
             case "log":
                 newBlock = BLOCKS.register(blockID, () -> new ModPillar(blockSettings, power));
+                if (blockID.contains("mushroom"))
+                    WOOD_BLOCKS.add(newBlock);
+                else if (power == 15)
+                    REDSTONE_BLOCKS.add(newBlock);
                 break;
             case "facing":
                 newBlock = BLOCKS.register(blockID, () -> new ModFacingBlock(blockSettings, power));
+                if (power == 15)
+                    REDSTONE_BLOCKS.add(newBlock);
                 break;
             case "bars", "glass_pane", "tinted_glass_pane":
                 newBlock = BLOCKS.register(blockID, () -> new ModPane(blockSettings, power));
+                if (power == 15)
+                    REDSTONE_BLOCKS.add(newBlock);
                 break;
             case "glass", "tinted_glass":
                 newBlock = BLOCKS.register(blockID, () -> new ModGlass(blockSettings));
@@ -111,6 +157,8 @@ public class BlockCreatorImpl {
                 break;
             case "fence_gate", "wall_gate":
                 newBlock = BLOCKS.register(blockID, () -> new FenceGateBlock(woodType, blockSettings));
+                if (blockID.contains("_stained") || blockID.contains("mushroom"))
+                    WOOD_BLOCKS.add(newBlock);
                 break;
             case "sign":
                 newBlock = BLOCKS.register(blockID, () -> new SignBlock(woodType, blockSettings));
@@ -128,15 +176,23 @@ public class BlockCreatorImpl {
                 break;
             case "door":
                 newBlock = BLOCKS.register(blockID, () -> new DoorBlock(blockSetType, blockSettings.nonOpaque()));
+                if (blockID.contains("_stained") || blockID.contains("mushroom"))
+                    WOOD_BLOCKS.add(newBlock);
                 break;
             case "trapdoor":
                 newBlock = BLOCKS.register(blockID, () -> new TrapdoorBlock(blockSetType, blockSettings.nonOpaque()));
+                if (blockID.contains("_stained") || blockID.contains("mushroom"))
+                    WOOD_BLOCKS.add(newBlock);
                 break;
             case "button":
                 newBlock = BLOCKS.register(blockID, () -> new ModWoodenButton(blockSettings, blockSetType));
+                if (blockID.contains("_stained") || blockID.contains("mushroom"))
+                    WOOD_BLOCKS.add(newBlock);
                 break;
             case "pressure_plate":
                 newBlock = BLOCKS.register(blockID, () -> new ModPressurePlate(blockSettings, blockSetType));
+                if (blockID.contains("_stained") || blockID.contains("mushroom"))
+                    WOOD_BLOCKS.add(newBlock);
                 break;
             case "torch":
                 if (particle == null)
@@ -146,22 +202,39 @@ public class BlockCreatorImpl {
                 break;
             case "torch_lever":
                 newBlock = BLOCKS.register(blockID, () -> new TorchLever(blockSettings.nonOpaque(), particle));
+                REDSTONE_BLOCKS.add(newBlock);
                 break;
             case "concrete_powder":
                 newBlock = BLOCKS.register(blockID, () -> new ConcretePowderBlock(BLOCKS.getRegistry().get().get(Identifier.of(modID, blockID.replace("_powder", ""))), blockSettings));
                 break;
             case "switchable_glass":
                 newBlock = BLOCKS.register(blockID, () -> new SwitchableGlass(blockSettings));
+                REDSTONE_BLOCKS.add(newBlock);
                 break;
             default:
                 LOGGER.error("{}created as a generic block, block provided{}", blockID, blockType);
                 newBlock = BLOCKS.register(blockID, () -> new Block(blockSettings));
                 break;
         }
-        if (!blockType.equals("sign"))
+        for (Block block : ModLists.getVanillaResourceBlocks()) {
+            if (blockID.contains(Registries.BLOCK.getId(block).getPath().replace("_block", "")) && !inGroup(newBlock))
+                RESOURCE_BLOCKS.add(newBlock);
+        }
+        if (blockID.contains("brick") && !inGroup(newBlock))
+            BRICK_BLOCKS.add(newBlock);
+        if (blockID.equals("dragon_stained_crafting_table")) WOOD_ICON = newBlock;
+        else if (blockID.equals("cut_emerald")) RESOURCE_ICON = newBlock;
+        else if (blockID.equals("cobblestone_bricks")) BRICK_ICON = newBlock;
+        else if (blockID.equals("chiseled_redstone_block")) REDSTONE_ICON = newBlock;
+        else if (blockID.equals("glowing_obsidian")) MISC_ICON = newBlock;
+        else if (blockID.contains("grass")) addGrassBlock(newBlock);
+        if (!blockType.equals("sign") && !blockType.equals("hanging_sign")) {
             addBlockItem(newBlock);
-        if (blockID.contains("grass")) addGrassBlock(newBlock);
-        else if (blockID.equals("cobblestone_bricks")) creativeTabIcon = newBlock;
+            if (!inGroup(newBlock)) {
+                MISC_BLOCKS.add(newBlock);
+            }
+        }
+
     }
 
     public static void addBlockItem(DeferredHolder<Block, ? extends Block> newBlock) {
@@ -169,26 +242,39 @@ public class BlockCreatorImpl {
     }
 
     public static void addSignItem(DeferredHolder<Block, ? extends Block> newBlock, DeferredHolder<Block, ? extends Block> wallSign) {
-        ALL_ITEMS.add(ITEMS.register(newBlock.getId().getPath(), () -> new SignItem(new Item.Settings().maxCount(16), newBlock.get(), wallSign.get())));
+        DeferredHolder<Item, SignItem> newItem = ITEMS.register(newBlock.getId().getPath(), () -> new SignItem(new Item.Settings().maxCount(16), newBlock.get(), wallSign.get()));
+        ALL_ITEMS.add(newItem);
+        WOOD_BLOCKS.add(newItem);
     }
 
     public static void addHangingSignItem(DeferredHolder<Block, ? extends Block> newBlock, DeferredHolder<Block, ? extends Block> wallSign) {
-        ALL_ITEMS.add(ITEMS.register(newBlock.getId().getPath(), () -> new HangingSignItem(newBlock.get(), wallSign.get(), new Item.Settings().maxCount(16))));
+        DeferredHolder<Item, HangingSignItem> newItem = ITEMS.register(newBlock.getId().getPath(), () -> new HangingSignItem(newBlock.get(), wallSign.get(), new Item.Settings().maxCount(16)));
+        ALL_ITEMS.add(newItem);
+        WOOD_BLOCKS.add(newItem);
     }
 
-    public static final Supplier<ItemGroup> PYRITE_GROUP = TABS.register(modID, () -> ItemGroup.builder()
+    public static boolean inGroup(Object obj) {
+        return WOOD_BLOCKS.contains(obj) || BRICK_BLOCKS.contains(obj) || RESOURCE_BLOCKS.contains(obj) || REDSTONE_BLOCKS.contains(obj) || MISC_BLOCKS.contains(obj);
+    }
+
+    public static void addItemGroup(String id, DeferredHolder<Block, ?> icon, ArrayList<DeferredHolder<?, ?>> blocks) {
+        Supplier<ItemGroup> PYRITE_GROUP = TABS.register(id, () -> ItemGroup.builder()
             //Set the title of the tab.
-            .displayName(Text.translatable("itemGroup." + modID + ".group"))
+            .displayName(Text.translatable("itemGroup." + modID + "." + id))
             //Set the icon of the tab.
-            .icon(() -> new ItemStack(creativeTabIcon.get()))
+            .icon(() -> new ItemStack(icon.get()))
             //Add your items to the tab.
-            .entries((params, output) -> {
-                for (DeferredHolder<Item, ?> item : ALL_ITEMS) {
-                    output.add(item.get());
+            .entries((params, entries) -> {
+                for (DeferredHolder<?, ?> obj : blocks) {
+                    if (obj.get() instanceof Block block)
+                        entries.add(block);
+                    else if (obj.get() instanceof Item item)
+                        entries.add(item);
                 }
             })
             .build()
     );
+    }
 
     /**
      * Implements {@link cc.cassian.pyrite.functions.BlockCreator#registerPyriteItem(String)} on NeoForge.
@@ -199,9 +285,16 @@ public class BlockCreatorImpl {
     }
 
     public static void register(IEventBus eventBus) {
+        // TODO - Add vanilla Concrete to Pyrite item group.
         BLOCKS.register(eventBus);
         ITEMS.register(eventBus);
         TABS.register(eventBus);
+        // Add item groups
+        addItemGroup("wood_group", WOOD_ICON, WOOD_BLOCKS);
+        addItemGroup("resource_group", RESOURCE_ICON, RESOURCE_BLOCKS);
+        addItemGroup("brick_group", BRICK_ICON, BRICK_BLOCKS);
+        addItemGroup("redstone_group", REDSTONE_ICON, REDSTONE_BLOCKS);
+        addItemGroup("pyrite_group", MISC_ICON, MISC_BLOCKS);
     }
 
     // Adds Pyrite's signs to the list of blockstates that the Sign block entities support.

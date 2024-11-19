@@ -139,7 +139,7 @@ public class BlockCreatorImpl {
                 BLOCK_IDS.add(blockID);
                 if (blockID.contains("mushroom"))
                     WOOD_BLOCKS.add(newBlock);
-                if (power == 15)
+                else if (power == 15)
                     REDSTONE_BLOCKS.add(newBlock);
                 break;
             case "facing":
@@ -161,8 +161,6 @@ public class BlockCreatorImpl {
                 newBlock = new ModPane(blockSettings, power);
                 BLOCKS.add(newBlock);
                 BLOCK_IDS.add(blockID);
-                if (power == 15)
-                    REDSTONE_BLOCKS.add(newBlock);
                 addTranslucentBlock();
                 break;
             case "glass":
