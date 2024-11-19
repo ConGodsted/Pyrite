@@ -1,6 +1,5 @@
 package cc.cassian.pyrite.blocks;
 
-import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.WallBlock;
 import net.minecraft.util.math.BlockPos;

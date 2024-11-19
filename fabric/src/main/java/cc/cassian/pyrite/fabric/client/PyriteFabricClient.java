@@ -13,17 +13,20 @@ import static cc.cassian.pyrite.functions.fabric.FabricHelpers.*;
 
 
 @Environment(EnvType.CLIENT)
-public class PyriteClient implements ClientModInitializer {
+public class PyriteFabricClient implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
-        for (Block grassBlock : grassBlocks) {
-            ColorProviderRegistry.BLOCK.register((state, view, pos, tintIndex) -> BiomeColors.getGrassColor(view, pos), grassBlock);
+        for (Block grassBlock : GRASS_BLOCKS) {
+            ColorProviderRegistry.BLOCK.register((state, view, pos, tintIndex) -> {
+                assert view != null;
+                return BiomeColors.getGrassColor(view, pos);
+            }, grassBlock);
             ColorProviderRegistry.ITEM.register((stack, tintIndex) -> 9551193, grassBlock);
         }
-        for (Block transparentBlock : transparentBlocks) {
+        for (Block transparentBlock : TRANSPARENT_BLOCKS) {
             BlockRenderLayerMap.INSTANCE.putBlock(transparentBlock, RenderLayer.getCutout());
         }
-        for (Block translucentBlock : translucentBlocks) {
+        for (Block translucentBlock : TRANSLUCENT_BLOCKS) {
             BlockRenderLayerMap.INSTANCE.putBlock(translucentBlock, RenderLayer.getTranslucent());
         }
 

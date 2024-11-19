@@ -8,19 +8,13 @@ import java.util.HashMap;
 
 
 public class NeoHelpers {
-    public static ArrayList<DeferredHolder<Block, ? extends Block>> transparentBlocks = new ArrayList<>();
-    public static ArrayList<DeferredHolder<Block, ? extends Block>> translucentBlocks = new ArrayList<>();
-    public static ArrayList<DeferredHolder<Block, ? extends Block>> grassBlocks = new ArrayList<>();
-    public static HashMap<DeferredHolder<Block, ? extends Block>, Integer> fuel = new HashMap<>();
 
-    public static void addTransparentBlock(DeferredHolder<Block, ? extends Block> newBlock) {
-        transparentBlocks.add(newBlock);
-    }
-    public static void addTranslucentBlock(DeferredHolder<Block, ? extends Block> newBlock) {
-        translucentBlocks.add(newBlock);
-    }
+    public static final ArrayList<DeferredHolder<Block, ? extends Block>> GRASS_BLOCKS = new ArrayList<>();
+    public static final HashMap<DeferredHolder<Block, ? extends Block>, Integer> FUEL_BLOCKS = new HashMap<>();
+    public static final HashMap<DeferredHolder<Block, ? extends Block>, Integer> FLAMMABLE_BLOCKS = new HashMap<>();
+
     public static void addGrassBlock(DeferredHolder<Block, ? extends Block> newBlock) {
-        grassBlocks.add(newBlock);
+        GRASS_BLOCKS.add(newBlock);
     }
 
 }

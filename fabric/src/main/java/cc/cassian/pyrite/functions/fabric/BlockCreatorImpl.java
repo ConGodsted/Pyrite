@@ -3,183 +3,223 @@ package cc.cassian.pyrite.functions.fabric;
 import cc.cassian.pyrite.blocks.*;
 import com.mojang.serialization.MapCodec;
 import net.fabricmc.fabric.api.object.builder.v1.block.type.WoodTypeBuilder;
+import net.fabricmc.fabric.api.registry.FlammableBlockRegistry;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.item.BlockItem;
+import net.minecraft.item.HangingSignItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.SignItem;
 import net.minecraft.particle.ParticleEffect;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
+import net.minecraft.util.Identifier;
 
 import java.util.ArrayList;
 
 import static cc.cassian.pyrite.Pyrite.LOGGER;
+import static cc.cassian.pyrite.Pyrite.modID;
 import static cc.cassian.pyrite.functions.ModHelpers.identifier;
 import static cc.cassian.pyrite.functions.fabric.FabricHelpers.*;
 
+@SuppressWarnings("unused")
 public class BlockCreatorImpl {
-    public static ArrayList<Block> pyriteBlocks = new ArrayList<>();
-    public static ArrayList<Block> pyriteItemlessBlocks = new ArrayList<>();
-    public static ArrayList<Item> pyriteItems = new ArrayList<>();
-    public static ArrayList<String> pyriteBlockIDs = new ArrayList<>();
-    public static ArrayList<String> pyriteItemlessBlockIDs = new ArrayList<>();
-    public static ArrayList<String> pyriteItemIDs = new ArrayList<>();
+    // All blocks and their IDs.
+    public static final ArrayList<Block> BLOCKS = new ArrayList<>();
+    public static final ArrayList<String> BLOCK_IDS = new ArrayList<>();
+    // All blocks without block items and their IDs.
+    public static final ArrayList<Block> BLOCKS_ITEMLESS = new ArrayList<>();
+    public static final ArrayList<String> BLOCK_IDS_ITEMLESS = new ArrayList<>();
+    // All items and their IDs.
+    public static final ArrayList<Item> ITEMS = new ArrayList<>();
+    public static final ArrayList<String> ITEM_IDS = new ArrayList<>();
 
-    @SuppressWarnings("unused")
+    /**
+     * Implements {@link cc.cassian.pyrite.functions.BlockCreator#createWoodType(String, BlockSetType)} on Fabric.
+     */
     public static WoodType createWoodType(String blockID, BlockSetType setType) {
         return WoodTypeBuilder.copyOf(WoodType.OAK).register(identifier(blockID), setType);
     }
 
-    @SuppressWarnings("unused")
+    /**
+     * Implements {@link cc.cassian.pyrite.functions.BlockCreator#platfomRegister(String, String, AbstractBlock.Settings, WoodType, BlockSetType, ParticleEffect, Block)} on Fabric.
+     */
     public static void platfomRegister(String blockID, String blockType, AbstractBlock.Settings blockSettings, WoodType woodType, BlockSetType blockSetType, ParticleEffect particle, Block copyBlock) {
         int power;
         if (blockID.contains("redstone")) power = 15;
         else power = 0;
         switch (blockType.toLowerCase()) {
             case "block":
-                pyriteBlocks.add(new ModBlock(blockSettings, power));
-                pyriteBlockIDs.add(blockID);
+                BLOCKS.add(new ModBlock(blockSettings, power));
+                BLOCK_IDS.add(blockID);
                 break;
             case "crafting":
-                pyriteBlocks.add(new ModCraftingTable(blockSettings));
-                pyriteBlockIDs.add(blockID);
+                AbstractBlock.Settings craftingSettings;
+                boolean burnable;
+                // If block is not composed of flammable wood, make it burnable.
                 if (!(blockID.contains("crimson") || blockID.contains("warped"))) {
-                    fuel.put(getLastBlock(), 300);
+                    craftingSettings = blockSettings.burnable();
+                    burnable = true;
                 }
+                else {
+                    craftingSettings = blockSettings;
+                    burnable = false;
+                }
+                // Register Crafting table.
+                ModCraftingTable block = new ModCraftingTable(craftingSettings);
+                BLOCKS.add(block);
+                BLOCK_IDS.add(blockID);
+                // If block is not composed of flammable wood, make it furnace fuel.
+                if (burnable)
+                    FUEL_BLOCKS.put(block, 300);
                 break;
             case "ladder":
-                pyriteBlocks.add(new LadderBlock(blockSettings));
-                pyriteBlockIDs.add(blockID);
+                BLOCKS.add(new LadderBlock(blockSettings));
+                BLOCK_IDS.add(blockID);
                 addTransparentBlock();
                 break;
             case "carpet":
-                pyriteBlocks.add(new ModCarpet(blockSettings));
-                pyriteBlockIDs.add(blockID);
+                BLOCKS.add(new ModCarpet(blockSettings));
+                BLOCK_IDS.add(blockID);
                 break;
             case "slab":
-                pyriteBlocks.add(new ModSlab(blockSettings, power));
-                pyriteBlockIDs.add(blockID);
+                BLOCKS.add(new ModSlab(blockSettings, power));
+                BLOCK_IDS.add(blockID);
                 break;
             case "stairs":
-                pyriteBlocks.add(new ModStairs(copyBlock.getDefaultState(), blockSettings));
-                pyriteBlockIDs.add(blockID);
+                BLOCKS.add(new ModStairs(copyBlock.getDefaultState(), blockSettings));
+                BLOCK_IDS.add(blockID);
                 break;
             case "wall":
-                pyriteBlocks.add(new ModWall(blockSettings, power));
-                pyriteBlockIDs.add(blockID);
+                BLOCKS.add(new ModWall(blockSettings, power));
+                BLOCK_IDS.add(blockID);
                 break;
             case "fence":
-                pyriteBlocks.add(new FenceBlock(blockSettings));
-                pyriteBlockIDs.add(blockID);
+                BLOCKS.add(new FenceBlock(blockSettings));
+                BLOCK_IDS.add(blockID);
                 break;
             case "log":
-                pyriteBlocks.add(new ModPillar(blockSettings, power));
-                pyriteBlockIDs.add(blockID);
+                BLOCKS.add(new ModPillar(blockSettings, power));
+                BLOCK_IDS.add(blockID);
                 break;
             case "facing":
-                pyriteBlocks.add(new ModFacingBlock(blockSettings, power));
-                pyriteBlockIDs.add(blockID);
+                BLOCKS.add(new ModFacingBlock(blockSettings, power));
+                BLOCK_IDS.add(blockID);
                 break;
             case "bars", "glass_pane":
-                pyriteBlocks.add(new ModPane(blockSettings, power));
-                pyriteBlockIDs.add(blockID);
+                BLOCKS.add(new ModPane(blockSettings, power));
+                BLOCK_IDS.add(blockID);
                 addTransparentBlock();
                 break;
             case "tinted_glass_pane":
-                pyriteBlocks.add(new ModPane(blockSettings, power));
-                pyriteBlockIDs.add(blockID);
+                BLOCKS.add(new ModPane(blockSettings, power));
+                BLOCK_IDS.add(blockID);
                 addTranslucentBlock();
                 break;
             case "glass":
-                pyriteBlocks.add(new ModGlass(blockSettings));
-                pyriteBlockIDs.add(blockID);
+                BLOCKS.add(new ModGlass(blockSettings));
+                BLOCK_IDS.add(blockID);
                 addTransparentBlock();
                 break;
             case "tinted_glass":
-                pyriteBlocks.add(new ModGlass(blockSettings));
-                pyriteBlockIDs.add(blockID);
+                BLOCKS.add(new ModGlass(blockSettings));
+                BLOCK_IDS.add(blockID);
                 addTranslucentBlock();
                 break;
             case "gravel":
-                pyriteBlocks.add(new FallingBlock(blockSettings) {
+                BLOCKS.add(new FallingBlock(blockSettings) {
                     @Override
                     protected MapCodec<? extends FallingBlock> getCodec() {
                         return null;
                     }
                 });
-                pyriteBlockIDs.add(blockID);
+                BLOCK_IDS.add(blockID);
                 break;
             case "flower":
-                pyriteBlocks.add(new FlowerBlock(StatusEffects.NIGHT_VISION, 5, blockSettings));
-                pyriteBlockIDs.add(blockID);
+                BLOCKS.add(new FlowerBlock(StatusEffects.NIGHT_VISION, 5, blockSettings));
+                BLOCK_IDS.add(blockID);
                 addTransparentBlock();
                 break;
             case "fence_gate", "wall_gate":
-                pyriteBlocks.add(new FenceGateBlock(woodType, blockSettings));
-                pyriteBlockIDs.add(blockID);
+                BLOCKS.add(new FenceGateBlock(woodType, blockSettings));
+                BLOCK_IDS.add(blockID);
                 break;
             case "sign":
                 //Sign Blocks
                 final SignBlock SIGN = new SignBlock(woodType, blockSettings);
-                pyriteItemlessBlocks.add(SIGN);
-                pyriteItemlessBlockIDs.add(blockID);
+                BLOCKS_ITEMLESS.add(SIGN);
+                BLOCK_IDS_ITEMLESS.add(blockID);
                 //Wall Sign Blocks
                 final WallSignBlock WALL_SIGN = new WallSignBlock(woodType, blockSettings);
-                pyriteItemlessBlocks.add(WALL_SIGN);
-                pyriteItemlessBlockIDs.add(blockID.replace("_sign", "_wall_sign"));
+                BLOCKS_ITEMLESS.add(WALL_SIGN);
+                BLOCK_IDS_ITEMLESS.add(blockID.replace("_sign", "_wall_sign"));
                 // Register item for signs.
-                pyriteItems.add(new SignItem(new Item.Settings().maxCount(16), SIGN, WALL_SIGN));
-                pyriteItemIDs.add(blockID);
+                ITEMS.add(new SignItem(new Item.Settings().maxCount(16), SIGN, WALL_SIGN));
+                ITEM_IDS.add(blockID);
                 BlockEntityType.SIGN.addSupportedBlock(SIGN);
                 BlockEntityType.SIGN.addSupportedBlock(WALL_SIGN);
                 break;
+            case "hanging_sign":
+                //Sign Blocks
+                final HangingSignBlock HANGING_SIGN = new HangingSignBlock(woodType, blockSettings);
+                BLOCKS_ITEMLESS.add(HANGING_SIGN);
+                BLOCK_IDS_ITEMLESS.add(blockID);
+                //Wall Sign Blocks
+                final WallHangingSignBlock HANGING_WALL_SIGN = new WallHangingSignBlock(woodType, blockSettings);
+                BLOCKS_ITEMLESS.add(HANGING_WALL_SIGN);
+                BLOCK_IDS_ITEMLESS.add(blockID.replace("_sign", "_wall_sign"));
+                // Register item for signs.
+                ITEMS.add(new HangingSignItem(HANGING_SIGN, HANGING_WALL_SIGN, new Item.Settings().maxCount(16)));
+                ITEM_IDS.add(blockID);
+                BlockEntityType.HANGING_SIGN.addSupportedBlock(HANGING_SIGN);
+                BlockEntityType.HANGING_SIGN.addSupportedBlock(HANGING_WALL_SIGN);
+                break;
             case "door":
-                pyriteBlocks.add(new DoorBlock(blockSetType, blockSettings.nonOpaque()));
-                pyriteBlockIDs.add(blockID);
+                BLOCKS.add(new DoorBlock(blockSetType, blockSettings.nonOpaque()));
+                BLOCK_IDS.add(blockID);
                 addTransparentBlock();
                 break;
             case "trapdoor":
-                pyriteBlocks.add(new TrapdoorBlock(blockSetType, blockSettings.nonOpaque()));
-                pyriteBlockIDs.add(blockID);
+                BLOCKS.add(new TrapdoorBlock(blockSetType, blockSettings.nonOpaque()));
+                BLOCK_IDS.add(blockID);
                 addTransparentBlock();
                 break;
             case "button":
-                pyriteBlocks.add(new ModWoodenButton(blockSettings, blockSetType));
-                pyriteBlockIDs.add(blockID);
+                BLOCKS.add(new ModWoodenButton(blockSettings, blockSetType));
+                BLOCK_IDS.add(blockID);
                 break;
             case "pressure_plate":
-                pyriteBlocks.add(new ModPressurePlate(blockSettings, blockSetType));
-                pyriteBlockIDs.add(blockID);
+                BLOCKS.add(new ModPressurePlate(blockSettings, blockSetType));
+                BLOCK_IDS.add(blockID);
                 break;
             case "torch":
                 if (particle == null)
-                    pyriteBlocks.add(new ModTorch(blockSettings.nonOpaque(), ParticleTypes.FLAME));
+                    BLOCKS.add(new ModTorch(blockSettings.nonOpaque(), ParticleTypes.FLAME));
                 else
-                    pyriteBlocks.add(new ModTorch(blockSettings.nonOpaque(), particle));
-                pyriteBlockIDs.add(blockID);
+                    BLOCKS.add(new ModTorch(blockSettings.nonOpaque(), particle));
+                BLOCK_IDS.add(blockID);
                 addTransparentBlock();
                 break;
             case "torch_lever":
-                pyriteBlocks.add(new TorchLever(blockSettings.nonOpaque(), particle));
-                pyriteBlockIDs.add(blockID);
+                BLOCKS.add(new TorchLever(blockSettings.nonOpaque(), particle));
+                BLOCK_IDS.add(blockID);
                 addTransparentBlock();
                 break;
             case "concrete_powder":
-                pyriteBlocks.add(new ConcretePowderBlock(getLastBlock(), blockSettings));
-                pyriteBlockIDs.add(blockID);
+                BLOCKS.add(new ConcretePowderBlock(getLastBlock(), blockSettings));
+                BLOCK_IDS.add(blockID);
                 break;
             case "switchable_glass":
-                pyriteBlocks.add(new SwitchableGlass(blockSettings));
-                pyriteBlockIDs.add(blockID);
+                BLOCKS.add(new SwitchableGlass(blockSettings));
+                BLOCK_IDS.add(blockID);
                 addTranslucentBlock();
                 break;
             default:
                 LOGGER.error("{}created as a generic block, block provided{}", blockID, blockType);
-                pyriteBlocks.add(new Block(blockSettings));
-                pyriteBlockIDs.add(blockID);
+                BLOCKS.add(new Block(blockSettings));
+                BLOCK_IDS.add(blockID);
                 break;
         }
         if (blockID.contains("grass")) {
@@ -187,32 +227,29 @@ public class BlockCreatorImpl {
         }
     }
 
-    //Create and add Pyrite items.
-    @SuppressWarnings("unused")
+    /**
+     * Implements {@link cc.cassian.pyrite.functions.BlockCreator#registerPyriteItem(String)} on Fabric.
+     * This registers a basic item with no additional settings - primarily used for Dye.
+     */
     public static void registerPyriteItem(String itemID) {
-        pyriteItems.add(new Item(new Item.Settings()));
-        pyriteItemIDs.add(itemID);
+        ITEMS.add(new Item(new Item.Settings()));
+        ITEM_IDS.add(itemID);
     }
 
-    @SuppressWarnings("unused")
     public static void register() {
         //Register blocks and block items.
-        for (int x = 0; x < pyriteBlockIDs.size(); x++) {
-            Registry.register(Registries.BLOCK, identifier(pyriteBlockIDs.get(x)), pyriteBlocks.get(x));
-            Registry.register(Registries.ITEM, identifier(pyriteBlockIDs.get(x)), new BlockItem(pyriteBlocks.get(x), new Item.Settings()));
+        for (int x = 0; x < BLOCK_IDS.size(); x++) {
+            Registry.register(Registries.BLOCK, identifier(BLOCK_IDS.get(x)), BLOCKS.get(x));
+            Registry.register(Registries.ITEM, identifier(BLOCK_IDS.get(x)), new BlockItem(BLOCKS.get(x), new Item.Settings()));
         }
         //Registers blocks without block items.
-        for (int x = 0; x < pyriteItemlessBlockIDs.size(); x++) {
-            Registry.register(Registries.BLOCK, identifier(pyriteItemlessBlockIDs.get(x)), pyriteItemlessBlocks.get(x));
+        for (int x = 0; x < BLOCK_IDS_ITEMLESS.size(); x++) {
+            Registry.register(Registries.BLOCK, identifier(BLOCK_IDS_ITEMLESS.get(x)), BLOCKS_ITEMLESS.get(x));
         }
         //Registers items.
-        for (int x = 0; x < pyriteItemIDs.size(); x++) {
-            Registry.register(Registries.ITEM, identifier(pyriteItemIDs.get(x)), pyriteItems.get(x));
+        for (int x = 0; x < ITEM_IDS.size(); x++) {
+            Registry.register(Registries.ITEM, identifier(ITEM_IDS.get(x)), ITEMS.get(x));
         }
-    }
-
-    public static BlockEntityType<ModHangingSign> registerHangingSignBlockEntity(Block sign, Block wall_sign) {
-        return BlockEntityType.Builder.create(ModHangingSign::new, sign, wall_sign).build();
-
+        Registry.register(Registries.ITEM_GROUP, Identifier.of(modID, "pyrite_group"), PYRITE_GROUP);
     }
 }

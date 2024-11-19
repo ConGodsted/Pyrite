@@ -103,7 +103,6 @@ public class BlockCreator {
     public static void createPyriteBlock(String blockID, String blockType, Block copyBlock, int lux) {
         AbstractBlock.Settings blockSettings = copyBlock(copyBlock).luminance(parseLux(lux));
         platfomRegister(blockID, blockType, blockSettings, null, null, null, null);
-
     }
 
     private static void sendToRegistry(String blockID, String blockType, AbstractBlock.Settings blockSettings) {
@@ -117,18 +116,19 @@ public class BlockCreator {
     //Add blocks with particles - Torches/Torch Levers
     private static void sendToRegistry(String blockID, String blockType, AbstractBlock.Settings blockSettings, ParticleEffect particle) {
         platfomRegister(blockID, blockType, blockSettings, null, null, particle, null);
-
     }
 
     //Create blocks that require a Block Set.
     public static void createPyriteBlock(String blockID, String blockType, Block copyBlock, BlockSetType set) {
         platfomRegister(blockID, blockType, copyBlock(copyBlock),  null, set, null, null);
-
     }
 
     //Create most of the generic Stained Blocks, then add them.
     public static void createPyriteBlock(String blockID, String blockType, Block copyBlock, MapColor color, int lux) {
         AbstractBlock.Settings blockSettings = copyBlock(copyBlock).mapColor(color).luminance(parseLux(lux));
+        if ((copyBlock.equals(Blocks.OAK_PLANKS)) || (copyBlock.equals(Blocks.OAK_SLAB) || (copyBlock.equals(Blocks.OAK_STAIRS)))) {
+            blockSettings = blockSettings.burnable();
+        }
         platfomRegister(blockID, blockType, blockSettings,  null, null, null, copyBlock);
     }
 
@@ -136,14 +136,15 @@ public class BlockCreator {
     public static void createPyriteBlock(String blockID, Block copyBlock) {
         AbstractBlock.Settings blockSettings = copyBlock(copyBlock);
         platfomRegister(blockID, "block", blockSettings,  null, null, null, null);
-
     }
 
     //Create Stained blocks that require a wood set or wood type, then add them.
     public static void createPyriteBlock(String blockID, String blockType, Block copyBlock, MapColor color, int lux, BlockSetType set, WoodType type) {
         AbstractBlock.Settings blockSettings = copyBlock(copyBlock).mapColor(color).luminance(parseLux(lux));
+        if (!blockType.equals("button")) {
+            blockSettings = blockSettings.burnable();
+        }
         platfomRegister(blockID, blockType, blockSettings,  type, set, null, null);
-
     }
 
     public static void generateFlowers() {
@@ -219,9 +220,6 @@ public class BlockCreator {
         createPyriteBlock( blockID+"_crafting_table", "crafting", Blocks.CRAFTING_TABLE, color, blockLux);
         createPyriteBlock( blockID+"_ladder", "ladder", Blocks.LADDER, color, blockLux);
         createPyriteBlock(blockID+"_sign", "sign", Blocks.OAK_SIGN, color, blockLux, GENERATED_SET, GENERATED_TYPE);
-
-
-
     }
 
     //Generate an entire Cut Block set.
@@ -288,7 +286,7 @@ public class BlockCreator {
                 createPyriteBlock(blockID+"_trapdoor","trapdoor", block, set);
             }
             //Create Plates for those that don't already exist (Iron and Gold)
-            if (!Objects.equals(blockID, "gold")) {
+            if (!blockID.equals("gold")) {
                 createPyriteBlock(blockID+"_pressure_plate","pressure_plate", block, set);
             }
         }

@@ -18,7 +18,7 @@
       "cc.cassian.pyrite.fabric.PyriteFabric"
     ],
     "client": [
-      "cc.cassian.pyrite.fabric.client.PyriteClient"
+      "cc.cassian.pyrite.fabric.client.PyriteFabricClient"
     ]
   },
   "depends": {
