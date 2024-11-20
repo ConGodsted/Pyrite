@@ -16,12 +16,7 @@ import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
 public class SwitchableGlass extends TransparentBlock {
-    public static final MapCodec<SwitchableGlass> CODEC = createCodec(SwitchableGlass::new);
     public static final BooleanProperty POWERED;
-
-    public MapCodec<SwitchableGlass> getCodec() {
-        return CODEC;
-    }
 
     public SwitchableGlass(Settings settings) {
         super(settings);
@@ -29,7 +24,7 @@ public class SwitchableGlass extends TransparentBlock {
 
     }
 
-    protected float getAmbientOcclusionLightLevel(BlockState state, BlockView world, BlockPos pos) {
+    public float getAmbientOcclusionLightLevel(BlockState state, BlockView world, BlockPos pos) {
         if (state.get(POWERED)) {
             return 0F;
         }
@@ -38,7 +33,7 @@ public class SwitchableGlass extends TransparentBlock {
         }
     }
 
-    protected int getOpacity(BlockState state, BlockView world, BlockPos pos) {
+    public int getOpacity(BlockState state, BlockView world, BlockPos pos) {
         if (state.get(POWERED)) {
             return world.getMaxLightLevel();
         }
@@ -50,7 +45,7 @@ public class SwitchableGlass extends TransparentBlock {
         return this.getDefaultState().with(POWERED, ctx.getWorld().isReceivingRedstonePower(ctx.getBlockPos()));
     }
 
-    protected void neighborUpdate(BlockState state, World world, BlockPos pos, Block sourceBlock, BlockPos sourcePos, boolean notify) {
+    public void neighborUpdate(BlockState state, World world, BlockPos pos, Block sourceBlock, BlockPos sourcePos, boolean notify) {
         if (!world.isClient) {
             boolean currentlyPowered = state.get(POWERED);
             if (currentlyPowered != world.isReceivingRedstonePower(pos)) {
@@ -63,7 +58,7 @@ public class SwitchableGlass extends TransparentBlock {
         }
     }
 
-    protected void scheduledTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
+    public void scheduledTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
         if (state.get(POWERED) && !world.isReceivingRedstonePower(pos)) {
             world.setBlockState(pos, state.cycle(POWERED), 2);
         }

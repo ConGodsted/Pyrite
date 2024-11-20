@@ -22,11 +22,6 @@ public class ModFacingBlock extends HorizontalFacingBlock {
 
     }
 
-    @Override
-    protected MapCodec<? extends HorizontalFacingBlock> getCodec() {
-        return null;
-    }
-
     public ModFacingBlock(Settings settings, int power) {
         super(settings);
         this.setDefaultState(this.stateManager.getDefaultState().with(FACING, Direction.NORTH));

@@ -29,7 +29,7 @@ public class FabricHelpers {
         TRANSLUCENT_BLOCKS.add(getLastBlock());
     }
     public static Block getLastBlock() {
-        return BLOCKS.getLast();
+        return BLOCKS.get(BLOCKS.size()-1);
     }
 
 

@@ -1,6 +1,7 @@
-package cc.cassian.pyrite.functions.neoforge;
+package cc.cassian.pyrite.functions.forge;
 
-import net.neoforged.fml.ModList;
+
+import net.minecraftforge.fml.ModList;
 
 @SuppressWarnings("unused")
 public class ModHelpersImpl {

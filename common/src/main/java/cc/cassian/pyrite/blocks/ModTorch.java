@@ -86,11 +86,6 @@ public class ModTorch extends WallMountedBlock {
         world.addParticle(particle, xPlus, yPlus, zPlus, 0.0, 0.0, 0.0);
     }
 
-    @Override
-    protected MapCodec<? extends WallMountedBlock> getCodec() {
-        return null;
-    }
-
     public boolean canPlaceAt(BlockState state, WorldView world, BlockPos pos) {
         return canPlaceAt(world, pos, getDirection(state).getOpposite());
     }

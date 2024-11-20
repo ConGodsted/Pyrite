@@ -1,57 +1,49 @@
-package cc.cassian.pyrite.functions.neoforge;
+package cc.cassian.pyrite.functions.forge;
 
 import cc.cassian.pyrite.blocks.*;
 import cc.cassian.pyrite.functions.ModLists;
-import com.mojang.serialization.MapCodec;
 import net.minecraft.block.*;
-import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.item.*;
 import net.minecraft.particle.ParticleEffect;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.registry.Registries;
-import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.text.Text;
-import net.minecraft.util.Identifier;
-import net.neoforged.bus.api.IEventBus;
-import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.neoforge.event.BlockEntityTypeAddBlocksEvent;
-import net.neoforged.neoforge.registries.DeferredHolder;
-import net.neoforged.neoforge.registries.DeferredRegister;
+import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.registries.DeferredRegister;
+import net.minecraftforge.registries.RegistryObject;
 
 import java.util.ArrayList;
-import java.util.Map;
 import java.util.Objects;
 import java.util.function.Supplier;
 
 import static cc.cassian.pyrite.Pyrite.LOGGER;
 import static cc.cassian.pyrite.Pyrite.modID;
 import static cc.cassian.pyrite.functions.ModHelpers.identifier;
-import static cc.cassian.pyrite.functions.ModLists.getDyes;
-import static cc.cassian.pyrite.functions.neoforge.NeoHelpers.*;
+import static cc.cassian.pyrite.functions.forge.ForgeHelpers.*;
 
 @SuppressWarnings("unused")
 public class BlockCreatorImpl {
     // Creative tab icon holders
-    public static DeferredHolder<Block, ?> WOOD_ICON;
-    public static DeferredHolder<Block, ?> RESOURCE_ICON;
-    public static DeferredHolder<Block, ?> REDSTONE_ICON;
-    public static DeferredHolder<Block, ?> BRICK_ICON;
-    public static DeferredHolder<Block, ?> MISC_ICON;
+    public static RegistryObject<Block> WOOD_ICON;
+    public static RegistryObject<Block> RESOURCE_ICON;
+    public static RegistryObject<Block> REDSTONE_ICON;
+    public static RegistryObject<Block> BRICK_ICON;
+    public static RegistryObject<Block> MISC_ICON;
     //Deferred registry entries
     public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(RegistryKeys.BLOCK, modID);
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(RegistryKeys.ITEM, modID);
     public static final DeferredRegister<ItemGroup> TABS = DeferredRegister.create(RegistryKeys.ITEM_GROUP, modID);
-    public static final ArrayList<DeferredHolder<Item, ?>> ALL_ITEMS = new ArrayList<>();
-    public static final ArrayList<DeferredHolder<Block, ?>> SIGN_BLOCKS = new ArrayList<>();
-    public static final ArrayList<DeferredHolder<Block, ?>> HANGING_SIGN_BLOCKS = new ArrayList<>();
+    public static final ArrayList<RegistryObject<Item>> ALL_ITEMS = new ArrayList<>();
+    public static final ArrayList<RegistryObject<Block>> SIGN_BLOCKS = new ArrayList<>();
+    public static final ArrayList<RegistryObject<Block>> HANGING_SIGN_BLOCKS = new ArrayList<>();
     // Sublists for Item Groups
-    public static final ArrayList<DeferredHolder<?, ?>> WOOD_BLOCKS = new ArrayList<>();
-    public static final ArrayList<DeferredHolder<?, ?>> RESOURCE_BLOCKS = new ArrayList<>();
-    public static final ArrayList<DeferredHolder<?, ?>> BRICK_BLOCKS = new ArrayList<>();
-    public static final ArrayList<DeferredHolder<?, ?>> REDSTONE_BLOCKS = new ArrayList<>();
-    public static final ArrayList<DeferredHolder<?, ?>> MISC_BLOCKS = new ArrayList<>();
+    public static final ArrayList<RegistryObject<?>> WOOD_BLOCKS = new ArrayList<>();
+    public static final ArrayList<RegistryObject<?>> RESOURCE_BLOCKS = new ArrayList<>();
+    public static final ArrayList<RegistryObject<?>> BRICK_BLOCKS = new ArrayList<>();
+    public static final ArrayList<RegistryObject<?>> REDSTONE_BLOCKS = new ArrayList<>();
+    public static final ArrayList<RegistryObject<?>> MISC_BLOCKS = new ArrayList<>();
     public static final ArrayList<Block> MISC_BLOCKS_UNSORTED = new ArrayList<>();
 
 
@@ -71,13 +63,13 @@ public class BlockCreatorImpl {
         int power;
         if (blockID.contains("redstone")) power = 15;
         else power = 0;
-        DeferredHolder<Block, ?> newBlock;
+        RegistryObject<Block> newBlock;
         switch (blockType.toLowerCase()) {
             case "block":
                 newBlock = BLOCKS.register(blockID, () -> new ModBlock(blockSettings, power));
                 if (power == 15)
                     if (blockID.equals("lit_redstone_lamp"))
-                        REDSTONE_BLOCKS.addFirst(newBlock);
+                        REDSTONE_BLOCKS.add(0, newBlock);
                     else
                         REDSTONE_BLOCKS.add(newBlock);
                 if (Objects.equals(copyBlock, Blocks.OAK_PLANKS))
@@ -145,42 +137,37 @@ public class BlockCreatorImpl {
                 newBlock = BLOCKS.register(blockID, () -> new ModGlass(blockSettings));
                 break;
             case "gravel":
-                newBlock = BLOCKS.register(blockID, () -> new FallingBlock(blockSettings) {
-                    @Override
-                    protected MapCodec<? extends FallingBlock> getCodec() {
-                        return null;
-                    }
-                });
+                newBlock = BLOCKS.register(blockID, () -> new FallingBlock(blockSettings));
                 break;
             case "flower":
                 newBlock = BLOCKS.register(blockID, () -> new FlowerBlock(StatusEffects.NIGHT_VISION, 5, blockSettings));
                 break;
             case "fence_gate", "wall_gate":
-                newBlock = BLOCKS.register(blockID, () -> new FenceGateBlock(woodType, blockSettings));
+                newBlock = BLOCKS.register(blockID, () -> new FenceGateBlock(blockSettings, woodType));
                 if (blockID.contains("_stained") || blockID.contains("mushroom"))
                     WOOD_BLOCKS.add(newBlock);
                 break;
             case "sign":
-                newBlock = BLOCKS.register(blockID, () -> new SignBlock(woodType, blockSettings));
-                DeferredHolder<Block, WallSignBlock> wallSign = BLOCKS.register(blockID.replace("_sign", "_wall_sign"), () -> new WallSignBlock(woodType, blockSettings));
+                newBlock = BLOCKS.register(blockID, () -> new SignBlock(blockSettings, woodType));
+                RegistryObject<Block> wallSign = BLOCKS.register(blockID.replace("_sign", "_wall_sign"), () -> new WallSignBlock(blockSettings, woodType));
                 SIGN_BLOCKS.add(newBlock);
                 SIGN_BLOCKS.add(wallSign);
                 addSignItem(newBlock, wallSign);
                 break;
             case "hanging_sign":
-                newBlock = BLOCKS.register(blockID, () -> new HangingSignBlock(woodType, blockSettings));
-                DeferredHolder<Block, WallHangingSignBlock> hangingWallSign = BLOCKS.register(blockID.replace("_sign", "_wall_sign"), () -> new WallHangingSignBlock(woodType, blockSettings));
+                newBlock = BLOCKS.register(blockID, () -> new HangingSignBlock(blockSettings, woodType));
+                RegistryObject<Block> hangingWallSign = BLOCKS.register(blockID.replace("_sign", "_wall_sign"), () -> new WallHangingSignBlock(blockSettings, woodType));
                 HANGING_SIGN_BLOCKS.add(newBlock);
                 HANGING_SIGN_BLOCKS.add(hangingWallSign);
                 addHangingSignItem(newBlock, hangingWallSign);
                 break;
             case "door":
-                newBlock = BLOCKS.register(blockID, () -> new DoorBlock(blockSetType, blockSettings.nonOpaque()));
+                newBlock = BLOCKS.register(blockID, () -> new DoorBlock(blockSettings.nonOpaque(), blockSetType));
                 if (blockID.contains("_stained") || blockID.contains("mushroom"))
                     WOOD_BLOCKS.add(newBlock);
                 break;
             case "trapdoor":
-                newBlock = BLOCKS.register(blockID, () -> new TrapdoorBlock(blockSetType, blockSettings.nonOpaque()));
+                newBlock = BLOCKS.register(blockID, () -> new TrapdoorBlock(blockSettings.nonOpaque(), blockSetType));
                 if (blockID.contains("_stained") || blockID.contains("mushroom"))
                     WOOD_BLOCKS.add(newBlock);
                 break;
@@ -205,7 +192,7 @@ public class BlockCreatorImpl {
                 REDSTONE_BLOCKS.add(newBlock);
                 break;
             case "concrete_powder":
-                newBlock = BLOCKS.register(blockID, () -> new ConcretePowderBlock(BLOCKS.getRegistry().get().get(Identifier.of(modID, blockID.replace("_powder", ""))), blockSettings));
+                newBlock = BLOCKS.register(blockID, () -> new ConcretePowderBlock((Block) MISC_BLOCKS.get(MISC_BLOCKS.size()-1).get(), blockSettings));
                 break;
             case "switchable_glass":
                 newBlock = BLOCKS.register(blockID, () -> new SwitchableGlass(blockSettings));
@@ -237,18 +224,18 @@ public class BlockCreatorImpl {
 
     }
 
-    public static void addBlockItem(DeferredHolder<Block, ? extends Block> newBlock) {
+    public static void addBlockItem(RegistryObject<Block> newBlock) {
         ALL_ITEMS.add(ITEMS.register(newBlock.getId().getPath(), () -> new BlockItem(newBlock.get(), new Item.Settings())));
     }
 
-    public static void addSignItem(DeferredHolder<Block, ? extends Block> newBlock, DeferredHolder<Block, ? extends Block> wallSign) {
-        DeferredHolder<Item, SignItem> newItem = ITEMS.register(newBlock.getId().getPath(), () -> new SignItem(new Item.Settings().maxCount(16), newBlock.get(), wallSign.get()));
+    public static void addSignItem(RegistryObject<Block> newBlock, RegistryObject<Block> wallSign) {
+        RegistryObject<Item> newItem = ITEMS.register(newBlock.getId().getPath(), () -> new SignItem(new Item.Settings().maxCount(16), newBlock.get(), wallSign.get()));
         ALL_ITEMS.add(newItem);
         WOOD_BLOCKS.add(newItem);
     }
 
-    public static void addHangingSignItem(DeferredHolder<Block, ? extends Block> newBlock, DeferredHolder<Block, ? extends Block> wallSign) {
-        DeferredHolder<Item, HangingSignItem> newItem = ITEMS.register(newBlock.getId().getPath(), () -> new HangingSignItem(newBlock.get(), wallSign.get(), new Item.Settings().maxCount(16)));
+    public static void addHangingSignItem(RegistryObject<Block> newBlock, RegistryObject<Block> wallSign) {
+        RegistryObject<Item> newItem = ITEMS.register(newBlock.getId().getPath(), () -> new HangingSignItem(newBlock.get(), wallSign.get(), new Item.Settings().maxCount(16)));
         ALL_ITEMS.add(newItem);
         WOOD_BLOCKS.add(newItem);
     }
@@ -257,7 +244,7 @@ public class BlockCreatorImpl {
         return WOOD_BLOCKS.contains(obj) || BRICK_BLOCKS.contains(obj) || RESOURCE_BLOCKS.contains(obj) || REDSTONE_BLOCKS.contains(obj) || MISC_BLOCKS.contains(obj);
     }
 
-    public static void addItemGroup(String id, DeferredHolder<Block, ?> icon, ArrayList<DeferredHolder<?, ?>> blocks) {
+    public static void addItemGroup(String id, RegistryObject<Block> icon, ArrayList<RegistryObject<?>> blocks) {
         Supplier<ItemGroup> PYRITE_GROUP = TABS.register(id, () -> ItemGroup.builder()
             //Set the title of the tab.
             .displayName(Text.translatable("itemGroup." + modID + "." + id))
@@ -265,7 +252,7 @@ public class BlockCreatorImpl {
             .icon(() -> new ItemStack(icon.get()))
             //Add your items to the tab.
             .entries((params, entries) -> {
-                for (DeferredHolder<?, ?> obj : blocks) {
+                for (RegistryObject<?> obj : blocks) {
                     if (obj.get() instanceof Block block)
                         entries.add(block);
                     else if (obj.get() instanceof Item item)
@@ -295,16 +282,5 @@ public class BlockCreatorImpl {
         addItemGroup("brick_group", BRICK_ICON, BRICK_BLOCKS);
         addItemGroup("redstone_group", REDSTONE_ICON, REDSTONE_BLOCKS);
         addItemGroup("pyrite_group", MISC_ICON, MISC_BLOCKS);
-    }
-
-    // Adds Pyrite's signs to the list of blockstates that the Sign block entities support.
-    @SubscribeEvent
-    public static void addSignsToSupports(BlockEntityTypeAddBlocksEvent event) {
-        for (DeferredHolder<Block, ?> sign : SIGN_BLOCKS) {
-            event.modify(BlockEntityType.SIGN, sign.get());
-        }
-        for (DeferredHolder<Block, ?> sign : HANGING_SIGN_BLOCKS) {
-            event.modify(BlockEntityType.HANGING_SIGN, sign.get());
-        }
     }
 }

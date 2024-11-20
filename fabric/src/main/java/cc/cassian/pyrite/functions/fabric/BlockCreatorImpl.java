@@ -65,7 +65,7 @@ public class BlockCreatorImpl {
                 BLOCK_IDS.add(blockID);
                 if (power == 15)
                     if (blockID.equals("lit_redstone_lamp"))
-                        REDSTONE_BLOCKS.addFirst(newBlock);
+                        REDSTONE_BLOCKS.add(0, newBlock);
                     else
                         REDSTONE_BLOCKS.add(newBlock);
                 if (Objects.equals(copyBlock, Blocks.OAK_PLANKS))
@@ -176,12 +176,7 @@ public class BlockCreatorImpl {
                 addTranslucentBlock();
                 break;
             case "gravel":
-                newBlock = new FallingBlock(blockSettings) {
-                    @Override
-                    protected MapCodec<? extends FallingBlock> getCodec() {
-                        return null;
-                    }
-                };
+                newBlock = new FallingBlock(blockSettings);
                 BLOCKS.add(newBlock);
                 BLOCK_IDS.add(blockID);
                 break;
@@ -192,7 +187,7 @@ public class BlockCreatorImpl {
                 addTransparentBlock();
                 break;
             case "fence_gate", "wall_gate":
-                newBlock = new FenceGateBlock(woodType, blockSettings);
+                newBlock = new FenceGateBlock(blockSettings, woodType);
                 BLOCKS.add(newBlock);
                 BLOCK_IDS.add(blockID);
                 if (blockID.contains("_stained") || blockID.contains("mushroom"))
@@ -200,11 +195,11 @@ public class BlockCreatorImpl {
                 break;
             case "sign":
                 //Sign Blocks
-                newBlock = new SignBlock(woodType, blockSettings);
+                newBlock = new SignBlock(blockSettings, woodType);
                 BLOCKS_ITEMLESS.add(newBlock);
                 BLOCK_IDS_ITEMLESS.add(blockID);
                 //Wall Sign Blocks
-                final WallSignBlock WALL_SIGN = new WallSignBlock(woodType, blockSettings);
+                final WallSignBlock WALL_SIGN = new WallSignBlock(blockSettings, woodType);
                 BLOCKS_ITEMLESS.add(WALL_SIGN);
                 BLOCK_IDS_ITEMLESS.add(blockID.replace("_sign", "_wall_sign"));
                 // Register item for signs.
@@ -212,16 +207,14 @@ public class BlockCreatorImpl {
                 ITEMS.add(SIGN_ITEM);
                 ITEM_IDS.add(blockID);
                 WOOD_BLOCKS.add(SIGN_ITEM);
-                BlockEntityType.SIGN.addSupportedBlock(newBlock);
-                BlockEntityType.SIGN.addSupportedBlock(WALL_SIGN);
                 break;
             case "hanging_sign":
                 //Sign Blocks
-                newBlock = new HangingSignBlock(woodType, blockSettings);
+                newBlock = new HangingSignBlock(blockSettings, woodType);
                 BLOCKS_ITEMLESS.add(newBlock);
                 BLOCK_IDS_ITEMLESS.add(blockID);
                 //Wall Sign Blocks
-                final WallHangingSignBlock HANGING_WALL_SIGN = new WallHangingSignBlock(woodType, blockSettings);
+                final WallHangingSignBlock HANGING_WALL_SIGN = new WallHangingSignBlock(blockSettings, woodType);
                 BLOCKS_ITEMLESS.add(HANGING_WALL_SIGN);
                 BLOCK_IDS_ITEMLESS.add(blockID.replace("_sign", "_wall_sign"));
                 // Register item for signs.
@@ -229,11 +222,9 @@ public class BlockCreatorImpl {
                 ITEMS.add(HANGING_SIGN_ITEM);
                 ITEM_IDS.add(blockID);
                 WOOD_BLOCKS.add(HANGING_SIGN_ITEM);
-                BlockEntityType.HANGING_SIGN.addSupportedBlock(newBlock);
-                BlockEntityType.HANGING_SIGN.addSupportedBlock(HANGING_WALL_SIGN);
                 break;
             case "door":
-                newBlock = new DoorBlock(blockSetType, blockSettings.nonOpaque());
+                newBlock = new DoorBlock(blockSettings.nonOpaque(), blockSetType);
                 BLOCKS.add(newBlock);
                 BLOCK_IDS.add(blockID);
                 addTransparentBlock();
@@ -241,7 +232,7 @@ public class BlockCreatorImpl {
                     WOOD_BLOCKS.add(newBlock);
                 break;
             case "trapdoor":
-                newBlock = new TrapdoorBlock(blockSetType, blockSettings.nonOpaque());
+                newBlock = new TrapdoorBlock(blockSettings.nonOpaque(), blockSetType);
                 BLOCKS.add(newBlock);
                 BLOCK_IDS.add(blockID);
                 addTransparentBlock();

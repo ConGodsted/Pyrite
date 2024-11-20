@@ -69,10 +69,7 @@ public class ModLists {
             Blocks.BLACKSTONE_WALL,
             Blocks.POLISHED_BLACKSTONE_WALL,
             Blocks.POLISHED_BLACKSTONE_BRICK_WALL,
-            Blocks.END_STONE_BRICK_WALL,
-            Blocks.POLISHED_TUFF_WALL,
-            Blocks.TUFF_BRICK_WALL,
-            Blocks.TUFF_WALL
+            Blocks.END_STONE_BRICK_WALL
     };
 
     final private static Block[] vanillaResourceBlocks = {
