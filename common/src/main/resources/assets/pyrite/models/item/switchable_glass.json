@@ -1,1 +1,1 @@
-{"parent":"pyrite:block/switchable_glass"}
+{"parent":"minecraft:item/generated","textures":{"layer0":"pyrite:block/switchable_glass"}}

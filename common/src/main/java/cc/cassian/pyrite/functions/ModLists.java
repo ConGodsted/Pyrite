@@ -43,7 +43,8 @@ public class ModLists {
             Blocks.CHERRY_PLANKS,
             Blocks.BAMBOO_PLANKS,
             Blocks.CRIMSON_PLANKS,
-            Blocks.WARPED_PLANKS
+            Blocks.WARPED_PLANKS,
+            Blocks.PALE_OAK_PLANKS
     };
 
     //List of Wall Blocks to generated Wall Gates for.
@@ -72,7 +73,8 @@ public class ModLists {
             Blocks.END_STONE_BRICK_WALL,
             Blocks.POLISHED_TUFF_WALL,
             Blocks.TUFF_BRICK_WALL,
-            Blocks.TUFF_WALL
+            Blocks.TUFF_WALL,
+            Blocks.RESIN_BRICK_WALL
     };
 
     final private static Block[] vanillaResourceBlocks = {

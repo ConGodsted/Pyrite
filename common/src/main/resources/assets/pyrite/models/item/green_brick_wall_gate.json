@@ -1,1 +1,1 @@
-{"parent":"pyrite:block/green_brick_wall_gate"}
+{"parent":"minecraft:item/generated","textures":{"layer0":"pyrite:block/green_brick_wall_gate"}}

@@ -1,1 +1,1 @@
-{"parent":"pyrite:block/nostalgia_grass_block"}
+{"parent":"minecraft:item/generated","textures":{"layer0":"pyrite:block/nostalgia_grass_block"}}

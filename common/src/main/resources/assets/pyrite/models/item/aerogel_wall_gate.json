@@ -1,1 +1,1 @@
-{"parent":"pyrite:block/aether/aerogel_wall_gate"}
+{"parent":"minecraft:item/generated","textures":{"layer0":"pyrite:block/aether/aerogel_wall_gate"}}

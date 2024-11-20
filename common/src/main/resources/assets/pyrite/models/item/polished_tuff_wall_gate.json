@@ -1,1 +1,1 @@
-{"parent":"pyrite:block/polished_tuff_wall_gate"}
+{"parent":"minecraft:item/generated","textures":{"layer0":"pyrite:block/polished_tuff_wall_gate"}}

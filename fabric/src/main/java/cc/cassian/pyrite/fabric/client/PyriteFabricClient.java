@@ -21,7 +21,6 @@ public class PyriteFabricClient implements ClientModInitializer {
                 assert view != null;
                 return BiomeColors.getGrassColor(view, pos);
             }, grassBlock);
-            ColorProviderRegistry.ITEM.register((stack, tintIndex) -> 9551193, grassBlock);
         }
         for (Block transparentBlock : TRANSPARENT_BLOCKS) {
             BlockRenderLayerMap.INSTANCE.putBlock(transparentBlock, RenderLayer.getCutout());
