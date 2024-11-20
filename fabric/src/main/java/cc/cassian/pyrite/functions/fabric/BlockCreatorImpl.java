@@ -209,7 +209,7 @@ public class BlockCreatorImpl {
                 BLOCKS_ITEMLESS.add(WALL_SIGN);
                 BLOCK_IDS_ITEMLESS.add(blockID.replace("_sign", "_wall_sign"));
                 // Register item for signs.
-                final Item SIGN_ITEM = new SignItem(newBlock, WALL_SIGN, newItemSettings(blockID).maxCount(16));
+                final Item SIGN_ITEM = new SignItem(newBlock, WALL_SIGN, newItemSettings(blockID).maxCount(16).useBlockPrefixedTranslationKey());
                 ITEMS.add(SIGN_ITEM);
                 ITEM_IDS.add(blockID);
                 WOOD_BLOCKS.add(SIGN_ITEM);
@@ -226,7 +226,7 @@ public class BlockCreatorImpl {
                 BLOCKS_ITEMLESS.add(HANGING_WALL_SIGN);
                 BLOCK_IDS_ITEMLESS.add(blockID.replace("_sign", "_wall_sign"));
                 // Register item for signs.
-                final Item HANGING_SIGN_ITEM = new HangingSignItem(newBlock, HANGING_WALL_SIGN, newItemSettings(blockID).maxCount(16));
+                final Item HANGING_SIGN_ITEM = new HangingSignItem(newBlock, HANGING_WALL_SIGN, newItemSettings(blockID).maxCount(16).useBlockPrefixedTranslationKey());
                 ITEMS.add(HANGING_SIGN_ITEM);
                 ITEM_IDS.add(blockID);
                 WOOD_BLOCKS.add(HANGING_SIGN_ITEM);
@@ -336,14 +336,6 @@ public class BlockCreatorImpl {
                 })
                 .build();
         Registry.register(Registries.ITEM_GROUP, Identifier.of(modID, id), group);
-    }
-
-    public static Item.Settings newItemSettings(String id) {
-        return new Item.Settings().registryKey(registryKeyItem(id));
-    }
-
-    public static Item.Settings newBlockItemSettings(String id) {
-        return newItemSettings(id).useBlockPrefixedTranslationKey();
     }
 
     public static void register() {

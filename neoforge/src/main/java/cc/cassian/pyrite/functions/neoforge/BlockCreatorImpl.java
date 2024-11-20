@@ -10,7 +10,6 @@ import net.minecraft.item.*;
 import net.minecraft.particle.ParticleEffect;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.registry.Registries;
-import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
@@ -21,14 +20,12 @@ import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
 import java.util.ArrayList;
-import java.util.Map;
 import java.util.Objects;
 import java.util.function.Supplier;
 
 import static cc.cassian.pyrite.Pyrite.LOGGER;
 import static cc.cassian.pyrite.Pyrite.modID;
-import static cc.cassian.pyrite.functions.ModHelpers.identifier;
-import static cc.cassian.pyrite.functions.ModLists.getDyes;
+import static cc.cassian.pyrite.functions.ModHelpers.*;
 import static cc.cassian.pyrite.functions.neoforge.NeoHelpers.*;
 
 @SuppressWarnings("unused")
@@ -67,11 +64,12 @@ public class BlockCreatorImpl {
     /**
      * Implements {@link cc.cassian.pyrite.functions.BlockCreator#platfomRegister(String, String, AbstractBlock.Settings, WoodType, BlockSetType, ParticleEffect, Block)} on NeoForge.
      */
-    public static void platfomRegister(String blockID, String blockType, AbstractBlock.Settings blockSettings, WoodType woodType, BlockSetType blockSetType, ParticleEffect particle, Block copyBlock) {
+    public static void platfomRegister(String blockID, String blockType, AbstractBlock.Settings settings, WoodType woodType, BlockSetType blockSetType, ParticleEffect particle, Block copyBlock) {
         int power;
         if (blockID.contains("redstone")) power = 15;
         else power = 0;
         DeferredHolder<Block, ?> newBlock;
+        AbstractBlock.Settings blockSettings = settings.registryKey(registryKeyBlock(blockID));
         switch (blockType.toLowerCase()) {
             case "block":
                 newBlock = BLOCKS.register(blockID, () -> new ModBlock(blockSettings, power));
@@ -229,7 +227,7 @@ public class BlockCreatorImpl {
         else if (blockID.equals("glowing_obsidian")) MISC_ICON = newBlock;
         else if (blockID.contains("grass")) addGrassBlock(newBlock);
         if (!blockType.equals("sign") && !blockType.equals("hanging_sign")) {
-            addBlockItem(newBlock);
+            addBlockItem(newBlock, blockID);
             if (!inGroup(newBlock)) {
                 MISC_BLOCKS.add(newBlock);
             }
@@ -237,18 +235,20 @@ public class BlockCreatorImpl {
 
     }
 
-    public static void addBlockItem(DeferredHolder<Block, ? extends Block> newBlock) {
-        ALL_ITEMS.add(ITEMS.register(newBlock.getId().getPath(), () -> new BlockItem(newBlock.get(), new Item.Settings())));
+    public static void addBlockItem(DeferredHolder<Block, ? extends Block> newBlock, String id) {
+        ALL_ITEMS.add(ITEMS.register(id, () -> new BlockItem(newBlock.get(), newBlockItemSettings(id))));
     }
 
     public static void addSignItem(DeferredHolder<Block, ? extends Block> newBlock, DeferredHolder<Block, ? extends Block> wallSign) {
-        DeferredHolder<Item, SignItem> newItem = ITEMS.register(newBlock.getId().getPath(), () -> new SignItem(new Item.Settings().maxCount(16), newBlock.get(), wallSign.get()));
+        var id = newBlock.getId().getPath();
+        DeferredHolder<Item, SignItem> newItem = ITEMS.register(id, () -> new SignItem(newBlock.get(), wallSign.get(), newBlockItemSettings(id).maxCount(16)));
         ALL_ITEMS.add(newItem);
         WOOD_BLOCKS.add(newItem);
     }
 
     public static void addHangingSignItem(DeferredHolder<Block, ? extends Block> newBlock, DeferredHolder<Block, ? extends Block> wallSign) {
-        DeferredHolder<Item, HangingSignItem> newItem = ITEMS.register(newBlock.getId().getPath(), () -> new HangingSignItem(newBlock.get(), wallSign.get(), new Item.Settings().maxCount(16)));
+        var id = newBlock.getId().getPath();
+        DeferredHolder<Item, HangingSignItem> newItem = ITEMS.register(id, () -> new HangingSignItem(newBlock.get(), wallSign.get(), newBlockItemSettings(id).maxCount(16)));
         ALL_ITEMS.add(newItem);
         WOOD_BLOCKS.add(newItem);
     }
@@ -281,7 +281,7 @@ public class BlockCreatorImpl {
      * This registers a basic item with no additional settings - primarily used for Dye.
      */
     public static void registerPyriteItem(String itemID) {
-        ALL_ITEMS.add(ITEMS.register(itemID, () -> (new Item(new Item.Settings()))));
+        ALL_ITEMS.add(ITEMS.register(itemID, () -> (new Item(newItemSettings(itemID)))));
     }
 
     public static void register(IEventBus eventBus) {
