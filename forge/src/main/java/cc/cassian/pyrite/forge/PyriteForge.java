@@ -12,7 +12,6 @@ import cc.cassian.pyrite.Pyrite;
 public final class PyriteForge {
     public PyriteForge() {
         // Submit our event bus to let Architectury API register our content on the right time.
-        EventBuses.registerModEventBus(Pyrite.modID, FMLJavaModLoadingContext.get().getModEventBus());
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
         // Run our common setup.
         Pyrite.init();
