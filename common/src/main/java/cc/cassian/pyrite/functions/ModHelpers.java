@@ -46,6 +46,14 @@ public class ModHelpers {
         return RegistryKey.of(RegistryKeys.ITEM, identifier(id));
     }
 
+    public static Item.Settings newItemSettings(String id) {
+        return new Item.Settings().registryKey(registryKeyItem(id));
+    }
+
+    public static Item.Settings newBlockItemSettings(String id) {
+        return newItemSettings(id).useBlockPrefixedTranslationKey();
+    }
+
     public static MapColor checkDyeMapColour(String dye) {
         return switch (dye) {
             case "glow" -> MapColor.CYAN;
