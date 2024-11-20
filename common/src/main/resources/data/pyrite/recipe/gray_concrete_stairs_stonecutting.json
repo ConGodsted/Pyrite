@@ -1,1 +1,1 @@
-{"type":"minecraft:stonecutting","result":{"id":"pyrite:gray_concrete_stairs","count":1},"ingredient":"minecraft:gray_concrete"}
+{"type":"minecraft:stonecutting","ingredient":"minecraft:gray_concrete","result":{"id":"pyrite:gray_concrete_stairs","count":1}}

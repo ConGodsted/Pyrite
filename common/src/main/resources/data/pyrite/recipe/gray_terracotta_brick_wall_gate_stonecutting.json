@@ -1,1 +1,1 @@
-{"type":"minecraft:stonecutting","result":{"id":"pyrite:gray_terracotta_brick_wall_gate","count":1},"ingredient":"pyrite:gray_terracotta_bricks"}
+{"type":"minecraft:stonecutting","ingredient":"pyrite:gray_terracotta_bricks","result":{"id":"pyrite:gray_terracotta_brick_wall_gate","count":1}}

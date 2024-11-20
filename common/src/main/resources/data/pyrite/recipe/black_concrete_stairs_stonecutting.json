@@ -1,1 +1,1 @@
-{"type":"minecraft:stonecutting","result":{"id":"pyrite:black_concrete_stairs","count":1},"ingredient":"minecraft:black_concrete"}
+{"type":"minecraft:stonecutting","ingredient":"minecraft:black_concrete","result":{"id":"pyrite:black_concrete_stairs","count":1}}

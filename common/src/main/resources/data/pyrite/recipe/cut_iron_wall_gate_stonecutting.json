@@ -1,1 +1,1 @@
-{"type":"minecraft:stonecutting","result":{"id":"pyrite:cut_iron_wall_gate","count":1},"ingredient":"pyrite:cut_iron"}
+{"type":"minecraft:stonecutting","ingredient":"pyrite:cut_iron","result":{"id":"pyrite:cut_iron_wall_gate","count":1}}

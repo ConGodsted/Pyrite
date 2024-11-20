@@ -1,1 +1,1 @@
-{"type":"minecraft:stonecutting","result":{"id":"pyrite:mud_brick_wall_gate","count":1},"ingredient":"minecraft:mud_bricks"}
+{"type":"minecraft:stonecutting","ingredient":"minecraft:mud_bricks","result":{"id":"pyrite:mud_brick_wall_gate","count":1}}

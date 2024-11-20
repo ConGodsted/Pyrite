@@ -1,1 +1,1 @@
-{"type":"minecraft:stonecutting","result":{"id":"pyrite:smooth_diamond","count":1},"ingredient":"minecraft:diamond_block"}
+{"type":"minecraft:stonecutting","ingredient":"minecraft:diamond_block","result":{"id":"pyrite:smooth_diamond","count":1}}

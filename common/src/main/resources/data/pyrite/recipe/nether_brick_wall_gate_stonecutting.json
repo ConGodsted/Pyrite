@@ -1,1 +1,1 @@
-{"type":"minecraft:stonecutting","result":{"id":"pyrite:nether_brick_wall_gate","count":1},"ingredient":"minecraft:nether_bricks"}
+{"type":"minecraft:stonecutting","ingredient":"minecraft:nether_bricks","result":{"id":"pyrite:nether_brick_wall_gate","count":1}}

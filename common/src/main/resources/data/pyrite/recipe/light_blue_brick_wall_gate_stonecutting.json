@@ -1,1 +1,1 @@
-{"type":"minecraft:stonecutting","result":{"id":"pyrite:light_blue_brick_wall_gate","count":1},"ingredient":"pyrite:light_blue_bricks"}
+{"type":"minecraft:stonecutting","ingredient":"pyrite:light_blue_bricks","result":{"id":"pyrite:light_blue_brick_wall_gate","count":1}}

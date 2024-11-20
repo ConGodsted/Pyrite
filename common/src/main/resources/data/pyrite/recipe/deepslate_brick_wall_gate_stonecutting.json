@@ -1,1 +1,1 @@
-{"type":"minecraft:stonecutting","result":{"id":"pyrite:deepslate_brick_wall_gate","count":1},"ingredient":"minecraft:deepslate_bricks"}
+{"type":"minecraft:stonecutting","ingredient":"minecraft:deepslate_bricks","result":{"id":"pyrite:deepslate_brick_wall_gate","count":1}}

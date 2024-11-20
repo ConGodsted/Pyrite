@@ -1,1 +1,1 @@
-{"type":"minecraft:stonecutting","result":{"id":"pyrite:red_concrete_slab","count":2},"ingredient":"minecraft:red_concrete"}
+{"type":"minecraft:stonecutting","ingredient":"minecraft:red_concrete","result":{"id":"pyrite:red_concrete_slab","count":2}}
