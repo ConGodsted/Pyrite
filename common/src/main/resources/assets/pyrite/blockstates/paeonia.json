@@ -1,7 +1,1 @@
-{
-    "variants": {
-      "": {
-        "model": "pyrite:block/paeonia"
-      }
-    }
-  }
+{"variants":{"":{"model":"pyrite:block/paeonia"}}}

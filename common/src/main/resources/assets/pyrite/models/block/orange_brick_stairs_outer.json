@@ -1,8 +1,1 @@
-{
-    "parent": "minecraft:block/outer_stairs",
-    "textures": {
-      "bottom": "pyrite:block/orange_bricks",
-      "top": "pyrite:block/orange_bricks",
-      "side": "pyrite:block/orange_bricks"
-    }
-  }
+{"parent":"minecraft:block/outer_stairs","textures":{"bottom":"pyrite:block/orange_bricks","top":"pyrite:block/orange_bricks","side":"pyrite:block/orange_bricks"}}

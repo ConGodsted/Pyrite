@@ -1,7 +1,1 @@
-{
-    "variants": {
-      "": {
-        "model": "pyrite:block/smooth_lapis"
-      }
-    }
-  }
+{"variants":{"":{"model":"pyrite:block/smooth_lapis"}}}

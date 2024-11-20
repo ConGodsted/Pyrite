@@ -1,4 +1,1 @@
-{
-        "parent": "pyrite:block/poisonous_torch_wall",
-        "render_type": "cutout"
-    }
+{"parent":"pyrite:block/poisonous_torch_wall","render_type":"cutout"}

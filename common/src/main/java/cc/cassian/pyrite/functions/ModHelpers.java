@@ -1,5 +1,7 @@
 package cc.cassian.pyrite.functions;
 
+import dev.architectury.injectables.annotations.ExpectPlatform;
+import net.minecraft.SharedConstants;
 import net.minecraft.block.*;
 import net.minecraft.particle.ParticleEffect;
 import net.minecraft.particle.ParticleTypes;
@@ -13,7 +15,6 @@ import java.util.Objects;
 import java.util.function.ToIntFunction;
 
 import static cc.cassian.pyrite.Pyrite.modID;
-import static java.lang.Integer.parseInt;
 
 
 public class ModHelpers {
@@ -68,20 +69,19 @@ public class ModHelpers {
         return platform.contains("fabric");
     }
 
-    public static boolean isTrialsOrLater(String platform) {
-        return ( getVersion(platform) > 3940);
+    public static boolean isPoisonousSnapshot() {
+        return (SharedConstants.getGameVersion().getName().contains("potato"));
     }
 
-    public static boolean isPoisonousSnapshot(String platform) {
-        return ( getVersion(platform) > 3824);
-    }
 
-    public static Integer getVersion(String platform) {
-        return parseInt(platform.substring(0, platform.indexOf("-")));
-    }
 
     public static @NotNull BlockSetType getBlockSetType(String blockID) {
         boolean openByHand = !Objects.equals(blockID, "emerald") && (!Objects.equals(blockID, "netherite") && (!Objects.equals(blockID, "diamond")));
-        return new BlockSetType(blockID, openByHand, BlockSoundGroup.METAL, SoundEvents.BLOCK_IRON_DOOR_CLOSE, SoundEvents.BLOCK_IRON_DOOR_OPEN, SoundEvents.BLOCK_IRON_TRAPDOOR_CLOSE, SoundEvents.BLOCK_IRON_TRAPDOOR_OPEN, SoundEvents.BLOCK_METAL_PRESSURE_PLATE_CLICK_OFF, SoundEvents.BLOCK_METAL_PRESSURE_PLATE_CLICK_ON, SoundEvents.BLOCK_STONE_BUTTON_CLICK_OFF, SoundEvents.BLOCK_STONE_BUTTON_CLICK_ON);
+        return new BlockSetType(blockID, openByHand, openByHand, openByHand, BlockSetType.ActivationRule.EVERYTHING, BlockSoundGroup.METAL, SoundEvents.BLOCK_IRON_DOOR_CLOSE, SoundEvents.BLOCK_IRON_TRAPDOOR_OPEN, SoundEvents.BLOCK_IRON_TRAPDOOR_CLOSE, SoundEvents.BLOCK_IRON_TRAPDOOR_OPEN, SoundEvents.BLOCK_METAL_PRESSURE_PLATE_CLICK_OFF, SoundEvents.BLOCK_METAL_PRESSURE_PLATE_CLICK_ON, SoundEvents.BLOCK_STONE_BUTTON_CLICK_OFF, SoundEvents.BLOCK_STONE_BUTTON_CLICK_ON);
+    }
+
+    @ExpectPlatform
+    public static boolean isModLoaded(String modID) {
+        throw new AssertionError();
     }
 }

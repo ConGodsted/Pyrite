@@ -1,8 +1,0 @@
-{
-    "type": "minecraft:stonecutting",
-    "ingredient": {
-      "item": "pyrite:smooth_weathered_copper"
-    },
-    "result": "pyrite:smooth_weathered_copper_wall_gate",
-    "count": 1
-  }

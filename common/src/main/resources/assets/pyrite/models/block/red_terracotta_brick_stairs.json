@@ -1,8 +1,1 @@
-{
-    "parent": "minecraft:block/stairs",
-    "textures": {
-      "bottom": "pyrite:block/red_terracotta_bricks",
-      "top": "pyrite:block/red_terracotta_bricks",
-      "side": "pyrite:block/red_terracotta_bricks"
-    }
-  }
+{"parent":"minecraft:block/stairs","textures":{"bottom":"pyrite:block/red_terracotta_bricks","top":"pyrite:block/red_terracotta_bricks","side":"pyrite:block/red_terracotta_bricks"}}

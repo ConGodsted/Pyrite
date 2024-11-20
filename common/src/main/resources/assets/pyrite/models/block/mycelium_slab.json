@@ -1,8 +1,1 @@
-{
-        "parent": "minecraft:block/slab",
-        "textures": {
-        "bottom": "minecraft:block/mycelium_top",
-        "top": "minecraft:block/mycelium_top",
-        "side": "minecraft:block/mycelium_top"
-        }
-    }
+{"parent":"minecraft:block/slab","textures":{"bottom":"minecraft:block/mycelium_top","top":"minecraft:block/mycelium_top","side":"minecraft:block/mycelium_top"}}

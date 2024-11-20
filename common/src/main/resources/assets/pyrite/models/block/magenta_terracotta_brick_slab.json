@@ -1,8 +1,1 @@
-{
-        "parent": "minecraft:block/slab",
-        "textures": {
-        "bottom": "pyrite:block/magenta_terracotta_bricks",
-        "top": "pyrite:block/magenta_terracotta_bricks",
-        "side": "pyrite:block/magenta_terracotta_bricks"
-        }
-    }
+{"parent":"minecraft:block/slab","textures":{"bottom":"pyrite:block/magenta_terracotta_bricks","top":"pyrite:block/magenta_terracotta_bricks","side":"pyrite:block/magenta_terracotta_bricks"}}

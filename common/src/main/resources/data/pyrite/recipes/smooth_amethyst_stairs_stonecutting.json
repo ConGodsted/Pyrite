@@ -1,8 +1,0 @@
-{
-    "type": "minecraft:stonecutting",
-    "ingredient": {
-      "item": "pyrite:smooth_amethyst"
-    },
-    "result": "pyrite:smooth_amethyst_stairs",
-    "count": 1
-  }

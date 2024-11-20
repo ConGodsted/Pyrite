@@ -1,8 +1,1 @@
-{
-    "parent": "minecraft:block/outer_stairs",
-    "textures": {
-      "bottom": "pyrite:block/red_stained_planks",
-      "top": "pyrite:block/red_stained_planks",
-      "side": "pyrite:block/red_stained_planks"
-    }
-  }
+{"parent":"minecraft:block/outer_stairs","textures":{"bottom":"pyrite:block/red_stained_planks","top":"pyrite:block/red_stained_planks","side":"pyrite:block/red_stained_planks"}}

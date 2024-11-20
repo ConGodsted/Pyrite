@@ -1,7 +1,1 @@
-{
-    "variants": {
-      "": {
-        "model": "pyrite:block/star_framed_glass"
-      }
-    }
-  }
+{"variants":{"":{"model":"pyrite:block/star_framed_glass"}}}

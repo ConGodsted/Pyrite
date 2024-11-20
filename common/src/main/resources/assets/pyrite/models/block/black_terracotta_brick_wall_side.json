@@ -1,6 +1,1 @@
-{
-    "parent": "minecraft:block/template_wall_side",
-    "textures": {
-      "wall": "pyrite:block/black_terracotta_bricks"
-    }
-  }
+{"parent":"minecraft:block/template_wall_side","textures":{"wall":"pyrite:block/black_terracotta_bricks"}}

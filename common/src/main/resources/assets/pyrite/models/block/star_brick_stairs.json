@@ -1,8 +1,1 @@
-{
-    "parent": "minecraft:block/stairs",
-    "textures": {
-      "bottom": "pyrite:block/star_bricks",
-      "top": "pyrite:block/star_bricks",
-      "side": "pyrite:block/star_bricks"
-    }
-  }
+{"parent":"minecraft:block/stairs","textures":{"bottom":"pyrite:block/star_bricks","top":"pyrite:block/star_bricks","side":"pyrite:block/star_bricks"}}

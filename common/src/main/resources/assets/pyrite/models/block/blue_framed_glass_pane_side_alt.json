@@ -1,8 +1,1 @@
-{
-    "parent": "minecraft:block/template_glass_pane_side_alt",
-    "textures": {
-      "pane": "pyrite:block/blue_framed_glass",
-      "edge": "pyrite:block/framed_glass_pane_top"
-    },
-    "render_type": "translucent"
-  }
+{"parent":"minecraft:block/template_glass_pane_side_alt","textures":{"pane":"pyrite:block/blue_framed_glass","edge":"pyrite:block/framed_glass_pane_top"},"render_type":"translucent"}

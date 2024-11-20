@@ -1,7 +1,1 @@
-{
-    "variants": {
-      "": {
-        "model": "pyrite:block/glow_bricks"
-      }
-    }
-  }
+{"variants":{"":{"model":"pyrite:block/glow_bricks"}}}

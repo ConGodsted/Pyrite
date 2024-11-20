@@ -1,7 +1,1 @@
-{
-    "variants": {
-      "": {
-        "model": "pyrite:block/glow_stained_planks"
-      }
-    }
-  }
+{"variants":{"":{"model":"pyrite:block/glow_stained_planks"}}}

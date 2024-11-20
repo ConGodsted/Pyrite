@@ -1,7 +1,1 @@
-{
-    "variants": {
-      "": {
-        "model": "pyrite:block/cut_redstone"
-      }
-    }
-  }
+{"variants":{"":{"model":"pyrite:block/cut_redstone"}}}

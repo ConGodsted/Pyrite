@@ -1,7 +1,1 @@
-{
-    "parent": "minecraft:block/cube_column",
-    "textures": {
-      "end": "pyrite:block/gold_pillar_top",
-      "side": "pyrite:block/gold_pillar"
-    }
-  }
+{"parent":"minecraft:block/cube_column","textures":{"end":"pyrite:block/gold_pillar_top","side":"pyrite:block/gold_pillar"}}

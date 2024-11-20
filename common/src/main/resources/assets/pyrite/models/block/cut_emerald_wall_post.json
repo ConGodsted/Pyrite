@@ -1,6 +1,1 @@
-{
-    "parent": "minecraft:block/template_wall_post",
-    "textures": {
-      "wall": "pyrite:block/cut_emerald"
-    }
-  }
+{"parent":"minecraft:block/template_wall_post","textures":{"wall":"pyrite:block/cut_emerald"}}
