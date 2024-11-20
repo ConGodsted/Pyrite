@@ -1,1 +1,1 @@
-{"parent":"minecraft:item/generated","textures":{"layer0":"minecraft:block/redstone_torch"}}
+{"model":{"type":"minecraft:model","model":"minecraft:item/redstone_torch"}}

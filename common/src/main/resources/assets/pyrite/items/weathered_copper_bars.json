@@ -1,1 +1,1 @@
-{"parent":"minecraft:item/generated","textures":{"layer0":"pyrite:block/weathered_copper_bars"}}
+{"model":{"type":"minecraft:model","model":"pyrite:item/weathered_copper_bars"}}

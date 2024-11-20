@@ -1,1 +1,1 @@
-{"parent":"minecraft:item/generated","textures":{"layer0":"pyrite:block/poisonous_stained_ladder"}}
+{"model":{"type":"minecraft:model","model":"pyrite:item/poisonous_stained_ladder"}}

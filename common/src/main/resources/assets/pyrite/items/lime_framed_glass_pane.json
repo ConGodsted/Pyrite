@@ -1,1 +1,1 @@
-{"parent":"minecraft:item/generated","textures":{"layer0":"pyrite:block/lime_framed_glass"}}
+{"model":{"type":"minecraft:model","model":"pyrite:item/lime_framed_glass"}}

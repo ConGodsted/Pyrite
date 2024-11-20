@@ -1,1 +1,1 @@
-{"parent":"minecraft:item/generated","textures":{"layer0":"minecraft:block/soul_torch"}}
+{"model":{"type":"minecraft:model","model":"minecraft:item/soul_torch"}}

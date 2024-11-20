@@ -1,1 +1,1 @@
-{"parent":"minecraft:item/generated","textures":{"layer0":"pyrite:block/blue_rose"}}
+{"model":{"type":"minecraft:model","model":"pyrite:item/blue_rose"}}

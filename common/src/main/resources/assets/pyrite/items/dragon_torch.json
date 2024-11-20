@@ -1,1 +1,1 @@
-{"parent":"minecraft:item/generated","textures":{"layer0":"pyrite:block/dragon_torch"}}
+{"model":{"type":"minecraft:model","model":"pyrite:item/dragon_torch"}}
