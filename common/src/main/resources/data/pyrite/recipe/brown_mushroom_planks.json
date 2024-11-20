@@ -1,1 +1,1 @@
-{"type":"minecraft:crafting_shapeless","ingredients":[{"item":"pyrite:brown_mushroom_stem"}],"result":{"id":"pyrite:brown_mushroom_planks","count":4}}
+{"type":"minecraft:crafting_shapeless","ingredients":["pyrite:brown_mushroom_stem"],"result":{"id":"pyrite:brown_mushroom_planks","count":4}}

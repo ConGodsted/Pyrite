@@ -1,1 +1,1 @@
-{"type":"minecraft:stonecutting","ingredient":{"item":"pyrite:light_gray_bricks"},"result":{"id":"pyrite:light_gray_brick_slab","count":2}}
+{"type":"minecraft:stonecutting","result":{"id":"pyrite:light_gray_brick_slab","count":2},"ingredient":"pyrite:light_gray_bricks"}

@@ -5,9 +5,7 @@
       "DD"
     ],
     "key": {
-      "D": {
-        "item": "minecraft:oak_planks"
-      }
+     "D": "minecraft:oak_planks"
     },
     "result": {
       "item": "minecraft:crafting_table",

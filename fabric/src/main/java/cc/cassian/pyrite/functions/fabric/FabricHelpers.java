@@ -1,10 +1,11 @@
 package cc.cassian.pyrite.functions.fabric;
 
-import net.fabricmc.fabric.api.registry.FuelRegistry;
+import net.fabricmc.fabric.api.registry.FuelRegistryEvents;
 import net.minecraft.block.Block;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 import static cc.cassian.pyrite.functions.fabric.BlockCreatorImpl.BLOCKS;
 
@@ -16,7 +17,11 @@ public class FabricHelpers {
     public static final HashMap<Block, Integer> FUEL_BLOCKS = new HashMap<>();
 
     public static void registerFuelBlocks() {
-        FUEL_BLOCKS.forEach(FuelRegistry.INSTANCE::add);
+        for (Map.Entry<Block, Integer> fuelBlock : FUEL_BLOCKS.entrySet()) {
+            FuelRegistryEvents.BUILD.register((builder, context) -> {
+                builder.add(fuelBlock.getKey(), fuelBlock.getValue());
+            });
+        }
     }
 
     public static void addGrassBlock() {

@@ -58,6 +58,7 @@ public class BlockCreatorImpl {
         if (blockID.contains("redstone")) power = 15;
         else power = 0;
         Block newBlock;
+        blockSettings = blockSettings.registryKey(registryKeyBlock(blockID));
         switch (blockType.toLowerCase()) {
             case "block":
                 newBlock = new ModBlock(blockSettings, power);
@@ -208,7 +209,7 @@ public class BlockCreatorImpl {
                 BLOCKS_ITEMLESS.add(WALL_SIGN);
                 BLOCK_IDS_ITEMLESS.add(blockID.replace("_sign", "_wall_sign"));
                 // Register item for signs.
-                final Item SIGN_ITEM = new SignItem(new Item.Settings().maxCount(16), newBlock, WALL_SIGN);
+                final Item SIGN_ITEM = new SignItem(newBlock, WALL_SIGN, newItemSettings(blockID).maxCount(16));
                 ITEMS.add(SIGN_ITEM);
                 ITEM_IDS.add(blockID);
                 WOOD_BLOCKS.add(SIGN_ITEM);
@@ -225,7 +226,7 @@ public class BlockCreatorImpl {
                 BLOCKS_ITEMLESS.add(HANGING_WALL_SIGN);
                 BLOCK_IDS_ITEMLESS.add(blockID.replace("_sign", "_wall_sign"));
                 // Register item for signs.
-                final Item HANGING_SIGN_ITEM = new HangingSignItem(newBlock, HANGING_WALL_SIGN, new Item.Settings().maxCount(16));
+                final Item HANGING_SIGN_ITEM = new HangingSignItem(newBlock, HANGING_WALL_SIGN, newItemSettings(blockID).maxCount(16));
                 ITEMS.add(HANGING_SIGN_ITEM);
                 ITEM_IDS.add(blockID);
                 WOOD_BLOCKS.add(HANGING_SIGN_ITEM);
@@ -313,7 +314,7 @@ public class BlockCreatorImpl {
      * This registers a basic item with no additional settings - primarily used for Dye.
      */
     public static void registerPyriteItem(String itemID) {
-        ITEMS.add(new Item(new Item.Settings()));
+        ITEMS.add(new Item(newItemSettings(itemID)));
         ITEM_IDS.add(itemID);
     }
 
@@ -337,13 +338,21 @@ public class BlockCreatorImpl {
         Registry.register(Registries.ITEM_GROUP, Identifier.of(modID, id), group);
     }
 
+    public static Item.Settings newItemSettings(String id) {
+        return new Item.Settings().registryKey(registryKeyItem(id));
+    }
+
+    public static Item.Settings newBlockItemSettings(String id) {
+        return newItemSettings(id).useBlockPrefixedTranslationKey();
+    }
+
     public static void register() {
         //Register blocks and block items.
         for (int x = 0; x < BLOCK_IDS.size(); x++) {
             final var block = BLOCKS.get(x);
             final var blockID = BLOCK_IDS.get(x);
             Registry.register(Registries.BLOCK, identifier(blockID), block);
-            Registry.register(Registries.ITEM, identifier(blockID), new BlockItem(block, new Item.Settings()));
+            Registry.register(Registries.ITEM, identifier(blockID), new BlockItem(block, newBlockItemSettings(blockID)));
             if (!inGroup(block))
                 MISC_BLOCKS.add(block);
         }

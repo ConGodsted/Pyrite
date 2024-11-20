@@ -3,8 +3,11 @@ package cc.cassian.pyrite.functions;
 import dev.architectury.injectables.annotations.ExpectPlatform;
 import net.minecraft.SharedConstants;
 import net.minecraft.block.*;
+import net.minecraft.item.Item;
 import net.minecraft.particle.ParticleEffect;
 import net.minecraft.particle.ParticleTypes;
+import net.minecraft.registry.RegistryKey;
+import net.minecraft.registry.RegistryKeys;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.DyeColor;
@@ -33,6 +36,14 @@ public class ModHelpers {
 
     public static Identifier identifier(String id) {
         return Identifier.of(modID, id);
+    }
+
+    public static RegistryKey<Block> registryKeyBlock(String id) {
+        return RegistryKey.of(RegistryKeys.BLOCK, identifier(id));
+    }
+
+    public static RegistryKey<Item> registryKeyItem(String id) {
+        return RegistryKey.of(RegistryKeys.ITEM, identifier(id));
     }
 
     public static MapColor checkDyeMapColour(String dye) {

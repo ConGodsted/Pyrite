@@ -1,1 +1,1 @@
-{"type":"minecraft:crafting_shapeless","ingredients":[{"item":"pyrite:nostalgia_dye"},{"item":"minecraft:gold_block"}],"result":{"id":"pyrite:nostalgia_gold_block","count":1}}
+{"type":"minecraft:crafting_shapeless","ingredients":["pyrite:nostalgia_dye","minecraft:gold_block"],"result":{"id":"pyrite:nostalgia_gold_block","count":1}}
