@@ -89,7 +89,7 @@ public class ModLists {
 
     };
 
-    public static Map<String, Block> turfSets = Map.of(
+    public static final Map<String, Block> turfSets = Map.of(
             "grass", Blocks.GRASS_BLOCK,
             "mycelium", Blocks.MYCELIUM,
             "podzol", Blocks.PODZOL,
@@ -97,14 +97,14 @@ public class ModLists {
             "nostalgia_grass", Blocks.GRASS_BLOCK
     );
 
-    public static Map<String, Block> nostalgiaBlocks = Map.of(
+    public static final Map<String, Block> nostalgiaBlocks = Map.of(
             "nostalgia_grass_block", Blocks.GRASS_BLOCK,
             "nostalgia_cobblestone", Blocks.COBBLESTONE,
             "nostalgia_mossy_cobblestone", Blocks.MOSSY_COBBLESTONE,
             "nostalgia_netherrack", Blocks.NETHERRACK
     );
 
-    public static Map<String, Block> flowers = Map.of(
+    public static final Map<String, Block> flowers = Map.of(
             "rose", Blocks.POPPY,
             "orange_rose", Blocks.POPPY,
             "white_rose", Blocks.POPPY,

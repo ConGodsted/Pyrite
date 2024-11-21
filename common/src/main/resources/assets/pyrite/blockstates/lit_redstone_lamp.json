@@ -1,7 +1,1 @@
-{
-    "variants": {
-      "": {
-        "model": "minecraft:block/redstone_lamp_on"
-      }
-    }
-  }
+{"variants":{"":{"model":"pyrite:block/lit_redstone_lamp"}}}

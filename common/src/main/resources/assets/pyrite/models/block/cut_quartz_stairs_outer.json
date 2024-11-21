@@ -1,8 +1,1 @@
-{
-    "parent": "minecraft:block/outer_stairs",
-    "textures": {
-      "bottom": "pyrite:block/cut_quartz",
-      "top": "pyrite:block/cut_quartz",
-      "side": "pyrite:block/cut_quartz"
-    }
-  }
+{"parent":"minecraft:block/outer_stairs","textures":{"bottom":"pyrite:block/cut_quartz","top":"pyrite:block/cut_quartz","side":"pyrite:block/cut_quartz"}}

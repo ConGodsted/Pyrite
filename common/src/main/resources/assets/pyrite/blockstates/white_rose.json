@@ -1,7 +1,1 @@
-{
-    "variants": {
-      "": {
-        "model": "pyrite:block/white_rose"
-      }
-    }
-  }
+{"variants":{"":{"model":"pyrite:block/white_rose"}}}

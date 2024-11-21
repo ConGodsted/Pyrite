@@ -1,7 +1,1 @@
-{
-    "parent": "minecraft:block/template_torch",
-    "textures": {
-      "torch": "pyrite:block/pink_torch"
-    },
-    "render_type": "cutout"
-  }
+{"parent":"minecraft:block/template_torch","textures":{"torch":"pyrite:block/pink_torch"},"render_type":"cutout"}

@@ -1,8 +1,1 @@
-{
-      "parent": "minecraft:block/inner_stairs",
-      "textures": {
-        "bottom": "pyrite:block/gray_bricks",
-        "top": "pyrite:block/gray_bricks",
-        "side": "pyrite:block/gray_bricks"
-      }
-  }
+{"parent":"minecraft:block/inner_stairs","textures":{"bottom":"pyrite:block/gray_bricks","top":"pyrite:block/gray_bricks","side":"pyrite:block/gray_bricks"}}

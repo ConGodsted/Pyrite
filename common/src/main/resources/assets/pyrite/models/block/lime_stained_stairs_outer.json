@@ -1,8 +1,1 @@
-{
-    "parent": "minecraft:block/outer_stairs",
-    "textures": {
-      "bottom": "pyrite:block/lime_stained_planks",
-      "top": "pyrite:block/lime_stained_planks",
-      "side": "pyrite:block/lime_stained_planks"
-    }
-  }
+{"parent":"minecraft:block/outer_stairs","textures":{"bottom":"pyrite:block/lime_stained_planks","top":"pyrite:block/lime_stained_planks","side":"pyrite:block/lime_stained_planks"}}

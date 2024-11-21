@@ -1,5 +1,6 @@
 package cc.cassian.pyrite.forge;
 
+import cc.cassian.pyrite.functions.forge.BlockCreatorImpl;
 import dev.architectury.platform.forge.EventBuses;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -17,6 +18,7 @@ public final class PyriteForge {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
         // Run our common setup.
         Pyrite.init();
+        BlockCreatorImpl.register(modEventBus);
         if (FMLEnvironment.dist == Dist.CLIENT) {
             modEventBus.addListener(PyriteClient::registerBlockColors);
             modEventBus.addListener(PyriteClient::registerItemColorHandlers);

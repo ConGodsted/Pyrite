@@ -1,8 +1,1 @@
-{
-      "parent": "minecraft:block/inner_stairs",
-      "textures": {
-        "bottom": "pyrite:block/nostalgia_grass_block_top",
-        "top": "pyrite:block/nostalgia_grass_block_top",
-        "side": "pyrite:block/nostalgia_grass_block_top"
-      }
-  }
+{"parent":"minecraft:block/inner_stairs","textures":{"bottom":"pyrite:block/nostalgia_grass_block_top","top":"pyrite:block/nostalgia_grass_block_top","side":"pyrite:block/nostalgia_grass_block_top"}}

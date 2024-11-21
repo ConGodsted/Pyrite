@@ -1,3 +1,1 @@
-{
-        "parent": "pyrite:block/copper_button_inventory"
-      }
+{"parent":"pyrite:block/copper_button_inventory"}

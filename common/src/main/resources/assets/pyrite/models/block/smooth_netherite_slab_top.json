@@ -1,8 +1,1 @@
-{
-        "parent": "minecraft:block/slab_top",
-        "textures": {
-        "bottom": "pyrite:block/smooth_netherite",
-        "top": "pyrite:block/smooth_netherite",
-        "side": "pyrite:block/smooth_netherite"
-        }
-    }
+{"parent":"minecraft:block/slab_top","textures":{"bottom":"pyrite:block/smooth_netherite","top":"pyrite:block/smooth_netherite","side":"pyrite:block/smooth_netherite"}}

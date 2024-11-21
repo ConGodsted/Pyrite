@@ -1,8 +1,1 @@
-{
-      "parent": "minecraft:block/inner_stairs",
-      "textures": {
-        "bottom": "pyrite:block/charred_nether_bricks",
-        "top": "pyrite:block/charred_nether_bricks",
-        "side": "pyrite:block/charred_nether_bricks"
-      }
-  }
+{"parent":"minecraft:block/inner_stairs","textures":{"bottom":"pyrite:block/charred_nether_bricks","top":"pyrite:block/charred_nether_bricks","side":"pyrite:block/charred_nether_bricks"}}

@@ -1,7 +1,1 @@
-{
-    "variants": {
-      "": {
-        "model": "pyrite:block/netherite_bricks"
-      }
-    }
-  }
+{"variants":{"":{"model":"pyrite:block/netherite_bricks"}}}

@@ -1,7 +1,1 @@
-{
-    "variants": {
-      "": {
-        "model": "pyrite:block/glow_wool"
-      }
-    }
-  }
+{"variants":{"":{"model":"pyrite:block/glow_wool"}}}

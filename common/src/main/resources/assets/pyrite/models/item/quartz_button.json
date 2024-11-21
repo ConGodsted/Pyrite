@@ -1,3 +1,1 @@
-{
-        "parent": "pyrite:block/quartz_button_inventory"
-      }
+{"parent":"pyrite:block/quartz_button_inventory"}

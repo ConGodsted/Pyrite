@@ -1,8 +1,1 @@
-{
-        "parent": "minecraft:block/slab",
-        "textures": {
-        "bottom": "pyrite:block/honey_bricks",
-        "top": "pyrite:block/honey_bricks",
-        "side": "pyrite:block/honey_bricks"
-        }
-    }
+{"parent":"minecraft:block/slab","textures":{"bottom":"pyrite:block/honey_bricks","top":"pyrite:block/honey_bricks","side":"pyrite:block/honey_bricks"}}
