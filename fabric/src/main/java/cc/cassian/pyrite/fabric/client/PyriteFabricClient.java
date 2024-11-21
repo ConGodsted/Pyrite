@@ -1,6 +1,5 @@
 package cc.cassian.pyrite.fabric.client;
 
-import dev.architectury.registry.registries.RegistrySupplier;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -10,8 +9,7 @@ import net.minecraft.block.*;
 import net.minecraft.client.color.world.BiomeColors;
 import net.minecraft.client.render.RenderLayer;
 
-import static cc.cassian.pyrite.functions.architectury.ArchitecturyHelpers.grassBlocks;
-import static cc.cassian.pyrite.functions.architectury.ArchitecturyHelpers.transparentBlocks;
+import static cc.cassian.pyrite.functions.fabric.FabricHelpers.*;
 
 
 @Environment(EnvType.CLIENT)

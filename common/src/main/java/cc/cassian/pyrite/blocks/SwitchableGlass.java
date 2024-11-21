@@ -50,7 +50,7 @@ public class SwitchableGlass extends TransparentBlock {
             boolean currentlyPowered = state.get(POWERED);
             if (currentlyPowered != world.isReceivingRedstonePower(pos)) {
                 if (currentlyPowered) {
-                    world.scheduleBlockTick(pos, this, 4);
+                    world.createAndScheduleBlockTick(pos, this, 4);
                 } else {
                     world.setBlockState(pos, state.cycle(POWERED), 2);
                 }

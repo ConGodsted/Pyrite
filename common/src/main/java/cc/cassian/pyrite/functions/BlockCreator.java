@@ -1,158 +1,33 @@
 package cc.cassian.pyrite.functions;
 
-import cc.cassian.pyrite.blocks.*;
-import dev.architectury.registry.CreativeTabRegistry;
-import dev.architectury.registry.registries.DeferredRegister;
-import dev.architectury.registry.registries.RegistrySupplier;
+import dev.architectury.injectables.annotations.ExpectPlatform;
 import net.minecraft.block.*;
-import net.minecraft.entity.effect.StatusEffects;
-import net.minecraft.item.BlockItem;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemGroup;
-import net.minecraft.item.ItemStack;
 import net.minecraft.particle.ParticleEffect;
 import java.util.Map;
 import java.util.Objects;
 
-import static cc.cassian.pyrite.Pyrite.LOGGER;
-import static cc.cassian.pyrite.Pyrite.modID;
 import static cc.cassian.pyrite.functions.ModHelpers.*;
 import static cc.cassian.pyrite.functions.ModLists.*;
-import static cc.cassian.pyrite.functions.architectury.ArchitecturyHelpers.*;
-import static cc.cassian.pyrite.functions.architectury.ArchitecturyHelpers.newItem;
 
 public class BlockCreator {
     final static Block[] vanillaWood = getVanillaWood();
     final static Block[] resource_blocks = getVanillaResourceBlocks();
 
-    public static RegistrySupplier<Block> creativeTabIcon;
-    //Deferred registry entries
-    public static final DeferredRegister<Block> pyriteBlocks = DeferredRegister.create(modID, Registry.BLOCK_KEY);
-    public static final DeferredRegister<Item> pyriteItems = DeferredRegister.create(modID, Registry.ITEM_KEY);
-
-    @SuppressWarnings("unused")
-    public static void platfomRegister(String blockID, String blockType, AbstractBlock.Settings blockSettings, ParticleEffect particle, Block copyBlock) {
-        int power;
-        if (blockID.contains("redstone")) power = 15;
-        else power = 0;
-        RegistrySupplier<Block> newBlock = null;
-        switch (blockType.toLowerCase()) {
-            case "block":
-                newBlock = pyriteBlocks.register(blockID, () -> new ModBlock(blockSettings, power));
-                break;
-            case "crafting":
-                newBlock = pyriteBlocks.register(blockID, () -> new ModCraftingTable(blockSettings));
-                if (!(blockID.contains("crimson") || blockID.contains("warped"))) {
-                    fuel.put(newBlock, 300);
-                }
-                break;
-            case "ladder":
-                newBlock = pyriteBlocks.register(blockID, () -> new LadderBlock(blockSettings));
-                addTransparentBlock(newBlock);
-                break;
-            case "carpet":
-                newBlock = pyriteBlocks.register(blockID, () -> new ModCarpet(blockSettings));
-                break;
-            case "slab":
-                newBlock = pyriteBlocks.register(blockID, () -> new ModSlab(blockSettings, power));
-                break;
-            case "stairs":
-                newBlock = pyriteBlocks.register(blockID, () -> new ModStairs(copyBlock.getDefaultState(), blockSettings));
-                break;
-            case "wall":
-                newBlock = pyriteBlocks.register(blockID, () -> new ModWall(blockSettings, power));
-                break;
-            case "fence":
-                newBlock = pyriteBlocks.register(blockID, () -> new FenceBlock(blockSettings));
-                break;
-            case "fence_gate", "wall_gate":
-                newBlock = pyriteBlocks.register(blockID, () -> new FenceGateBlock(blockSettings));
-                break;
-            case "log":
-                newBlock = pyriteBlocks.register(blockID, () -> new ModPillar(blockSettings, power));
-                break;
-            case "facing":
-                newBlock = pyriteBlocks.register(blockID, () -> new ModFacingBlock(blockSettings, power));
-                break;
-            case "bars", "glass_pane":
-                newBlock = pyriteBlocks.register(blockID, () -> new ModPane(blockSettings, power));
-                addTransparentBlock(newBlock);
-                break;
-            case "tinted_glass_pane":
-                newBlock = pyriteBlocks.register(blockID, () -> new ModPane(blockSettings, power));
-                addTranslucentBlock(newBlock);
-                break;
-            case "glass":
-                newBlock = pyriteBlocks.register(blockID, () -> new ModGlass(blockSettings));
-                addTransparentBlock(newBlock);
-                break;
-            case "tinted_glass":
-                newBlock = pyriteBlocks.register(blockID, () -> new ModGlass(blockSettings));
-                break;
-            case "gravel":
-                newBlock = pyriteBlocks.register(blockID, () -> new GravelBlock(blockSettings));
-                break;
-            case "flower":
-                newBlock = pyriteBlocks.register(blockID, () -> new FlowerBlock(StatusEffects.NIGHT_VISION, 5, blockSettings));
-                addTransparentBlock(newBlock);
-                break;
-            case "sign":
-//                newBlock = pyriteBlocks.register(blockID, () -> new SignBlock(blockSettings, woodType));
-                break;
-            case "door":
-                newBlock = pyriteBlocks.register(blockID, () -> new DoorBlock(blockSettings.nonOpaque()));
-                addTransparentBlock(newBlock);
-                break;
-            case "trapdoor":
-                newBlock = pyriteBlocks.register(blockID, () -> new TrapdoorBlock(blockSettings.nonOpaque()));
-                addTransparentBlock(newBlock);
-                break;
-            case "button":
-                newBlock = pyriteBlocks.register(blockID, () -> new ModWoodenButton(blockSettings));
-                break;
-            case "pressure_plate":
-                newBlock = pyriteBlocks.register(blockID, () -> new ModPressurePlate(blockSettings));
-                break;
-            case "torch":
-                if (particle == null)
-                    newBlock = pyriteBlocks.register(blockID, () -> new ModTorch(blockSettings.nonOpaque(), ParticleTypes.FLAME));
-                else
-                    newBlock = pyriteBlocks.register(blockID, () -> new ModTorch(blockSettings.nonOpaque(), particle));
-                addTransparentBlock(newBlock);
-                break;
-            case "torch_lever":
-                newBlock = pyriteBlocks.register(blockID, () -> new TorchLever(blockSettings.nonOpaque(), particle));
-                addTransparentBlock(newBlock);
-                break;
-            default:
-                LOGGER.error("{}created as a generic block, block provided{}", blockID, blockType);
-                newBlock = pyriteBlocks.register(blockID, () -> new Block(blockSettings));
-                break;
-        }
-        addBlockItem(newBlock);
-        if (blockID.contains("grass")) addGrassBlock(newBlock);
-        else if (blockID.equals("cobblestone_bricks")) creativeTabIcon = newBlock;
+    @ExpectPlatform
+    public static void platfomRegister(String blockID, String blockType, AbstractBlock.Settings blockSettings, String type, String blockSetType, ParticleEffect particle, Block copyBlock) {
+        throw new AssertionError();
     }
-
-    public static void addBlockItem(RegistrySupplier<Block> newBlock) {
-        pyriteItems.register(newBlock.getId(), () -> new BlockItem(newBlock.get(), newItem(PYRITE_GROUP)));
-    }
-    public static final ItemGroup PYRITE_GROUP = CreativeTabRegistry.create(
-            Identifier.of("pyrite", "group"), // Tab ID
-            () -> new ItemStack(creativeTabIcon.get()) // Icon
-    );
-
 
     //Create and add Pyrite items.
-    @SuppressWarnings("unused")
+    @ExpectPlatform
     public static void registerPyriteItem(String itemID) {
-        pyriteItems.register(itemID, () -> (new Item(newItem(PYRITE_GROUP))));
+        throw new AssertionError();
     }
 
-    @SuppressWarnings("unused")
+    //Create and add Pyrite items.
+    @ExpectPlatform
     public static void register() {
-        pyriteBlocks.register();
-        pyriteItems.register();
+        throw new AssertionError();
     }
 
     public static void generateResourceBlocks() {
@@ -190,7 +65,12 @@ public class BlockCreator {
 
     //Primarily used for Framed Glass, Glowstone/Dyed Lamps, Glowing Obsidian
     public static void createPyriteBlock(String blockID, String blockType, Float strength, MapColor color, int lightLevel) {
-        AbstractBlock.Settings settings = AbstractBlock.Settings.of(Material.GLASS).strength(strength).luminance(state -> lightLevel).mapColor(color);
+        AbstractBlock.Settings settings;
+        if (blockID.contains("obsidian")) {
+            settings = AbstractBlock.Settings.copy(Blocks.OBSIDIAN);
+        }
+        else settings = AbstractBlock.Settings.of(Material.GLASS);
+        settings = settings.strength(strength).luminance(state -> lightLevel).mapColor(color);
         if (Objects.equals(blockType, "obsidian")) {
             sendToRegistry(blockID, "block", settings.strength(strength, 1200f));
         }
@@ -207,7 +87,7 @@ public class BlockCreator {
 
     //Create and then add most of the manually generated blocks.
     public static void createPyriteBlock(String blockID, String blockType, Block copyBlock) {
-        platfomRegister(blockID, blockType, copyBlock(copyBlock), null, copyBlock);
+        platfomRegister(blockID, blockType, copyBlock(copyBlock), "WoodType.CRIMSON", "BlockSetType.IRON", null, copyBlock);
     }
 
     //Create a slab from the last block added.
@@ -229,29 +109,26 @@ public class BlockCreator {
     }
 
     private static void sendToRegistry(String blockID, String blockType, AbstractBlock.Settings blockSettings) {
-        platfomRegister(blockID, blockType, blockSettings, null, null);
+        platfomRegister(blockID, blockType, blockSettings, null, null, null, null);
 
     }
     private static void sendToRegistry(String blockID, Block copyBlock, AbstractBlock.Settings blockSettings) {
-        platfomRegister(blockID, "stairs", blockSettings, null, copyBlock);
+        platfomRegister(blockID, "stairs", blockSettings,  null, null, null, copyBlock);
     }
-    
+
     //Add blocks with particles - Torches/Torch Levers
     private static void sendToRegistry(String blockID, String blockType, AbstractBlock.Settings blockSettings, ParticleEffect particle) {
         platfomRegister(blockID, blockType, blockSettings, null, null, particle, null);
     }
 
     //Create blocks that require a Block Set.
-    public static void createPyriteBlock(String blockID, String blockType, Block copyBlock, BlockSetType set) {
+    public static void createPyriteBlock(String blockID, String blockType, Block copyBlock, String set) {
         platfomRegister(blockID, blockType, copyBlock(copyBlock),  null, set, null, null);
     }
 
     //Create most of the generic Stained Blocks, then add them.
     public static void createPyriteBlock(String blockID, String blockType, Block copyBlock, MapColor color, int lux) {
         AbstractBlock.Settings blockSettings = copyBlock(copyBlock).mapColor(color).luminance(parseLux(lux));
-        if ((copyBlock.equals(Blocks.OAK_PLANKS)) || (copyBlock.equals(Blocks.OAK_SLAB) || (copyBlock.equals(Blocks.OAK_STAIRS)))) {
-            blockSettings = blockSettings.burnable();
-        }
         platfomRegister(blockID, blockType, blockSettings,  null, null, null, copyBlock);
     }
 
@@ -262,11 +139,8 @@ public class BlockCreator {
     }
 
     //Create Stained blocks that require a wood set or wood type, then add them.
-    public static void createPyriteBlock(String blockID, String blockType, Block copyBlock, MapColor color, int lux, BlockSetType set, WoodType type) {
+    public static void createPyriteBlock(String blockID, String blockType, Block copyBlock, MapColor color, int lux, String set, String type) {
         AbstractBlock.Settings blockSettings = copyBlock(copyBlock).mapColor(color).luminance(parseLux(lux));
-        if (!blockType.equals("button")) {
-            blockSettings = blockSettings.burnable();
-        }
         platfomRegister(blockID, blockType, blockSettings,  type, set, null, null);
     }
 
@@ -311,16 +185,11 @@ public class BlockCreator {
         createSlab(blockID, copyBlock);
         createCarpet(blockID+"_carpet");
     }
-    
-    @ExpectPlatform
-    public static WoodType createWoodType(String blockID, BlockSetType setType) {
-        throw new AssertionError();
-    }
 
     //Generate an entire wood set.
     public static void createWoodSet(String blockID, MapColor color, int blockLux) {
-        BlockSetType GENERATED_SET = new BlockSetType(blockID);
-        WoodType GENERATED_TYPE = createWoodType(blockID, GENERATED_SET);
+        String GENERATED_SET = blockID;
+        String GENERATED_TYPE = blockID;
         // Planks
         createPyriteBlock( blockID+"_planks", "block", Blocks.OAK_PLANKS, color, blockLux);
         // Stairs
@@ -400,6 +269,7 @@ public class BlockCreator {
         createSmoothBlocks(blockID, block);
         createPyriteBlock("nostalgia_"+blockID+"_block", block);
         //Block set for modded blocks
+        String set = blockID;
         //Create Bars/Doors/Trapdoors/Plates for those that don't already exist (Iron)
         if (!Objects.equals(blockID, "iron")) {
             //Bars
@@ -415,7 +285,7 @@ public class BlockCreator {
             }
         }
         //Create buttons for all blocks.
-        createPyriteBlock(blockID+"_button","button", block);
+        createPyriteBlock(blockID+"_button","button", block, set);
     }
 
 }

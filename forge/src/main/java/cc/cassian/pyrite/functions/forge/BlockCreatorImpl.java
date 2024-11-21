@@ -7,11 +7,13 @@ import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.item.*;
 import net.minecraft.particle.ParticleEffect;
 import net.minecraft.particle.ParticleTypes;
-import net.minecraft.registry.Registries;
-import net.minecraft.registry.RegistryKeys;
 import net.minecraft.text.Text;
+import net.minecraft.util.SignType;
+import net.minecraft.util.registry.Registry;
 import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.registries.DeferredRegister;
+import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
 import java.util.ArrayList;
@@ -32,9 +34,9 @@ public class BlockCreatorImpl {
     public static RegistryObject<Block> BRICK_ICON;
     public static RegistryObject<Block> MISC_ICON;
     //Deferred registry entries
-    public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(RegistryKeys.BLOCK, modID);
-    public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(RegistryKeys.ITEM, modID);
-    public static final DeferredRegister<ItemGroup> TABS = DeferredRegister.create(RegistryKeys.ITEM_GROUP, modID);
+    public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, modID);
+    public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, modID);
+//    public static final DeferredRegister<ItemGroup> TABS = DeferredRegister.create(ForgeRegistries.TABS, modID);
     public static final ArrayList<RegistryObject<Item>> ALL_ITEMS = new ArrayList<>();
     public static final ArrayList<RegistryObject<Block>> SIGN_BLOCKS = new ArrayList<>();
     public static final ArrayList<RegistryObject<Block>> HANGING_SIGN_BLOCKS = new ArrayList<>();
@@ -46,20 +48,22 @@ public class BlockCreatorImpl {
     public static final ArrayList<RegistryObject<?>> MISC_BLOCKS = new ArrayList<>();
     public static final ArrayList<Block> MISC_BLOCKS_UNSORTED = new ArrayList<>();
 
+//    public static final ItemGroup WOOD_GROUP = addItemGroup("wood_group", "dragon_stained_crafting_table");
+//    public static final ItemGroup RESOURCE_GROUP = addItemGroup("resource_group", "dragon_stained_crafting_table");
+//    public static final ItemGroup BRICK_BLOCK_GROUP = addItemGroup("brick_group", "cobblestone_bricks");
+//    public static final ItemGroup REDSTONE_BLOCK_GROUP = addItemGroup("redstone_group", "chiseled_redstone_block");
+//    public static final ItemGroup MISC_BLOCK_GROUP = addItemGroup("pyrite_group", "glowing_obsidian");
 
-    /**
-     * Implements {@link cc.cassian.pyrite.functions.BlockCreator#createWoodType(String, BlockSetType)} on NeoForge.
-     */
-    public static WoodType createWoodType(String blockID, BlockSetType setType) {
-        WoodType woodType = new WoodType(identifier(blockID).toString(), setType);
-        WoodType.register(woodType);
+    public static SignType createSignType(String blockID) {
+        SignType woodType = SignType.create(identifier(blockID).toString());
+        SignType.register(woodType);
         return woodType;
     }
 
     /**
-     * Implements {@link cc.cassian.pyrite.functions.BlockCreator#platfomRegister(String, String, AbstractBlock.Settings, WoodType, BlockSetType, ParticleEffect, Block)} on NeoForge.
+     * Implements {@link cc.cassian.pyrite.functions.BlockCreator#platfomRegister(String, String, AbstractBlock.Settings, String, String, ParticleEffect, Block)} on NeoForge.
      */
-    public static void platfomRegister(String blockID, String blockType, AbstractBlock.Settings blockSettings, WoodType woodType, BlockSetType blockSetType, ParticleEffect particle, Block copyBlock) {
+    public static void platfomRegister(String blockID, String blockType, AbstractBlock.Settings blockSettings, String woodType, String blockSetType, ParticleEffect particle, Block copyBlock) {
         int power;
         if (blockID.contains("redstone")) power = 15;
         else power = 0;
@@ -78,7 +82,7 @@ public class BlockCreatorImpl {
             case "crafting":
                 AbstractBlock.Settings craftingSettings;
                 if (!(blockID.contains("crimson") || blockID.contains("warped"))) {
-                    craftingSettings = blockSettings.burnable();
+                    craftingSettings = blockSettings;
                 }
                 else craftingSettings = blockSettings;
                 newBlock = BLOCKS.register(blockID, () -> new ModCraftingTable(craftingSettings));
@@ -143,41 +147,35 @@ public class BlockCreatorImpl {
                 newBlock = BLOCKS.register(blockID, () -> new FlowerBlock(StatusEffects.NIGHT_VISION, 5, blockSettings));
                 break;
             case "fence_gate", "wall_gate":
-                newBlock = BLOCKS.register(blockID, () -> new FenceGateBlock(blockSettings, woodType));
+                newBlock = BLOCKS.register(blockID, () -> new FenceGateBlock(blockSettings));
                 if (blockID.contains("_stained") || blockID.contains("mushroom"))
                     WOOD_BLOCKS.add(newBlock);
                 break;
             case "sign":
-                newBlock = BLOCKS.register(blockID, () -> new SignBlock(blockSettings, woodType));
-                RegistryObject<Block> wallSign = BLOCKS.register(blockID.replace("_sign", "_wall_sign"), () -> new WallSignBlock(blockSettings, woodType));
+                SignType SIGN_TYPE =createSignType(woodType);
+                newBlock = BLOCKS.register(blockID, () -> new SignBlock(blockSettings, SIGN_TYPE));
+                RegistryObject<Block> wallSign = BLOCKS.register(blockID.replace("_sign", "_wall_sign"), () -> new WallSignBlock(blockSettings, SIGN_TYPE));
                 SIGN_BLOCKS.add(newBlock);
                 SIGN_BLOCKS.add(wallSign);
                 addSignItem(newBlock, wallSign);
                 break;
-            case "hanging_sign":
-                newBlock = BLOCKS.register(blockID, () -> new HangingSignBlock(blockSettings, woodType));
-                RegistryObject<Block> hangingWallSign = BLOCKS.register(blockID.replace("_sign", "_wall_sign"), () -> new WallHangingSignBlock(blockSettings, woodType));
-                HANGING_SIGN_BLOCKS.add(newBlock);
-                HANGING_SIGN_BLOCKS.add(hangingWallSign);
-                addHangingSignItem(newBlock, hangingWallSign);
-                break;
             case "door":
-                newBlock = BLOCKS.register(blockID, () -> new DoorBlock(blockSettings.nonOpaque(), blockSetType));
+                newBlock = BLOCKS.register(blockID, () -> new DoorBlock(blockSettings.nonOpaque()));
                 if (blockID.contains("_stained") || blockID.contains("mushroom"))
                     WOOD_BLOCKS.add(newBlock);
                 break;
             case "trapdoor":
-                newBlock = BLOCKS.register(blockID, () -> new TrapdoorBlock(blockSettings.nonOpaque(), blockSetType));
+                newBlock = BLOCKS.register(blockID, () -> new TrapdoorBlock(blockSettings.nonOpaque()));
                 if (blockID.contains("_stained") || blockID.contains("mushroom"))
                     WOOD_BLOCKS.add(newBlock);
                 break;
             case "button":
-                newBlock = BLOCKS.register(blockID, () -> new ModWoodenButton(blockSettings, blockSetType));
+                newBlock = BLOCKS.register(blockID, () -> new ModWoodenButton(blockSettings));
                 if (blockID.contains("_stained") || blockID.contains("mushroom"))
                     WOOD_BLOCKS.add(newBlock);
                 break;
             case "pressure_plate":
-                newBlock = BLOCKS.register(blockID, () -> new ModPressurePlate(blockSettings, blockSetType));
+                newBlock = BLOCKS.register(blockID, () -> new ModPressurePlate(blockSettings));
                 if (blockID.contains("_stained") || blockID.contains("mushroom"))
                     WOOD_BLOCKS.add(newBlock);
                 break;
@@ -204,7 +202,7 @@ public class BlockCreatorImpl {
                 break;
         }
         for (Block block : ModLists.getVanillaResourceBlocks()) {
-            if (blockID.contains(Registries.BLOCK.getId(block).getPath().replace("_block", "")) && !inGroup(newBlock))
+            if (blockID.contains(Registry.BLOCK.getId(block).getPath().replace("_block", "")) && !inGroup(newBlock))
                 RESOURCE_BLOCKS.add(newBlock);
         }
         if (blockID.contains("brick") && !inGroup(newBlock))
@@ -234,34 +232,43 @@ public class BlockCreatorImpl {
         WOOD_BLOCKS.add(newItem);
     }
 
-    public static void addHangingSignItem(RegistryObject<Block> newBlock, RegistryObject<Block> wallSign) {
-        RegistryObject<Item> newItem = ITEMS.register(newBlock.getId().getPath(), () -> new HangingSignItem(newBlock.get(), wallSign.get(), new Item.Settings().maxCount(16)));
-        ALL_ITEMS.add(newItem);
-        WOOD_BLOCKS.add(newItem);
-    }
-
     public static boolean inGroup(Object obj) {
         return WOOD_BLOCKS.contains(obj) || BRICK_BLOCKS.contains(obj) || RESOURCE_BLOCKS.contains(obj) || REDSTONE_BLOCKS.contains(obj) || MISC_BLOCKS.contains(obj);
     }
 
-    public static void addItemGroup(String id, RegistryObject<Block> icon, ArrayList<RegistryObject<?>> blocks) {
-        Supplier<ItemGroup> PYRITE_GROUP = TABS.register(id, () -> ItemGroup.builder()
-            //Set the title of the tab.
-            .displayName(Text.translatable("itemGroup." + modID + "." + id))
-            //Set the icon of the tab.
-            .icon(() -> new ItemStack(icon.get()))
-            //Add your items to the tab.
-            .entries((params, entries) -> {
-                for (RegistryObject<?> obj : blocks) {
-                    if (obj.get() instanceof Block block)
-                        entries.add(block);
-                    else if (obj.get() instanceof Item item)
-                        entries.add(item);
-                }
-            })
-            .build()
-    );
-    }
+//    public static void addItemGroup(String id, RegistryObject<Block> icon, ArrayList<RegistryObject<?>> blocks) {
+//        Supplier<ItemGroup> PYRITE_GROUP = TABS.register(id, () -> ItemGroup.builder()
+//            //Set the title of the tab.
+//            .displayName(Text.translatable("itemGroup." + modID + "." + id))
+//            //Set the icon of the tab.
+//            .icon(() -> new ItemStack(icon.get()))
+//            //Add your items to the tab.
+//            .entries((params, entries) -> {
+//                for (RegistryObject<?> obj : blocks) {
+//                    if (obj.get() instanceof Block block)
+//                        entries.add(block);
+//                    else if (obj.get() instanceof Item item)
+//                        entries.add(item);
+//                }
+//            })
+//            .build()
+//    );
+//    }
+
+//    @SubscribeEvent
+//    public void buildContents(CreativeModeTabEvent.Register event) {
+//        event.registerCreativeModeTab(new ResourceLocation(MOD_ID, "example"), builder ->
+//                // Set name of tab to display
+//                builder.title(Component.translatable("item_group." + MOD_ID + ".example"))
+//                        // Set icon of creative tab
+//                        .icon(() -> new ItemStack(ITEM.get()))
+//                        // Add default items to tab
+//                        .displayItems((params, output) -> {
+//                            output.accept(ITEM.get());
+//                            output.accept(BLOCK.get());
+//                        })
+//        );
+//    }
 
     /**
      * Implements {@link cc.cassian.pyrite.functions.BlockCreator#registerPyriteItem(String)} on NeoForge.
@@ -275,12 +282,11 @@ public class BlockCreatorImpl {
         // TODO - Add vanilla Concrete to Pyrite item group.
         BLOCKS.register(eventBus);
         ITEMS.register(eventBus);
-        TABS.register(eventBus);
         // Add item groups
-        addItemGroup("wood_group", WOOD_ICON, WOOD_BLOCKS);
-        addItemGroup("resource_group", RESOURCE_ICON, RESOURCE_BLOCKS);
-        addItemGroup("brick_group", BRICK_ICON, BRICK_BLOCKS);
-        addItemGroup("redstone_group", REDSTONE_ICON, REDSTONE_BLOCKS);
-        addItemGroup("pyrite_group", MISC_ICON, MISC_BLOCKS);
+//        addItemGroup("wood_group", WOOD_ICON, WOOD_BLOCKS);
+//        addItemGroup("resource_group", RESOURCE_ICON, RESOURCE_BLOCKS);
+//        addItemGroup("brick_group", BRICK_ICON, BRICK_BLOCKS);
+//        addItemGroup("redstone_group", REDSTONE_ICON, REDSTONE_BLOCKS);
+//        addItemGroup("pyrite_group", MISC_ICON, MISC_BLOCKS);
     }
 }
