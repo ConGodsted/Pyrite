@@ -1,5 +1,7 @@
 package cc.cassian.pyrite.functions;
 
+import dev.architectury.injectables.annotations.ExpectPlatform;
+import net.minecraft.SharedConstants;
 import net.minecraft.block.*;
 import net.minecraft.particle.ParticleEffect;
 import net.minecraft.particle.ParticleTypes;
@@ -61,4 +63,25 @@ public class ModHelpers {
             case "star" -> ParticleTypes.ENCHANT;
             default -> ParticleTypes.SMOKE;
         };
-    }}
+    }
+
+    public static boolean isFabric(String platform) {
+        return platform.contains("fabric");
+    }
+
+    public static boolean isPoisonousSnapshot() {
+        return (SharedConstants.getGameVersion().getName().contains("potato"));
+    }
+
+
+
+    public static @NotNull BlockSetType getBlockSetType(String blockID) {
+        boolean openByHand = !Objects.equals(blockID, "emerald") && (!Objects.equals(blockID, "netherite") && (!Objects.equals(blockID, "diamond")));
+        return new BlockSetType(blockID, openByHand, BlockSoundGroup.METAL, SoundEvents.BLOCK_IRON_DOOR_CLOSE, SoundEvents.BLOCK_IRON_DOOR_OPEN, SoundEvents.BLOCK_IRON_TRAPDOOR_CLOSE, SoundEvents.BLOCK_IRON_TRAPDOOR_OPEN, SoundEvents.BLOCK_METAL_PRESSURE_PLATE_CLICK_OFF, SoundEvents.BLOCK_METAL_PRESSURE_PLATE_CLICK_ON, SoundEvents.BLOCK_STONE_BUTTON_CLICK_OFF, SoundEvents.BLOCK_STONE_BUTTON_CLICK_ON);
+    }
+
+    @ExpectPlatform
+    public static boolean isModLoaded(String modID) {
+        throw new AssertionError();
+    }
+}

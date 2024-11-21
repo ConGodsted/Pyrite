@@ -1,6 +1,1 @@
-{
-        "parent": "minecraft:block/button_inventory",
-        "textures": {
-            "texture": "minecraft:block/quartz_block_bottom"
-        }
-      }
+{"parent":"minecraft:block/button_inventory","textures":{"texture":"minecraft:block/quartz_block_top"}}

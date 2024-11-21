@@ -1,8 +1,0 @@
-{
-    "type": "minecraft:stonecutting",
-    "ingredient": {
-      "item": "pyrite:cut_diamond"
-    },
-    "result": "pyrite:cut_diamond_slab",
-    "count": 2
-  }

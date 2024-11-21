@@ -1,8 +1,1 @@
-{
-        "parent": "minecraft:block/slab",
-        "textures": {
-        "bottom": "pyrite:block/smooth_gold",
-        "top": "pyrite:block/smooth_gold",
-        "side": "pyrite:block/smooth_gold"
-        }
-    }
+{"parent":"minecraft:block/slab","textures":{"bottom":"pyrite:block/smooth_gold","top":"pyrite:block/smooth_gold","side":"pyrite:block/smooth_gold"}}

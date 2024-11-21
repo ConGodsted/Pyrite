@@ -1,7 +1,1 @@
-{
-    "variants": {
-      "": {
-        "model": "pyrite:block/smooth_netherite"
-      }
-    }
-  }
+{"variants":{"":{"model":"pyrite:block/smooth_netherite"}}}

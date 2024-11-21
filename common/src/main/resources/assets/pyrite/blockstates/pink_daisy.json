@@ -1,7 +1,1 @@
-{
-    "variants": {
-      "": {
-        "model": "pyrite:block/pink_daisy"
-      }
-    }
-  }
+{"variants":{"":{"model":"pyrite:block/pink_daisy"}}}

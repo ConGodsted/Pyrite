@@ -2,12 +2,9 @@ package cc.cassian.pyrite.blocks;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.block.LeverBlock;
-import net.minecraft.block.enums.WallMountLocation;
 import net.minecraft.particle.ParticleEffect;
 import net.minecraft.particle.ParticleTypes;
-import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.World;
 
@@ -26,24 +23,24 @@ public class TorchLever extends LeverBlock {
         switch (state.get(FACE)) {
             case FLOOR:
                 if (state.get(POWERED))  {
-                    switch (state.get(FACING)) {
-                        case WEST:
-                            xPlus = (double)pos.getX() + 0.1;
-                            zPlus = (double)pos.getZ() + 0.5;
-                            break;
-                        case EAST:
-                            xPlus = (double)pos.getX() + 0.9;
-                            zPlus = (double)pos.getZ() + 0.5;
-                            break;
-                        case NORTH:
-                            xPlus = (double)pos.getX() + 0.4;
-                            zPlus = (double)pos.getZ() + 0.05;
-                            break;
-                        default:
-                            xPlus = (double)pos.getX() + 0.5;
-                            zPlus = (double)pos.getZ() +.9;
-                            break;
-                    }
+                    zPlus = switch (state.get(FACING)) {
+                        case WEST -> {
+                            xPlus = (double) pos.getX() + 0.1;
+                            yield (double) pos.getZ() + 0.5;
+                        }
+                        case EAST -> {
+                            xPlus = (double) pos.getX() + 0.9;
+                            yield (double) pos.getZ() + 0.5;
+                        }
+                        case NORTH -> {
+                            xPlus = (double) pos.getX() + 0.4;
+                            yield (double) pos.getZ() + 0.05;
+                        }
+                        default -> {
+                            xPlus = (double) pos.getX() + 0.5;
+                            yield (double) pos.getZ() + .9;
+                        }
+                    };
                     yPlus = (double)pos.getY() + 0.55;
 
                 }
@@ -55,24 +52,24 @@ public class TorchLever extends LeverBlock {
                 break;
             case WALL:
                 if (state.get(POWERED)) {
-                    switch (state.get(FACING)) {
-                        case EAST:
-                            xPlus = (double)pos.getX() + 0.3;
-                            zPlus = (double)pos.getZ() + 0.5;
-                            break;
-                        case WEST:
-                            xPlus = (double)pos.getX() + 0.7;
-                            zPlus = (double)pos.getZ() + 0.5;
-                            break;
-                        case SOUTH:
-                            xPlus = (double)pos.getX() + 0.5;
-                            zPlus = (double)pos.getZ() + 0.35;
-                            break;
-                        default:
-                            xPlus = (double)pos.getX() + 0.5;
-                            zPlus = (double)pos.getZ() +.6;
-                            break;
-                    }
+                    zPlus = switch (state.get(FACING)) {
+                        case EAST -> {
+                            xPlus = (double) pos.getX() + 0.3;
+                            yield (double) pos.getZ() + 0.5;
+                        }
+                        case WEST -> {
+                            xPlus = (double) pos.getX() + 0.7;
+                            yield (double) pos.getZ() + 0.5;
+                        }
+                        case SOUTH -> {
+                            xPlus = (double) pos.getX() + 0.5;
+                            yield (double) pos.getZ() + 0.35;
+                        }
+                        default -> {
+                            xPlus = (double) pos.getX() + 0.5;
+                            yield (double) pos.getZ() + .6;
+                        }
+                    };
                     yPlus = (double)pos.getY() + 0.1;
 
                 }
@@ -104,24 +101,24 @@ public class TorchLever extends LeverBlock {
             //Ceiling
             default:
                 if (state.get(POWERED))  {
-                    switch (state.get(FACING)) {
-                        case WEST:
-                            xPlus = (double)pos.getX() + 0.1;
-                            zPlus = (double)pos.getZ() + 0.5;
-                            break;
-                        case EAST:
-                            xPlus = (double)pos.getX() + 0.9;
-                            zPlus = (double)pos.getZ() + 0.5;
-                            break;
-                        case NORTH:
-                            xPlus = (double)pos.getX() + 0.4;
-                            zPlus = (double)pos.getZ() + 0.05;
-                            break;
-                        default:
-                            xPlus = (double)pos.getX() + 0.5;
-                            zPlus = (double)pos.getZ() +.9;
-                            break;
-                    }
+                    zPlus = switch (state.get(FACING)) {
+                        case WEST -> {
+                            xPlus = (double) pos.getX() + 0.1;
+                            yield (double) pos.getZ() + 0.5;
+                        }
+                        case EAST -> {
+                            xPlus = (double) pos.getX() + 0.9;
+                            yield (double) pos.getZ() + 0.5;
+                        }
+                        case NORTH -> {
+                            xPlus = (double) pos.getX() + 0.4;
+                            yield (double) pos.getZ() + 0.05;
+                        }
+                        default -> {
+                            xPlus = (double) pos.getX() + 0.5;
+                            yield (double) pos.getZ() + .9;
+                        }
+                    };
                     yPlus = (double)pos.getY() + 0.55;
 
                 }

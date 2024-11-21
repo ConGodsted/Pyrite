@@ -1,6 +1,1 @@
-{
-    "parent": "minecraft:block/wall_inventory",
-    "textures": {
-      "wall": "pyrite:block/glow_bricks"
-    }
-  }
+{"parent":"minecraft:block/wall_inventory","textures":{"wall":"pyrite:block/glow_bricks"}}

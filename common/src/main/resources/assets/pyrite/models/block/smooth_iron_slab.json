@@ -1,8 +1,1 @@
-{
-        "parent": "minecraft:block/slab",
-        "textures": {
-        "bottom": "pyrite:block/smooth_iron",
-        "top": "pyrite:block/smooth_iron",
-        "side": "pyrite:block/smooth_iron"
-        }
-    }
+{"parent":"minecraft:block/slab","textures":{"bottom":"pyrite:block/smooth_iron","top":"pyrite:block/smooth_iron","side":"pyrite:block/smooth_iron"}}

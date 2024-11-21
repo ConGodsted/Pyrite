@@ -1,6 +1,1 @@
-{
-    "parent": "minecraft:item/generated",
-    "textures": {
-      "layer0": "pyrite:block/redstone_bars"
-    }
-  }
+{"parent":"minecraft:item/generated","textures":{"layer0":"pyrite:block/redstone_bars"}}

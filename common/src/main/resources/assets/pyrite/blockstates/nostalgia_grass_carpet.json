@@ -1,7 +1,1 @@
-{
-    "variants": {
-      "": {
-        "model": "pyrite:block/nostalgia_grass_carpet"
-      }
-    }
-  }
+{"variants":{"":{"model":"pyrite:block/nostalgia_grass_carpet"}}}

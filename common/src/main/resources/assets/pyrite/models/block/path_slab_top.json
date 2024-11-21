@@ -1,8 +1,1 @@
-{
-        "parent": "minecraft:block/slab_top",
-        "textures": {
-        "bottom": "minecraft:block/dirt_path_top",
-        "top": "minecraft:block/dirt_path_top",
-        "side": "minecraft:block/dirt_path_top"
-        }
-    }
+{"parent":"minecraft:block/slab_top","textures":{"bottom":"minecraft:block/dirt_path_top","top":"minecraft:block/dirt_path_top","side":"minecraft:block/dirt_path_top"}}

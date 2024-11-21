@@ -1,7 +1,1 @@
-{
-    "variants": {
-      "": {
-        "model": "pyrite:block/star_carpet"
-      }
-    }
-  }
+{"variants":{"":{"model":"pyrite:block/star_carpet"}}}

@@ -1,14 +1,16 @@
 package cc.cassian.pyrite.fabric;
 
 import cc.cassian.pyrite.Pyrite;
+import cc.cassian.pyrite.functions.fabric.BlockCreatorImpl;
+import cc.cassian.pyrite.functions.fabric.FabricHelpers;
 import net.fabricmc.api.ModInitializer;
-import static cc.cassian.pyrite.functions.fabric.FabricHelpers.registerFuelBlocks;
 
 public class PyriteFabric implements ModInitializer {
 
     @Override
     public void onInitialize() {
         Pyrite.init();
-        registerFuelBlocks();
+        BlockCreatorImpl.register();
+        FabricHelpers.registerFuelBlocks();
     }
 }

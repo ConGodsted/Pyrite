@@ -1,8 +1,1 @@
-{
-      "parent": "minecraft:block/inner_stairs",
-      "textures": {
-        "bottom": "pyrite:block/smooth_emerald",
-        "top": "pyrite:block/smooth_emerald",
-        "side": "pyrite:block/smooth_emerald"
-      }
-  }
+{"parent":"minecraft:block/inner_stairs","textures":{"bottom":"pyrite:block/smooth_emerald","top":"pyrite:block/smooth_emerald","side":"pyrite:block/smooth_emerald"}}

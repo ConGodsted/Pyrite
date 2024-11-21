@@ -1,8 +1,1 @@
-{
-    "parent": "minecraft:block/stairs",
-    "textures": {
-      "bottom": "pyrite:block/smooth_diamond",
-      "top": "pyrite:block/smooth_diamond",
-      "side": "pyrite:block/smooth_diamond"
-    }
-  }
+{"parent":"minecraft:block/stairs","textures":{"bottom":"pyrite:block/smooth_diamond","top":"pyrite:block/smooth_diamond","side":"pyrite:block/smooth_diamond"}}

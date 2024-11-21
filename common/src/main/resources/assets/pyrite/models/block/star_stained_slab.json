@@ -1,8 +1,1 @@
-{
-        "parent": "minecraft:block/slab",
-        "textures": {
-        "bottom": "pyrite:block/star_stained_planks",
-        "top": "pyrite:block/star_stained_planks",
-        "side": "pyrite:block/star_stained_planks"
-        }
-    }
+{"parent":"minecraft:block/slab","textures":{"bottom":"pyrite:block/star_stained_planks","top":"pyrite:block/star_stained_planks","side":"pyrite:block/star_stained_planks"}}

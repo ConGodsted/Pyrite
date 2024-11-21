@@ -11,10 +11,6 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.particle.ParticleEffect;
-import net.minecraft.particle.ParticleTypes;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.registry.Registry;
-
 import java.util.Map;
 import java.util.Objects;
 
@@ -168,6 +164,7 @@ public class BlockCreator {
             }
             createResourceBlockSet(block, resourceBlock);
         }
+
     }
 
     public static void createTorchLever(String blockID, Block baseTorch, ParticleEffect particle) {
@@ -228,8 +225,7 @@ public class BlockCreator {
     //Create blocks that require a change in light level, e.g. Locked Chests
     public static void createPyriteBlock(String blockID, String blockType, Block copyBlock, int lux) {
         AbstractBlock.Settings blockSettings = copyBlock(copyBlock).luminance(parseLux(lux));
-        platfomRegister(blockID, blockType, blockSettings, null, null);
-
+        platfomRegister(blockID, blockType, blockSettings, null, null, null, null);
     }
 
     private static void sendToRegistry(String blockID, String blockType, AbstractBlock.Settings blockSettings) {
@@ -242,21 +238,36 @@ public class BlockCreator {
     
     //Add blocks with particles - Torches/Torch Levers
     private static void sendToRegistry(String blockID, String blockType, AbstractBlock.Settings blockSettings, ParticleEffect particle) {
-        platfomRegister(blockID, blockType, blockSettings, particle, null);
+        platfomRegister(blockID, blockType, blockSettings, null, null, particle, null);
+    }
 
+    //Create blocks that require a Block Set.
+    public static void createPyriteBlock(String blockID, String blockType, Block copyBlock, BlockSetType set) {
+        platfomRegister(blockID, blockType, copyBlock(copyBlock),  null, set, null, null);
     }
 
     //Create most of the generic Stained Blocks, then add them.
     public static void createPyriteBlock(String blockID, String blockType, Block copyBlock, MapColor color, int lux) {
         AbstractBlock.Settings blockSettings = copyBlock(copyBlock).mapColor(color).luminance(parseLux(lux));
-        platfomRegister(blockID, blockType, blockSettings, null, copyBlock);
+        if ((copyBlock.equals(Blocks.OAK_PLANKS)) || (copyBlock.equals(Blocks.OAK_SLAB) || (copyBlock.equals(Blocks.OAK_STAIRS)))) {
+            blockSettings = blockSettings.burnable();
+        }
+        platfomRegister(blockID, blockType, blockSettings,  null, null, null, copyBlock);
     }
 
     //Create basic blocks.
     public static void createPyriteBlock(String blockID, Block copyBlock) {
         AbstractBlock.Settings blockSettings = copyBlock(copyBlock);
-        platfomRegister(blockID, "block", blockSettings, null, null);
+        platfomRegister(blockID, "block", blockSettings,  null, null, null, null);
+    }
 
+    //Create Stained blocks that require a wood set or wood type, then add them.
+    public static void createPyriteBlock(String blockID, String blockType, Block copyBlock, MapColor color, int lux, BlockSetType set, WoodType type) {
+        AbstractBlock.Settings blockSettings = copyBlock(copyBlock).mapColor(color).luminance(parseLux(lux));
+        if (!blockType.equals("button")) {
+            blockSettings = blockSettings.burnable();
+        }
+        platfomRegister(blockID, blockType, blockSettings,  type, set, null, null);
     }
 
     public static void generateFlowers() {
@@ -300,34 +311,40 @@ public class BlockCreator {
         createSlab(blockID, copyBlock);
         createCarpet(blockID+"_carpet");
     }
+    
+    @ExpectPlatform
+    public static WoodType createWoodType(String blockID, BlockSetType setType) {
+        throw new AssertionError();
+    }
 
     //Generate an entire wood set.
     public static void createWoodSet(String blockID, MapColor color, int blockLux) {
-        //Stained Planks
+        BlockSetType GENERATED_SET = new BlockSetType(blockID);
+        WoodType GENERATED_TYPE = createWoodType(blockID, GENERATED_SET);
+        // Planks
         createPyriteBlock( blockID+"_planks", "block", Blocks.OAK_PLANKS, color, blockLux);
-        //Stained Stairs
+        // Stairs
         createPyriteBlock(blockID+"_stairs", "stairs",Blocks.OAK_STAIRS, color, blockLux);
-        //Stained Slabs
+        // Slabs
         createPyriteBlock( blockID+"_slab", "slab", Blocks.OAK_SLAB, color, blockLux);
-        //Stained Pressure Plates
-        createPyriteBlock( blockID+"_pressure_plate", "pressure_plate", Blocks.OAK_PRESSURE_PLATE, color, blockLux);
-        //Stained Buttons
-        createPyriteBlock(blockID+"_button", "button", Blocks.OAK_BUTTON, color, blockLux);
-        //Stained Fences
-        createPyriteBlock(blockID+"_fence", "fence", Blocks.OAK_FENCE, color, blockLux);
-        //Stained Fence Gates
-        createPyriteBlock(blockID+"_fence_gate", "fence_gate", Blocks.OAK_FENCE_GATE, color, blockLux);
-        //Stained Doors
-        createPyriteBlock(blockID+"_door", "door", Blocks.OAK_DOOR, color, blockLux);
-        //Stained Trapdoors
-        createPyriteBlock(blockID+"_trapdoor", "trapdoor", Blocks.OAK_TRAPDOOR, color, blockLux);
-        //Crafting Tables
+        // Fences
+        createPyriteBlock(blockID+"_fence", "fence", Blocks.OAK_FENCE, color, blockLux, GENERATED_SET, GENERATED_TYPE);
+        // Fence Gates
+        createPyriteBlock(blockID+"_fence_gate", "fence_gate", Blocks.OAK_FENCE_GATE, color, blockLux, GENERATED_SET, GENERATED_TYPE);
+        // Doors
+        createPyriteBlock(blockID+"_door", "door", Blocks.OAK_DOOR, color, blockLux, GENERATED_SET, GENERATED_TYPE);
+        // Trapdoors
+        createPyriteBlock(blockID+"_trapdoor", "trapdoor", Blocks.OAK_TRAPDOOR, color, blockLux, GENERATED_SET, GENERATED_TYPE);
+        // Pressure Plates
+        createPyriteBlock( blockID+"_pressure_plate", "pressure_plate", Blocks.OAK_PRESSURE_PLATE, color, blockLux, GENERATED_SET, GENERATED_TYPE);
+        // Buttons
+        createPyriteBlock(blockID+"_button", "button", Blocks.OAK_BUTTON, color, blockLux, GENERATED_SET, GENERATED_TYPE);
+        // Crafting Tables
         createPyriteBlock( blockID+"_crafting_table", "crafting", Blocks.CRAFTING_TABLE, color, blockLux);
+        // Ladders
         createPyriteBlock( blockID+"_ladder", "ladder", Blocks.LADDER, color, blockLux);
-//        createPyriteBlock(blockID+"_sign", "sign", Blocks.OAK_SIGN, color, blockLux);
-
-
-
+        // Signs
+        createPyriteBlock(blockID+"_sign", "sign", Blocks.OAK_SIGN, color, blockLux, GENERATED_SET, GENERATED_TYPE);
     }
 
     //Generate an entire Cut Block set.
@@ -373,7 +390,9 @@ public class BlockCreator {
             //Brick Blocks
             createPyriteBlock(blockID+"_bricks", block);
             //Chiseled Blocks - Copper Blocks
-            createPyriteBlock("chiseled_"+blockID+"_block", "log", block);
+            if (!blockID.contains("copper")) {
+                createPyriteBlock("chiseled_"+blockID+"_block", "log", block);
+            }
             //Pillar Blocks
             createPyriteBlock(blockID+"_pillar", "log", block);
         }
@@ -385,11 +404,14 @@ public class BlockCreator {
         if (!Objects.equals(blockID, "iron")) {
             //Bars
             createPyriteBlock(blockID+"_bars","bars", block);
-            createPyriteBlock(blockID+"_door","door", block);
-            createPyriteBlock(blockID+"_trapdoor","trapdoor", block);
+            //Disable Copper doors in 1.21+
+            if (!blockID.contains("copper")) {
+                createPyriteBlock(blockID+"_door","door", block, set);
+                createPyriteBlock(blockID+"_trapdoor","trapdoor", block, set);
+            }
             //Create Plates for those that don't already exist (Iron and Gold)
-            if (!Objects.equals(blockID, "gold")) {
-                createPyriteBlock(blockID+"_pressure_plate","pressure_plate", block);
+            if (!blockID.equals("gold")) {
+                createPyriteBlock(blockID+"_pressure_plate","pressure_plate", block, set);
             }
         }
         //Create buttons for all blocks.
