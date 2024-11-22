@@ -1,17 +1,1 @@
-        
-      {
-        "type": "minecraft:crafting_shaped",
-        "pattern": [
-          "CCC"
-        ],
-        "key": {
-          "C": {
-            "item": "pyrite:grass_turf"
-          }
-        },
-        "result": {
-          "item": "pyrite:grass_slab",
-          "id": "pyrite:grass_slab",
-          "count": 6
-        }
-      }
+{"type":"minecraft:crafting_shaped","pattern":["CCC"],"key":{"C":{"item":"pyrite:grass_turf"}},"result":{"item":"pyrite:grass_slab","count":6}}

@@ -1,17 +1,1 @@
-{
-    "type": "minecraft:crafting_shapeless",
-    "category": "misc",
-    "ingredients": [
-      {
-        "item": "pyrite:nostalgia_dye"
-      },
-      {
-        "item": "minecraft:mossy_cobblestone"
-      }
-    ],
-    "result": {
-      "count": 1,
-      "item": "pyrite:nostalgia_mossy_cobblestone",
-      "id": "pyrite:nostalgia_mossy_cobblestone"
-    }
-  }
+{"type":"minecraft:crafting_shapeless","ingredients":[{"item":"pyrite:nostalgia_dye"},{"item":"minecraft:mossy_cobblestone"}],"result":{"item":"pyrite:nostalgia_mossy_cobblestone","count":1}}

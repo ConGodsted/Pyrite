@@ -1,17 +1,1 @@
-        {
-    "type": "minecraft:crafting_shaped",
-    "pattern": [
-      "D",
-      "D"
-    ],
-    "key": {
-      "D": {
-        "item": "minecraft:diamond_block"
-      }
-    },
-    "result": {
-      "item": "pyrite:chiseled_diamond_block",
-      "id": "pyrite:chiseled_diamond_block",
-      "count": 4
-    }
-    }
+{"type":"minecraft:crafting_shaped","pattern":["D","D"],"key":{"D":{"item":"pyrite:cut_diamond_slab"}},"result":{"item":"pyrite:chiseled_diamond_block","count":1}}

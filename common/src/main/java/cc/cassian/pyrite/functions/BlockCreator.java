@@ -269,9 +269,7 @@ public class BlockCreator {
             //Brick Blocks
             createPyriteBlock(blockID+"_bricks", block);
             //Chiseled Blocks - Copper Blocks
-            if (!blockID.contains("copper")) {
-                createPyriteBlock("chiseled_"+blockID+"_block", "log", block);
-            }
+            createPyriteBlock("chiseled_"+blockID+"_block", "log", block);
             //Pillar Blocks
             createPyriteBlock(blockID+"_pillar", "log", block);
         }
@@ -284,11 +282,8 @@ public class BlockCreator {
         if (!Objects.equals(blockID, "iron")) {
             //Bars
             createPyriteBlock(blockID+"_bars","bars", block);
-            //Disable Copper doors in 1.21+
-            if (!blockID.contains("copper")) {
-                createPyriteBlock(blockID+"_door","door", block, set);
-                createPyriteBlock(blockID+"_trapdoor","trapdoor", block, set);
-            }
+            createPyriteBlock(blockID+"_door","door", block, set);
+            createPyriteBlock(blockID+"_trapdoor","trapdoor", block, set);
             //Create Plates for those that don't already exist (Iron and Gold)
             if (!blockID.equals("gold")) {
                 createPyriteBlock(blockID+"_pressure_plate","pressure_plate", block, set);

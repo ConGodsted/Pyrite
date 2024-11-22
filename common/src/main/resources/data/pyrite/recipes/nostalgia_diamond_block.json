@@ -1,17 +1,1 @@
-{
-      "type": "minecraft:crafting_shapeless",
-      "category": "misc",
-      "ingredients": [
-        {
-          "item": "pyrite:nostalgia_dye"
-        },
-        {
-          "item": "minecraft:diamond_block"
-        }
-      ],
-      "result": {
-        "count": 1,
-        "item": "pyrite:nostalgia_diamond_block",
-        "id": "pyrite:nostalgia_diamond_block"
-      }
-    }
+{"type":"minecraft:crafting_shapeless","ingredients":[{"item":"pyrite:nostalgia_dye"},{"item":"minecraft:diamond_block"}],"result":{"item":"pyrite:nostalgia_diamond_block","count":1}}

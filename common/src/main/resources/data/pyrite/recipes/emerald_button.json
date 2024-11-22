@@ -1,17 +1,1 @@
-{
-      "type": "minecraft:crafting_shapeless",
-      "category": "misc",
-      "ingredients": [
-        {
-          "item": "minecraft:emerald_block"
-        },
-        {
-          "tag": "minecraft:buttons"
-        }
-      ],
-      "result": {
-        "count": 1,
-        "item": "pyrite:emerald_button",
-        "id": "pyrite:emerald_button"
-      }
-    }
+{"type":"minecraft:crafting_shapeless","ingredients":[{"item":"minecraft:emerald_block"},{"tag":"minecraft:buttons"}],"result":{"item":"pyrite:emerald_button","count":1}}
