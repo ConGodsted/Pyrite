@@ -24,10 +24,17 @@ public class Pyrite {
 		// Switchable Glass
 		createPyriteBlock("switchable_glass", "switchable_glass", Blocks.GLASS);
 		// Cobblestone Bricks
-		generateBrickSet("cobblestone_brick", Blocks.COBBLESTONE, MapColor.STONE_GRAY, 0);
+		generateBrickSet("cobblestone_brick", Blocks.COBBLESTONE, MapColor.STONE_GRAY);
 		// Mossy Cobblestone Bricks
-		generateBrickSet("mossy_cobblestone_brick", Blocks.MOSSY_COBBLESTONE, MapColor.STONE_GRAY, 0);
-		generateBrickSet("smooth_stone_brick", Blocks.COBBLESTONE, MapColor.STONE_GRAY, 0);
+		generateBrickSet("mossy_cobblestone_brick", Blocks.MOSSY_COBBLESTONE, MapColor.STONE_GRAY);
+		// Smooth Stone Bricks
+		generateBrickSet("smooth_stone_brick", Blocks.SMOOTH_STONE, MapColor.STONE_GRAY);
+		// Granite Bricks
+		generateBrickSet("granite_brick", Blocks.GRANITE, MapColor.DIRT_BROWN);
+		// Andesite Bricks
+		generateBrickSet("andesite_brick", Blocks.ANDESITE, MapColor.STONE_GRAY);
+		// Diorite Bricks
+		generateBrickSet("diorite_brick", Blocks.DIORITE, MapColor.OFF_WHITE);
 		// Grass Set
 		generateTurfSets();
 		// Nether Brick Fence Gate

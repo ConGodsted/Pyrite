@@ -180,8 +180,11 @@ public class BlockCreator {
         createPyriteBlock(blockID+"_wall_gate","fence_gate", copyBlock);
     }
 
+    public static void generateBrickSet(String blockID, Block copyBlock, MapColor color) {
+        generateBrickSet(blockID, copyBlock, color, 0);
+    }
 
-    //Generate a Turf block set - including block and its slab, stair, and carpet variants.
+        //Generate a Turf block set - including block and its slab, stair, and carpet variants.
     public static void createTurfSet(String blockID, Block copyBlock) {
         createPyriteBlock( blockID+"_turf", "block", copyBlock);
         createStair(blockID, copyBlock);
