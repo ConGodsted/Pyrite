@@ -35,6 +35,10 @@ public class Pyrite {
 		generateBrickSet("diorite_brick", Blocks.DIORITE, MapColor.OFF_WHITE, true);
 		// Calcite Bricks
 		generateBrickSet("calcite_brick", Blocks.CALCITE, MapColor.OFF_WHITE, true);
+		// Mossy Tuff Bricks
+		generateBrickSet("mossy_tuff_brick", Blocks.TUFF_BRICKS, MapColor.STONE_GRAY);
+		// Mossy Deepslate Bricks
+		generateBrickSet("mossy_deepslate_brick", Blocks.DEEPSLATE_BRICKS, MapColor.BLACK);
 		// Grass Set
 		generateTurfSets();
 		// Nether Brick Fence Gate
