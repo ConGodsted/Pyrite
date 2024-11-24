@@ -1,1 +1,1 @@
-{"type":"minecraft:crafting_shaped","pattern":["CCC","CDC","CCC"],"key":{"C":{"item":"pyrite:poisonous_dye"},"D":{"item":"minecraft:bricks"}},"result":{"id":"pyrite:poisonous_bricks","count":4}}
+{"type":"minecraft:crafting_shaped","pattern":["CCC","CDC","CCC"],"key":{"D":{"item":"pyrite:poisonous_dye"},"C":{"item":"minecraft:bricks"}},"result":{"id":"pyrite:poisonous_bricks","count":8}}
