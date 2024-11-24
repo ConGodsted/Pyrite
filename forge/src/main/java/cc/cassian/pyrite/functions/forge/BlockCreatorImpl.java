@@ -48,7 +48,7 @@ public class BlockCreatorImpl {
 
 
     /**
-     * Implements {@link cc.cassian.pyrite.functions.BlockCreator#createWoodType(String, BlockSetType)} on NeoForge.
+     * Implements {@link cc.cassian.pyrite.functions.BlockCreator#createWoodType(String, BlockSetType)} on Fabric.
      */
     public static WoodType createWoodType(String blockID, BlockSetType setType) {
         WoodType woodType = new WoodType(identifier(blockID).toString(), setType);
