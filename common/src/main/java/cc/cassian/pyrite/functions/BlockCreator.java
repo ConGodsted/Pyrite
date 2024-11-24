@@ -184,6 +184,12 @@ public class BlockCreator {
         generateBrickSet(blockID, copyBlock, color, 0);
     }
 
+    public static void generateBrickSet(String blockID, Block copyBlock, MapColor color, boolean generateMossySet) {
+        generateBrickSet(blockID, copyBlock, color, 0);
+        if (generateMossySet)
+            generateBrickSet("mossy_"+blockID, copyBlock, color, 0);
+    }
+
         //Generate a Turf block set - including block and its slab, stair, and carpet variants.
     public static void createTurfSet(String blockID, Block copyBlock) {
         createPyriteBlock( blockID+"_turf", "block", copyBlock);
