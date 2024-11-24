@@ -1,1 +1,1 @@
-{"type":"minecraft:crafting_shaped","pattern":["CCC","CDC","CCC"],"key":{"C":"pyrite:star_dye","D":"minecraft:bricks"},"result":{"id":"pyrite:star_bricks","count":4}}
+{"type":"minecraft:crafting_shaped","pattern":["CCC","CDC","CCC"],"key":{"D":"pyrite:star_dye","C":"minecraft:bricks"},"result":{"id":"pyrite:star_bricks","count":8}}
