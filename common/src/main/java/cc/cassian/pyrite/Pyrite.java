@@ -35,6 +35,8 @@ public class Pyrite {
 		generateBrickSet("andesite_brick", Blocks.ANDESITE, MapColor.STONE_GRAY);
 		// Diorite Bricks
 		generateBrickSet("diorite_brick", Blocks.DIORITE, MapColor.OFF_WHITE);
+		// Diorite Bricks
+		generateBrickSet("calcite_brick", Blocks.CALCITE, MapColor.OFF_WHITE);
 		// Grass Set
 		generateTurfSets();
 		// Nether Brick Fence Gate
