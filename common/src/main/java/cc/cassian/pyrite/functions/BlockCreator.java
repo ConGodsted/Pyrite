@@ -148,19 +148,19 @@ public class BlockCreator {
     }
 
     public static void generateFlowers() {
-        for (Map.Entry<String, Block> entry : flowers.entrySet()) {
+        for (Map.Entry<String, Block> entry : FLOWERS.entrySet()) {
             createPyriteBlock(entry.getKey(), "flower", entry.getValue());
         }
     }
 
     public static void generateTurfSets() {
-        for (Map.Entry<String, Block> entry : turfSets.entrySet()) {
+        for (Map.Entry<String, Block> entry : TURF_SETS.entrySet()) {
             createTurfSet(entry.getKey(), entry.getValue());
         }
     }
 
     public static void generateNostalgiaBlocks() {
-        for (Map.Entry<String, Block> entry : nostalgiaBlocks.entrySet()) {
+        for (Map.Entry<String, Block> entry : NOSTALGIA_BLOCKS.entrySet()) {
             createPyriteBlock(entry.getKey(), "block", entry.getValue());
         }
         createPyriteBlock("nostalgia_gravel", "gravel", Blocks.GRAVEL);
