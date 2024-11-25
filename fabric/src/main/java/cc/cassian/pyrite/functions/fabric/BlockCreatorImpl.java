@@ -176,12 +176,7 @@ public class BlockCreatorImpl {
                 addTranslucentBlock();
                 break;
             case "gravel":
-                newBlock = new FallingBlock(blockSettings) {
-                    @Override
-                    protected MapCodec<? extends FallingBlock> getCodec() {
-                        return null;
-                    }
-                };
+                newBlock = new GravelBlock(blockSettings);
                 BLOCKS.add(newBlock);
                 BLOCK_IDS.add(blockID);
                 break;

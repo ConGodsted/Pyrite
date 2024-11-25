@@ -142,12 +142,7 @@ public class BlockCreatorImpl {
                 newBlock = BLOCKS.register(blockID, () -> new ModGlass(blockSettings));
                 break;
             case "gravel":
-                newBlock = BLOCKS.register(blockID, () -> new FallingBlock(blockSettings) {
-                    @Override
-                    protected MapCodec<? extends FallingBlock> getCodec() {
-                        return null;
-                    }
-                });
+                newBlock = BLOCKS.register(blockID, () -> new GravelBlock(blockSettings));
                 break;
             case "flower":
                 newBlock = BLOCKS.register(blockID, () -> new FlowerBlock(StatusEffects.NIGHT_VISION, 5, blockSettings));
