@@ -22,11 +22,11 @@ public class FabricHelpers {
     public static void addGrassBlock() {
         GRASS_BLOCKS.add(getLastBlock());
     }
-    public static void addTransparentBlock() {
-        TRANSPARENT_BLOCKS.add(getLastBlock());
+    public static void addTransparentBlock(Block newBlock) {
+        TRANSPARENT_BLOCKS.add(newBlock);
     }
-    public static void addTranslucentBlock() {
-        TRANSLUCENT_BLOCKS.add(getLastBlock());
+    public static void addTranslucentBlock(Block newBlock) {
+        TRANSLUCENT_BLOCKS.add(newBlock);
     }
     public static Block getLastBlock() {
         return BLOCKS.getLast();
