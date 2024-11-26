@@ -7,7 +7,7 @@ import java.util.Map;
 
 public class ModLists {
     //List of dyes.
-    private final static String[] dyes = {
+    private final static String[] DYES = {
             "white",
             "orange",
             "magenta",
@@ -33,7 +33,7 @@ public class ModLists {
             "poisonous"
     };
     //List of Vanilla wood types.
-    private final static Block[] vanillaWood = {
+    private final static Block[] VANILLA_WOOD = {
             Blocks.SPRUCE_PLANKS,
             Blocks.BIRCH_PLANKS,
             Blocks.JUNGLE_PLANKS,
@@ -48,7 +48,7 @@ public class ModLists {
     };
 
     //List of Wall Blocks to generated Wall Gates for.
-    private final static Block[] vanillaWalls = {
+    private final static Block[] VANILLA_WALLS = {
             Blocks.COBBLESTONE_WALL,
             Blocks.MOSSY_COBBLESTONE_WALL,
             Blocks.STONE_BRICK_WALL,
@@ -77,7 +77,7 @@ public class ModLists {
             Blocks.RESIN_BRICK_WALL
     };
 
-    final private static Block[] vanillaResourceBlocks = {
+    final private static Block[] VANILLA_RESOURCE_BLOCKS = {
             Blocks.IRON_BLOCK,
             Blocks.GOLD_BLOCK,
             Blocks.EMERALD_BLOCK,
@@ -94,7 +94,7 @@ public class ModLists {
 
     };
 
-    public static final Map<String, Block> turfSets = Map.of(
+    public static final Map<String, Block> TURF_SETS = Map.of(
             "grass", Blocks.GRASS_BLOCK,
             "mycelium", Blocks.MYCELIUM,
             "podzol", Blocks.PODZOL,
@@ -102,14 +102,14 @@ public class ModLists {
             "nostalgia_grass", Blocks.GRASS_BLOCK
     );
 
-    public static final Map<String, Block> nostalgiaBlocks = Map.of(
+    public static final Map<String, Block> NOSTALGIA_BLOCKS = Map.of(
             "nostalgia_grass_block", Blocks.GRASS_BLOCK,
             "nostalgia_cobblestone", Blocks.COBBLESTONE,
             "nostalgia_mossy_cobblestone", Blocks.MOSSY_COBBLESTONE,
             "nostalgia_netherrack", Blocks.NETHERRACK
     );
 
-    public static final Map<String, Block> flowers = Map.of(
+    public static final Map<String, Block> FLOWERS = Map.of(
             "rose", Blocks.POPPY,
             "orange_rose", Blocks.POPPY,
             "white_rose", Blocks.POPPY,
@@ -121,18 +121,18 @@ public class ModLists {
     );
 
     public static String[] getDyes() {
-        return dyes;
+        return DYES;
     }
 
     public static Block[] getVanillaWood() {
-        return vanillaWood;
+        return VANILLA_WOOD;
     }
 
     public static Block[] getVanillaWalls() {
-        return vanillaWalls;
+        return VANILLA_WALLS;
     }
 
     public static Block[] getVanillaResourceBlocks() {
-        return vanillaResourceBlocks;
+        return VANILLA_RESOURCE_BLOCKS;
     }
 }
