@@ -243,11 +243,14 @@ public class BlockCreatorImpl {
                 break;
         }
         if (!blockType.contains("sign")) {
-            BLOCKS.add(newBlock);
-            if (index == -1)
+            if (index == -1) {
+                BLOCKS.add(newBlock);
                 BLOCK_IDS.add(blockID);
-            else
+            }
+            else {
+                BLOCKS.add(index, newBlock);
                 BLOCK_IDS.add(index, blockID);
+            }
         }
         for (Block block : ModLists.getVanillaResourceBlocks()) {
             if (blockID.contains(Registries.BLOCK.getId(block).getPath().replace("_block", "")) && !inGroup(newBlock))
