@@ -1,0 +1,3 @@
+- Added Sandstone Bricks.
+- A tag for slab items is now included.
+- Added advancements for unlocking stonecutting recipes.
