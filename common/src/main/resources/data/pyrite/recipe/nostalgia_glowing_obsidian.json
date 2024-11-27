@@ -1,1 +1,1 @@
-{"type":"minecraft:crafting_shapeless","ingredients":[{"item":"pyrite:glowing_obsidian"},{"item":"pyrite:nostalgia_dye"}],"result":{"id":"pyrite:nostalgia_glowing_obsidian","count":1}}
+{"type":"minecraft:crafting_shapeless","ingredients":[{"item":"pyrite:nostalgia_dye"},{"item":"pyrite:glowing_obsidian"}],"result":{"id":"pyrite:nostalgia_glowing_obsidian","count":1}}
