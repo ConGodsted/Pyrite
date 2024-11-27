@@ -4,6 +4,7 @@ plugins {
     id 'com.github.johnrengelman.shadow' version '8.1.1' apply false
     id "io.github.pacifistmc.forgix" version "1.2.9"
     id 'io.github.0ffz.github-packages' version '[1,2)'
+    id "me.modmuss50.mod-publish-plugin" version "0.8.1"
 }
 
 architectury {
@@ -18,6 +19,37 @@ allprojects {
 forgix {
     group = "cc.cassian.pyrite"
     mergedJarName = "pyrite-${version}.jar"
+    neoforge {
+        projectName = "neoforge"
+        jarLocation = "build/libs/pyrite-neoforge-${mod_version}.jar"
+    }
+
+    fabric {
+        projectName = "fabric"
+        jarLocation = "build/libs/pyrite-fabric-${mod_version}.jar"
+    }
+}
+
+publishMods {
+    file = file("Merged/"+forgix.getMergedJarName())
+    String changelogString = new File("CHANGELOG.md")
+    changelog = changelogString
+    type = STABLE
+    modLoaders.add("fabric")
+    modLoaders.add("neoforge")
+
+    modrinth {
+        accessToken = providers.environmentVariable("MODRINTH_API_KEY")
+        projectId = "qO4ozPoe"
+        minecraftVersions.add(minecraft_version)
+    }
+    curseforge {
+        accessToken = providers.environmentVariable("CURSEFORGE_API_KEY")
+        projectId = "1101500"
+        clientRequired = true
+        serverRequired = true
+        minecraftVersions.add(minecraft_version)
+    }
 }
 
 subprojects {
@@ -46,7 +78,7 @@ subprojects {
     }
 
     dependencies {
-        minecraft "net.minecraft:minecraft:$rootProject.minecraft_version"
+        minecraft "net.minecraft:minecraft:$minecraft_version"
         mappings loom.layered {
             it.mappings("net.fabricmc:yarn:$rootProject.yarn_mappings:v2")
             // it.mappings("dev.architectury:yarn-mappings-patch-neoforge:$rootProject.yarn_mappings_patch_neoforge_version")
