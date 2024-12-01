@@ -12,8 +12,8 @@ architectury {
 }
 
 allprojects {
-    group = rootProject.maven_group
-    version = rootProject.mod_version
+    group = maven_group
+    version = mod_version + "+" + minecraft_version
 }
 
 forgix {
@@ -21,12 +21,12 @@ forgix {
     mergedJarName = "pyrite-${version}.jar"
     neoforge {
         projectName = "neoforge"
-        jarLocation = "build/libs/pyrite-neoforge-${mod_version}.jar"
+        jarLocation = "build/libs/pyrite-neoforge-${version}.jar"
     }
 
     fabric {
         projectName = "fabric"
-        jarLocation = "build/libs/pyrite-fabric-${mod_version}.jar"
+        jarLocation = "build/libs/pyrite-fabric-${version}.jar"
     }
 }
 
