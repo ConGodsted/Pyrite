@@ -32,7 +32,7 @@ forgix {
 
 publishMods {
     file = file("Merged/"+forgix.getMergedJarName())
-    String changelogString = new File("CHANGELOG.md")
+    String changelogString = "Port to 1.21.4"
     changelog = changelogString
     type = STABLE
     modLoaders.add("fabric")
@@ -81,7 +81,7 @@ subprojects {
         minecraft "net.minecraft:minecraft:$minecraft_version"
         mappings loom.layered {
             it.mappings("net.fabricmc:yarn:$minecraft_version$yarn_mappings:v2")
-            // it.mappings("dev.architectury:yarn-mappings-patch-neoforge:$yarn_mappings_patch_neoforge_version")
+            it.mappings("dev.architectury:yarn-mappings-patch-neoforge:$yarn_mappings_patch_neoforge_version")
         }
     }
 

@@ -21,7 +21,6 @@ public class PyriteNeoForgeClient {
     public static void init(IEventBus eventBus) {
         if (FMLEnvironment.dist.equals(Dist.CLIENT)) {
             eventBus.addListener(PyriteNeoForgeClient::registerBlockColors);
-            eventBus.addListener(PyriteNeoForgeClient::registerItemColorHandlers);
         }
     }
 
@@ -33,14 +32,6 @@ public class PyriteNeoForgeClient {
                 return BiomeColors.getGrassColor(view, pos);
             }), pyriteBlock.get());
 
-        }
-    }
-
-    // Client-side mod bus event handler
-    @SubscribeEvent
-    public static void registerItemColorHandlers(RegisterColorHandlersEvent.Item event) {
-        for (DeferredHolder<Block, ?> pyriteBlock : GRASS_BLOCKS) {
-            event.register((stack, tintIndex) -> 9551193, pyriteBlock.get());
         }
     }
 
