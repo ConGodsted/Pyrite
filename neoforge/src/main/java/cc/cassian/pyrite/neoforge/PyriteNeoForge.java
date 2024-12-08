@@ -11,7 +11,7 @@ import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.loading.FMLEnvironment;
 
 
-@Mod(Pyrite.modID)
+@Mod(Pyrite.MOD_ID)
 public final class PyriteNeoForge {
     public PyriteNeoForge(IEventBus eventBus, ModContainer container) {
         // Run our common setup.
