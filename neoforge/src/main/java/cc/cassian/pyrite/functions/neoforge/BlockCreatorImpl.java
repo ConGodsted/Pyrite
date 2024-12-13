@@ -25,6 +25,7 @@ import java.util.function.Supplier;
 
 import static cc.cassian.pyrite.Pyrite.LOGGER;
 import static cc.cassian.pyrite.Pyrite.MOD_ID;
+import static cc.cassian.pyrite.functions.ModHelpers.getDyeColorFromFramedId;
 import static cc.cassian.pyrite.functions.ModHelpers.identifier;
 import static cc.cassian.pyrite.functions.neoforge.NeoHelpers.*;
 
@@ -141,6 +142,9 @@ public class BlockCreatorImpl {
                 newBlock = BLOCKS.register(blockID, () -> new ModPane(blockSettings, power));
                 if (power == 15)
                     REDSTONE_BLOCKS.add(newBlock);
+                break;
+            case "stained_framed_glass_pane":
+                newBlock = BLOCKS.register(blockID, () -> new StainedGlassPaneBlock(getDyeColorFromFramedId(blockID), blockSettings));
                 break;
             case "glass", "tinted_glass":
                 newBlock = BLOCKS.register(blockID, () -> new ModGlass(blockSettings));

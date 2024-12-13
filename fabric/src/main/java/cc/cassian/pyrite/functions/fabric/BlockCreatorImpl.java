@@ -147,6 +147,10 @@ public class BlockCreatorImpl {
                 newBlock = new ModPane(blockSettings, power);
                 addTranslucentBlock(newBlock);
                 break;
+            case "stained_framed_glass_pane":
+                newBlock = new StainedGlassPaneBlock(getDyeColorFromFramedId(blockID), blockSettings);
+                addTranslucentBlock(newBlock);
+                break;
             case "glass":
                 newBlock = new ModGlass(blockSettings);
                 addTransparentBlock(newBlock);
