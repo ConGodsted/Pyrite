@@ -23,7 +23,6 @@ import java.util.Objects;
 import java.util.function.Supplier;
 
 import static cc.cassian.pyrite.Pyrite.LOGGER;
-import static cc.cassian.pyrite.Pyrite.modID;
 import static cc.cassian.pyrite.functions.ModHelpers.*;
 import static cc.cassian.pyrite.Pyrite.MOD_ID;
 import static cc.cassian.pyrite.functions.ModHelpers.identifier;

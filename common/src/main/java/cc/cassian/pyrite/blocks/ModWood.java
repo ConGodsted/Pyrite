@@ -8,9 +8,9 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.tag.ItemTags;
+import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.ItemActionResult;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -23,17 +23,17 @@ public class ModWood extends Block {
     }
 
     @Override @SuppressWarnings("all")
-    protected ItemActionResult onUseWithItem(ItemStack stack, BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
+    protected ActionResult onUseWithItem(ItemStack stack, BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
         if (!world.isClient) {
             if (stack.isIn(ItemTags.AXES) && !ModHelpers.isShield(player.getOffHandStack())) {
                 Identifier id = Registries.BLOCK.getId(state.getBlock());
                 Block strippedBlock = Registries.BLOCK.get(Identifier.of(MOD_ID, "stripped_"+ id.getPath()));
                 if (!strippedBlock.equals(Blocks.AIR)) {
                     world.setBlockState(pos, strippedBlock.getDefaultState());
-                    return ItemActionResult.SUCCESS;
+                    return ActionResult.SUCCESS;
                 }
             }
         }
-        return ItemActionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+        return ActionResult.PASS;
     }
 }

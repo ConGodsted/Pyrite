@@ -3,6 +3,7 @@ package cc.cassian.pyrite.functions;
 import dev.architectury.injectables.annotations.ExpectPlatform;
 import net.minecraft.SharedConstants;
 import net.minecraft.block.*;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.particle.ParticleEffect;
 import net.minecraft.particle.ParticleTypes;
