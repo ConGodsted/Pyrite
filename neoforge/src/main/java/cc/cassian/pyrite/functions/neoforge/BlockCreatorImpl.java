@@ -2,7 +2,6 @@ package cc.cassian.pyrite.functions.neoforge;
 
 import cc.cassian.pyrite.blocks.*;
 import cc.cassian.pyrite.functions.ModLists;
-import com.mojang.serialization.MapCodec;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.effect.StatusEffects;
@@ -24,8 +23,9 @@ import java.util.Objects;
 import java.util.function.Supplier;
 
 import static cc.cassian.pyrite.Pyrite.LOGGER;
-import static cc.cassian.pyrite.Pyrite.modID;
 import static cc.cassian.pyrite.functions.ModHelpers.*;
+import static cc.cassian.pyrite.Pyrite.MOD_ID;
+import static cc.cassian.pyrite.functions.ModHelpers.identifier;
 import static cc.cassian.pyrite.functions.neoforge.NeoHelpers.*;
 
 @SuppressWarnings("unused")
@@ -37,9 +37,9 @@ public class BlockCreatorImpl {
     public static DeferredHolder<Block, ?> BRICK_ICON;
     public static DeferredHolder<Block, ?> MISC_ICON;
     //Deferred registry entries
-    public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(RegistryKeys.BLOCK, modID);
-    public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(RegistryKeys.ITEM, modID);
-    public static final DeferredRegister<ItemGroup> TABS = DeferredRegister.create(RegistryKeys.ITEM_GROUP, modID);
+    public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(RegistryKeys.BLOCK, MOD_ID);
+    public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(RegistryKeys.ITEM, MOD_ID);
+    public static final DeferredRegister<ItemGroup> TABS = DeferredRegister.create(RegistryKeys.ITEM_GROUP, MOD_ID);
     public static final ArrayList<DeferredHolder<Item, ?>> ALL_ITEMS = new ArrayList<>();
     public static final ArrayList<DeferredHolder<Block, ?>> SIGN_BLOCKS = new ArrayList<>();
     public static final ArrayList<DeferredHolder<Block, ?>> HANGING_SIGN_BLOCKS = new ArrayList<>();
@@ -124,10 +124,14 @@ public class BlockCreatorImpl {
                 break;
             case "log":
                 newBlock = BLOCKS.register(blockID, () -> new ModPillar(blockSettings, power));
-                if (blockID.contains("mushroom"))
+                if (blockID.contains("mushroom") || blockID.contains("log"))
                     WOOD_BLOCKS.add(newBlock);
                 else if (power == 15)
                     REDSTONE_BLOCKS.add(newBlock);
+                break;
+            case "wood":
+                newBlock = BLOCKS.register(blockID, () -> new ModWood(blockSettings));
+                WOOD_BLOCKS.add(newBlock);
                 break;
             case "facing":
                 newBlock = BLOCKS.register(blockID, () -> new ModFacingBlock(blockSettings, power));
@@ -198,7 +202,7 @@ public class BlockCreatorImpl {
                 REDSTONE_BLOCKS.add(newBlock);
                 break;
             case "concrete_powder":
-                newBlock = BLOCKS.register(blockID, () -> new ConcretePowderBlock(BLOCKS.getRegistry().get().get(Identifier.of(modID, blockID.replace("_powder", ""))), blockSettings));
+                newBlock = BLOCKS.register(blockID, () -> new ConcretePowderBlock(BLOCKS.getRegistry().get().get(Identifier.of(MOD_ID, blockID.replace("_powder", ""))), blockSettings));
                 break;
             case "switchable_glass":
                 newBlock = BLOCKS.register(blockID, () -> new SwitchableGlass(blockSettings));
@@ -255,7 +259,7 @@ public class BlockCreatorImpl {
     public static void addItemGroup(String id, DeferredHolder<Block, ?> icon, ArrayList<DeferredHolder<?, ?>> blocks) {
         Supplier<ItemGroup> PYRITE_GROUP = TABS.register(id, () -> ItemGroup.builder()
             //Set the title of the tab.
-            .displayName(Text.translatable("itemGroup." + modID + "." + id))
+            .displayName(Text.translatable("itemGroup." + MOD_ID + "." + id))
             //Set the icon of the tab.
             .icon(() -> new ItemStack(icon.get()))
             //Add your items to the tab.

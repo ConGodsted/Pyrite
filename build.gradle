@@ -73,6 +73,10 @@ subprojects {
             name = "Fuzs Mod Resources"
             url = "https://raw.githubusercontent.com/Fuzss/modresources/main/maven/"
         }
+        maven {
+            name = "TerraformersMC"
+            url = "https://maven.terraformersmc.com/"
+        }
         maven githubPackage.invoke("The-Aether-Team/The-Aether")
 
     }

@@ -12,9 +12,8 @@ import static cc.cassian.pyrite.functions.ModLists.*;
 import static cc.cassian.pyrite.functions.ModHelpers.*;
 
 public class Pyrite {
-	public final static String modID = "pyrite";
-	public static final Logger LOGGER = LogManager.getLogger(modID);
-
+	public static final String MOD_ID = "pyrite";
+	public static final Logger LOGGER = LogManager.getLogger(MOD_ID);
 
     public static void init() {
 		// Framed Glass
@@ -78,15 +77,15 @@ public class Pyrite {
 			createPyriteBlock( "carved_wall_gate","fence_gate", Blocks.STONE);
 			createPyriteBlock( "angelic_wall_gate","fence_gate", Blocks.STONE);
 			createPyriteBlock( "hellfire_wall_gate","fence_gate", Blocks.STONE);
-
-
 		}
-		// Red Mushroom Blocks
+		// Red Mushroom Wood Set
 		createPyriteBlock("red_mushroom_stem", "log", Blocks.MUSHROOM_STEM);
 		createWoodSet("red_mushroom", MapColor.RED, 0);
-		// Brown Mushroom Blocks
+		// Brown Mushroom Wood Set
 		createPyriteBlock("brown_mushroom_stem", "log", Blocks.MUSHROOM_STEM);
 		createWoodSet("brown_mushroom", MapColor.BROWN, 0);
+		// Azalea Wood Set
+		createWoodSetWithLog("azalea", MapColor.DULL_RED, 0);
 		// Autogenerate dye blocks.
 		final String[] dyes = getDyes();
 		for (int dyeIndex = 0; dyeIndex < dyes.length; dyeIndex++) {
@@ -106,9 +105,9 @@ public class Pyrite {
 				createPyriteBlock(dye+"_concrete_powder", "concrete_powder", Blocks.WHITE_CONCRETE_POWDER, color, blockLux);
 			}
 			// Dyed Concrete Stairs
-			createPyriteBlock( dye+"_concrete_stairs", "stairs", Blocks.WHITE_CONCRETE, color, blockLux);
+			createPyriteBlock(dye+"_concrete_stairs", "stairs", Blocks.WHITE_CONCRETE, color, blockLux);
 			// Dyed Concrete Slab
-			createPyriteBlock( dye+"_concrete_slab", "slab", Blocks.WHITE_CONCRETE, color, blockLux);
+			createPyriteBlock(dye+"_concrete_slab", "slab", Blocks.WHITE_CONCRETE, color, blockLux);
 			//Dyed Planks and plank products
 			createWoodSet(dye + "_stained", color, blockLux);
 			// Dyed Bricks and brick products
@@ -131,10 +130,6 @@ public class Pyrite {
 			createPyriteBlock( dye+"_framed_glass_pane","tinted_glass_pane", 2.0f, color, blockLux);
 			// Dyed Torch Levers
 			createTorchLever(dye+"_torch_lever", Blocks.TORCH, getTorchParticle(dye));
-
-
-
-
 		}
 		// Autogenerate Wall Gates
 		for (Block wallsBlock : getVanillaWalls()) {
@@ -148,8 +143,4 @@ public class Pyrite {
 			createPyriteBlock(block + "_gate","fence_gate", wallsBlock);
 		}
 	}
-
-
-
-
 }

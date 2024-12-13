@@ -15,7 +15,7 @@ import net.neoforged.neoforge.registries.DeferredHolder;
 import static cc.cassian.pyrite.functions.neoforge.NeoHelpers.GRASS_BLOCKS;
 
 
-@Mod(Pyrite.modID)
+@Mod(Pyrite.MOD_ID)
 public class PyriteNeoForgeClient {
 
     public static void init(IEventBus eventBus) {
