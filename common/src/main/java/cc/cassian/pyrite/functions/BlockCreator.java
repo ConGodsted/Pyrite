@@ -4,6 +4,8 @@ import dev.architectury.injectables.annotations.ExpectPlatform;
 import net.minecraft.block.*;
 import net.minecraft.block.piston.PistonBehavior;
 import net.minecraft.particle.ParticleEffect;
+import net.minecraft.sound.BlockSoundGroup;
+
 import java.util.Map;
 import java.util.Objects;
 
@@ -72,7 +74,7 @@ public class BlockCreator {
             sendToRegistry(blockID, "block", settings.strength(strength, 1200f).pistonBehavior(PistonBehavior.BLOCK));
         }
         else {
-            sendToRegistry(blockID, blockType, settings);
+            sendToRegistry(blockID, blockType, settings.sounds(BlockSoundGroup.GLASS));
         }
     }
 
