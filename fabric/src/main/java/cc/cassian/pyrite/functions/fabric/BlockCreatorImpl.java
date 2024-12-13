@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 import static cc.cassian.pyrite.Pyrite.LOGGER;
-import static cc.cassian.pyrite.Pyrite.modID;
+import static cc.cassian.pyrite.Pyrite.MOD_ID;
 import static cc.cassian.pyrite.functions.ModHelpers.*;
 import static cc.cassian.pyrite.functions.ModLists.getDyes;
 import static cc.cassian.pyrite.functions.fabric.FabricHelpers.*;
@@ -60,6 +60,8 @@ public class BlockCreatorImpl {
         else power = 0;
         Block newBlock;
         blockSettings = blockSettings.registryKey(registryKeyBlock(blockID));
+        Block woodBlock;
+        boolean isWood = blockID.contains("_stained") || blockID.contains("mushroom") || blockID.contains("azalea");
         switch (blockType.toLowerCase()) {
             case "block":
                 newBlock = new ModBlock(blockSettings, power);
@@ -121,10 +123,14 @@ public class BlockCreatorImpl {
                 break;
             case "log":
                 newBlock = new ModPillar(blockSettings, power);
-                if (blockID.contains("mushroom"))
+                if (blockID.contains("mushroom") || blockID.contains("log"))
                     WOOD_BLOCKS.add(newBlock);
                 else if (power == 15)
                     REDSTONE_BLOCKS.add(newBlock);
+                break;
+            case "wood":
+                newBlock = new ModWood(blockSettings);
+                WOOD_BLOCKS.add(newBlock);
                 break;
             case "facing":
                 newBlock = new ModFacingBlock(blockSettings, power);
@@ -198,23 +204,23 @@ public class BlockCreatorImpl {
             case "door":
                 newBlock = new DoorBlock(blockSetType, blockSettings.nonOpaque());
                 addTransparentBlock(newBlock);
-                if (blockID.contains("_stained") || blockID.contains("mushroom"))
+                if (isWood)
                     WOOD_BLOCKS.add(newBlock);
                 break;
             case "trapdoor":
                 newBlock = new TrapdoorBlock(blockSetType, blockSettings.nonOpaque());
                 addTransparentBlock(newBlock);
-                if (blockID.contains("_stained") || blockID.contains("mushroom"))
+                if (isWood)
                     WOOD_BLOCKS.add(newBlock);
                 break;
             case "button":
                 newBlock = new ModWoodenButton(blockSettings, blockSetType);
-                if (blockID.contains("_stained") || blockID.contains("mushroom"))
+                if (isWood)
                     WOOD_BLOCKS.add(newBlock);
                 break;
             case "pressure_plate":
                 newBlock = new ModPressurePlate(blockSettings, blockSetType);
-                if (blockID.contains("_stained") || blockID.contains("mushroom"))
+                if (isWood)
                     WOOD_BLOCKS.add(newBlock);
                 break;
             case "torch":
@@ -290,7 +296,7 @@ public class BlockCreatorImpl {
                     }
                 })
                 .build();
-        Registry.register(Registries.ITEM_GROUP, Identifier.of(modID, id), group);
+        Registry.register(Registries.ITEM_GROUP, Identifier.of(MOD_ID, id), group);
     }
 
     public static void register() {

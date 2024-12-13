@@ -3,7 +3,7 @@ package cc.cassian.pyrite.functions;
 import dev.architectury.injectables.annotations.ExpectPlatform;
 import net.minecraft.SharedConstants;
 import net.minecraft.block.*;
-import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.particle.ParticleEffect;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.registry.RegistryKey;
@@ -17,7 +17,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.Objects;
 import java.util.function.ToIntFunction;
 
-import static cc.cassian.pyrite.Pyrite.modID;
+import static cc.cassian.pyrite.Pyrite.MOD_ID;
 
 
 public class ModHelpers {
@@ -35,7 +35,7 @@ public class ModHelpers {
     }
 
     public static Identifier identifier(String id) {
-        return Identifier.of(modID, id);
+        return Identifier.of(MOD_ID, id);
     }
 
     public static RegistryKey<Block> registryKeyBlock(String id) {
@@ -101,6 +101,11 @@ public class ModHelpers {
 
     @ExpectPlatform
     public static boolean isModLoaded(String modID) {
+        throw new AssertionError();
+    }
+
+    @ExpectPlatform
+    public static boolean isShield(ItemStack stack) {
         throw new AssertionError();
     }
 }
