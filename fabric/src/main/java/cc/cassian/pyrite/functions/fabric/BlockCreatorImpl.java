@@ -298,13 +298,20 @@ public class BlockCreatorImpl {
         Registry.register(Registries.ITEM_GROUP, Identifier.of(MOD_ID, id), group);
     }
 
+    public static BlockItem addBlockItem(String blockID, Block block) {
+        Item.Settings settings = new Item.Settings();
+        if (blockID.contains("netherite"))
+            settings = settings.fireproof();
+        return new BlockItem(block, settings);
+    }
+
     public static void register() {
         //Register blocks and block items.
         for (int x = 0; x < BLOCK_IDS.size(); x++) {
             final var block = BLOCKS.get(x);
             final var blockID = BLOCK_IDS.get(x);
             Registry.register(Registries.BLOCK, identifier(blockID), block);
-            Registry.register(Registries.ITEM, identifier(blockID), new BlockItem(block, new Item.Settings()));
+            Registry.register(Registries.ITEM, identifier(blockID), addBlockItem(blockID, block));
             if (!inGroup(block))
                 MISC_BLOCKS.add(block);
         }

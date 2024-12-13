@@ -224,7 +224,7 @@ public class BlockCreatorImpl {
         else if (blockID.equals("glowing_obsidian")) MISC_ICON = newBlock;
         else if (blockID.contains("grass")) addGrassBlock(newBlock);
         if (!blockType.equals("sign") && !blockType.equals("hanging_sign")) {
-            addBlockItem(newBlock);
+            addBlockItem(blockID, newBlock);
             if (!inGroup(newBlock)) {
                 MISC_BLOCKS.add(newBlock);
             }
@@ -232,8 +232,12 @@ public class BlockCreatorImpl {
 
     }
 
-    public static void addBlockItem(DeferredHolder<Block, ? extends Block> newBlock) {
-        ALL_ITEMS.add(ITEMS.register(newBlock.getId().getPath(), () -> new BlockItem(newBlock.get(), new Item.Settings())));
+    public static void addBlockItem(String blockID, DeferredHolder<Block, ? extends Block> newBlock) {
+        Item.Settings settings = new Item.Settings();
+        if (blockID.contains("netherite"))
+            settings = settings.fireproof();
+        final Item.Settings finalSettings = settings;
+        ALL_ITEMS.add(ITEMS.register(newBlock.getId().getPath(), () -> new BlockItem(newBlock.get(), finalSettings)));
     }
 
     public static void addSignItem(DeferredHolder<Block, ? extends Block> newBlock, DeferredHolder<Block, ? extends Block> wallSign) {
