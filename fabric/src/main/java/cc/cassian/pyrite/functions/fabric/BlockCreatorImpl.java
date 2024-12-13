@@ -2,6 +2,7 @@ package cc.cassian.pyrite.functions.fabric;
 
 import cc.cassian.pyrite.blocks.*;
 import cc.cassian.pyrite.functions.BlockCreator;
+import cc.cassian.pyrite.functions.ModHelpers;
 import cc.cassian.pyrite.functions.ModLists;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.fabricmc.fabric.api.object.builder.v1.block.type.WoodTypeBuilder;
@@ -152,6 +153,10 @@ public class BlockCreatorImpl {
                 break;
             case "tinted_glass":
                 newBlock = new ModGlass(blockSettings);
+                addTranslucentBlock(newBlock);
+                break;
+            case "stained_framed_glass":
+                newBlock = new StainedFramedGlass(ModHelpers.getDyeColorFromFramedId(blockID), blockSettings);
                 addTranslucentBlock(newBlock);
                 break;
             case "gravel":

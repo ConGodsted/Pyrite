@@ -1,6 +1,7 @@
 package cc.cassian.pyrite.functions.neoforge;
 
 import cc.cassian.pyrite.blocks.*;
+import cc.cassian.pyrite.functions.ModHelpers;
 import cc.cassian.pyrite.functions.ModLists;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntityType;
@@ -143,6 +144,9 @@ public class BlockCreatorImpl {
                 break;
             case "glass", "tinted_glass":
                 newBlock = BLOCKS.register(blockID, () -> new ModGlass(blockSettings));
+                break;
+            case "stained_framed_glass":
+                newBlock = BLOCKS.register(blockID, () -> new StainedFramedGlass(ModHelpers.getDyeColorFromFramedId(blockID), blockSettings));
                 break;
             case "gravel":
                 newBlock = BLOCKS.register(blockID, () -> new GravelBlock(blockSettings));
