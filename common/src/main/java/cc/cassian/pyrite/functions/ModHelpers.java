@@ -76,7 +76,6 @@ public class ModHelpers {
 
     public static DyeColor getDyeColorFromFramedId(String blockID) {
         var dye = blockID.split("_framed")[0];
-        System.out.println(dye);
         return switch (dye) {
             case "glow" -> DyeColor.CYAN;
             case "dragon" -> DyeColor.BLACK;
