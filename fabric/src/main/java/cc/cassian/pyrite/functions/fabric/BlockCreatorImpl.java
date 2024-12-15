@@ -1,6 +1,7 @@
 package cc.cassian.pyrite.functions.fabric;
 
 import cc.cassian.pyrite.blocks.*;
+import cc.cassian.pyrite.functions.ModHelpers;
 import cc.cassian.pyrite.functions.ModLists;
 import com.mojang.serialization.MapCodec;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
@@ -175,6 +176,14 @@ public class BlockCreatorImpl {
                 BLOCK_IDS.add(blockID);
                 addTranslucentBlock();
                 break;
+            case "stained_framed_glass":
+                newBlock = new StainedFramedGlass(ModHelpers.getDyeColorFromFramedId(blockID), blockSettings);
+                addTranslucentBlock();
+                break;
+            case "stained_framed_glass_pane":
+                newBlock = new StainedGlassPaneBlock(getDyeColorFromFramedId(blockID), blockSettings);
+                addTranslucentBlock();
+                break;
             case "gravel":
                 newBlock = new FallingBlock(blockSettings);
                 BLOCKS.add(newBlock);
@@ -328,13 +337,20 @@ public class BlockCreatorImpl {
         Registry.register(Registries.ITEM_GROUP, Identifier.of(modID, id), group);
     }
 
+    public static BlockItem addBlockItem(String blockID, Block block) {
+        Item.Settings settings = new Item.Settings();
+        if (blockID.contains("netherite"))
+            settings = settings.fireproof();
+        return new BlockItem(block, settings);
+    }
+
     public static void register() {
         //Register blocks and block items.
         for (int x = 0; x < BLOCK_IDS.size(); x++) {
             final var block = BLOCKS.get(x);
             final var blockID = BLOCK_IDS.get(x);
             Registry.register(Registries.BLOCK, identifier(blockID), block);
-            Registry.register(Registries.ITEM, identifier(blockID), new BlockItem(block, new Item.Settings()));
+            Registry.register(Registries.ITEM, identifier(blockID), addBlockItem(blockID, block));
             if (!inGroup(block))
                 MISC_BLOCKS.add(block);
         }

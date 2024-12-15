@@ -124,9 +124,9 @@ public class Pyrite {
 			// Dyed Lamps
 			createPyriteBlock(dye + "_lamp","block", 0.3f, color, 15);
 			// Dyed Framed Glass
-			createPyriteBlock(dye+"_framed_glass","tinted_glass", 2.0f, color, blockLux);
+			createPyriteBlock(dye+"_framed_glass","stained_framed_glass", 2.0f, color, blockLux);
 			// Dyed Framed Glass Pane
-			createPyriteBlock( dye+"_framed_glass_pane","tinted_glass_pane", 2.0f, color, blockLux);
+			createPyriteBlock( dye+"_framed_glass_pane","stained_framed_glass_pane", 2.0f, color, blockLux);
 			// Dyed Torch Levers
 			createTorchLever(dye+"_torch_lever", Blocks.TORCH, getTorchParticle(dye));
 
