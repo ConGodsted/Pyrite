@@ -13,6 +13,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
+import net.minecraft.world.block.WireOrientation;
 import org.jetbrains.annotations.Nullable;
 
 public class SwitchableGlass extends TransparentBlock {
@@ -50,7 +51,7 @@ public class SwitchableGlass extends TransparentBlock {
         return this.getDefaultState().with(POWERED, ctx.getWorld().isReceivingRedstonePower(ctx.getBlockPos()));
     }
 
-    protected void neighborUpdate(BlockState state, World world, BlockPos pos, Block sourceBlock, BlockPos sourcePos, boolean notify) {
+    protected void neighborUpdate(BlockState state, World world, BlockPos pos, Block sourceBlock, @Nullable WireOrientation wireOrientation, boolean notify) {
         if (!world.isClient) {
             boolean currentlyPowered = state.get(POWERED);
             if (currentlyPowered != world.isReceivingRedstonePower(pos)) {

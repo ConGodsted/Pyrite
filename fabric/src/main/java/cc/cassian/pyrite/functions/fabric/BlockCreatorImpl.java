@@ -2,6 +2,7 @@ package cc.cassian.pyrite.functions.fabric;
 
 import cc.cassian.pyrite.blocks.*;
 import cc.cassian.pyrite.functions.BlockCreator;
+import cc.cassian.pyrite.functions.ModHelpers;
 import cc.cassian.pyrite.functions.ModLists;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.fabricmc.fabric.api.object.builder.v1.block.type.WoodTypeBuilder;
@@ -147,12 +148,20 @@ public class BlockCreatorImpl {
                 newBlock = new ModPane(blockSettings, power);
                 addTranslucentBlock(newBlock);
                 break;
+            case "stained_framed_glass_pane":
+                newBlock = new StainedGlassPaneBlock(getDyeColorFromFramedId(blockID), blockSettings);
+                addTranslucentBlock(newBlock);
+                break;
             case "glass":
                 newBlock = new ModGlass(blockSettings);
                 addTransparentBlock(newBlock);
                 break;
             case "tinted_glass":
                 newBlock = new ModGlass(blockSettings);
+                addTranslucentBlock(newBlock);
+                break;
+            case "stained_framed_glass":
+                newBlock = new StainedFramedGlass(ModHelpers.getDyeColorFromFramedId(blockID), blockSettings);
                 addTranslucentBlock(newBlock);
                 break;
             case "gravel":
@@ -299,13 +308,20 @@ public class BlockCreatorImpl {
         Registry.register(Registries.ITEM_GROUP, Identifier.of(MOD_ID, id), group);
     }
 
+    public static BlockItem addBlockItem(String blockID, Block block) {
+        Item.Settings settings = newBlockItemSettings(blockID);
+        if (blockID.contains("netherite"))
+            settings = settings.fireproof();
+        return new BlockItem(block, settings);
+    }
+
     public static void register() {
         //Register blocks and block items.
         for (int x = 0; x < BLOCK_IDS.size(); x++) {
             final var block = BLOCKS.get(x);
             final var blockID = BLOCK_IDS.get(x);
             Registry.register(Registries.BLOCK, identifier(blockID), block);
-            Registry.register(Registries.ITEM, identifier(blockID), new BlockItem(block, newBlockItemSettings(blockID)));
+            Registry.register(Registries.ITEM, identifier(blockID), addBlockItem(blockID, block));
             if (!inGroup(block))
                 MISC_BLOCKS.add(block);
         }
