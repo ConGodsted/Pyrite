@@ -1,6 +1,7 @@
 package cc.cassian.pyrite.functions.forge;
 
 import cc.cassian.pyrite.blocks.*;
+import cc.cassian.pyrite.functions.ModHelpers;
 import cc.cassian.pyrite.functions.ModLists;
 import net.minecraft.block.*;
 import net.minecraft.entity.effect.StatusEffects;
@@ -20,6 +21,7 @@ import java.util.function.Supplier;
 
 import static cc.cassian.pyrite.Pyrite.LOGGER;
 import static cc.cassian.pyrite.Pyrite.modID;
+import static cc.cassian.pyrite.functions.ModHelpers.getDyeColorFromFramedId;
 import static cc.cassian.pyrite.functions.ModHelpers.identifier;
 import static cc.cassian.pyrite.functions.forge.ForgeHelpers.*;
 
@@ -136,6 +138,12 @@ public class BlockCreatorImpl {
             case "glass", "tinted_glass":
                 newBlock = BLOCKS.register(blockID, () -> new ModGlass(blockSettings));
                 break;
+            case "stained_framed_glass":
+                newBlock = BLOCKS.register(blockID, () -> new StainedFramedGlass(getDyeColorFromFramedId(blockID), blockSettings));
+                break;
+            case "stained_framed_glass_pane":
+                newBlock = BLOCKS.register(blockID, () -> new StainedGlassPaneBlock(getDyeColorFromFramedId(blockID), blockSettings));
+                break;
             case "gravel":
                 newBlock = BLOCKS.register(blockID, () -> new FallingBlock(blockSettings));
                 break;
@@ -216,7 +224,7 @@ public class BlockCreatorImpl {
         else if (blockID.equals("glowing_obsidian")) MISC_ICON = newBlock;
         else if (blockID.contains("grass")) addGrassBlock(newBlock);
         if (!blockType.equals("sign") && !blockType.equals("hanging_sign")) {
-            addBlockItem(newBlock);
+            addBlockItem(blockID, newBlock);
             if (!inGroup(newBlock)) {
                 MISC_BLOCKS.add(newBlock);
             }
@@ -224,8 +232,12 @@ public class BlockCreatorImpl {
 
     }
 
-    public static void addBlockItem(RegistryObject<Block> newBlock) {
-        ALL_ITEMS.add(ITEMS.register(newBlock.getId().getPath(), () -> new BlockItem(newBlock.get(), new Item.Settings())));
+    public static void addBlockItem(String blockID, RegistryObject<Block> newBlock) {
+        Item.Settings settings = new Item.Settings();
+        if (blockID.contains("netherite"))
+            settings = settings.fireproof();
+        final Item.Settings finalSettings = settings;
+        ALL_ITEMS.add(ITEMS.register(newBlock.getId().getPath(), () -> new BlockItem(newBlock.get(), finalSettings)));
     }
 
     public static void addSignItem(RegistryObject<Block> newBlock, RegistryObject<Block> wallSign) {
