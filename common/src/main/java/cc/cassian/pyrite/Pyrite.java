@@ -12,8 +12,8 @@ import static cc.cassian.pyrite.functions.ModLists.*;
 import static cc.cassian.pyrite.functions.ModHelpers.*;
 
 public class Pyrite {
-	public final static String modID = "pyrite";
-	public static final Logger LOGGER = LogManager.getLogger(modID);
+	public final static String MOD_ID = "pyrite";
+	public static final Logger LOGGER = LogManager.getLogger(MOD_ID);
 
 
     public static void init() {
@@ -85,6 +85,8 @@ public class Pyrite {
 		// Brown Mushroom Blocks
 		createPyriteBlock("brown_mushroom_stem", "log", Blocks.MUSHROOM_STEM);
 		createWoodSet("brown_mushroom", MapColor.BROWN, 0);
+		// Azalea Wood Set
+		createWoodSetWithLog("azalea", MapColor.DULL_RED, 0);
 		// Autogenerate dye blocks.
 		final String[] dyes = getDyes();
 		for (int dyeIndex = 0; dyeIndex < dyes.length; dyeIndex++) {

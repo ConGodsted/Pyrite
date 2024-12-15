@@ -1,13 +1,12 @@
 package cc.cassian.pyrite.functions.fabric;
 
 import cc.cassian.pyrite.blocks.*;
+import cc.cassian.pyrite.functions.BlockCreator;
 import cc.cassian.pyrite.functions.ModHelpers;
 import cc.cassian.pyrite.functions.ModLists;
-import com.mojang.serialization.MapCodec;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.fabricmc.fabric.api.object.builder.v1.block.type.WoodTypeBuilder;
 import net.minecraft.block.*;
-import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.item.*;
 import net.minecraft.particle.ParticleEffect;
@@ -21,7 +20,7 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 import static cc.cassian.pyrite.Pyrite.LOGGER;
-import static cc.cassian.pyrite.Pyrite.modID;
+import static cc.cassian.pyrite.Pyrite.MOD_ID;
 import static cc.cassian.pyrite.functions.ModHelpers.*;
 import static cc.cassian.pyrite.functions.ModLists.getDyes;
 import static cc.cassian.pyrite.functions.fabric.FabricHelpers.*;
@@ -45,25 +44,26 @@ public class BlockCreatorImpl {
     public static final ArrayList<Object> MISC_BLOCKS = new ArrayList<>();
 
     /**
-     * Implements {@link cc.cassian.pyrite.functions.BlockCreator#createWoodType(String, BlockSetType)} on Fabric.
+     * Implements {@link BlockCreator#createWoodType(String, BlockSetType)} on Fabric.
      */
     public static WoodType createWoodType(String blockID, BlockSetType setType) {
         return WoodTypeBuilder.copyOf(WoodType.OAK).register(identifier(blockID), setType);
     }
 
     /**
-     * Implements {@link cc.cassian.pyrite.functions.BlockCreator#platfomRegister(String, String, AbstractBlock.Settings, WoodType, BlockSetType, ParticleEffect, Block)} on Fabric.
+     * Implements {@link BlockCreator#platfomRegister(String, String, AbstractBlock.Settings, WoodType, BlockSetType, ParticleEffect, Block)} on Fabric.
      */
     public static void platfomRegister(String blockID, String blockType, AbstractBlock.Settings blockSettings, WoodType woodType, BlockSetType blockSetType, ParticleEffect particle, Block copyBlock) {
+        int index = -1;
         int power;
         if (blockID.contains("redstone")) power = 15;
         else power = 0;
         Block newBlock;
+        Block woodBlock;
+        boolean isWood = blockID.contains("_stained") || blockID.contains("mushroom") || blockID.contains("azalea");
         switch (blockType.toLowerCase()) {
             case "block":
                 newBlock = new ModBlock(blockSettings, power);
-                BLOCKS.add(newBlock);
-                BLOCK_IDS.add(blockID);
                 if (power == 15)
                     if (blockID.equals("lit_redstone_lamp"))
                         REDSTONE_BLOCKS.add(0, newBlock);
@@ -86,8 +86,6 @@ public class BlockCreatorImpl {
                 }
                 // Register Crafting table.
                 newBlock = new ModCraftingTable(craftingSettings);
-                BLOCKS.add(newBlock);
-                BLOCK_IDS.add(blockID);
                 WOOD_BLOCKS.add(newBlock);
                 // If block is not composed of flammable wood, make it furnace fuel.
                 if (burnable)
@@ -95,20 +93,14 @@ public class BlockCreatorImpl {
                 break;
             case "ladder":
                 newBlock = new LadderBlock(blockSettings);
-                BLOCKS.add(newBlock);
-                BLOCK_IDS.add(blockID);
                 WOOD_BLOCKS.add(newBlock);
-                addTransparentBlock();
+                addTransparentBlock(newBlock);
                 break;
             case "carpet":
                 newBlock = new ModCarpet(blockSettings);
-                BLOCKS.add(newBlock);
-                BLOCK_IDS.add(blockID);
                 break;
             case "slab":
                 newBlock = new ModSlab(blockSettings, power);
-                BLOCKS.add(newBlock);
-                BLOCK_IDS.add(blockID);
                 if (Objects.equals(copyBlock, Blocks.OAK_SLAB))
                     WOOD_BLOCKS.add(newBlock);
                 if (power == 15)
@@ -116,89 +108,69 @@ public class BlockCreatorImpl {
                 break;
             case "stairs":
                 newBlock = new ModStairs(copyBlock.getDefaultState(), blockSettings);
-                BLOCKS.add(newBlock);
-                BLOCK_IDS.add(blockID);
                 if (Objects.equals(copyBlock, Blocks.OAK_STAIRS))
                     WOOD_BLOCKS.add(newBlock);
                 break;
             case "wall":
                 newBlock = new ModWall(blockSettings, power);
-                BLOCKS.add(newBlock);
-                BLOCK_IDS.add(blockID);
                 if (power == 15)
                     REDSTONE_BLOCKS.add(newBlock);
                 break;
             case "fence":
                 newBlock = new FenceBlock(blockSettings);
-                BLOCKS.add(newBlock);
-                BLOCK_IDS.add(blockID);
                 WOOD_BLOCKS.add(newBlock);
                 break;
             case "log":
                 newBlock = new ModPillar(blockSettings, power);
-                BLOCKS.add(newBlock);
-                BLOCK_IDS.add(blockID);
-                if (blockID.contains("mushroom"))
+                if (blockID.contains("mushroom") || blockID.contains("log"))
                     WOOD_BLOCKS.add(newBlock);
                 else if (power == 15)
                     REDSTONE_BLOCKS.add(newBlock);
                 break;
+            case "wood":
+                newBlock = new ModWood(blockSettings);
+                WOOD_BLOCKS.add(newBlock);
+                break;
             case "facing":
                 newBlock = new ModFacingBlock(blockSettings, power);
-                BLOCKS.add(newBlock);
-                BLOCK_IDS.add(blockID);
                 if (power == 15)
                     REDSTONE_BLOCKS.add(newBlock);
                 break;
             case "bars", "glass_pane":
                 newBlock = new ModPane(blockSettings, power);
-                BLOCKS.add(newBlock);
-                BLOCK_IDS.add(blockID);
                 if (power == 15)
                     REDSTONE_BLOCKS.add(newBlock);
-                addTransparentBlock();
+                addTransparentBlock(newBlock);
                 break;
             case "tinted_glass_pane":
                 newBlock = new ModPane(blockSettings, power);
-                BLOCKS.add(newBlock);
-                BLOCK_IDS.add(blockID);
-                addTranslucentBlock();
-                break;
-            case "glass":
-                newBlock = new ModGlass(blockSettings);
-                BLOCKS.add(newBlock);
-                BLOCK_IDS.add(blockID);
-                addTransparentBlock();
-                break;
-            case "tinted_glass":
-                newBlock = new ModGlass(blockSettings);
-                BLOCKS.add(newBlock);
-                BLOCK_IDS.add(blockID);
-                addTranslucentBlock();
-                break;
-            case "stained_framed_glass":
-                newBlock = new StainedFramedGlass(ModHelpers.getDyeColorFromFramedId(blockID), blockSettings);
-                addTranslucentBlock();
+                addTranslucentBlock(newBlock);
                 break;
             case "stained_framed_glass_pane":
                 newBlock = new StainedGlassPaneBlock(getDyeColorFromFramedId(blockID), blockSettings);
-                addTranslucentBlock();
+                addTranslucentBlock(newBlock);
+                break;
+            case "glass":
+                newBlock = new ModGlass(blockSettings);
+                addTransparentBlock(newBlock);
+                break;
+            case "tinted_glass":
+                newBlock = new ModGlass(blockSettings);
+                addTranslucentBlock(newBlock);
+                break;
+            case "stained_framed_glass":
+                newBlock = new StainedFramedGlass(ModHelpers.getDyeColorFromFramedId(blockID), blockSettings);
+                addTranslucentBlock(newBlock);
                 break;
             case "gravel":
-                newBlock = new FallingBlock(blockSettings);
-                BLOCKS.add(newBlock);
-                BLOCK_IDS.add(blockID);
+                newBlock = new GravelBlock(blockSettings);
                 break;
             case "flower":
                 newBlock = new FlowerBlock(StatusEffects.NIGHT_VISION, 5, blockSettings);
-                BLOCKS.add(newBlock);
-                BLOCK_IDS.add(blockID);
-                addTransparentBlock();
+                addTransparentBlock(newBlock);
                 break;
             case "fence_gate", "wall_gate":
                 newBlock = new FenceGateBlock(blockSettings, woodType);
-                BLOCKS.add(newBlock);
-                BLOCK_IDS.add(blockID);
                 if (blockID.contains("_stained") || blockID.contains("mushroom"))
                     WOOD_BLOCKS.add(newBlock);
                 break;
@@ -234,68 +206,61 @@ public class BlockCreatorImpl {
                 break;
             case "door":
                 newBlock = new DoorBlock(blockSettings.nonOpaque(), blockSetType);
-                BLOCKS.add(newBlock);
-                BLOCK_IDS.add(blockID);
-                addTransparentBlock();
-                if (blockID.contains("_stained") || blockID.contains("mushroom"))
+                addTransparentBlock(newBlock);
+                if (isWood)
                     WOOD_BLOCKS.add(newBlock);
                 break;
             case "trapdoor":
                 newBlock = new TrapdoorBlock(blockSettings.nonOpaque(), blockSetType);
-                BLOCKS.add(newBlock);
-                BLOCK_IDS.add(blockID);
-                addTransparentBlock();
-                if (blockID.contains("_stained") || blockID.contains("mushroom"))
+                addTransparentBlock(newBlock);
+                if (isWood)
                     WOOD_BLOCKS.add(newBlock);
                 break;
             case "button":
                 newBlock = new ModWoodenButton(blockSettings, blockSetType);
-                BLOCKS.add(newBlock);
-                BLOCK_IDS.add(blockID);
-                if (blockID.contains("_stained") || blockID.contains("mushroom"))
+                if (isWood)
                     WOOD_BLOCKS.add(newBlock);
                 break;
             case "pressure_plate":
                 newBlock = new ModPressurePlate(blockSettings, blockSetType);
-                BLOCKS.add(newBlock);
-                BLOCK_IDS.add(blockID);
-                if (blockID.contains("_stained") || blockID.contains("mushroom"))
+                if (isWood)
                     WOOD_BLOCKS.add(newBlock);
                 break;
             case "torch":
+                var torchParticle = particle;
                 if (particle == null)
-                    newBlock = new ModTorch(blockSettings.nonOpaque(), ParticleTypes.FLAME);
-                else
-                    newBlock = new ModTorch(blockSettings.nonOpaque(), particle);
-                BLOCKS.add(newBlock);
-                BLOCK_IDS.add(blockID);
-                addTransparentBlock();
+                    torchParticle = ParticleTypes.FLAME;
+                newBlock = new ModTorch(blockSettings.nonOpaque(), torchParticle);
+                addTransparentBlock(newBlock);
                 break;
             case "torch_lever":
                 newBlock = new TorchLever(blockSettings.nonOpaque(), particle);
-                BLOCKS.add(newBlock);
-                BLOCK_IDS.add(blockID);
                 REDSTONE_BLOCKS.add(newBlock);
-                addTransparentBlock();
+                addTransparentBlock(newBlock);
                 break;
             case "concrete_powder":
                 newBlock = new ConcretePowderBlock(getLastBlock(), blockSettings);
-                BLOCKS.add(newBlock);
-                BLOCK_IDS.add(BLOCK_IDS.indexOf(blockID.replace("_powder", "")), blockID);
+                index = BLOCK_IDS.indexOf(blockID.replace("_powder", ""));
                 break;
             case "switchable_glass":
                 newBlock = new SwitchableGlass(blockSettings);
-                BLOCKS.add(newBlock);
-                BLOCK_IDS.add(blockID);
                 REDSTONE_BLOCKS.add(newBlock);
-                addTranslucentBlock();
+                addTranslucentBlock(newBlock);
                 break;
             default:
                 LOGGER.error("{}created as a generic block, block provided type: {}", blockID, blockType);
                 newBlock = new Block(blockSettings);
+                break;
+        }
+        if (!blockType.contains("sign")) {
+            if (index == -1) {
                 BLOCKS.add(newBlock);
                 BLOCK_IDS.add(blockID);
-                break;
+            }
+            else {
+                BLOCKS.add(index, newBlock);
+                BLOCK_IDS.add(index, blockID);
+            }
         }
         for (Block block : ModLists.getVanillaResourceBlocks()) {
             if (blockID.contains(Registries.BLOCK.getId(block).getPath().replace("_block", "")) && !inGroup(newBlock))
@@ -309,7 +274,7 @@ public class BlockCreatorImpl {
     }
 
     /**
-     * Implements {@link cc.cassian.pyrite.functions.BlockCreator#registerPyriteItem(String)} on Fabric.
+     * Implements {@link BlockCreator#registerPyriteItem(String)} on Fabric.
      * This registers a basic item with no additional settings - primarily used for Dye.
      */
     public static void registerPyriteItem(String itemID) {
@@ -334,7 +299,7 @@ public class BlockCreatorImpl {
                     }
                 })
                 .build();
-        Registry.register(Registries.ITEM_GROUP, Identifier.of(modID, id), group);
+        Registry.register(Registries.ITEM_GROUP, Identifier.of(MOD_ID, id), group);
     }
 
     public static BlockItem addBlockItem(String blockID, Block block) {

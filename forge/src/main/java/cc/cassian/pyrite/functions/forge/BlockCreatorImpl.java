@@ -1,7 +1,6 @@
 package cc.cassian.pyrite.functions.forge;
 
 import cc.cassian.pyrite.blocks.*;
-import cc.cassian.pyrite.functions.ModHelpers;
 import cc.cassian.pyrite.functions.ModLists;
 import net.minecraft.block.*;
 import net.minecraft.entity.effect.StatusEffects;
@@ -20,7 +19,7 @@ import java.util.Objects;
 import java.util.function.Supplier;
 
 import static cc.cassian.pyrite.Pyrite.LOGGER;
-import static cc.cassian.pyrite.Pyrite.modID;
+import static cc.cassian.pyrite.Pyrite.MOD_ID;
 import static cc.cassian.pyrite.functions.ModHelpers.getDyeColorFromFramedId;
 import static cc.cassian.pyrite.functions.ModHelpers.identifier;
 import static cc.cassian.pyrite.functions.forge.ForgeHelpers.*;
@@ -34,9 +33,9 @@ public class BlockCreatorImpl {
     public static RegistryObject<Block> BRICK_ICON;
     public static RegistryObject<Block> MISC_ICON;
     //Deferred registry entries
-    public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(RegistryKeys.BLOCK, modID);
-    public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(RegistryKeys.ITEM, modID);
-    public static final DeferredRegister<ItemGroup> TABS = DeferredRegister.create(RegistryKeys.ITEM_GROUP, modID);
+    public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(RegistryKeys.BLOCK, MOD_ID);
+    public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(RegistryKeys.ITEM, MOD_ID);
+    public static final DeferredRegister<ItemGroup> TABS = DeferredRegister.create(RegistryKeys.ITEM_GROUP, MOD_ID);
     public static final ArrayList<RegistryObject<Item>> ALL_ITEMS = new ArrayList<>();
     public static final ArrayList<RegistryObject<Block>> SIGN_BLOCKS = new ArrayList<>();
     public static final ArrayList<RegistryObject<Block>> HANGING_SIGN_BLOCKS = new ArrayList<>();
@@ -124,6 +123,10 @@ public class BlockCreatorImpl {
                     WOOD_BLOCKS.add(newBlock);
                 else if (power == 15)
                     REDSTONE_BLOCKS.add(newBlock);
+                break;
+            case "wood":
+                newBlock = BLOCKS.register(blockID, () -> new ModWood(blockSettings));
+                WOOD_BLOCKS.add(newBlock);
                 break;
             case "facing":
                 newBlock = BLOCKS.register(blockID, () -> new ModFacingBlock(blockSettings, power));
@@ -259,7 +262,7 @@ public class BlockCreatorImpl {
     public static void addItemGroup(String id, RegistryObject<Block> icon, ArrayList<RegistryObject<?>> blocks) {
         Supplier<ItemGroup> PYRITE_GROUP = TABS.register(id, () -> ItemGroup.builder()
                 //Set the title of the tab.
-                .displayName(Text.translatable("itemGroup." + modID + "." + id))
+                .displayName(Text.translatable("itemGroup." + MOD_ID + "." + id))
                 //Set the icon of the tab.
                 .icon(() -> new ItemStack(icon.get()))
                 //Add your items to the tab.

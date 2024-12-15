@@ -9,7 +9,7 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import cc.cassian.pyrite.Pyrite;
 import net.minecraftforge.fml.loading.FMLEnvironment;
 
-@Mod(Pyrite.modID)
+@Mod(Pyrite.MOD_ID)
 public final class PyriteForge {
     public PyriteForge() {
         // Get mod event bus so we can register our content on the right time.

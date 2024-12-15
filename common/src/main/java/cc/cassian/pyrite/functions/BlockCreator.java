@@ -238,6 +238,17 @@ public class BlockCreator {
         createPyriteBlock(blockID+"_hanging_sign", "hanging_sign", Blocks.OAK_HANGING_SIGN, color, blockLux, GENERATED_SET, GENERATED_TYPE);
     }
 
+    /**
+     * Generate an entire wood set, alongside Logs, Wood, and Stripped Logs/Wood.
+     */
+    public static void createWoodSetWithLog(String blockID, MapColor color, int blockLux) {
+        createPyriteBlock("%s_log".formatted(blockID), "log", Blocks.OAK_LOG, color, blockLux);
+        createPyriteBlock("stripped_%s_log".formatted(blockID), "log", Blocks.STRIPPED_OAK_LOG, color, blockLux);
+        createPyriteBlock("%s_wood".formatted(blockID), "wood", Blocks.OAK_WOOD, color, blockLux);
+        createPyriteBlock("stripped_%s_wood".formatted(blockID), "wood", Blocks.STRIPPED_OAK_WOOD, color, blockLux);
+        createWoodSet(blockID, color, blockLux);
+    }
+
     //Generate an entire Cut Block set.
     public static void createCutBlocks(String blockID, Block block) {
         String cutBlockID = "cut_" + blockID;
