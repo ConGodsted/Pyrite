@@ -93,6 +93,21 @@ public class ModHelpers {
         return (SharedConstants.getGameVersion().getName().contains("potato"));
     }
 
+    public static DyeColor getDyeColorFromFramedId(String blockID) {
+        var dye = blockID.split("_framed")[0];
+        System.out.println(dye);
+        return switch (dye) {
+            case "glow" -> DyeColor.CYAN;
+            case "dragon" -> DyeColor.BLACK;
+            case "star" -> DyeColor.LIGHT_BLUE;
+            case "honey" -> DyeColor.YELLOW;
+            case "nostalgia" -> DyeColor.BROWN;
+            case "rose" -> DyeColor.PINK;
+            case "poisonous" -> DyeColor.LIME;
+            default -> DyeColor.byName(dye, DyeColor.WHITE);
+        };
+    }
+
 
 
     public static @NotNull BlockSetType getBlockSetType(String blockID) {
