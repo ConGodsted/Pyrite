@@ -6,6 +6,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+- Stained Glass and Stained Glass Panes for Pyrite dyes.
+
 ## [0.15.5] - 2024-12-15
 
 ### Changed
