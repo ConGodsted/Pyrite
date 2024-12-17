@@ -170,10 +170,13 @@ public class BlockCreatorImpl {
                 newBlock = new FlowerBlock(StatusEffects.NIGHT_VISION, 5, blockSettings);
                 addTransparentBlock(newBlock);
                 break;
-            case "fence_gate", "wall_gate":
+            case "fence_gate":
                 newBlock = new FenceGateBlock(woodType, blockSettings);
                 if (blockID.contains("_stained") || blockID.contains("mushroom"))
                     WOOD_BLOCKS.add(newBlock);
+                break;
+            case "wall_gate":
+                newBlock = new WallGateBlock(woodType, blockSettings);
                 break;
             case "sign":
                 //Sign Blocks

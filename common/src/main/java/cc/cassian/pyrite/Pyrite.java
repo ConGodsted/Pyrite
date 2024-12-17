@@ -69,14 +69,14 @@ public class Pyrite {
 		// Modded Crafting Tables
 		if (ModHelpers.isModLoaded("aether")) {
 			createPyriteBlock("skyroot_crafting_table","crafting", Blocks.CRAFTING_TABLE);
-			createPyriteBlock( "holystone_wall_gate","fence_gate", Blocks.STONE);
-			createPyriteBlock( "mossy_holystone_wall_gate","fence_gate", Blocks.STONE);
-			createPyriteBlock( "holystone_brick_wall_gate","fence_gate", Blocks.STONE);
-			createPyriteBlock( "icestone_wall_gate","fence_gate", Blocks.STONE);
-			createPyriteBlock( "aerogel_wall_gate","fence_gate", Blocks.STONE);
-			createPyriteBlock( "carved_wall_gate","fence_gate", Blocks.STONE);
-			createPyriteBlock( "angelic_wall_gate","fence_gate", Blocks.STONE);
-			createPyriteBlock( "hellfire_wall_gate","fence_gate", Blocks.STONE);
+			createPyriteBlock( "holystone_wall_gate","wall_gate", Blocks.STONE);
+			createPyriteBlock( "mossy_holystone_wall_gate","wall_gate", Blocks.STONE);
+			createPyriteBlock( "holystone_brick_wall_gate","wall_gate", Blocks.STONE);
+			createPyriteBlock( "icestone_wall_gate","wall_gate", Blocks.STONE);
+			createPyriteBlock( "aerogel_wall_gate","wall_gate", Blocks.STONE);
+			createPyriteBlock( "carved_wall_gate","wall_gate", Blocks.STONE);
+			createPyriteBlock( "angelic_wall_gate","wall_gate", Blocks.STONE);
+			createPyriteBlock( "hellfire_wall_gate","wall_gate", Blocks.STONE);
 		}
 		// Red Mushroom Wood Set
 		createPyriteBlock("red_mushroom_stem", "log", Blocks.MUSHROOM_STEM);
@@ -146,7 +146,7 @@ public class Pyrite {
 				block = block + "_wall";
 			}
 			//Create block.
-			createPyriteBlock(block + "_gate","fence_gate", wallsBlock);
+			createPyriteBlock(block + "_gate","wall_gate", wallsBlock);
 		}
 	}
 }
