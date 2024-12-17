@@ -9,6 +9,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - Stained Glass and Stained Glass Panes for Pyrite dyes.
 
+### Changed
+- Wall Gates now have a thicker model even when not connected to walls.
+
+### Fixed
+- Pyrite Carpets are now tagged correctly.
+
 ## [0.15.5] - 2024-12-15
 
 ### Changed
