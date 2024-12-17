@@ -22,6 +22,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 - Hotfixed crashing issues on 1.20
+- Pyrite resource blocks should now make the correct sounds.
 
 ## [0.15.4] - 2024-12-15
 ### Added
