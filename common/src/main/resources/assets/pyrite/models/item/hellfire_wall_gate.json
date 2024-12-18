@@ -1,1 +1,1 @@
-{"parent":"minecraft:item/generated","textures":{"layer0":"pyrite:block/aether/hellfire_wall_gate"}}
+{"parent":"pyrite:block/hellfire_wall_gate_inventory"}

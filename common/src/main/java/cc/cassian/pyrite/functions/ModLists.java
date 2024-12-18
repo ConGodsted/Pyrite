@@ -3,6 +3,7 @@ package cc.cassian.pyrite.functions;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class ModLists {
@@ -109,16 +110,17 @@ public class ModLists {
             "nostalgia_netherrack", Blocks.NETHERRACK
     );
 
-    public static final Map<String, Block> FLOWERS = Map.of(
-            "rose", Blocks.POPPY,
-            "orange_rose", Blocks.POPPY,
-            "white_rose", Blocks.POPPY,
-            "pink_rose", Blocks.POPPY,
-            "blue_rose", Blocks.POPPY,
-            "paeonia", Blocks.PEONY,
-            "buttercup", Blocks.PEONY,
-            "pink_daisy", Blocks.PEONY
-    );
+    public static final LinkedHashMap<String, Block> FLOWERS = new LinkedHashMap<>();
+    public static void populateLinkedHashMaps() {
+        FLOWERS.put("rose", Blocks.POPPY);
+        FLOWERS.put("orange_rose", Blocks.POPPY);
+        FLOWERS.put("white_rose", Blocks.POPPY);
+        FLOWERS.put("pink_rose", Blocks.POPPY);
+        FLOWERS.put("blue_rose", Blocks.POPPY);
+        FLOWERS.put("paeonia", Blocks.PEONY);
+        FLOWERS.put("buttercup", Blocks.PEONY);
+        FLOWERS.put("pink_daisy", Blocks.PEONY);
+    }
 
     public static String[] getDyes() {
         return DYES;

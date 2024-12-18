@@ -1,1 +1,1 @@
-{"parent":"minecraft:item/generated","textures":{"layer0":"pyrite:block/prismarine_wall_gate"}}
+{"parent":"pyrite:block/prismarine_wall_gate_inventory"}

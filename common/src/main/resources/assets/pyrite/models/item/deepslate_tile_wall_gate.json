@@ -1,1 +1,1 @@
-{"parent":"minecraft:item/generated","textures":{"layer0":"pyrite:block/deepslate_tile_wall_gate"}}
+{"parent":"pyrite:block/deepslate_tile_wall_gate_inventory"}

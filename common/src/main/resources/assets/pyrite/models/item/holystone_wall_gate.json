@@ -1,1 +1,1 @@
-{"parent":"minecraft:item/generated","textures":{"layer0":"pyrite:block/aether/holystone_wall_gate"}}
+{"parent":"pyrite:block/holystone_wall_gate_inventory"}

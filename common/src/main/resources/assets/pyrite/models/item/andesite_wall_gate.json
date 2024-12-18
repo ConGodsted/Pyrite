@@ -1,1 +1,1 @@
-{"parent":"minecraft:item/generated","textures":{"layer0":"pyrite:block/andesite_wall_gate"}}
+{"parent":"pyrite:block/andesite_wall_gate_inventory"}
