@@ -5,6 +5,7 @@ import cc.cassian.pyrite.functions.BlockCreator;
 import cc.cassian.pyrite.functions.ModHelpers;
 import cc.cassian.pyrite.functions.ModLists;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
+import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.fabricmc.fabric.api.object.builder.v1.block.type.WoodTypeBuilder;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntityType;
@@ -18,12 +19,14 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Objects;
 
 import static cc.cassian.pyrite.Pyrite.LOGGER;
 import static cc.cassian.pyrite.Pyrite.MOD_ID;
 import static cc.cassian.pyrite.functions.ModHelpers.*;
 import static cc.cassian.pyrite.functions.ModLists.getDyes;
+import static cc.cassian.pyrite.functions.ModLists.getVanillaResourceBlocks;
 import static cc.cassian.pyrite.functions.fabric.FabricHelpers.*;
 
 @SuppressWarnings("unused")
@@ -43,6 +46,11 @@ public class BlockCreatorImpl {
     public static final ArrayList<Object> BRICK_BLOCKS = new ArrayList<>();
     public static final ArrayList<Object> REDSTONE_BLOCKS = new ArrayList<>();
     public static final ArrayList<Object> MISC_BLOCKS = new ArrayList<>();
+    public static final ArrayList<Item> SIGNS = new ArrayList<>();
+    public static final ArrayList<Block> CRAFTING_TABLES = new ArrayList<>();
+    public static final ArrayList<Block> FLOWERS = new ArrayList<>();
+    public static final ArrayList<Item> DYES = new ArrayList<>();
+
 
     /**
      * Implements {@link BlockCreator#createWoodType(String, BlockSetType)} on Fabric.
@@ -52,9 +60,9 @@ public class BlockCreatorImpl {
     }
 
     /**
-     * Implements {@link BlockCreator#platformRegister(String, String, AbstractBlock.Settings, WoodType, BlockSetType, ParticleEffect, Block)} on Fabric.
+     * Implements {@link BlockCreator#platformRegister(String, String, AbstractBlock.Settings, WoodType, BlockSetType, ParticleEffect, Block, String)} on Fabric.
      */
-    public static void platformRegister(String blockID, String blockType, AbstractBlock.Settings blockSettings, WoodType woodType, BlockSetType blockSetType, ParticleEffect particle, Block copyBlock) {
+    public static void platformRegister(String blockID, String blockType, AbstractBlock.Settings blockSettings, WoodType woodType, BlockSetType blockSetType, ParticleEffect particle, Block copyBlock, String group) {
         int index = -1;
         int power;
         if (blockID.contains("redstone")) power = 15;
@@ -66,10 +74,10 @@ public class BlockCreatorImpl {
             case "block":
                 newBlock = new ModBlock(blockSettings, power);
                 if (power == 15)
-                    if (blockID.equals("lit_redstone_lamp"))
-                        REDSTONE_BLOCKS.addFirst(newBlock);
-                    else
+                    if (!blockID.equals("lit_redstone_lamp"))
                         REDSTONE_BLOCKS.add(newBlock);
+                    else
+                        MISC_BLOCKS.add(newBlock);
                 if (Objects.equals(copyBlock, Blocks.OAK_PLANKS))
                     WOOD_BLOCKS.add(newBlock);
                 break;
@@ -87,7 +95,7 @@ public class BlockCreatorImpl {
                 }
                 // Register Crafting table.
                 newBlock = new ModCraftingTable(craftingSettings);
-                WOOD_BLOCKS.add(newBlock);
+                CRAFTING_TABLES.add(newBlock);
                 // If block is not composed of flammable wood, make it furnace fuel.
                 if (burnable)
                     FUEL_BLOCKS.put(newBlock, 300);
@@ -169,6 +177,7 @@ public class BlockCreatorImpl {
             case "flower":
                 newBlock = new FlowerBlock(StatusEffects.NIGHT_VISION, 5, blockSettings);
                 addTransparentBlock(newBlock);
+                FLOWERS.add(newBlock);
                 break;
             case "fence_gate":
                 newBlock = new FenceGateBlock(woodType, blockSettings);
@@ -191,7 +200,7 @@ public class BlockCreatorImpl {
                 final Item SIGN_ITEM = new SignItem(new Item.Settings().maxCount(16), newBlock, WALL_SIGN);
                 ITEMS.add(SIGN_ITEM);
                 ITEM_IDS.add(blockID);
-                WOOD_BLOCKS.add(SIGN_ITEM);
+                SIGNS.add(SIGNS.size(), SIGN_ITEM);
                 BlockEntityType.SIGN.addSupportedBlock(newBlock);
                 BlockEntityType.SIGN.addSupportedBlock(WALL_SIGN);
                 break;
@@ -208,7 +217,7 @@ public class BlockCreatorImpl {
                 final Item HANGING_SIGN_ITEM = new HangingSignItem(newBlock, HANGING_WALL_SIGN, new Item.Settings().maxCount(16));
                 ITEMS.add(HANGING_SIGN_ITEM);
                 ITEM_IDS.add(blockID);
-                WOOD_BLOCKS.add(HANGING_SIGN_ITEM);
+                SIGNS.add(HANGING_SIGN_ITEM);
                 BlockEntityType.HANGING_SIGN.addSupportedBlock(newBlock);
                 BlockEntityType.HANGING_SIGN.addSupportedBlock(HANGING_WALL_SIGN);
                 break;
@@ -272,8 +281,8 @@ public class BlockCreatorImpl {
         }
         for (Block block : ModLists.getVanillaResourceBlocks()) {
             if (blockID.contains(Registries.BLOCK.getId(block).getPath().replace("_block", "")) && !inGroup(newBlock))
-                RESOURCE_BLOCKS.add(newBlock);
-            }
+                ItemGroupEvents.modifyEntriesEvent(ItemGroups.BUILDING_BLOCKS).register((itemGroup) -> itemGroup.addAfter(block, newBlock.asItem().getDefaultStack()));
+        }
         if (blockID.contains("brick") && !inGroup(newBlock))
             BRICK_BLOCKS.add(newBlock);
         if (blockID.contains("grass")) {
@@ -286,12 +295,21 @@ public class BlockCreatorImpl {
      * This registers a basic item with no additional settings - primarily used for Dye.
      */
     public static void registerPyriteItem(String itemID) {
-        ITEMS.add(new Item(new Item.Settings()));
+        var item = new Item(new Item.Settings());
+        ITEMS.add(item);
         ITEM_IDS.add(itemID);
+        DYES.add(item);
     }
 
     public static boolean inGroup(Object obj) {
-        return WOOD_BLOCKS.contains(obj) || BRICK_BLOCKS.contains(obj) || RESOURCE_BLOCKS.contains(obj) || REDSTONE_BLOCKS.contains(obj) || MISC_BLOCKS.contains(obj);
+        return WOOD_BLOCKS.contains(obj) ||
+                BRICK_BLOCKS.contains(obj) ||
+                RESOURCE_BLOCKS.contains(obj) ||
+                REDSTONE_BLOCKS.contains(obj) ||
+                MISC_BLOCKS.contains(obj) ||
+                FLOWERS.contains(obj) ||
+                SIGNS.contains(obj) ||
+                CRAFTING_TABLES.contains(obj);
     }
 
     public static void addItemGroup(String id, String icon, ArrayList<Object> blocks) {
@@ -317,6 +335,17 @@ public class BlockCreatorImpl {
         return new BlockItem(block, settings);
     }
 
+    public static Collection<ItemStack> getCollectionList(ArrayList<?> items) {
+        ArrayList<ItemStack> stacks = new ArrayList<>();
+        for (Object object : items) {
+            if (object instanceof Item item)
+                stacks.add(item.getDefaultStack());
+            else if (object instanceof Block block)
+                stacks.add(block.asItem().getDefaultStack());
+        }
+        return stacks;
+    }
+
     public static void register() {
         //Register blocks and block items.
         for (int x = 0; x < BLOCK_IDS.size(); x++) {
@@ -335,24 +364,27 @@ public class BlockCreatorImpl {
         }
         //Registers items.
         for (int x = 0; x < ITEM_IDS.size(); x++) {
-            Registry.register(Registries.ITEM, identifier(ITEM_IDS.get(x)), ITEMS.get(x));
-            if (!inGroup(ITEMS.get(x)))
-                MISC_BLOCKS.add(ITEMS.get(x));
+            Item item = ITEMS.get(x);
+            String itemID = ITEM_IDS.get(x);
+            Registry.register(Registries.ITEM, identifier(itemID), item);
         }
-        // Add vanilla Concrete to Pyrite item group.
+        // Add Pyrite Concrete to vanilla item group.
         for (int dyeIndex = 0; dyeIndex < 15; dyeIndex++) {
             final var concrete = getDyes()[dyeIndex]+"_concrete";
-            final var concreteStairs = concrete + "_stairs";
-            final var item = BLOCKS.get(BLOCK_IDS.indexOf(concreteStairs));
-            MISC_BLOCKS.add(
-                    MISC_BLOCKS.indexOf(item),
-                    Registries.BLOCK.get(Identifier.of("minecraft",concrete)));
+            final var stairs = BLOCKS.get(BLOCK_IDS.indexOf(concrete + "_stairs"));
+            final var slab = BLOCKS.get(BLOCK_IDS.indexOf(concrete + "_slab"));
+            ItemGroupEvents.modifyEntriesEvent(ItemGroups.COLORED_BLOCKS).register((itemGroup) -> itemGroup.addAfter(Registries.BLOCK.get(Identifier.ofVanilla(concrete)), stairs, slab));
         }
         // Register item groups.
         addItemGroup("wood_group", "dragon_stained_crafting_table", WOOD_BLOCKS);
         addItemGroup("resource_group", "cut_emerald", RESOURCE_BLOCKS);
         addItemGroup("brick_group", "cobblestone_bricks", BRICK_BLOCKS);
-        addItemGroup("redstone_group", "chiseled_redstone_block", REDSTONE_BLOCKS);
         addItemGroup("pyrite_group", "glowing_obsidian", MISC_BLOCKS);
+
+        ItemGroupEvents.modifyEntriesEvent(ItemGroups.REDSTONE).register((itemGroup) -> itemGroup.addAfter(Items.CAULDRON, getCollectionList(REDSTONE_BLOCKS)));
+        ItemGroupEvents.modifyEntriesEvent(ItemGroups.FUNCTIONAL).register((itemGroup) -> itemGroup.addAfter(Items.WARPED_HANGING_SIGN, getCollectionList(SIGNS)));
+        ItemGroupEvents.modifyEntriesEvent(ItemGroups.FUNCTIONAL).register((itemGroup) -> itemGroup.addAfter(Items.CRAFTING_TABLE, getCollectionList(CRAFTING_TABLES)));
+        ItemGroupEvents.modifyEntriesEvent(ItemGroups.NATURAL).register((itemGroup) -> itemGroup.addAfter(Items.WITHER_ROSE, getCollectionList(FLOWERS)));
+        ItemGroupEvents.modifyEntriesEvent(ItemGroups.INGREDIENTS).register((itemGroup) -> itemGroup.addAfter(Items.PINK_DYE, getCollectionList(DYES)));
     }
 }
