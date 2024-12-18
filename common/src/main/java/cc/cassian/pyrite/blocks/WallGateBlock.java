@@ -13,8 +13,8 @@ public class WallGateBlock extends FenceGateBlock {
     protected static final VoxelShape IN_WALL_Z_AXIS_SHAPE;
     protected static final VoxelShape IN_WALL_X_AXIS_SHAPE;
     
-    public WallGateBlock(WoodType type, Settings settings) {
-        super(type, settings);
+    public WallGateBlock(Settings settings) {
+        super(WoodType.CRIMSON, settings);
     }
 
     protected VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {

@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 - Wall Gates now have a thicker model even when not connected to walls.
+- Pyrite flowers have been reordered in the Creative inventory.
 
 ### Fixed
 - Pyrite Carpets are now tagged correctly.

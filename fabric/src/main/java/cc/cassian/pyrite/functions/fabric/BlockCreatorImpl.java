@@ -176,7 +176,7 @@ public class BlockCreatorImpl {
                     WOOD_BLOCKS.add(newBlock);
                 break;
             case "wall_gate":
-                newBlock = new WallGateBlock(woodType, blockSettings);
+                newBlock = new WallGateBlock(blockSettings);
                 break;
             case "sign":
                 //Sign Blocks

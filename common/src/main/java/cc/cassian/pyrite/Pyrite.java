@@ -1,6 +1,7 @@
 package cc.cassian.pyrite;
 
 import cc.cassian.pyrite.functions.ModHelpers;
+import cc.cassian.pyrite.functions.ModLists;
 import net.minecraft.block.*;
 import net.minecraft.particle.DustParticleEffect;
 import net.minecraft.particle.ParticleTypes;
@@ -16,6 +17,7 @@ public class Pyrite {
 	public static final Logger LOGGER = LogManager.getLogger(MOD_ID);
 
     public static void init() {
+		ModLists.populateLinkedHashMaps();
 		// Framed Glass
 		createPyriteBlock("framed_glass","glass", 2.0f, MapColor.CLEAR, 0);
 		// Framed Glass Pane
