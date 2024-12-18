@@ -19,9 +19,9 @@ public class Pyrite {
     public static void init() {
 		ModLists.populateLinkedHashMaps();
 		// Framed Glass
-		createPyriteBlock("framed_glass","glass", 2.0f, MapColor.CLEAR, 0, "glass");
+		createPyriteBlock("framed_glass","glass", 2.0f, MapColor.CLEAR, 0, "framed_glass");
 		// Framed Glass Pane
-		createPyriteBlock( "framed_glass_pane","glass_pane", 2.0f, MapColor.CLEAR, 0, "glass");
+		createPyriteBlock( "framed_glass_pane","glass_pane", 2.0f, MapColor.CLEAR, 0, "framed_glass_pane");
 		// Switchable Glass
 		createPyriteBlock("switchable_glass", "switchable_glass", Blocks.GLASS, "redstone-group");
 		// Cobblestone Bricks
@@ -81,10 +81,10 @@ public class Pyrite {
 			createPyriteBlock( "hellfire_wall_gate","wall_gate", Blocks.STONE, BlockSetType.STONE, "misc");
 		}
 		// Red Mushroom Wood Set
-		createPyriteBlock("red_mushroom_stem", "log", Blocks.MUSHROOM_STEM, "wood");
+		createPyriteBlock("red_mushroom_stem", "log", Blocks.MUSHROOM_STEM, "red_mushroom");
 		createWoodSet("red_mushroom", MapColor.RED, 0);
 		// Brown Mushroom Wood Set
-		createPyriteBlock("brown_mushroom_stem", "log", Blocks.MUSHROOM_STEM, "wood");
+		createPyriteBlock("brown_mushroom_stem", "log", Blocks.MUSHROOM_STEM, "brown_mushroom");
 		createWoodSet("brown_mushroom", MapColor.BROWN, 0);
 		// Azalea Wood Set
 		createWoodSetWithLog("azalea", MapColor.DULL_RED, 0);
@@ -133,9 +133,9 @@ public class Pyrite {
 			// Dyed Lamps
 			createPyriteBlock(dye + "_lamp","block", 0.3f, color, 15, dye);
 			// Dyed Framed Glass
-			createPyriteBlock(dye+"_framed_glass","stained_framed_glass", 2.0f, color, blockLux, "stained_framed_glass");
+			createPyriteBlock(dye+"_framed_glass","stained_framed_glass", 2.0f, color, blockLux, "framed_glass");
 			// Dyed Framed Glass Pane
-			createPyriteBlock( dye+"_framed_glass_pane","stained_framed_glass_pane", 2.0f, color, blockLux, "stained_framed_glass_pane");
+			createPyriteBlock( dye+"_framed_glass_pane","stained_framed_glass_pane", 2.0f, color, blockLux, "framed_glass_pane");
 			// Dyed Torch Levers
 			createTorchLever(dye+"_torch_lever", Blocks.TORCH, getTorchParticle(dye));
 		}
