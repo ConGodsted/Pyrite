@@ -179,7 +179,7 @@ public class BlockCreator {
         //Brick Wall
         createPyriteBlock( blockID+"_wall", "wall", copyBlock, color, lux);
         //Brick Wall Gate
-        createPyriteBlock(blockID+"_wall_gate","wall_gate", copyBlock);
+        createPyriteBlock(blockID+"_wall_gate","wall_gate", copyBlock, BlockSetType.STONE);
     }
 
     public static void generateBrickSet(String blockID, Block copyBlock, MapColor color) {
