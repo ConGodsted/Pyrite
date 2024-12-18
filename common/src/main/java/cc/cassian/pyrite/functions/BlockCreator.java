@@ -57,7 +57,7 @@ public class BlockCreator {
                 block = block.substring(0, block.indexOf("_planks"));
             }
             //Create block.
-            createPyriteBlock(block + "_crafting_table","crafting", plankBlock, "misc");
+            createPyriteBlock(block + "_crafting_table","crafting", plankBlock, "crafting_table");
         }
     }
 
@@ -65,17 +65,17 @@ public class BlockCreator {
     public static void createPyriteBlock(String blockID, String blockType, Float strength, MapColor color, int lightLevel, String group) {
         AbstractBlock.Settings settings = AbstractBlock.Settings.create().strength(strength).luminance(state -> lightLevel).mapColor(color);
         if (Objects.equals(blockType, "obsidian")) {
-            sendToRegistry(blockID, "block", settings.strength(strength, 1200f).pistonBehavior(PistonBehavior.BLOCK));
+            sendToRegistry(blockID, "block", settings.strength(strength, 1200f).pistonBehavior(PistonBehavior.BLOCK), group);
         }
         else {
-            sendToRegistry(blockID, blockType, settings.sounds(BlockSoundGroup.GLASS));
+            sendToRegistry(blockID, blockType, settings.sounds(BlockSoundGroup.GLASS), group);
         }
     }
 
     //Create and then add carpets
     private static void createCarpet(String blockID) {
         AbstractBlock.Settings blockSettings = copyBlock(Blocks.MOSS_CARPET);
-        sendToRegistry(blockID, "carpet", blockSettings);
+        sendToRegistry(blockID, "carpet", blockSettings, "misc");
     }
 
     //Create and then add most of the manually generated blocks.
@@ -84,39 +84,39 @@ public class BlockCreator {
     }
 
     //Create a slab from the last block added.
-    public static void createStair(String blockID, Block copyBlock) {
+    public static void createStair(String blockID, Block copyBlock, String group) {
         AbstractBlock.Settings blockSettings = copyBlock(copyBlock);
-        sendToRegistry(blockID+"_stairs", copyBlock, blockSettings);
+        sendToRegistry(blockID+"_stairs", copyBlock, blockSettings, group);
     }
 
     //Create a slab from the last block added.
-    public static void createSlab(String blockID, Block copyBlock) {
+    public static void createSlab(String blockID, Block copyBlock, String group) {
         AbstractBlock.Settings blockSettings = copyBlock(copyBlock);
-        sendToRegistry(blockID+"_slab", "slab", blockSettings);
+        sendToRegistry(blockID+"_slab", "slab", blockSettings, group);
     }
 
     //Create blocks that require a change in light level, e.g. Locked Chests
-    public static void createPyriteBlock(String blockID, String blockType, Block copyBlock, int lux) {
+    public static void createPyriteBlock(String blockID, String blockType, Block copyBlock, int lux, String group) {
         AbstractBlock.Settings blockSettings = copyBlock(copyBlock).luminance(parseLux(lux));
-        platformRegister(blockID, blockType, blockSettings, null, null, null, null, "misc");
+        platformRegister(blockID, blockType, blockSettings, null, null, null, copyBlock, group);
     }
 
-    private static void sendToRegistry(String blockID, String blockType, AbstractBlock.Settings blockSettings) {
-        platformRegister(blockID, blockType, blockSettings, null, null, null, null, "misc");
+    private static void sendToRegistry(String blockID, String blockType, AbstractBlock.Settings blockSettings, String group) {
+        platformRegister(blockID, blockType, blockSettings, null, null, null, null, group);
 
     }
-    private static void sendToRegistry(String blockID, Block copyBlock, AbstractBlock.Settings blockSettings) {
-        platformRegister(blockID, "stairs", blockSettings,  null, null, null, copyBlock, "misc");
+    private static void sendToRegistry(String blockID, Block copyBlock, AbstractBlock.Settings blockSettings, String group) {
+        platformRegister(blockID, "stairs", blockSettings,  null, null, null, copyBlock, group);
     }
     
     //Add blocks with particles - Torches/Torch Levers
     private static void sendToRegistry(String blockID, String blockType, AbstractBlock.Settings blockSettings, ParticleEffect particle) {
-        platformRegister(blockID, blockType, blockSettings, null, null, particle, null, "misc");
+        platformRegister(blockID, blockType, blockSettings, null, null, particle, null, "torch");
     }
 
     //Create blocks that require a Block Set.
     public static void createPyriteBlock(String blockID, String blockType, Block copyBlock, BlockSetType set, String group) {
-        platformRegister(blockID, blockType, copyBlock(copyBlock),  null, set, null, null, group);
+        platformRegister(blockID, blockType, copyBlock(copyBlock),  null, set, null, copyBlock, group);
     }
 
     //Create most of the generic Stained Blocks, then add them.
@@ -129,9 +129,9 @@ public class BlockCreator {
     }
 
     //Create basic blocks.
-    public static void createPyriteBlock(String blockID, Block copyBlock) {
+    public static void createPyriteBlock(String blockID, Block copyBlock, String group) {
         AbstractBlock.Settings blockSettings = copyBlock(copyBlock);
-        platformRegister(blockID, "block", blockSettings,  null, null, null, null, "misc");
+        platformRegister(blockID, "block", blockSettings,  null, null, null, null, group);
     }
 
     //Create Stained blocks that require a wood set or wood type, then add them.
@@ -165,15 +165,15 @@ public class BlockCreator {
     //Generate an entire brick set.
     public static void generateBrickSet(String blockID, Block copyBlock, MapColor color, int lux) {
         //Bricks
-        createPyriteBlock( blockID+"s", "block", copyBlock, color, lux, "misc");
+        createPyriteBlock( blockID+"s", "block", copyBlock, color, lux, blockID);
         //Brick Stairs
-        createPyriteBlock( blockID+"_stairs", "stairs", copyBlock, color, lux, "misc");
+        createPyriteBlock( blockID+"_stairs", "stairs", copyBlock, color, lux, blockID);
         //Brick Slab
-        createPyriteBlock( blockID+"_slab", "slab", copyBlock, color, lux, "misc");
+        createPyriteBlock( blockID+"_slab", "slab", copyBlock, color, lux, blockID);
         //Brick Wall
-        createPyriteBlock( blockID+"_wall", "wall", copyBlock, color, lux, "misc");
+        createPyriteBlock( blockID+"_wall", "wall", copyBlock, color, lux, blockID);
         //Brick Wall Gate
-        createPyriteBlock(blockID+"_wall_gate","wall_gate", copyBlock, BlockSetType.STONE, "misc");
+        createPyriteBlock(blockID+"_wall_gate","wall_gate", copyBlock, BlockSetType.STONE, blockID);
     }
 
     public static void generateBrickSet(String blockID, Block copyBlock, MapColor color) {
@@ -189,8 +189,8 @@ public class BlockCreator {
         //Generate a Turf block set - including block and its slab, stair, and carpet variants.
     public static void createTurfSet(String blockID, Block copyBlock) {
         createPyriteBlock( blockID+"_turf", "block", copyBlock, "misc");
-        createStair(blockID, copyBlock);
-        createSlab(blockID, copyBlock);
+        createStair(blockID, copyBlock, "misc");
+        createSlab(blockID, copyBlock, "misc");
         createCarpet(blockID+"_carpet");
     }
     
@@ -224,7 +224,7 @@ public class BlockCreator {
         // Buttons
         createPyriteBlock("%s_button".formatted(blockID), "button", Blocks.OAK_BUTTON, color, blockLux, GENERATED_SET, GENERATED_TYPE);
         // Crafting Tables
-        createPyriteBlock("%s_crafting_table".formatted(blockID), "crafting", Blocks.CRAFTING_TABLE, color, blockLux, "wood");
+        createPyriteBlock("%s_crafting_table".formatted(blockID), "crafting", Blocks.CRAFTING_TABLE, color, blockLux, "crafting_table");
         // Ladders
         createPyriteBlock("%s_ladder".formatted(blockID), "ladder", Blocks.LADDER, color, blockLux, "wood");
         // Signs
@@ -251,16 +251,16 @@ public class BlockCreator {
         String cutBlockID = "cut_" + blockID;
         if (!blockID.contains("copper")) {
             //Cut Block
-            createPyriteBlock(cutBlockID, block);
+            createPyriteBlock(cutBlockID, block, blockID);
             //Cut Stairs
-            createStair(cutBlockID, block);
+            createStair(cutBlockID, block, blockID);
             //Cut Slab
-            createSlab(cutBlockID, block);
+            createSlab(cutBlockID, block, blockID);
         }
         //Cut Wall
-        createPyriteBlock("%s_wall".formatted(cutBlockID), "wall", block, "resource-blocks");
+        createPyriteBlock("%s_wall".formatted(cutBlockID), "wall", block, blockID);
         //Cut Wall Gate
-        createPyriteBlock("%s_wall_gate".formatted(cutBlockID),"wall_gate", block, "resource-blocks");
+        createPyriteBlock("%s_wall_gate".formatted(cutBlockID),"wall_gate", block, blockID);
     }
 
     /**
@@ -270,16 +270,16 @@ public class BlockCreator {
         String smoothBlockID = "smooth_" + blockID;
         if (!Objects.equals(blockID, "quartz")) {
             //Smooth Block
-            createPyriteBlock(smoothBlockID, block);
+            createPyriteBlock(smoothBlockID, block, blockID);
             //Smooth Stairs
-            createStair(smoothBlockID, block);
+            createStair(smoothBlockID, block, blockID);
             //Smooth Slab
-            createSlab(smoothBlockID, block);
+            createSlab(smoothBlockID, block, blockID);
         }
         //Smooth Wall
-        createPyriteBlock("%s_wall".formatted(smoothBlockID), "wall", block, "resource-blocks");
+        createPyriteBlock("%s_wall".formatted(smoothBlockID), "wall", block, blockID);
         //Smooth Wall Gate
-        createPyriteBlock("%s_wall_gate".formatted(smoothBlockID),"wall_gate", block, "resource-blocks");
+        createPyriteBlock("%s_wall_gate".formatted(smoothBlockID),"wall_gate", block, blockID);
     }
 
     //Create a set of Resource Blocks
@@ -289,35 +289,35 @@ public class BlockCreator {
         //Create Bricks/Chiseled/Pillar/Smooth for those that don't already exist (Quartz)
         if (!Objects.equals(blockID, "quartz")) {
             //Brick Blocks
-            createPyriteBlock("%s_bricks".formatted(blockID), block);
+            createPyriteBlock("%s_bricks".formatted(blockID), block, "misc");
             //Chiseled Blocks - Copper Blocks
             if (!blockID.contains("copper")) {
-                createPyriteBlock("chiseled_%s_block".formatted(blockID), "log", block, "resource-blocks");
+                createPyriteBlock("chiseled_%s_block".formatted(blockID), "log", block, blockID);
             }
             //Pillar Blocks
-            createPyriteBlock("%s_pillar".formatted(blockID), "log", block, "resource-blocks");
+            createPyriteBlock("%s_pillar".formatted(blockID), "log", block, blockID);
         }
         //Smooth Blocks
         createSmoothBlocks(blockID, block);
-        createPyriteBlock("nostalgia_%s_block".formatted(blockID), block);
+        createPyriteBlock("nostalgia_%s_block".formatted(blockID), block, "misc");
         //Block set for modded blocks
         BlockSetType set = getBlockSetType(blockID);
         //Create Bars/Doors/Trapdoors/Plates for those that don't already exist (Iron)
         if (!Objects.equals(blockID, "iron")) {
             //Bars
-            createPyriteBlock("%s_bars".formatted(blockID),"bars", block, "resource-blocks");
+            createPyriteBlock("%s_bars".formatted(blockID),"bars", block, blockID);
             //Disable Copper doors in 1.21+
             if (!blockID.contains("copper")) {
-                createPyriteBlock("%s_door".formatted(blockID),"door", block, set, "resource-blocks");
-                createPyriteBlock("%s_trapdoor".formatted(blockID),"trapdoor", block, set, "resource-blocks");
+                createPyriteBlock("%s_door".formatted(blockID),"door", block, set, blockID);
+                createPyriteBlock("%s_trapdoor".formatted(blockID),"trapdoor", block, set, blockID);
             }
             //Create Plates for those that don't already exist (Iron and Gold)
             if (!blockID.equals("gold")) {
-                createPyriteBlock("%s_pressure_plate".formatted(blockID),"pressure_plate", block, set, "resource-blocks");
+                createPyriteBlock("%s_pressure_plate".formatted(blockID),"pressure_plate", block, set, blockID);
             }
         }
         //Create buttons for all blocks.
-        createPyriteBlock("%s_button".formatted(blockID),"button", block, set, "resource-blocks");
+        createPyriteBlock("%s_button".formatted(blockID),"button", block, set, blockID);
     }
 
 }

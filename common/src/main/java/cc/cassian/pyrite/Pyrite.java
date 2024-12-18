@@ -19,11 +19,11 @@ public class Pyrite {
     public static void init() {
 		ModLists.populateLinkedHashMaps();
 		// Framed Glass
-		createPyriteBlock("framed_glass","glass", 2.0f, MapColor.CLEAR, 0, "misc");
+		createPyriteBlock("framed_glass","glass", 2.0f, MapColor.CLEAR, 0, "glass");
 		// Framed Glass Pane
-		createPyriteBlock( "framed_glass_pane","glass_pane", 2.0f, MapColor.CLEAR, 0, "misc");
+		createPyriteBlock( "framed_glass_pane","glass_pane", 2.0f, MapColor.CLEAR, 0, "glass");
 		// Switchable Glass
-		createPyriteBlock("switchable_glass", "switchable_glass", Blocks.GLASS, "misc");
+		createPyriteBlock("switchable_glass", "switchable_glass", Blocks.GLASS, "redstone-group");
 		// Cobblestone Bricks
 		generateBrickSet("cobblestone_brick", Blocks.COBBLESTONE, MapColor.STONE_GRAY, true);
 		// Smooth Stone Bricks
@@ -45,7 +45,7 @@ public class Pyrite {
 		// Grass Set
 		generateTurfSets();
 		// Nether Brick Fence Gate
-		createPyriteBlock("nether_brick_fence_gate","fence_gate", Blocks.NETHER_BRICK_FENCE, "misc");
+		createPyriteBlock("nether_brick_fence_gate","fence_gate", Blocks.NETHER_BRICK_FENCE, "building_blocks");
 		// Resource Blocks
 		generateResourceBlocks();
 		// Torch Levers
@@ -53,24 +53,24 @@ public class Pyrite {
 		createTorchLever("redstone_torch_lever", Blocks.SOUL_TORCH, DustParticleEffect.DEFAULT);
 		createTorchLever("soul_torch_lever", Blocks.TORCH, ParticleTypes.SOUL_FIRE_FLAME);
 		// Lamps
-		createPyriteBlock("lit_redstone_lamp", "block", Blocks.REDSTONE_LAMP, 15);
-		createPyriteBlock("glowstone_lamp","block", 0.3f, MapColor.YELLOW, 15, "misc");
+		createPyriteBlock("lit_redstone_lamp", "block", Blocks.REDSTONE_LAMP, 15, "functional");
+		createPyriteBlock("glowstone_lamp","block", Blocks.GLOWSTONE, 15, "functional");
 		// Classic Features
 		createPyriteBlock("glowing_obsidian","obsidian", 50f, MapColor.RED, 15, "misc");
 		createPyriteBlock("nostalgia_glowing_obsidian","obsidian", 50f, MapColor.RED, 15, "misc");
-		createPyriteBlock("locked_chest", "facing", Blocks.CHEST, 15);
+		createPyriteBlock("locked_chest", "facing", Blocks.CHEST, 15, "misc");
 		generateNostalgiaBlocks();
 		// Classic Flowers
 		generateFlowers();
-		// Charred Nether Bricks
-		generateBrickSet("charred_nether_brick", Blocks.NETHER_BRICKS, MapColor.BLACK, 0);
 		// Blue Nether Bricks
 		generateBrickSet("blue_nether_brick", Blocks.NETHER_BRICKS, MapColor.BLUE, 0);
+		// Charred Nether Bricks
+		generateBrickSet("charred_nether_brick", Blocks.NETHER_BRICKS, MapColor.BLACK, 0);
 		// Vanilla Crafting Tables
 		generateVanillaCraftingTables();
 		// Modded Crafting Tables
 		if (ModHelpers.isModLoaded("aether")) {
-			createPyriteBlock("skyroot_crafting_table","crafting", Blocks.CRAFTING_TABLE, "misc");
+			createPyriteBlock("skyroot_crafting_table","crafting", Blocks.CRAFTING_TABLE, "crafting_table");
 			createPyriteBlock( "holystone_wall_gate","wall_gate", Blocks.STONE, BlockSetType.STONE, "misc");
 			createPyriteBlock( "mossy_holystone_wall_gate","wall_gate", Blocks.STONE, BlockSetType.STONE, "misc");
 			createPyriteBlock( "holystone_brick_wall_gate","wall_gate", Blocks.STONE, BlockSetType.STONE, "misc");
@@ -81,10 +81,10 @@ public class Pyrite {
 			createPyriteBlock( "hellfire_wall_gate","wall_gate", Blocks.STONE, BlockSetType.STONE, "misc");
 		}
 		// Red Mushroom Wood Set
-		createPyriteBlock("red_mushroom_stem", "log", Blocks.MUSHROOM_STEM, "misc");
+		createPyriteBlock("red_mushroom_stem", "log", Blocks.MUSHROOM_STEM, "wood");
 		createWoodSet("red_mushroom", MapColor.RED, 0);
 		// Brown Mushroom Wood Set
-		createPyriteBlock("brown_mushroom_stem", "log", Blocks.MUSHROOM_STEM, "misc");
+		createPyriteBlock("brown_mushroom_stem", "log", Blocks.MUSHROOM_STEM, "wood");
 		createWoodSet("brown_mushroom", MapColor.BROWN, 0);
 		// Azalea Wood Set
 		createWoodSetWithLog("azalea", MapColor.DULL_RED, 0);
@@ -98,25 +98,25 @@ public class Pyrite {
 				// Dye items.
 				registerPyriteItem(dye + "_dye");
 				// Dyed Wool
-				createPyriteBlock(dye + "_wool", "block", Blocks.WHITE_WOOL, color, blockLux, "dyed");
+				createPyriteBlock(dye + "_wool", "block", Blocks.WHITE_WOOL, color, blockLux, dye);
 				// Dyed Carpet
-				createPyriteBlock(dye + "_carpet", "carpet", Blocks.WHITE_CARPET, color, blockLux, "dyed");
+				createPyriteBlock(dye + "_carpet", "carpet", Blocks.WHITE_CARPET, color, blockLux, dye);
 				// Dyed Concrete
-				createPyriteBlock(dye+"_concrete", "block", Blocks.WHITE_CONCRETE, color, blockLux, "dyed");
+				createPyriteBlock(dye+"_concrete", "block", Blocks.WHITE_CONCRETE, color, blockLux, dye);
 				// Dyed Concrete Powder
-				createPyriteBlock(dye+"_concrete_powder", "concrete_powder", Blocks.WHITE_CONCRETE_POWDER, color, blockLux, "misc");
+				createPyriteBlock(dye+"_concrete_powder", "concrete_powder", Blocks.WHITE_CONCRETE_POWDER, color, blockLux, dye);
 			}
 			// Dyed Concrete Stairs
-			createPyriteBlock(dye+"_concrete_stairs", "stairs", Blocks.WHITE_CONCRETE, color, blockLux, "dyed");
+			createPyriteBlock(dye+"_concrete_stairs", "stairs", Blocks.WHITE_CONCRETE, color, blockLux, dye);
 			// Dyed Concrete Slab
-			createPyriteBlock(dye+"_concrete_slab", "slab", Blocks.WHITE_CONCRETE, color, blockLux, "dyed");
+			createPyriteBlock(dye+"_concrete_slab", "slab", Blocks.WHITE_CONCRETE, color, blockLux, dye);
 			//Dyed Planks and plank products
 			createWoodSet(dye + "_stained", color, blockLux);
 			// Dyed Bricks and brick products
 			generateBrickSet(dye + "_brick", Blocks.BRICKS, color, blockLux);
 			if (dyeIndex > 15) {
 				// Dyed Terracotta
-				createPyriteBlock(dye+"_terracotta", "block", Blocks.TERRACOTTA,color, blockLux, "dyed");
+				createPyriteBlock(dye+"_terracotta", "block", Blocks.TERRACOTTA,color, blockLux, dye);
 				// Dyed Glazed Terracotta
 				//coming soon - createPyriteBlock(dye+"_glazed_terracotta", "block", Blocks.TERRACOTTA,color, blockLux);
 			}
@@ -126,16 +126,16 @@ public class Pyrite {
 			createTorch(dye+"_torch", getTorchParticle(dye));
 			if (dyeIndex > 15) {
 				// Dyed Stained Glass
-				createPyriteBlock(dye+"_stained_glass","stained_framed_glass", 0.3f, color, blockLux, "misc");
+				createPyriteBlock(dye+"_stained_glass","stained_framed_glass", 0.3f, color, blockLux, dye);
 				// Dyed Stained Glass Pane
-				createPyriteBlock(dye+"_stained_glass_pane","stained_framed_glass_pane", 0.3f, color, blockLux, "misc");
+				createPyriteBlock(dye+"_stained_glass_pane","stained_framed_glass_pane", 0.3f, color, blockLux, dye);
 			}
 			// Dyed Lamps
-			createPyriteBlock(dye + "_lamp","block", 0.3f, color, 15, "dyed");
+			createPyriteBlock(dye + "_lamp","block", 0.3f, color, 15, dye);
 			// Dyed Framed Glass
-			createPyriteBlock(dye+"_framed_glass","stained_framed_glass", 2.0f, color, blockLux, "dyed");
+			createPyriteBlock(dye+"_framed_glass","stained_framed_glass", 2.0f, color, blockLux, dye);
 			// Dyed Framed Glass Pane
-			createPyriteBlock( dye+"_framed_glass_pane","stained_framed_glass_pane", 2.0f, color, blockLux, "dyed");
+			createPyriteBlock( dye+"_framed_glass_pane","stained_framed_glass_pane", 2.0f, color, blockLux, dye);
 			// Dyed Torch Levers
 			createTorchLever(dye+"_torch_lever", Blocks.TORCH, getTorchParticle(dye));
 		}
@@ -148,7 +148,7 @@ public class Pyrite {
 				block = block + "_wall";
 			}
 			//Create block.
-			createPyriteBlock(block + "_gate","wall_gate", wallsBlock, BlockSetType.STONE, "misc");
+			createPyriteBlock(block + "_gate","wall_gate", wallsBlock, BlockSetType.STONE, "building_blocks");
 		}
 	}
 }

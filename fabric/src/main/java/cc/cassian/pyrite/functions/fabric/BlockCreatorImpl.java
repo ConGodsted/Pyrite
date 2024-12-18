@@ -3,7 +3,6 @@ package cc.cassian.pyrite.functions.fabric;
 import cc.cassian.pyrite.blocks.*;
 import cc.cassian.pyrite.functions.BlockCreator;
 import cc.cassian.pyrite.functions.ModHelpers;
-import cc.cassian.pyrite.functions.ModLists;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.fabricmc.fabric.api.object.builder.v1.block.type.WoodTypeBuilder;
@@ -15,18 +14,17 @@ import net.minecraft.particle.ParticleEffect;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
+import net.minecraft.registry.RegistryKey;
+import net.minecraft.registry.RegistryKeys;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Objects;
+import java.util.*;
 
 import static cc.cassian.pyrite.Pyrite.LOGGER;
 import static cc.cassian.pyrite.Pyrite.MOD_ID;
 import static cc.cassian.pyrite.functions.ModHelpers.*;
 import static cc.cassian.pyrite.functions.ModLists.getDyes;
-import static cc.cassian.pyrite.functions.ModLists.getVanillaResourceBlocks;
 import static cc.cassian.pyrite.functions.fabric.FabricHelpers.*;
 
 @SuppressWarnings("unused")
@@ -42,7 +40,6 @@ public class BlockCreatorImpl {
     public static final ArrayList<String> ITEM_IDS = new ArrayList<>();
     // Sublists for Item Groups
     public static final ArrayList<Object> WOOD_BLOCKS = new ArrayList<>();
-    public static final ArrayList<Object> RESOURCE_BLOCKS = new ArrayList<>();
     public static final ArrayList<Object> BRICK_BLOCKS = new ArrayList<>();
     public static final ArrayList<Object> REDSTONE_BLOCKS = new ArrayList<>();
     public static final ArrayList<Object> MISC_BLOCKS = new ArrayList<>();
@@ -63,6 +60,12 @@ public class BlockCreatorImpl {
     public static final ArrayList<Block> EXPOSED_COPPER_BLOCKS = new ArrayList<>();
     public static final ArrayList<Block> WEATHERED_COPPER_BLOCKS = new ArrayList<>();
     public static final ArrayList<Block> OXIDIZED_COPPER_BLOCKS = new ArrayList<>();
+    public static final ArrayList<Block> GLASS_BLOCKS = new ArrayList<>();
+    public static final ArrayList<Block> COLOURED_NETHER_BRICKS = new ArrayList<>();
+    public static final ArrayList<Block> COBBLESTONE = new ArrayList<>();
+    public static final ArrayList<Block> SMOOTH_STONE = new ArrayList<>();
+    public static final LinkedHashMap<Block, Block> FUNCTIONAL = new LinkedHashMap<>();
+    public static final LinkedHashMap<Block, Block> BUILDING_BLOCKS = new LinkedHashMap<>();
 
 
     /**
@@ -108,7 +111,6 @@ public class BlockCreatorImpl {
                 }
                 // Register Crafting table.
                 newBlock = new ModCraftingTable(craftingSettings);
-                CRAFTING_TABLES.add(newBlock);
                 // If block is not composed of flammable wood, make it furnace fuel.
                 if (burnable)
                     FUEL_BLOCKS.put(newBlock, 300);
@@ -301,32 +303,70 @@ public class BlockCreatorImpl {
         if (blockID.contains("grass")) {
             addGrassBlock();
         }
-        if (Objects.equals(copyBlock, Blocks.IRON_BLOCK))
-            IRON_BLOCKS.add(newBlock);
-        else if (Objects.equals(copyBlock, Blocks.GOLD_BLOCK))
-            GOLD_BLOCKS.add(newBlock);
-        else if (Objects.equals(copyBlock, Blocks.EMERALD_BLOCK))
-            EMERALD_BLOCKS.add(newBlock);
-        else if (Objects.equals(copyBlock, Blocks.LAPIS_BLOCK))
-            LAPIS_BLOCKS.add(newBlock);
-        else if (Objects.equals(copyBlock, Blocks.REDSTONE_BLOCK))
-            REDSTONE_RESOURCE_BLOCKS.add(newBlock);
-        else if (Objects.equals(copyBlock, Blocks.DIAMOND_BLOCK))
-            DIAMOND_BLOCKS.add(newBlock);
-        else if (Objects.equals(copyBlock, Blocks.NETHERITE_BLOCK))
-            NETHERITE_BLOCKS.add(newBlock);
-        else if (Objects.equals(copyBlock, Blocks.QUARTZ_BLOCK))
-            QUARTZ_BLOCKS.add(newBlock);
-        else if (Objects.equals(copyBlock, Blocks.AMETHYST_BLOCK))
-            AMETHYST_BLOCKS.add(newBlock);
-        else if (Objects.equals(copyBlock, Blocks.COPPER_BLOCK))
-            COPPER_BLOCKS.add(newBlock);
-        else if (Objects.equals(copyBlock, Blocks.EXPOSED_COPPER))
-            EXPOSED_COPPER_BLOCKS.add(newBlock);
-        else if (Objects.equals(copyBlock, Blocks.WEATHERED_COPPER))
-            WEATHERED_COPPER_BLOCKS.add(newBlock);
-        else if (Objects.equals(copyBlock, Blocks.OXIDIZED_COPPER))
-            OXIDIZED_COPPER_BLOCKS.add(newBlock);
+        switch (group) {
+            case "iron":
+                IRON_BLOCKS.add(newBlock);
+                break;
+            case "gold":
+                GOLD_BLOCKS.add(newBlock);
+                break;
+            case "emerald":
+                EMERALD_BLOCKS.add(newBlock);
+                break;
+            case "lapis":
+                LAPIS_BLOCKS.add(newBlock);
+                break;
+            case "diamond":
+                DIAMOND_BLOCKS.add(newBlock);
+                break;
+            case "redstone":
+                REDSTONE_RESOURCE_BLOCKS.add(newBlock);
+                break;
+            case "netherite":
+                NETHERITE_BLOCKS.add(newBlock);
+                break;
+            case "quartz":
+                QUARTZ_BLOCKS.add(newBlock);
+                break;
+            case "amethyst":
+                AMETHYST_BLOCKS.add(newBlock);
+                break;
+            case "copper":
+                COPPER_BLOCKS.add(newBlock);
+                break;
+            case "exposed_copper":
+                EXPOSED_COPPER_BLOCKS.add(newBlock);
+                break;
+            case "weathered_copper":
+                WEATHERED_COPPER_BLOCKS.add(newBlock);
+                break;
+            case "oxidized_copper":
+                OXIDIZED_COPPER_BLOCKS.add(newBlock);
+                break;
+            case "glass":
+                GLASS_BLOCKS.add(newBlock);
+                break;
+            case "charred_nether_brick", "blue_nether_brick":
+                COLOURED_NETHER_BRICKS.add(newBlock);
+                break;
+            case "cobblestone_brick", "mossy_cobblestone_brick":
+                COBBLESTONE.add(newBlock);
+                break;
+            case "smooth_stone_brick", "mossy_smooth_stone_brick":
+                SMOOTH_STONE.add(newBlock);
+                break;
+            case "crafting_table":
+                CRAFTING_TABLES.add(newBlock);
+                break;
+            case "functional":
+                FUNCTIONAL.put(copyBlock, newBlock);
+                break;
+            case "building_blocks":
+                BUILDING_BLOCKS.put(copyBlock, newBlock);
+                break;
+            default:
+//                System.out.println(group);
+        }
     }
 
     /**
@@ -343,12 +383,10 @@ public class BlockCreatorImpl {
     public static boolean inGroup(Object obj) {
         return WOOD_BLOCKS.contains(obj) ||
                 BRICK_BLOCKS.contains(obj) ||
-                RESOURCE_BLOCKS.contains(obj) ||
                 REDSTONE_BLOCKS.contains(obj) ||
                 MISC_BLOCKS.contains(obj) ||
                 FLOWERS.contains(obj) ||
-                SIGNS.contains(obj) ||
-                CRAFTING_TABLES.contains(obj);
+                SIGNS.contains(obj);
     }
 
     public static void addItemGroup(String id, String icon, ArrayList<Object> blocks) {
@@ -416,7 +454,6 @@ public class BlockCreatorImpl {
         }
         // Register item groups.
         addItemGroup("wood_group", "dragon_stained_crafting_table", WOOD_BLOCKS);
-        addItemGroup("resource_group", "cut_emerald", RESOURCE_BLOCKS);
         addItemGroup("brick_group", "cobblestone_bricks", BRICK_BLOCKS);
         addItemGroup("pyrite_group", "glowing_obsidian", MISC_BLOCKS);
 
@@ -442,9 +479,20 @@ public class BlockCreatorImpl {
             itemGroup.addAfter(Items.EXPOSED_COPPER, getCollectionList(EXPOSED_COPPER_BLOCKS));
             itemGroup.addAfter(Items.WEATHERED_COPPER, getCollectionList(WEATHERED_COPPER_BLOCKS));
             itemGroup.addAfter(Items.OXIDIZED_COPPER, getCollectionList(OXIDIZED_COPPER_BLOCKS));
+            itemGroup.addAfter(Items.RED_NETHER_BRICK_WALL, getCollectionList(COLOURED_NETHER_BRICKS));
+            itemGroup.addAfter(Items.COBBLESTONE_WALL, getCollectionList(COBBLESTONE));
+            itemGroup.addAfter(Items.SMOOTH_STONE_SLAB, getCollectionList(SMOOTH_STONE));
         });
 
+        addMapToItemGroup(ItemGroups.FUNCTIONAL, FUNCTIONAL);
+        addMapToItemGroup(ItemGroups.BUILDING_BLOCKS, BUILDING_BLOCKS);
+    }
 
-
+    public static void addMapToItemGroup(RegistryKey<ItemGroup> group, LinkedHashMap<Block, Block> map) {
+        for (Map.Entry<Block, Block> entry : map.entrySet()) {
+            Block key = entry.getKey();
+            Block value = entry.getValue();
+            ItemGroupEvents.modifyEntriesEvent(group).register((itemGroup) -> itemGroup.addAfter(key, value));
+        }
     }
 }
