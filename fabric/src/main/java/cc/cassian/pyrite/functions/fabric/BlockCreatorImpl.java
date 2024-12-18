@@ -50,6 +50,19 @@ public class BlockCreatorImpl {
     public static final ArrayList<Block> CRAFTING_TABLES = new ArrayList<>();
     public static final ArrayList<Block> FLOWERS = new ArrayList<>();
     public static final ArrayList<Item> DYES = new ArrayList<>();
+    public static final ArrayList<Block> IRON_BLOCKS = new ArrayList<>();
+    public static final ArrayList<Block> GOLD_BLOCKS = new ArrayList<>();
+    public static final ArrayList<Block> EMERALD_BLOCKS = new ArrayList<>();
+    public static final ArrayList<Block> LAPIS_BLOCKS = new ArrayList<>();
+    public static final ArrayList<Block> REDSTONE_RESOURCE_BLOCKS = new ArrayList<>();
+    public static final ArrayList<Block> DIAMOND_BLOCKS = new ArrayList<>();
+    public static final ArrayList<Block> NETHERITE_BLOCKS = new ArrayList<>();
+    public static final ArrayList<Block> QUARTZ_BLOCKS = new ArrayList<>();
+    public static final ArrayList<Block> AMETHYST_BLOCKS = new ArrayList<>();
+    public static final ArrayList<Block> COPPER_BLOCKS = new ArrayList<>();
+    public static final ArrayList<Block> EXPOSED_COPPER_BLOCKS = new ArrayList<>();
+    public static final ArrayList<Block> WEATHERED_COPPER_BLOCKS = new ArrayList<>();
+    public static final ArrayList<Block> OXIDIZED_COPPER_BLOCKS = new ArrayList<>();
 
 
     /**
@@ -279,15 +292,41 @@ public class BlockCreatorImpl {
                 BLOCK_IDS.add(index, blockID);
             }
         }
-        for (Block block : ModLists.getVanillaResourceBlocks()) {
-            if (blockID.contains(Registries.BLOCK.getId(block).getPath().replace("_block", "")) && !inGroup(newBlock))
-                ItemGroupEvents.modifyEntriesEvent(ItemGroups.BUILDING_BLOCKS).register((itemGroup) -> itemGroup.addAfter(block, newBlock.asItem().getDefaultStack()));
-        }
+//        for (Block block : ModLists.getVanillaResourceBlocks()) {
+//            if (blockID.contains(Registries.BLOCK.getId(block).getPath().replace("_block", "")) && !inGroup(newBlock))
+//                ItemGroupEvents.modifyEntriesEvent(ItemGroups.BUILDING_BLOCKS).register((itemGroup) -> itemGroup.addAfter(block, newBlock.asItem().getDefaultStack()));
+//        }
         if (blockID.contains("brick") && !inGroup(newBlock))
             BRICK_BLOCKS.add(newBlock);
         if (blockID.contains("grass")) {
             addGrassBlock();
         }
+        if (Objects.equals(copyBlock, Blocks.IRON_BLOCK))
+            IRON_BLOCKS.add(newBlock);
+        else if (Objects.equals(copyBlock, Blocks.GOLD_BLOCK))
+            GOLD_BLOCKS.add(newBlock);
+        else if (Objects.equals(copyBlock, Blocks.EMERALD_BLOCK))
+            EMERALD_BLOCKS.add(newBlock);
+        else if (Objects.equals(copyBlock, Blocks.LAPIS_BLOCK))
+            LAPIS_BLOCKS.add(newBlock);
+        else if (Objects.equals(copyBlock, Blocks.REDSTONE_BLOCK))
+            REDSTONE_RESOURCE_BLOCKS.add(newBlock);
+        else if (Objects.equals(copyBlock, Blocks.DIAMOND_BLOCK))
+            DIAMOND_BLOCKS.add(newBlock);
+        else if (Objects.equals(copyBlock, Blocks.NETHERITE_BLOCK))
+            NETHERITE_BLOCKS.add(newBlock);
+        else if (Objects.equals(copyBlock, Blocks.QUARTZ_BLOCK))
+            QUARTZ_BLOCKS.add(newBlock);
+        else if (Objects.equals(copyBlock, Blocks.AMETHYST_BLOCK))
+            AMETHYST_BLOCKS.add(newBlock);
+        else if (Objects.equals(copyBlock, Blocks.COPPER_BLOCK))
+            COPPER_BLOCKS.add(newBlock);
+        else if (Objects.equals(copyBlock, Blocks.EXPOSED_COPPER))
+            EXPOSED_COPPER_BLOCKS.add(newBlock);
+        else if (Objects.equals(copyBlock, Blocks.WEATHERED_COPPER))
+            WEATHERED_COPPER_BLOCKS.add(newBlock);
+        else if (Objects.equals(copyBlock, Blocks.OXIDIZED_COPPER))
+            OXIDIZED_COPPER_BLOCKS.add(newBlock);
     }
 
     /**
@@ -382,9 +421,30 @@ public class BlockCreatorImpl {
         addItemGroup("pyrite_group", "glowing_obsidian", MISC_BLOCKS);
 
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.REDSTONE).register((itemGroup) -> itemGroup.addAfter(Items.CAULDRON, getCollectionList(REDSTONE_BLOCKS)));
-        ItemGroupEvents.modifyEntriesEvent(ItemGroups.FUNCTIONAL).register((itemGroup) -> itemGroup.addAfter(Items.WARPED_HANGING_SIGN, getCollectionList(SIGNS)));
-        ItemGroupEvents.modifyEntriesEvent(ItemGroups.FUNCTIONAL).register((itemGroup) -> itemGroup.addAfter(Items.CRAFTING_TABLE, getCollectionList(CRAFTING_TABLES)));
+        ItemGroupEvents.modifyEntriesEvent(ItemGroups.FUNCTIONAL).register((itemGroup) -> {
+            itemGroup.addAfter(Items.WARPED_HANGING_SIGN, getCollectionList(SIGNS));
+            itemGroup.addAfter(Items.CRAFTING_TABLE, getCollectionList(CRAFTING_TABLES));
+        });
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.NATURAL).register((itemGroup) -> itemGroup.addAfter(Items.WITHER_ROSE, getCollectionList(FLOWERS)));
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.INGREDIENTS).register((itemGroup) -> itemGroup.addAfter(Items.PINK_DYE, getCollectionList(DYES)));
+
+        ItemGroupEvents.modifyEntriesEvent(ItemGroups.BUILDING_BLOCKS).register((itemGroup) -> {
+            itemGroup.addAfter(Items.IRON_BLOCK, getCollectionList(IRON_BLOCKS));
+            itemGroup.addAfter(Items.GOLD_BLOCK, getCollectionList(GOLD_BLOCKS));
+            itemGroup.addAfter(Items.EMERALD_BLOCK, getCollectionList(EMERALD_BLOCKS));
+            itemGroup.addAfter(Items.LAPIS_BLOCK, getCollectionList(LAPIS_BLOCKS));
+            itemGroup.addAfter(Items.REDSTONE_BLOCK, getCollectionList(REDSTONE_RESOURCE_BLOCKS));
+            itemGroup.addAfter(Items.DIAMOND_BLOCK, getCollectionList(DIAMOND_BLOCKS));
+            itemGroup.addAfter(Items.NETHERITE_BLOCK, getCollectionList(NETHERITE_BLOCKS));
+            itemGroup.addAfter(Items.QUARTZ_BLOCK, getCollectionList(QUARTZ_BLOCKS));
+            itemGroup.addAfter(Items.AMETHYST_BLOCK, getCollectionList(AMETHYST_BLOCKS));
+            itemGroup.addAfter(Items.COPPER_BLOCK, getCollectionList(COPPER_BLOCKS));
+            itemGroup.addAfter(Items.EXPOSED_COPPER, getCollectionList(EXPOSED_COPPER_BLOCKS));
+            itemGroup.addAfter(Items.WEATHERED_COPPER, getCollectionList(WEATHERED_COPPER_BLOCKS));
+            itemGroup.addAfter(Items.OXIDIZED_COPPER, getCollectionList(OXIDIZED_COPPER_BLOCKS));
+        });
+
+
+
     }
 }
