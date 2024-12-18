@@ -1,6 +1,7 @@
 package cc.cassian.pyrite;
 
 import cc.cassian.pyrite.functions.ModHelpers;
+import cc.cassian.pyrite.functions.ModLists;
 import net.minecraft.block.*;
 import net.minecraft.particle.DustParticleEffect;
 import net.minecraft.particle.ParticleTypes;
@@ -16,6 +17,7 @@ public class Pyrite {
 	public static final Logger LOGGER = LogManager.getLogger(MOD_ID);
 
     public static void init() {
+		ModLists.populateLinkedHashMaps();
 		// Framed Glass
 		createPyriteBlock("framed_glass","glass", 2.0f, MapColor.CLEAR, 0);
 		// Framed Glass Pane
@@ -69,14 +71,14 @@ public class Pyrite {
 		// Modded Crafting Tables
 		if (ModHelpers.isModLoaded("aether")) {
 			createPyriteBlock("skyroot_crafting_table","crafting", Blocks.CRAFTING_TABLE);
-			createPyriteBlock( "holystone_wall_gate","fence_gate", Blocks.STONE);
-			createPyriteBlock( "mossy_holystone_wall_gate","fence_gate", Blocks.STONE);
-			createPyriteBlock( "holystone_brick_wall_gate","fence_gate", Blocks.STONE);
-			createPyriteBlock( "icestone_wall_gate","fence_gate", Blocks.STONE);
-			createPyriteBlock( "aerogel_wall_gate","fence_gate", Blocks.STONE);
-			createPyriteBlock( "carved_wall_gate","fence_gate", Blocks.STONE);
-			createPyriteBlock( "angelic_wall_gate","fence_gate", Blocks.STONE);
-			createPyriteBlock( "hellfire_wall_gate","fence_gate", Blocks.STONE);
+			createPyriteBlock( "holystone_wall_gate","wall_gate", Blocks.STONE, BlockSetType.STONE);
+			createPyriteBlock( "mossy_holystone_wall_gate","wall_gate", Blocks.STONE, BlockSetType.STONE);
+			createPyriteBlock( "holystone_brick_wall_gate","wall_gate", Blocks.STONE, BlockSetType.STONE);
+			createPyriteBlock( "icestone_wall_gate","wall_gate", Blocks.STONE, BlockSetType.STONE);
+			createPyriteBlock( "aerogel_wall_gate","wall_gate", Blocks.STONE, BlockSetType.STONE);
+			createPyriteBlock( "carved_wall_gate","wall_gate", Blocks.STONE, BlockSetType.STONE);
+			createPyriteBlock( "angelic_wall_gate","wall_gate", Blocks.STONE, BlockSetType.STONE);
+			createPyriteBlock( "hellfire_wall_gate","wall_gate", Blocks.STONE, BlockSetType.STONE);
 		}
 		// Red Mushroom Wood Set
 		createPyriteBlock("red_mushroom_stem", "log", Blocks.MUSHROOM_STEM);
@@ -122,6 +124,12 @@ public class Pyrite {
 			generateBrickSet(dye+"_terracotta_brick", Blocks.TERRACOTTA, color, blockLux);
 			// Dyed Torches
 			createTorch(dye+"_torch", getTorchParticle(dye));
+			if (dyeIndex > 15) {
+				// Dyed Stained Glass
+				createPyriteBlock(dye+"_stained_glass","stained_framed_glass", 0.3f, color, blockLux);
+				// Dyed Stained Glass Pane
+				createPyriteBlock(dye+"_stained_glass_pane","stained_framed_glass_pane", 0.3f, color, blockLux);
+			}
 			// Dyed Lamps
 			createPyriteBlock(dye + "_lamp","block", 0.3f, color, 15);
 			// Dyed Framed Glass
@@ -140,7 +148,7 @@ public class Pyrite {
 				block = block + "_wall";
 			}
 			//Create block.
-			createPyriteBlock(block + "_gate","fence_gate", wallsBlock);
+			createPyriteBlock(block + "_gate","wall_gate", wallsBlock, BlockSetType.STONE);
 		}
 	}
 }

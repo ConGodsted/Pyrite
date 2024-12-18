@@ -160,10 +160,13 @@ public class BlockCreatorImpl {
             case "flower":
                 newBlock = BLOCKS.register(blockID, () -> new FlowerBlock(StatusEffects.NIGHT_VISION, 5, blockSettings));
                 break;
-            case "fence_gate", "wall_gate":
+            case "fence_gate":
                 newBlock = BLOCKS.register(blockID, () -> new FenceGateBlock(woodType, blockSettings));
                 if (blockID.contains("_stained") || blockID.contains("mushroom"))
                     WOOD_BLOCKS.add(newBlock);
+                break;
+            case "wall_gate":
+                newBlock = BLOCKS.register(blockID, () -> new WallGateBlock(blockSettings));
                 break;
             case "sign":
                 newBlock = BLOCKS.register(blockID, () -> new SignBlock(woodType, blockSettings));

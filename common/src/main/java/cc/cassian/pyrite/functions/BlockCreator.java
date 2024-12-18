@@ -179,7 +179,7 @@ public class BlockCreator {
         //Brick Wall
         createPyriteBlock( blockID+"_wall", "wall", copyBlock, color, lux);
         //Brick Wall Gate
-        createPyriteBlock(blockID+"_wall_gate","fence_gate", copyBlock);
+        createPyriteBlock(blockID+"_wall_gate","wall_gate", copyBlock, BlockSetType.STONE);
     }
 
     public static void generateBrickSet(String blockID, Block copyBlock, MapColor color) {
@@ -266,7 +266,7 @@ public class BlockCreator {
         //Cut Wall
         createPyriteBlock("%s_wall".formatted(cutBlockID), "wall", block);
         //Cut Wall Gate
-        createPyriteBlock("%s_wall_gate".formatted(cutBlockID),"fence_gate", block);
+        createPyriteBlock("%s_wall_gate".formatted(cutBlockID),"wall_gate", block);
     }
 
     /**
@@ -285,7 +285,7 @@ public class BlockCreator {
         //Smooth Wall
         createPyriteBlock("%s_wall".formatted(smoothBlockID), "wall", block);
         //Smooth Wall Gate
-        createPyriteBlock("%s_wall_gate".formatted(smoothBlockID),"fence_gate", block);
+        createPyriteBlock("%s_wall_gate".formatted(smoothBlockID),"wall_gate", block);
     }
 
     //Create a set of Resource Blocks
