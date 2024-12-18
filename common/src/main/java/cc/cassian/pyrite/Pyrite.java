@@ -98,13 +98,13 @@ public class Pyrite {
 				// Dye items.
 				registerPyriteItem(dye + "_dye");
 				// Dyed Wool
-				createPyriteBlock(dye + "_wool", "block", Blocks.WHITE_WOOL, color, blockLux, dye);
+				createPyriteBlock(dye + "_wool", "block", Blocks.WHITE_WOOL, color, blockLux, "wool");
 				// Dyed Carpet
-				createPyriteBlock(dye + "_carpet", "carpet", Blocks.WHITE_CARPET, color, blockLux, dye);
+				createPyriteBlock(dye + "_carpet", "carpet", Blocks.WHITE_CARPET, color, blockLux, "carpet");
 				// Dyed Concrete
-				createPyriteBlock(dye+"_concrete", "block", Blocks.WHITE_CONCRETE, color, blockLux, dye);
+				createPyriteBlock(dye+"_concrete", "block", Blocks.WHITE_CONCRETE, color, blockLux, "concrete");
 				// Dyed Concrete Powder
-				createPyriteBlock(dye+"_concrete_powder", "concrete_powder", Blocks.WHITE_CONCRETE_POWDER, color, blockLux, dye);
+				createPyriteBlock(dye+"_concrete_powder", "concrete_powder", Blocks.WHITE_CONCRETE_POWDER, color, blockLux, "concrete_powder");
 			}
 			// Dyed Concrete Stairs
 			createPyriteBlock(dye+"_concrete_stairs", "stairs", Blocks.WHITE_CONCRETE, color, blockLux, dye);
@@ -116,7 +116,7 @@ public class Pyrite {
 			generateBrickSet(dye + "_brick", Blocks.BRICKS, color, blockLux);
 			if (dyeIndex > 15) {
 				// Dyed Terracotta
-				createPyriteBlock(dye+"_terracotta", "block", Blocks.TERRACOTTA,color, blockLux, dye);
+				createPyriteBlock(dye+"_terracotta", "block", Blocks.TERRACOTTA,color, blockLux, "terracotta");
 				// Dyed Glazed Terracotta
 				//coming soon - createPyriteBlock(dye+"_glazed_terracotta", "block", Blocks.TERRACOTTA,color, blockLux);
 			}
