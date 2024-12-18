@@ -4,6 +4,7 @@ import cc.cassian.pyrite.blocks.*;
 import cc.cassian.pyrite.functions.BlockCreator;
 import cc.cassian.pyrite.functions.ModHelpers;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
+import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroupEntries;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.fabricmc.fabric.api.object.builder.v1.block.type.WoodTypeBuilder;
 import net.minecraft.block.*;
@@ -15,7 +16,6 @@ import net.minecraft.particle.ParticleTypes;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKey;
-import net.minecraft.registry.RegistryKeys;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 
@@ -64,6 +64,10 @@ public class BlockCreatorImpl {
     public static final ArrayList<Block> COLOURED_NETHER_BRICKS = new ArrayList<>();
     public static final ArrayList<Block> COBBLESTONE = new ArrayList<>();
     public static final ArrayList<Block> SMOOTH_STONE = new ArrayList<>();
+    public static final ArrayList<Block> STAINED_GLASS = new ArrayList<>();
+    public static final ArrayList<Block> STAINED_GLASS_PANES = new ArrayList<>();
+    public static final ArrayList<Block> STAINED_FRAMED_GLASS = new ArrayList<>();
+    public static final ArrayList<Block> STAINED_FRAMED_GLASS_PANES = new ArrayList<>();
     public static final LinkedHashMap<Block, Block> FUNCTIONAL = new LinkedHashMap<>();
     public static final LinkedHashMap<Block, Block> BUILDING_BLOCKS = new LinkedHashMap<>();
 
@@ -358,6 +362,18 @@ public class BlockCreatorImpl {
             case "crafting_table":
                 CRAFTING_TABLES.add(newBlock);
                 break;
+            case "stained_glass":
+                STAINED_GLASS.add(newBlock);
+                break;
+            case "stained_glass_pane":
+                STAINED_GLASS_PANES.add(newBlock);
+                break;
+            case "stained_framed_glass":
+                STAINED_FRAMED_GLASS.add(newBlock);
+                break;
+            case "stained_framed_glass_pane":
+                STAINED_FRAMED_GLASS_PANES.add(newBlock);
+                break;
             case "functional":
                 FUNCTIONAL.put(copyBlock, newBlock);
                 break;
@@ -461,6 +477,8 @@ public class BlockCreatorImpl {
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.FUNCTIONAL).register((itemGroup) -> {
             itemGroup.addAfter(Items.WARPED_HANGING_SIGN, getCollectionList(SIGNS));
             itemGroup.addAfter(Items.CRAFTING_TABLE, getCollectionList(CRAFTING_TABLES));
+            addMapToItemGroup(itemGroup, FUNCTIONAL);
+
         });
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.NATURAL).register((itemGroup) -> itemGroup.addAfter(Items.WITHER_ROSE, getCollectionList(FLOWERS)));
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.INGREDIENTS).register((itemGroup) -> itemGroup.addAfter(Items.PINK_DYE, getCollectionList(DYES)));
@@ -482,10 +500,15 @@ public class BlockCreatorImpl {
             itemGroup.addAfter(Items.RED_NETHER_BRICK_WALL, getCollectionList(COLOURED_NETHER_BRICKS));
             itemGroup.addAfter(Items.COBBLESTONE_WALL, getCollectionList(COBBLESTONE));
             itemGroup.addAfter(Items.SMOOTH_STONE_SLAB, getCollectionList(SMOOTH_STONE));
+            addMapToItemGroup(itemGroup, BUILDING_BLOCKS);
         });
 
-        addMapToItemGroup(ItemGroups.FUNCTIONAL, FUNCTIONAL);
-        addMapToItemGroup(ItemGroups.BUILDING_BLOCKS, BUILDING_BLOCKS);
+        ItemGroupEvents.modifyEntriesEvent(ItemGroups.COLORED_BLOCKS).register((itemGroup) -> {
+            itemGroup.addAfter(Blocks.PINK_STAINED_GLASS, getCollectionList(STAINED_GLASS));
+            itemGroup.addAfter(Blocks.PINK_STAINED_GLASS_PANE, getCollectionList(STAINED_GLASS_PANES));
+            itemGroup.addBefore(Blocks.SHULKER_BOX, getCollectionList(STAINED_FRAMED_GLASS));
+            itemGroup.addBefore(Blocks.SHULKER_BOX, getCollectionList(STAINED_FRAMED_GLASS_PANES));
+        });
     }
 
     public static void addMapToItemGroup(RegistryKey<ItemGroup> group, LinkedHashMap<Block, Block> map) {
@@ -493,6 +516,14 @@ public class BlockCreatorImpl {
             Block key = entry.getKey();
             Block value = entry.getValue();
             ItemGroupEvents.modifyEntriesEvent(group).register((itemGroup) -> itemGroup.addAfter(key, value));
+        }
+    }
+
+    public static void addMapToItemGroup(FabricItemGroupEntries group, LinkedHashMap<Block, Block> map) {
+        for (Map.Entry<Block, Block> entry : map.entrySet()) {
+            Block key = entry.getKey();
+            Block value = entry.getValue();
+            group.addAfter(key, value);
         }
     }
 }

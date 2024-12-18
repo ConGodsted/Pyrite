@@ -126,16 +126,16 @@ public class Pyrite {
 			createTorch(dye+"_torch", getTorchParticle(dye));
 			if (dyeIndex > 15) {
 				// Dyed Stained Glass
-				createPyriteBlock(dye+"_stained_glass","stained_framed_glass", 0.3f, color, blockLux, dye);
+				createPyriteBlock(dye+"_stained_glass","stained_framed_glass", 0.3f, color, blockLux, "stained_glass");
 				// Dyed Stained Glass Pane
-				createPyriteBlock(dye+"_stained_glass_pane","stained_framed_glass_pane", 0.3f, color, blockLux, dye);
+				createPyriteBlock(dye+"_stained_glass_pane","stained_framed_glass_pane", 0.3f, color, blockLux, "stained_glass_pane");
 			}
 			// Dyed Lamps
 			createPyriteBlock(dye + "_lamp","block", 0.3f, color, 15, dye);
 			// Dyed Framed Glass
-			createPyriteBlock(dye+"_framed_glass","stained_framed_glass", 2.0f, color, blockLux, dye);
+			createPyriteBlock(dye+"_framed_glass","stained_framed_glass", 2.0f, color, blockLux, "stained_framed_glass");
 			// Dyed Framed Glass Pane
-			createPyriteBlock( dye+"_framed_glass_pane","stained_framed_glass_pane", 2.0f, color, blockLux, dye);
+			createPyriteBlock( dye+"_framed_glass_pane","stained_framed_glass_pane", 2.0f, color, blockLux, "stained_framed_glass_pane");
 			// Dyed Torch Levers
 			createTorchLever(dye+"_torch_lever", Blocks.TORCH, getTorchParticle(dye));
 		}
