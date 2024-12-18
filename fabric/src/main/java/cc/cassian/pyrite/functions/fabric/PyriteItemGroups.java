@@ -207,14 +207,6 @@ public class PyriteItemGroups {
     }
 
     public static void modifyEntries() {
-        // Add Pyrite Concrete to vanilla item group.
-        for (int dyeIndex = 0; dyeIndex < 15; dyeIndex++) {
-            final var concrete = getDyes()[dyeIndex]+"_concrete";
-            final var stairs = BLOCKS.get(concrete + "_stairs");
-            final var slab = BLOCKS.get(concrete + "_slab");
-            ItemGroupEvents.modifyEntriesEvent(ItemGroups.COLORED_BLOCKS).register((itemGroup) ->
-                    itemGroup.addAfter(Registries.BLOCK.get(Identifier.ofVanilla(concrete)), stairs, slab));
-        }
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.BUILDING_BLOCKS).register((itemGroup) -> {
             itemGroup.addAfter(Items.IRON_BLOCK, getCollectionList(IRON_BLOCKS));
             itemGroup.addAfter(Items.GOLD_BLOCK, getCollectionList(GOLD_BLOCKS));
@@ -245,6 +237,11 @@ public class PyriteItemGroups {
             itemGroup.addAfter(Blocks.PINK_STAINED_GLASS_PANE, getCollectionList(STAINED_GLASS_PANES));
             itemGroup.addBefore(Blocks.SHULKER_BOX, getCollectionList(FRAMED_GLASS));
             itemGroup.addBefore(Blocks.SHULKER_BOX, getCollectionList(FRAMED_GLASS_PANES));
+            itemGroup.addAfter(Blocks.PINK_CONCRETE, getCollectionList(CONCRETE));
+            itemGroup.addAfter(Blocks.PINK_CONCRETE_POWDER, getCollectionList(CONCRETE_POWDER));
+            itemGroup.addAfter(Blocks.PINK_TERRACOTTA, getCollectionList(TERRACOTTA));
+            itemGroup.addAfter(Blocks.PINK_WOOL, getCollectionList(WOOL));
+            itemGroup.addAfter(Blocks.PINK_CARPET, getCollectionList(CARPET));
         });
 
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.NATURAL).register((itemGroup) ->
@@ -261,5 +258,14 @@ public class PyriteItemGroups {
 
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.INGREDIENTS).register((itemGroup) ->
                 itemGroup.addAfter(Items.PINK_DYE, getCollectionList(DYES)));
+        
+        // Add Pyrite Concrete to vanilla item group.
+        for (int dyeIndex = 0; dyeIndex < 15; dyeIndex++) {
+            final var concrete = getDyes()[dyeIndex]+"_concrete";
+            final var stairs = BLOCKS.get(concrete + "_stairs");
+            final var slab = BLOCKS.get(concrete + "_slab");
+            ItemGroupEvents.modifyEntriesEvent(ItemGroups.COLORED_BLOCKS).register((itemGroup) ->
+                    itemGroup.addAfter(Registries.BLOCK.get(Identifier.ofVanilla(concrete)), stairs, slab));
+        }
     }
 }
