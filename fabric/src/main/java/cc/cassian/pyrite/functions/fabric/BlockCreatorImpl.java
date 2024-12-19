@@ -122,7 +122,6 @@ public class BlockCreatorImpl {
             case "flower":
                 newBlock = new FlowerBlock(StatusEffects.NIGHT_VISION, 5, blockSettings);
                 addTransparentBlock(newBlock);
-                FLOWERS.add(newBlock);
                 break;
             case "fence_gate":
                 newBlock = new FenceGateBlock(woodType, blockSettings);
@@ -201,7 +200,7 @@ public class BlockCreatorImpl {
         if (blockID.contains("grass")) {
             addGrassBlock();
         }
-        PyriteItemGroups.match(newBlock, copyBlock, group);
+        PyriteItemGroups.match(newBlock, copyBlock, group, blockID);
     }
 
     /**

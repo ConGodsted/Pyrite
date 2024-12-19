@@ -5,6 +5,7 @@ import net.minecraft.block.*;
 import net.minecraft.block.piston.PistonBehavior;
 import net.minecraft.particle.ParticleEffect;
 import net.minecraft.sound.BlockSoundGroup;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.Map;
 import java.util.Objects;
@@ -156,33 +157,35 @@ public class BlockCreator {
 
     public static void generateNostalgiaBlocks() {
         for (Map.Entry<String, Block> entry : NOSTALGIA_BLOCKS.entrySet()) {
-            createPyriteBlock(entry.getKey(), "block", entry.getValue(), "nostalgia");
+            createPyriteBlock(entry.getKey(), "block", entry.getValue(), entry.getKey());
         }
         createPyriteBlock("nostalgia_gravel", "gravel", Blocks.GRAVEL, "nostalgia");
     }
 
     //Generate an entire brick set.
-    public static void generateBrickSet(String blockID, Block copyBlock, MapColor color, int lux) {
+    public static void generateBrickSet(String blockID, Block copyBlock, MapColor color, int lux, @Nullable String group) {
+        if (group == null)
+            group = blockID;
         //Bricks
-        createPyriteBlock( blockID+"s", "block", copyBlock, color, lux, blockID);
+        createPyriteBlock( blockID+"s", "block", copyBlock, color, lux, group);
         //Brick Stairs
-        createPyriteBlock( blockID+"_stairs", "stairs", copyBlock, color, lux, blockID);
+        createPyriteBlock( blockID+"_stairs", "stairs", copyBlock, color, lux, group);
         //Brick Slab
-        createPyriteBlock( blockID+"_slab", "slab", copyBlock, color, lux, blockID);
+        createPyriteBlock( blockID+"_slab", "slab", copyBlock, color, lux, group);
         //Brick Wall
-        createPyriteBlock( blockID+"_wall", "wall", copyBlock, color, lux, blockID);
+        createPyriteBlock( blockID+"_wall", "wall", copyBlock, color, lux, group);
         //Brick Wall Gate
-        createPyriteBlock(blockID+"_wall_gate","wall_gate", copyBlock, BlockSetType.STONE, blockID);
+        createPyriteBlock(blockID+"_wall_gate","wall_gate", copyBlock, BlockSetType.STONE, group);
     }
 
     public static void generateBrickSet(String blockID, Block copyBlock, MapColor color) {
-        generateBrickSet(blockID, copyBlock, color, 0);
+        generateBrickSet(blockID, copyBlock, color, 0, "bricks");
     }
 
     public static void generateBrickSet(String blockID, Block copyBlock, MapColor color, boolean generateMossySet) {
-        generateBrickSet(blockID, copyBlock, color, 0);
+        generateBrickSet(blockID, copyBlock, color, 0, "bricks");
         if (generateMossySet)
-            generateBrickSet("mossy_"+blockID, copyBlock, color, 0);
+            generateBrickSet("mossy_"+blockID, copyBlock, color, 0, null);
     }
 
         //Generate a Turf block set - including block and its slab, stair, and carpet variants.
@@ -201,35 +204,35 @@ public class BlockCreator {
     /**
      * Generate an entire wood set.
      */
-    public static void createWoodSet(String blockID, MapColor color, int blockLux) {
+    public static void createWoodSet(String blockID, MapColor color, int blockLux, String group) {
         BlockSetType GENERATED_SET = new BlockSetType(blockID);
         WoodType GENERATED_TYPE = createWoodType(blockID, GENERATED_SET);
         // Planks
-        createPyriteBlock("%s_planks".formatted(blockID), "block", Blocks.OAK_PLANKS, color, blockLux, blockID);
+        createPyriteBlock("%s_planks".formatted(blockID), "block", Blocks.OAK_PLANKS, color, blockLux, group);
         // Stairs
-        createPyriteBlock("%s_stairs".formatted(blockID), "stairs",Blocks.OAK_STAIRS, color, blockLux, blockID);
+        createPyriteBlock("%s_stairs".formatted(blockID), "stairs",Blocks.OAK_STAIRS, color, blockLux, group);
         // Slabs
-        createPyriteBlock("%s_slab".formatted(blockID), "slab", Blocks.OAK_SLAB, color, blockLux, blockID);
+        createPyriteBlock("%s_slab".formatted(blockID), "slab", Blocks.OAK_SLAB, color, blockLux, group);
         // Fences
-        createPyriteBlock("%s_fence".formatted(blockID), "fence", Blocks.OAK_FENCE, color, blockLux, GENERATED_SET, GENERATED_TYPE, blockID);
+        createPyriteBlock("%s_fence".formatted(blockID), "fence", Blocks.OAK_FENCE, color, blockLux, GENERATED_SET, GENERATED_TYPE, group);
         // Fence Gates
-        createPyriteBlock("%s_fence_gate".formatted(blockID), "fence_gate", Blocks.OAK_FENCE_GATE, color, blockLux, GENERATED_SET, GENERATED_TYPE, blockID);
+        createPyriteBlock("%s_fence_gate".formatted(blockID), "fence_gate", Blocks.OAK_FENCE_GATE, color, blockLux, GENERATED_SET, GENERATED_TYPE, group);
         // Doors
-        createPyriteBlock("%s_door".formatted(blockID), "door", Blocks.OAK_DOOR, color, blockLux, GENERATED_SET, GENERATED_TYPE, blockID);
+        createPyriteBlock("%s_door".formatted(blockID), "door", Blocks.OAK_DOOR, color, blockLux, GENERATED_SET, GENERATED_TYPE, group);
         // Trapdoors
-        createPyriteBlock("%s_trapdoor".formatted(blockID), "trapdoor", Blocks.OAK_TRAPDOOR, color, blockLux, GENERATED_SET, GENERATED_TYPE, blockID);
+        createPyriteBlock("%s_trapdoor".formatted(blockID), "trapdoor", Blocks.OAK_TRAPDOOR, color, blockLux, GENERATED_SET, GENERATED_TYPE, group);
         // Pressure Plates
-        createPyriteBlock("%s_pressure_plate".formatted(blockID), "pressure_plate", Blocks.OAK_PRESSURE_PLATE, color, blockLux, GENERATED_SET, GENERATED_TYPE, blockID);
+        createPyriteBlock("%s_pressure_plate".formatted(blockID), "pressure_plate", Blocks.OAK_PRESSURE_PLATE, color, blockLux, GENERATED_SET, GENERATED_TYPE, group);
         // Buttons
-        createPyriteBlock("%s_button".formatted(blockID), "button", Blocks.OAK_BUTTON, color, blockLux, GENERATED_SET, GENERATED_TYPE, blockID);
+        createPyriteBlock("%s_button".formatted(blockID), "button", Blocks.OAK_BUTTON, color, blockLux, GENERATED_SET, GENERATED_TYPE, group);
         // Crafting Tables
-        createPyriteBlock("%s_crafting_table".formatted(blockID), "crafting", Blocks.CRAFTING_TABLE, color, blockLux, "crafting_table");
+        createPyriteBlock("%s_crafting_table".formatted(blockID), "crafting", Blocks.CRAFTING_TABLE, color, blockLux, group);
         // Ladders
-        createPyriteBlock("%s_ladder".formatted(blockID), "ladder", Blocks.LADDER, color, blockLux, blockID);
+        createPyriteBlock("%s_ladder".formatted(blockID), "ladder", Blocks.LADDER, color, blockLux, group);
         // Signs
-        createPyriteBlock("%s_sign".formatted(blockID), "sign", Blocks.OAK_SIGN, color, blockLux, GENERATED_SET, GENERATED_TYPE, blockID);
+        createPyriteBlock("%s_sign".formatted(blockID), "sign", Blocks.OAK_SIGN, color, blockLux, GENERATED_SET, GENERATED_TYPE, group);
         // Hanging Signs
-        createPyriteBlock("%s_hanging_sign".formatted(blockID), "hanging_sign", Blocks.OAK_HANGING_SIGN, color, blockLux, GENERATED_SET, GENERATED_TYPE, blockID);
+        createPyriteBlock("%s_hanging_sign".formatted(blockID), "hanging_sign", Blocks.OAK_HANGING_SIGN, color, blockLux, GENERATED_SET, GENERATED_TYPE, group);
     }
 
     /**
@@ -240,7 +243,7 @@ public class BlockCreator {
         createPyriteBlock("stripped_%s_log".formatted(blockID), "log", Blocks.STRIPPED_OAK_LOG, color, blockLux, "wood");
         createPyriteBlock("%s_wood".formatted(blockID), "wood", Blocks.OAK_WOOD, color, blockLux, "wood");
         createPyriteBlock("stripped_%s_wood".formatted(blockID), "wood", Blocks.STRIPPED_OAK_WOOD, color, blockLux, "wood");
-        createWoodSet(blockID, color, blockLux);
+        createWoodSet(blockID, color, blockLux, "wood");
     }
 
     /**

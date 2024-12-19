@@ -1,5 +1,6 @@
 package cc.cassian.pyrite.functions.fabric;
 
+import cc.cassian.pyrite.functions.ModLists;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroupEntries;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
@@ -8,16 +9,13 @@ import net.minecraft.block.Blocks;
 import net.minecraft.item.*;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
-import net.minecraft.registry.RegistryKey;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.LinkedHashMap;
-import java.util.Map;
+import java.util.*;
 
 import static cc.cassian.pyrite.Pyrite.MOD_ID;
+import static cc.cassian.pyrite.functions.ModLists.VANILLA_DYES;
 import static cc.cassian.pyrite.functions.ModLists.getDyes;
 import static cc.cassian.pyrite.functions.fabric.BlockCreatorImpl.BLOCKS;
 
@@ -62,16 +60,27 @@ public class PyriteItemGroups {
     public static final ArrayList<Block> TERRACOTTA_BRICKS = new ArrayList<>();
     public static final ArrayList<Block> TORCH = new ArrayList<>();
     public static final ArrayList<Block> TORCH_LEVER = new ArrayList<>();
+    public static final ArrayList<Block> GRASS = new ArrayList<>();
+    public static final ArrayList<Block> NOSTALGIA_GRASS = new ArrayList<>();
+    public static final ArrayList<Block> PODZOL = new ArrayList<>();
+    public static final ArrayList<Block> MYCELIUM = new ArrayList<>();
+    public static final ArrayList<Block> DIRT_PATH = new ArrayList<>();
+    public static final ArrayList<Block> LAMPS = new ArrayList<>();
+    public static final ArrayList<Block> DYED_BRICKS = new ArrayList<>();
     public static final LinkedHashMap<Block, Block> FUNCTIONAL = new LinkedHashMap<>();
     public static final LinkedHashMap<Block, Block> BUILDING_BLOCKS = new LinkedHashMap<>();
     public static final LinkedHashMap<Block, Block> COLORED_BLOCKS = new LinkedHashMap<>();
+    public static final LinkedHashMap<Block, Block> NATURAL = new LinkedHashMap<>();
 
 
     public static void addMapToItemGroup(FabricItemGroupEntries group, LinkedHashMap<Block, Block> map) {
         for (Map.Entry<Block, Block> entry : map.entrySet()) {
-            Block key = entry.getKey();
+            Block anchor = entry.getKey();
             Block value = entry.getValue();
-            group.addAfter(key, value);
+            if (anchor != null)
+                group.addAfter(anchor, value);
+            else
+                group.add(value);
         }
     }
 
@@ -99,9 +108,9 @@ public class PyriteItemGroups {
         return stacks;
     }
 
-    public static void match(Block newBlock, Block copyBlock, String group) {
-        if (group.contains("terracotta_brick"))
-            group = "terracotta_bricks";
+    public static void match(Block newBlock, Block copyBlock, String group, String blockID) {
+        if (blockID.equals("glowstone_lamp"))
+            LAMPS.add(newBlock);
         switch (group) {
             case "iron":
                 IRON_BLOCKS.add(newBlock);
@@ -148,7 +157,7 @@ public class PyriteItemGroups {
             case "oxidized_copper":
                 OXIDIZED_COPPER_BLOCKS.add(newBlock);
                 break;
-            case "charred_nether_brick", "blue_nether_brick":
+            case "coloured_nether_bricks":
                 COLOURED_NETHER_BRICKS.add(newBlock);
                 break;
             case "cobblestone_brick", "mossy_cobblestone_brick":
@@ -211,13 +220,40 @@ public class PyriteItemGroups {
             case "terracotta_bricks":
                 TERRACOTTA_BRICKS.add(newBlock);
                 break;
+            case "lamp":
+                LAMPS.add(newBlock);
+                break;
             case "torch":
                 TORCH.add(newBlock);
+                break;
+            case "grass":
+                GRASS.add(newBlock);
+                break;
+            case "nostalgia_grass":
+                NOSTALGIA_GRASS.add(newBlock);
+                break;
+            case "nostalgia_grass_block":
+                NOSTALGIA_GRASS.addFirst(newBlock);
+                break;
+            case "path":
+                DIRT_PATH.add(newBlock);
+                break;
+            case "mycelium":
+                MYCELIUM.add(newBlock);
+                break;
+            case "podzol":
+                PODZOL.add(newBlock);
+                break;
+            case "flower":
+                FLOWERS.add(newBlock);
+                break;
+            case "dyed_bricks":
+                DYED_BRICKS.add(newBlock);
                 break;
             case "functional":
                 FUNCTIONAL.put(copyBlock, newBlock);
                 break;
-            case "building_blocks":
+            case "building_blocks", "nostalgia_cobblestone", "nostalgia_mossy_cobblestone", "nostalgia_netherrack":
                 BUILDING_BLOCKS.put(copyBlock, newBlock);
                 break;
             case "colored_blocks":
@@ -267,10 +303,18 @@ public class PyriteItemGroups {
             itemGroup.addBefore(Blocks.WHITE_CONCRETE, getCollectionList(TERRACOTTA_BRICKS));
             addMapToItemGroup(itemGroup, COLORED_BLOCKS);
             itemGroup.addAfter(Blocks.PINK_CARPET, getCollectionList(CARPET));
+            itemGroup.addAfter(Blocks.PINK_SHULKER_BOX, getCollectionList(DYED_BRICKS));
+            itemGroup.addBefore(Blocks.SHULKER_BOX, getCollectionList(LAMPS));
         });
 
-        ItemGroupEvents.modifyEntriesEvent(ItemGroups.NATURAL).register((itemGroup) ->
-                itemGroup.addAfter(Items.WITHER_ROSE, getCollectionList(FLOWERS)));
+        ItemGroupEvents.modifyEntriesEvent(ItemGroups.NATURAL).register((itemGroup) -> {
+            itemGroup.addAfter(Items.WITHER_ROSE, getCollectionList(FLOWERS));
+            itemGroup.addAfter(Items.DIRT_PATH, getCollectionList(DIRT_PATH));
+            itemGroup.addAfter(Items.GRASS_BLOCK, getCollectionList(NOSTALGIA_GRASS));
+            itemGroup.addAfter(Items.GRASS_BLOCK, getCollectionList(GRASS));
+            itemGroup.addAfter(Items.PODZOL, getCollectionList(PODZOL));
+            itemGroup.addAfter(Items.MYCELIUM, getCollectionList(MYCELIUM));
+        });
 
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.FUNCTIONAL).register((itemGroup) -> {
             itemGroup.addAfter(Items.WARPED_HANGING_SIGN, getCollectionList(SIGNS));
@@ -290,12 +334,19 @@ public class PyriteItemGroups {
                 itemGroup.addAfter(Items.PINK_DYE, getCollectionList(DYES)));
         
         // Add Pyrite Concrete to vanilla item group.
-        for (int dyeIndex = 0; dyeIndex < 15; dyeIndex++) {
-            final var concrete = getDyes()[dyeIndex]+"_concrete";
+        for (int dyeIndex = 0; dyeIndex < ModLists.DYES.length; dyeIndex++) {
+            String dye = ModLists.DYES[dyeIndex];
+            String namespace;
+            if (!Arrays.asList(VANILLA_DYES).contains(dye))
+                namespace = MOD_ID;
+            else {
+                namespace = "minecraft";
+            }
+            final var concrete = dye+"_concrete";
             final var stairs = BLOCKS.get(concrete + "_stairs");
             final var slab = BLOCKS.get(concrete + "_slab");
             ItemGroupEvents.modifyEntriesEvent(ItemGroups.COLORED_BLOCKS).register((itemGroup) ->
-                    itemGroup.addAfter(Registries.BLOCK.get(Identifier.ofVanilla(concrete)), stairs, slab));
+                    itemGroup.addAfter(Registries.BLOCK.get(Identifier.of(namespace, concrete)), stairs, slab));
         }
     }
 }

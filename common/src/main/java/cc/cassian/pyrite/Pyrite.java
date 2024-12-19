@@ -8,6 +8,8 @@ import net.minecraft.particle.ParticleTypes;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.util.Arrays;
+
 import static cc.cassian.pyrite.functions.BlockCreator.*;
 import static cc.cassian.pyrite.functions.ModLists.*;
 import static cc.cassian.pyrite.functions.ModHelpers.*;
@@ -63,9 +65,9 @@ public class Pyrite {
 		// Classic Flowers
 		generateFlowers();
 		// Blue Nether Bricks
-		generateBrickSet("blue_nether_brick", Blocks.NETHER_BRICKS, MapColor.BLUE, 0);
+		generateBrickSet("blue_nether_brick", Blocks.NETHER_BRICKS, MapColor.BLUE, 0, "coloured_nether_bricks");
 		// Charred Nether Bricks
-		generateBrickSet("charred_nether_brick", Blocks.NETHER_BRICKS, MapColor.BLACK, 0);
+		generateBrickSet("charred_nether_brick", Blocks.NETHER_BRICKS, MapColor.BLACK, 0, "coloured_nether_bricks");
 		// Vanilla Crafting Tables
 		generateVanillaCraftingTables();
 		// Modded Crafting Tables
@@ -82,27 +84,27 @@ public class Pyrite {
 		}
 		// Red Mushroom Wood Set
 		createPyriteBlock("red_mushroom_stem", "log", Blocks.MUSHROOM_STEM, "red_mushroom");
-		createWoodSet("red_mushroom", MapColor.RED, 0);
+		createWoodSet("red_mushroom", MapColor.RED, 0, "wood");
 		// Brown Mushroom Wood Set
 		createPyriteBlock("brown_mushroom_stem", "log", Blocks.MUSHROOM_STEM, "brown_mushroom");
-		createWoodSet("brown_mushroom", MapColor.BROWN, 0);
+		createWoodSet("brown_mushroom", MapColor.BROWN, 0, "wood");
 		// Azalea Wood Set
 		createWoodSetWithLog("azalea", MapColor.DULL_RED, 0);
 		// Autogenerate dye blocks.
-		final String[] dyes = getDyes();
-		for (int dyeIndex = 0; dyeIndex < dyes.length; dyeIndex++) {
-			String dye = dyes[dyeIndex];
+        for (int dyeIndex = 0; dyeIndex < DYES.length; dyeIndex++) {
+			String dye = ModLists.DYES[dyeIndex];
 			int blockLux = checkDyeLux(dye);
 			MapColor color = checkDyeMapColour(dye);
-			if (dyeIndex > 15) {
+			final boolean VANILLA_DYE = Arrays.asList(VANILLA_DYES).contains(dye);
+			if (!VANILLA_DYE) {
 				// Dye items.
 				registerPyriteItem(dye + "_dye");
 				// Dyed Wool
 				createPyriteBlock(dye + "_wool", "block", WOOL_MATCH.getOrDefault(dye, Blocks.WHITE_WOOL), color, blockLux, "colored_blocks");
 				// Dyed Carpet
-				createPyriteBlock(dye + "_carpet", "carpet", Blocks.WHITE_CARPET, color, blockLux, "carpet");
+				createPyriteBlock(dye + "_carpet", "carpet", CARPET_MATCH.getOrDefault(dye, Blocks.WHITE_CARPET), color, blockLux, "colored_blocks");
 				// Dyed Concrete
-				createPyriteBlock(dye+"_concrete", "block", Blocks.WHITE_CONCRETE, color, blockLux, "concrete");
+				createPyriteBlock(dye+"_concrete", "block", CONCRETE_MATCH.getOrDefault(dye, Blocks.WHITE_CONCRETE), color, blockLux, "concrete");
 				// Dyed Concrete Powder
 				createPyriteBlock(dye+"_concrete_powder", "concrete_powder", Blocks.WHITE_CONCRETE_POWDER, color, blockLux, "concrete_powder");
 			}
@@ -111,27 +113,27 @@ public class Pyrite {
 			// Dyed Concrete Slab
 			createPyriteBlock(dye+"_concrete_slab", "slab", Blocks.WHITE_CONCRETE, color, blockLux, dye);
 			//Dyed Planks and plank products
-			createWoodSet(dye + "_stained", color, blockLux);
+			createWoodSet(dye + "_stained", color, blockLux, "dyed_wood");
 			// Dyed Bricks and brick products
-			generateBrickSet(dye + "_brick", Blocks.BRICKS, color, blockLux);
-			if (dyeIndex > 15) {
+			generateBrickSet(dye + "_brick", Blocks.BRICKS, color, blockLux, "dyed_bricks");
+			if (!VANILLA_DYE) {
 				// Dyed Terracotta
 				createPyriteBlock(dye+"_terracotta", "block", Blocks.TERRACOTTA,color, blockLux, "terracotta");
 				// Dyed Glazed Terracotta
 				//coming soon - createPyriteBlock(dye+"_glazed_terracotta", "block", Blocks.TERRACOTTA,color, blockLux);
 			}
 			// Dyed Terracotta Bricks
-			generateBrickSet(dye+"_terracotta_brick", Blocks.TERRACOTTA, color, blockLux);
+			generateBrickSet(dye+"_terracotta_brick", Blocks.TERRACOTTA, color, blockLux, "terracotta_bricks");
 			// Dyed Torches
 			createTorch(dye+"_torch", getTorchParticle(dye));
-			if (dyeIndex > 15) {
+			if (!VANILLA_DYE) {
 				// Dyed Stained Glass
 				createPyriteBlock(dye+"_stained_glass","stained_framed_glass", 0.3f, color, blockLux, "stained_glass");
 				// Dyed Stained Glass Pane
 				createPyriteBlock(dye+"_stained_glass_pane","stained_framed_glass_pane", 0.3f, color, blockLux, "stained_glass_pane");
 			}
 			// Dyed Lamps
-			createPyriteBlock(dye + "_lamp","block", 0.3f, color, 15, dye);
+			createPyriteBlock(dye + "_lamp","block", 0.3f, color, 15, "lamp");
 			// Dyed Framed Glass
 			createPyriteBlock(dye+"_framed_glass","stained_framed_glass", 2.0f, color, blockLux, "framed_glass");
 			// Dyed Framed Glass Pane
