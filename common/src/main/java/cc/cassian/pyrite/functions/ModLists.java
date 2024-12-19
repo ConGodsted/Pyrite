@@ -108,6 +108,8 @@ public class ModLists {
             "nostalgia_netherrack", Blocks.NETHERRACK
     );
 
+    public final static Map<String, Block> WOOL_MATCH = new LinkedHashMap<>();
+
     public static final LinkedHashMap<String, Block> FLOWERS = new LinkedHashMap<>();
     public static void populateLinkedHashMaps() {
         FLOWERS.put("rose", Blocks.POPPY);
@@ -118,6 +120,15 @@ public class ModLists {
         FLOWERS.put("paeonia", Blocks.PEONY);
         FLOWERS.put("buttercup", Blocks.PEONY);
         FLOWERS.put("pink_daisy", Blocks.PEONY);
+
+        WOOL_MATCH.put("glow", Blocks.GREEN_WOOL);
+        WOOL_MATCH.put("dragon", Blocks.PURPLE_WOOL);
+        WOOL_MATCH.put("star", Blocks.LIGHT_BLUE_WOOL);
+        WOOL_MATCH.put("honey", Blocks.ORANGE_WOOL);
+        WOOL_MATCH.put("rose", Blocks.MAGENTA_WOOL);
+        WOOL_MATCH.put("poisonous", Blocks.YELLOW_WOOL);
+        WOOL_MATCH.put("nostalgia", Blocks.CYAN_WOOL);
+
     }
 
     public static String[] getDyes() {

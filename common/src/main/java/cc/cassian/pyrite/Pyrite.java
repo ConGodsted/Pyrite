@@ -51,7 +51,7 @@ public class Pyrite {
 		// Torch Levers
 		createTorchLever("torch_lever", Blocks.TORCH, ParticleTypes.FLAME);
 		createTorchLever("redstone_torch_lever", Blocks.SOUL_TORCH, DustParticleEffect.DEFAULT);
-		createTorchLever("soul_torch_lever", Blocks.TORCH, ParticleTypes.SOUL_FIRE_FLAME);
+		createTorchLever("soul_torch_lever", Blocks.SOUL_TORCH, ParticleTypes.SOUL_FIRE_FLAME);
 		// Lamps
 		createPyriteBlock("lit_redstone_lamp", "block", Blocks.REDSTONE_LAMP, 15, "functional");
 		createPyriteBlock("glowstone_lamp","block", Blocks.GLOWSTONE, 15, "functional");
@@ -98,7 +98,7 @@ public class Pyrite {
 				// Dye items.
 				registerPyriteItem(dye + "_dye");
 				// Dyed Wool
-				createPyriteBlock(dye + "_wool", "block", Blocks.WHITE_WOOL, color, blockLux, "wool");
+				createPyriteBlock(dye + "_wool", "block", WOOL_MATCH.getOrDefault(dye, Blocks.WHITE_WOOL), color, blockLux, "colored_blocks");
 				// Dyed Carpet
 				createPyriteBlock(dye + "_carpet", "carpet", Blocks.WHITE_CARPET, color, blockLux, "carpet");
 				// Dyed Concrete

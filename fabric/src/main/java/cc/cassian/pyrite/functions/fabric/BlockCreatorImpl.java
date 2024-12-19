@@ -45,8 +45,6 @@ public class BlockCreatorImpl {
         switch (blockType.toLowerCase()) {
             case "block":
                 newBlock = new ModBlock(blockSettings, power);
-                if (power == 15 && !blockID.equals("lit_redstone_lamp"))
-                    REDSTONE_BLOCKS.add(newBlock);
                 break;
             case "crafting":
                 AbstractBlock.Settings craftingSettings;
@@ -75,37 +73,27 @@ public class BlockCreatorImpl {
                 break;
             case "slab":
                 newBlock = new ModSlab(blockSettings, power);
-                if (power == 15)
-                    REDSTONE_BLOCKS.add(newBlock);
                 break;
             case "stairs":
                 newBlock = new ModStairs(copyBlock.getDefaultState(), blockSettings);
                 break;
             case "wall":
                 newBlock = new ModWall(blockSettings, power);
-                if (power == 15)
-                    REDSTONE_BLOCKS.add(newBlock);
                 break;
             case "fence":
                 newBlock = new FenceBlock(blockSettings);
                 break;
             case "log":
                 newBlock = new ModPillar(blockSettings, power);
-                if (power == 15)
-                    REDSTONE_BLOCKS.add(newBlock);
                 break;
             case "wood":
                 newBlock = new ModWood(blockSettings);
                 break;
             case "facing":
                 newBlock = new ModFacingBlock(blockSettings, power);
-                if (power == 15)
-                    REDSTONE_BLOCKS.add(newBlock);
                 break;
             case "bars", "glass_pane":
                 newBlock = new ModPane(blockSettings, power);
-                if (power == 15)
-                    REDSTONE_BLOCKS.add(newBlock);
                 addTransparentBlock(newBlock);
                 break;
             case "tinted_glass_pane":
@@ -193,7 +181,6 @@ public class BlockCreatorImpl {
                 break;
             case "torch_lever":
                 newBlock = new TorchLever(blockSettings.nonOpaque(), particle);
-                REDSTONE_BLOCKS.add(newBlock);
                 addTransparentBlock(newBlock);
                 break;
             case "concrete_powder":
@@ -201,7 +188,6 @@ public class BlockCreatorImpl {
                 break;
             case "switchable_glass":
                 newBlock = new SwitchableGlass(blockSettings);
-                REDSTONE_BLOCKS.add(newBlock);
                 addTranslucentBlock(newBlock);
                 break;
             default:

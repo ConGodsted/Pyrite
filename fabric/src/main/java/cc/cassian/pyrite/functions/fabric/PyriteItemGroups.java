@@ -61,8 +61,11 @@ public class PyriteItemGroups {
     public static final ArrayList<Block> TERRACOTTA = new ArrayList<>();
     public static final ArrayList<Block> TERRACOTTA_BRICKS = new ArrayList<>();
     public static final ArrayList<Block> TORCH = new ArrayList<>();
+    public static final ArrayList<Block> TORCH_LEVER = new ArrayList<>();
     public static final LinkedHashMap<Block, Block> FUNCTIONAL = new LinkedHashMap<>();
     public static final LinkedHashMap<Block, Block> BUILDING_BLOCKS = new LinkedHashMap<>();
+    public static final LinkedHashMap<Block, Block> COLORED_BLOCKS = new LinkedHashMap<>();
+
 
     public static void addMapToItemGroup(FabricItemGroupEntries group, LinkedHashMap<Block, Block> map) {
         for (Map.Entry<Block, Block> entry : map.entrySet()) {
@@ -117,6 +120,12 @@ public class PyriteItemGroups {
                 break;
             case "redstone":
                 REDSTONE_RESOURCE_BLOCKS.add(newBlock);
+                break;
+            case "redstone-group":
+                REDSTONE_BLOCKS.add(newBlock);
+                break;
+            case "torch_lever":
+                TORCH_LEVER.add(newBlock);
                 break;
             case "netherite":
                 NETHERITE_BLOCKS.add(newBlock);
@@ -211,6 +220,9 @@ public class PyriteItemGroups {
             case "building_blocks":
                 BUILDING_BLOCKS.put(copyBlock, newBlock);
                 break;
+            case "colored_blocks":
+                COLORED_BLOCKS.put(copyBlock, newBlock);
+                break;
             default:
                 System.out.println(group);
         }
@@ -253,7 +265,7 @@ public class PyriteItemGroups {
             itemGroup.addAfter(Blocks.PINK_CONCRETE_POWDER, getCollectionList(CONCRETE_POWDER));
             itemGroup.addAfter(Blocks.PINK_TERRACOTTA, getCollectionList(TERRACOTTA));
             itemGroup.addBefore(Blocks.WHITE_CONCRETE, getCollectionList(TERRACOTTA_BRICKS));
-            itemGroup.addAfter(Blocks.PINK_WOOL, getCollectionList(WOOL));
+            addMapToItemGroup(itemGroup, COLORED_BLOCKS);
             itemGroup.addAfter(Blocks.PINK_CARPET, getCollectionList(CARPET));
         });
 
@@ -267,8 +279,12 @@ public class PyriteItemGroups {
             addMapToItemGroup(itemGroup, FUNCTIONAL);
         });
 
-        ItemGroupEvents.modifyEntriesEvent(ItemGroups.REDSTONE).register((itemGroup) ->
-                itemGroup.addAfter(Items.CAULDRON, getCollectionList(REDSTONE_BLOCKS)));
+        ItemGroupEvents.modifyEntriesEvent(ItemGroups.REDSTONE).register((itemGroup) -> {
+            itemGroup.addAfter(Items.CAULDRON, getCollectionList(REDSTONE_BLOCKS));
+            itemGroup.addAfter(Items.REDSTONE_BLOCK, getCollectionList(REDSTONE_RESOURCE_BLOCKS));
+            itemGroup.addAfter(Items.LEVER, getCollectionList(TORCH_LEVER));
+
+        });
 
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.INGREDIENTS).register((itemGroup) ->
                 itemGroup.addAfter(Items.PINK_DYE, getCollectionList(DYES)));
