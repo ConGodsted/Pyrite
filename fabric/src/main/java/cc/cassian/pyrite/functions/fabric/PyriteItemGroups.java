@@ -47,6 +47,8 @@ public class PyriteItemGroups {
     public static final ArrayList<Block> GRANITE = new ArrayList<>();
     public static final ArrayList<Block> DIORITE = new ArrayList<>();
     public static final ArrayList<Block> CALCITE = new ArrayList<>();
+    public static final ArrayList<Block> TUFF = new ArrayList<>();
+    public static final ArrayList<Block> DEEPSLATE = new ArrayList<>();
     public static final ArrayList<Block> SANDSTONE = new ArrayList<>();
     public static final ArrayList<Block> STAINED_GLASS = new ArrayList<>();
     public static final ArrayList<Block> STAINED_GLASS_PANES = new ArrayList<>();
@@ -57,16 +59,10 @@ public class PyriteItemGroups {
     public static final ArrayList<Block> WOOL = new ArrayList<>();
     public static final ArrayList<Block> CARPET = new ArrayList<>();
     public static final ArrayList<Block> TERRACOTTA = new ArrayList<>();
+    public static final ArrayList<Block> TERRACOTTA_BRICKS = new ArrayList<>();
+    public static final ArrayList<Block> TORCH = new ArrayList<>();
     public static final LinkedHashMap<Block, Block> FUNCTIONAL = new LinkedHashMap<>();
     public static final LinkedHashMap<Block, Block> BUILDING_BLOCKS = new LinkedHashMap<>();
-
-    public static void addMapToItemGroup(RegistryKey<ItemGroup> group, LinkedHashMap<Block, Block> map) {
-        for (Map.Entry<Block, Block> entry : map.entrySet()) {
-            Block key = entry.getKey();
-            Block value = entry.getValue();
-            ItemGroupEvents.modifyEntriesEvent(group).register((itemGroup) -> itemGroup.addAfter(key, value));
-        }
-    }
 
     public static void addMapToItemGroup(FabricItemGroupEntries group, LinkedHashMap<Block, Block> map) {
         for (Map.Entry<Block, Block> entry : map.entrySet()) {
@@ -101,6 +97,8 @@ public class PyriteItemGroups {
     }
 
     public static void match(Block newBlock, Block copyBlock, String group) {
+        if (group.contains("terracotta_brick"))
+            group = "terracotta_bricks";
         switch (group) {
             case "iron":
                 IRON_BLOCKS.add(newBlock);
@@ -162,6 +160,12 @@ public class PyriteItemGroups {
             case "calcite_brick", "mossy_calcite_brick":
                 CALCITE.add(newBlock);
                 break;
+            case "mossy_tuff_brick":
+                TUFF.add(newBlock);
+                break;
+            case "mossy_deepslate_brick":
+                DEEPSLATE.add(newBlock);
+                break;
             case "sandstone_brick":
                 SANDSTONE.add(newBlock);
                 break;
@@ -195,6 +199,12 @@ public class PyriteItemGroups {
             case "terracotta":
                 TERRACOTTA.add(newBlock);
                 break;
+            case "terracotta_bricks":
+                TERRACOTTA_BRICKS.add(newBlock);
+                break;
+            case "torch":
+                TORCH.add(newBlock);
+                break;
             case "functional":
                 FUNCTIONAL.put(copyBlock, newBlock);
                 break;
@@ -202,7 +212,7 @@ public class PyriteItemGroups {
                 BUILDING_BLOCKS.put(copyBlock, newBlock);
                 break;
             default:
-//                System.out.println(group);
+                System.out.println(group);
         }
     }
 
@@ -226,6 +236,8 @@ public class PyriteItemGroups {
             itemGroup.addAfter(Items.GRANITE_SLAB, getCollectionList(GRANITE));
             itemGroup.addAfter(Items.ANDESITE_SLAB, getCollectionList(ANDESITE));
             itemGroup.addAfter(Items.POLISHED_DIORITE_SLAB, getCollectionList(DIORITE));
+            itemGroup.addAfter(Items.SMOOTH_STONE_SLAB, getCollectionList(SMOOTH_STONE));
+            itemGroup.addAfter(Items.TUFF_BRICK_SLAB, getCollectionList(TUFF));
             itemGroup.addBefore(Items.TUFF, Items.CALCITE);
             itemGroup.addAfter(Items.CALCITE, getCollectionList(CALCITE));
             itemGroup.addAfter(Items.CUT_SANDSTONE_SLAB, getCollectionList(SANDSTONE));
@@ -240,6 +252,7 @@ public class PyriteItemGroups {
             itemGroup.addAfter(Blocks.PINK_CONCRETE, getCollectionList(CONCRETE));
             itemGroup.addAfter(Blocks.PINK_CONCRETE_POWDER, getCollectionList(CONCRETE_POWDER));
             itemGroup.addAfter(Blocks.PINK_TERRACOTTA, getCollectionList(TERRACOTTA));
+            itemGroup.addBefore(Blocks.WHITE_CONCRETE, getCollectionList(TERRACOTTA_BRICKS));
             itemGroup.addAfter(Blocks.PINK_WOOL, getCollectionList(WOOL));
             itemGroup.addAfter(Blocks.PINK_CARPET, getCollectionList(CARPET));
         });
@@ -250,6 +263,7 @@ public class PyriteItemGroups {
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.FUNCTIONAL).register((itemGroup) -> {
             itemGroup.addAfter(Items.WARPED_HANGING_SIGN, getCollectionList(SIGNS));
             itemGroup.addAfter(Items.CRAFTING_TABLE, getCollectionList(CRAFTING_TABLES));
+            itemGroup.addAfter(Items.TORCH, getCollectionList(TORCH));
             addMapToItemGroup(itemGroup, FUNCTIONAL);
         });
 

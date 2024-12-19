@@ -37,14 +37,13 @@ public class BlockCreator {
             }
             createResourceBlockSet(block, resourceBlock);
         }
-
     }
 
     public static void createTorchLever(String blockID, Block baseTorch, ParticleEffect particle) {
-        sendToRegistry(blockID, "torch_lever", AbstractBlock.Settings.copy(baseTorch), particle);
+        sendToRegistry(blockID, "torch_lever", AbstractBlock.Settings.copy(baseTorch), particle, "torch_lever");
     }
     public static void createTorch(String blockID, ParticleEffect particle) {
-        sendToRegistry(blockID, "torch", AbstractBlock.Settings.copy(Blocks.TORCH), particle);
+        sendToRegistry(blockID, "torch", AbstractBlock.Settings.copy(Blocks.TORCH), particle, "torch");
     }
 
     public static void generateVanillaCraftingTables() {
@@ -73,9 +72,9 @@ public class BlockCreator {
     }
 
     //Create and then add carpets
-    private static void createCarpet(String blockID) {
+    private static void createCarpet(String blockID, String group) {
         AbstractBlock.Settings blockSettings = copyBlock(Blocks.MOSS_CARPET);
-        sendToRegistry(blockID, "carpet", blockSettings, "misc");
+        sendToRegistry(blockID, "carpet", blockSettings, group);
     }
 
     //Create and then add most of the manually generated blocks.
@@ -110,8 +109,8 @@ public class BlockCreator {
     }
     
     //Add blocks with particles - Torches/Torch Levers
-    private static void sendToRegistry(String blockID, String blockType, AbstractBlock.Settings blockSettings, ParticleEffect particle) {
-        platformRegister(blockID, blockType, blockSettings, null, null, particle, null, "torch");
+    private static void sendToRegistry(String blockID, String blockType, AbstractBlock.Settings blockSettings, ParticleEffect particle, String group) {
+        platformRegister(blockID, blockType, blockSettings, null, null, particle, null, group);
     }
 
     //Create blocks that require a Block Set.
@@ -157,9 +156,9 @@ public class BlockCreator {
 
     public static void generateNostalgiaBlocks() {
         for (Map.Entry<String, Block> entry : NOSTALGIA_BLOCKS.entrySet()) {
-            createPyriteBlock(entry.getKey(), "block", entry.getValue(), "misc");
+            createPyriteBlock(entry.getKey(), "block", entry.getValue(), "nostalgia");
         }
-        createPyriteBlock("nostalgia_gravel", "gravel", Blocks.GRAVEL, "misc");
+        createPyriteBlock("nostalgia_gravel", "gravel", Blocks.GRAVEL, "nostalgia");
     }
 
     //Generate an entire brick set.
@@ -188,10 +187,10 @@ public class BlockCreator {
 
         //Generate a Turf block set - including block and its slab, stair, and carpet variants.
     public static void createTurfSet(String blockID, Block copyBlock) {
-        createPyriteBlock( blockID+"_turf", "block", copyBlock, "misc");
-        createStair(blockID, copyBlock, "misc");
-        createSlab(blockID, copyBlock, "misc");
-        createCarpet(blockID+"_carpet");
+        createPyriteBlock( blockID+"_turf", "block", copyBlock, blockID);
+        createStair(blockID, copyBlock, blockID);
+        createSlab(blockID, copyBlock, blockID);
+        createCarpet(blockID+"_carpet", blockID);
     }
     
     @ExpectPlatform @SuppressWarnings("unused")
@@ -289,7 +288,7 @@ public class BlockCreator {
         //Create Bricks/Chiseled/Pillar/Smooth for those that don't already exist (Quartz)
         if (!Objects.equals(blockID, "quartz")) {
             //Brick Blocks
-            createPyriteBlock("%s_bricks".formatted(blockID), block, "misc");
+            createPyriteBlock("%s_bricks".formatted(blockID), block, blockID);
             //Chiseled Blocks - Copper Blocks
             if (!blockID.contains("copper")) {
                 createPyriteBlock("chiseled_%s_block".formatted(blockID), "log", block, blockID);
@@ -299,7 +298,7 @@ public class BlockCreator {
         }
         //Smooth Blocks
         createSmoothBlocks(blockID, block);
-        createPyriteBlock("nostalgia_%s_block".formatted(blockID), block, "misc");
+        createPyriteBlock("nostalgia_%s_block".formatted(blockID), block, blockID);
         //Block set for modded blocks
         BlockSetType set = getBlockSetType(blockID);
         //Create Bars/Doors/Trapdoors/Plates for those that don't already exist (Iron)
