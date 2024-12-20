@@ -6,6 +6,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+- Pyrite blocks have been moved into the main Creative inventory tabs, with the aim that this makes block variations easier to find.
+- Pyrite's own tabs have been condensed back into one tab, for ease of finding Pyrite-specific blocks.
+
+### Fixed
+- Soul Torch Levers now give off the appropriate amount of light.
+
 ## [0.15.6] - 2024-12-18
 
 ### Added
