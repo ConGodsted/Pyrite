@@ -10,7 +10,7 @@ import org.apache.logging.log4j.Logger;
 
 import java.util.Arrays;
 
-import static cc.cassian.pyrite.functions.BlockCreator.*;
+import static cc.cassian.pyrite.registry.BlockCreator.*;
 import static cc.cassian.pyrite.functions.ModLists.*;
 import static cc.cassian.pyrite.functions.ModHelpers.*;
 

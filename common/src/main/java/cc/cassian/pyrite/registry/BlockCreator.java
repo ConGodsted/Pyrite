@@ -1,4 +1,4 @@
-package cc.cassian.pyrite.functions;
+package cc.cassian.pyrite.registry;
 
 import dev.architectury.injectables.annotations.ExpectPlatform;
 import net.minecraft.block.*;
@@ -19,7 +19,7 @@ public class BlockCreator {
     final static Block[] resource_blocks = getVanillaResourceBlocks();
 
     @ExpectPlatform @SuppressWarnings("unused")
-    public static void platformRegister(String blockID, String blockType, AbstractBlock.Settings blockSettings, WoodType type, BlockSetType blockSetType, ParticleEffect particle, Block copyBlock, String group) {
+    public static void platformRegister(String blockID, String blockType, AbstractBlock.Settings blockSettings, WoodType woodType, BlockSetType blockSetType, ParticleEffect particle, Block copyBlock, String group) {
         throw new AssertionError();
     }
 

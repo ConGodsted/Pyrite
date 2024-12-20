@@ -1,8 +1,9 @@
-package cc.cassian.pyrite.functions.fabric;
+package cc.cassian.pyrite.registry.fabric;
 
 import cc.cassian.pyrite.blocks.*;
-import cc.cassian.pyrite.functions.BlockCreator;
+import cc.cassian.pyrite.registry.BlockCreator;
 import cc.cassian.pyrite.functions.ModHelpers;
+import cc.cassian.pyrite.registry.PyriteItemGroups;
 import net.fabricmc.fabric.api.object.builder.v1.block.type.WoodTypeBuilder;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntityType;
@@ -18,7 +19,9 @@ import java.util.*;
 import static cc.cassian.pyrite.Pyrite.LOGGER;
 import static cc.cassian.pyrite.functions.ModHelpers.*;
 import static cc.cassian.pyrite.functions.fabric.FabricHelpers.*;
-import static cc.cassian.pyrite.functions.fabric.PyriteItemGroups.*;
+import static cc.cassian.pyrite.registry.PyriteItemGroups.DYES;
+import static cc.cassian.pyrite.registry.PyriteItemGroups.SIGNS;
+import static cc.cassian.pyrite.registry.fabric.PyriteItemGroupsImpl.*;
 
 @SuppressWarnings("unused")
 public class BlockCreatorImpl {
@@ -139,7 +142,7 @@ public class BlockCreatorImpl {
                 // Register item for signs.
                 final Item SIGN_ITEM = new SignItem(new Item.Settings().maxCount(16), newBlock, WALL_SIGN);
                 ITEMS.put(blockID, SIGN_ITEM);
-                SIGNS.add(SIGNS.size(), SIGN_ITEM);
+                SIGNS.add(SIGNS.size(), () -> SIGN_ITEM);
                 BlockEntityType.SIGN.addSupportedBlock(newBlock);
                 BlockEntityType.SIGN.addSupportedBlock(WALL_SIGN);
                 break;
@@ -153,7 +156,7 @@ public class BlockCreatorImpl {
                 // Register item for signs.
                 final Item HANGING_SIGN_ITEM = new HangingSignItem(newBlock, HANGING_WALL_SIGN, new Item.Settings().maxCount(16));
                 ITEMS.put(blockID, HANGING_SIGN_ITEM);
-                SIGNS.add(HANGING_SIGN_ITEM);
+                SIGNS.add(() -> HANGING_SIGN_ITEM);
                 BlockEntityType.HANGING_SIGN.addSupportedBlock(newBlock);
                 BlockEntityType.HANGING_SIGN.addSupportedBlock(HANGING_WALL_SIGN);
                 break;
@@ -200,7 +203,7 @@ public class BlockCreatorImpl {
         if (blockID.contains("grass")) {
             addGrassBlock();
         }
-        PyriteItemGroups.match(newBlock, copyBlock, group, blockID);
+        PyriteItemGroups.match(()-> newBlock, copyBlock, group, blockID);
     }
 
     /**
@@ -210,7 +213,7 @@ public class BlockCreatorImpl {
     public static void registerPyriteItem(String itemID) {
         var item = new Item(new Item.Settings());
         ITEMS.put(itemID, item);
-        DYES.add(item);
+        DYES.add(()-> item);
     }
 
     public static BlockItem addBlockItem(String blockID, Block block) {

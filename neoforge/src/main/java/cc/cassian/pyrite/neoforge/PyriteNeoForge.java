@@ -2,7 +2,7 @@ package cc.cassian.pyrite.neoforge;
 
 
 import cc.cassian.pyrite.Pyrite;
-import cc.cassian.pyrite.functions.neoforge.BlockCreatorImpl;
+import cc.cassian.pyrite.registry.neoforge.BlockCreatorImpl;
 import cc.cassian.pyrite.neoforge.client.PyriteNeoForgeClient;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.IEventBus;

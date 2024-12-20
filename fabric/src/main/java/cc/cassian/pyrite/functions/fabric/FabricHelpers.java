@@ -6,7 +6,7 @@ import net.minecraft.block.Block;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import static cc.cassian.pyrite.functions.fabric.BlockCreatorImpl.BLOCKS;
+import static cc.cassian.pyrite.registry.fabric.BlockCreatorImpl.BLOCKS;
 
 public class FabricHelpers {
 
