@@ -1,1 +1,1 @@
-{"type":"minecraft:crafting_shapeless","ingredients":[{"item":"pyrite:poisonous_dye"},{"item":"minecraft:torch"}],"result":{"id":"pyrite:poisonous_torch","count":1}}
+{"type":"minecraft:crafting_shapeless","category":"building","ingredients":[{"item":"pyrite:poisonous_dye"},{"item":"minecraft:torch"}],"result":{"id":"pyrite:poisonous_torch","count":1}}
