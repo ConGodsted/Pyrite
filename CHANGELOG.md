@@ -6,10 +6,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.15.7] - 2024-12-21
+
 ### Added
 - Shortcut recipes for Granite, Andesite, Diorite, Cobblestone, and Smooth Stone brick block family.
 - Smooth Stone Stairs
 - Undyed Terracotta Bricks
+
+### Changed
+- Framed Glass no longer blocks Chests from opening.
 
 ### Fixed
 - Soul Torch Levers now give off the correct amount of light.

@@ -63,7 +63,7 @@ public class BlockCreatorImpl {
         Block woodBlock;
         boolean isWood = blockID.contains("_stained") || blockID.contains("mushroom") || blockID.contains("azalea");
         switch (blockType.toLowerCase()) {
-            case "block":
+            case "block", "lamp":
                 newBlock = new ModBlock(blockSettings, power);
                 if (power == 15)
                     if (blockID.equals("lit_redstone_lamp"))
