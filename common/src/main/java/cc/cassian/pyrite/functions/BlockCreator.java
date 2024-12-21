@@ -5,6 +5,8 @@ import net.minecraft.block.*;
 import net.minecraft.block.piston.PistonBehavior;
 import net.minecraft.particle.ParticleEffect;
 import net.minecraft.sound.BlockSoundGroup;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.BlockView;
 
 import java.util.Map;
 import java.util.Objects;
@@ -73,9 +75,16 @@ public class BlockCreator {
         if (Objects.equals(blockType, "obsidian")) {
             sendToRegistry(blockID, "block", settings.strength(strength, 1200f).pistonBehavior(PistonBehavior.BLOCK));
         }
-        else {
+        else if (blockType.equals("lamp")) {
             sendToRegistry(blockID, blockType, settings.sounds(BlockSoundGroup.GLASS));
         }
+        else {
+            sendToRegistry(blockID, blockType, settings.sounds(BlockSoundGroup.GLASS).nonOpaque().solidBlock(BlockCreator::never));
+        }
+    }
+
+    private static boolean never(BlockState state, BlockView world, BlockPos pos) {
+        return false;
     }
 
     //Create and then add carpets
