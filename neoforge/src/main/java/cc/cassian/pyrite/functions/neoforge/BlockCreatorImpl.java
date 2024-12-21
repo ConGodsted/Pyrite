@@ -73,7 +73,7 @@ public class BlockCreatorImpl {
         DeferredHolder<Block, ?> newBlock;
         AbstractBlock.Settings blockSettings = settings.registryKey(registryKeyBlock(blockID));
         switch (blockType.toLowerCase()) {
-            case "block":
+            case "block", "lamp":
                 newBlock = BLOCKS.register(blockID, () -> new ModBlock(blockSettings, power));
                 if (power == 15)
                     if (blockID.equals("lit_redstone_lamp"))

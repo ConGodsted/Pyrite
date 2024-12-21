@@ -56,8 +56,8 @@ public class Pyrite {
 		createTorchLever("redstone_torch_lever", Blocks.SOUL_TORCH, DustParticleEffect.DEFAULT);
 		createTorchLever("soul_torch_lever", Blocks.SOUL_TORCH, ParticleTypes.SOUL_FIRE_FLAME);
 		// Lamps
-		createPyriteBlock("lit_redstone_lamp", "block", Blocks.REDSTONE_LAMP, 15);
-		createPyriteBlock("glowstone_lamp","block", 0.3f, MapColor.YELLOW, 15);
+		createPyriteBlock("lit_redstone_lamp", "lamp", Blocks.REDSTONE_LAMP, 15);
+		createPyriteBlock("glowstone_lamp","lamp", 0.3f, MapColor.YELLOW, 15);
 		// Classic Features
 		createPyriteBlock("glowing_obsidian","obsidian", 50f, MapColor.RED, 15);
 		createPyriteBlock("nostalgia_glowing_obsidian","obsidian", 50f, MapColor.RED, 15);
@@ -134,7 +134,7 @@ public class Pyrite {
 				createPyriteBlock(dye+"_stained_glass_pane","stained_framed_glass_pane", 0.3f, color, blockLux);
 			}
 			// Dyed Lamps
-			createPyriteBlock(dye + "_lamp","block", 0.3f, color, 15);
+			createPyriteBlock(dye + "_lamp","lamp", 0.3f, color, 15);
 			// Dyed Framed Glass
 			createPyriteBlock(dye+"_framed_glass","stained_framed_glass", 2.0f, color, blockLux);
 			// Dyed Framed Glass Pane
