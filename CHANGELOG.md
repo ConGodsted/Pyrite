@@ -6,6 +6,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+- Shortcut recipes for Granite, Andesite, Diorite, Cobblestone, and Smooth Stone brick block family.
+- Smooth Stone Stairs
+
+### Fixed
+- Soul Torch Levers now give off the correct amount of light.
+- Planks now craft into the correct number of fences.
+
 ## [0.15.6] - 2024-12-18
 
 ### Added

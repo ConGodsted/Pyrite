@@ -26,7 +26,8 @@ public class Pyrite {
 		createPyriteBlock("switchable_glass", "switchable_glass", Blocks.GLASS);
 		// Cobblestone Bricks
 		generateBrickSet("cobblestone_brick", Blocks.COBBLESTONE, MapColor.STONE_GRAY, true);
-		// Smooth Stone Bricks
+		// Smooth Stone Set
+		createPyriteBlock("smooth_stone_stairs", "stairs", Blocks.SMOOTH_STONE);
 		generateBrickSet("smooth_stone_brick", Blocks.SMOOTH_STONE, MapColor.STONE_GRAY, true);
 		// Granite Bricks
 		generateBrickSet("granite_brick", Blocks.GRANITE, MapColor.DIRT_BROWN, true);
@@ -51,7 +52,7 @@ public class Pyrite {
 		// Torch Levers
 		createTorchLever("torch_lever", Blocks.TORCH, ParticleTypes.FLAME);
 		createTorchLever("redstone_torch_lever", Blocks.SOUL_TORCH, DustParticleEffect.DEFAULT);
-		createTorchLever("soul_torch_lever", Blocks.TORCH, ParticleTypes.SOUL_FIRE_FLAME);
+		createTorchLever("soul_torch_lever", Blocks.SOUL_TORCH, ParticleTypes.SOUL_FIRE_FLAME);
 		// Lamps
 		createPyriteBlock("lit_redstone_lamp", "block", Blocks.REDSTONE_LAMP, 15);
 		createPyriteBlock("glowstone_lamp","block", 0.3f, MapColor.YELLOW, 15);
