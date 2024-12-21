@@ -26,7 +26,8 @@ public class Pyrite {
 		createPyriteBlock("switchable_glass", "switchable_glass", Blocks.GLASS);
 		// Cobblestone Bricks
 		generateBrickSet("cobblestone_brick", Blocks.COBBLESTONE, MapColor.STONE_GRAY, true);
-		// Smooth Stone Bricks
+		// Smooth Stone Set
+		createPyriteBlock("smooth_stone_stairs", "stairs", Blocks.SMOOTH_STONE);
 		generateBrickSet("smooth_stone_brick", Blocks.SMOOTH_STONE, MapColor.STONE_GRAY, true);
 		// Granite Bricks
 		generateBrickSet("granite_brick", Blocks.GRANITE, MapColor.DIRT_BROWN, true);
@@ -37,11 +38,13 @@ public class Pyrite {
 		// Calcite Bricks
 		generateBrickSet("calcite_brick", Blocks.CALCITE, MapColor.OFF_WHITE, true);
 		// Mossy Tuff Bricks
-		generateBrickSet("mossy_tuff_brick", Blocks.TUFF_BRICKS, MapColor.STONE_GRAY);
+		generateBrickSet("mossy_tuff_brick", Blocks.TUFF_BRICKS);
 		// Mossy Deepslate Bricks
-		generateBrickSet("mossy_deepslate_brick", Blocks.DEEPSLATE_BRICKS, MapColor.BLACK);
+		generateBrickSet("mossy_deepslate_brick", Blocks.DEEPSLATE_BRICKS);
 		// Sandstone Bricks
-		generateBrickSet("sandstone_brick", Blocks.SANDSTONE, MapColor.PALE_YELLOW);
+		generateBrickSet("sandstone_brick", Blocks.SANDSTONE);
+		// Terracotta Bricks
+		generateBrickSet("terracotta_brick", Blocks.TERRACOTTA);
 		// Grass Set
 		generateTurfSets();
 		// Nether Brick Fence Gate
@@ -51,7 +54,7 @@ public class Pyrite {
 		// Torch Levers
 		createTorchLever("torch_lever", Blocks.TORCH, ParticleTypes.FLAME);
 		createTorchLever("redstone_torch_lever", Blocks.SOUL_TORCH, DustParticleEffect.DEFAULT);
-		createTorchLever("soul_torch_lever", Blocks.TORCH, ParticleTypes.SOUL_FIRE_FLAME);
+		createTorchLever("soul_torch_lever", Blocks.SOUL_TORCH, ParticleTypes.SOUL_FIRE_FLAME);
 		// Lamps
 		createPyriteBlock("lit_redstone_lamp", "block", Blocks.REDSTONE_LAMP, 15);
 		createPyriteBlock("glowstone_lamp","block", 0.3f, MapColor.YELLOW, 15);

@@ -186,6 +186,10 @@ public class BlockCreator {
         generateBrickSet(blockID, copyBlock, color, 0);
     }
 
+    public static void generateBrickSet(String blockID, Block copyBlock) {
+        generateBrickSet(blockID, copyBlock, copyBlock.getDefaultMapColor(), 0);
+    }
+
     public static void generateBrickSet(String blockID, Block copyBlock, MapColor color, boolean generateMossySet) {
         generateBrickSet(blockID, copyBlock, color, 0);
         if (generateMossySet)
