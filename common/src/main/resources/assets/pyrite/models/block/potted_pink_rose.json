@@ -1,1 +1,1 @@
-{"parent":"minecraft:block/flower_pot_cross","textures":{"plant":"pyrite:block/pink_rose"}}
+{"parent":"minecraft:block/flower_pot_cross","textures":{"plant":"pyrite:block/pink_rose"},"render_type":"cutout"}
