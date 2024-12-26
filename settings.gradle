@@ -8,6 +8,7 @@ pluginManagement {
             url = 'https://maven.cassian.cc'
         }
         gradlePluginPortal()
+        mavenLocal()
     }
 }
 
