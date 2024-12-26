@@ -5,6 +5,7 @@ import cc.cassian.pyrite.functions.ModHelpers;
 import cc.cassian.pyrite.functions.ModLists;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntityType;
+import net.minecraft.block.piston.PistonBehavior;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.item.*;
 import net.minecraft.particle.ParticleEffect;
@@ -157,6 +158,7 @@ public class BlockCreatorImpl {
                 break;
             case "flower":
                 newBlock = BLOCKS.register(blockID, () -> new FlowerBlock(StatusEffects.NIGHT_VISION, 5, blockSettings));
+                BLOCKS.register("potted_"+blockID, () -> new FlowerPotBlock(newBlock.get(), AbstractBlock.Settings.create().breakInstantly().nonOpaque().pistonBehavior(PistonBehavior.DESTROY)));
                 break;
             case "fence_gate":
                 newBlock = BLOCKS.register(blockID, () -> new FenceGateBlock(woodType, blockSettings));
