@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## Fixed
+- Slabs now drop the correct number of slabs.
+- Grass Turf should no longer cause a crash in an Infinite Dimension.
+
 ## [0.15.7] - 2024-12-21
 
 ### Added
