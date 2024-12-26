@@ -22,6 +22,7 @@ public final class PyriteNeoForge {
         // Run NeoForged specific setup.
         BlockCreatorImpl.register(eventBus);
         eventBus.addListener(BlockCreatorImpl::addSignsToSupports);
+        eventBus.addListener(BlockCreatorImpl::commonSetup);
 
     }
 }
