@@ -28,7 +28,7 @@ public class PyriteNeoForgeClient {
     public static void registerBlockColors(RegisterColorHandlersEvent.Block event){
         for (DeferredHolder<Block, ?> pyriteBlock : GRASS_BLOCKS) {
             event.register(((state, view, pos, tintIndex) -> {
-                assert view != null;
+                if (view == null) return 9551193;
                 return BiomeColors.getGrassColor(view, pos);
             }), pyriteBlock.get());
 

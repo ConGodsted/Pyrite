@@ -18,7 +18,7 @@ public class PyriteFabricClient implements ClientModInitializer {
     public void onInitializeClient() {
         for (Block grassBlock : GRASS_BLOCKS) {
             ColorProviderRegistry.BLOCK.register((state, view, pos, tintIndex) -> {
-                assert view != null;
+                if (view == null) return 9551193;
                 return BiomeColors.getGrassColor(view, pos);
             }, grassBlock);
         }
