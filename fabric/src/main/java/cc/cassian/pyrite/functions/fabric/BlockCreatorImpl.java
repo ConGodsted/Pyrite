@@ -172,7 +172,7 @@ public class BlockCreatorImpl {
                 newBlock = new FlowerBlock(StatusEffects.NIGHT_VISION, 5, blockSettings);
                 addTransparentBlock(newBlock);
                 // register flower pot
-                final Block FLOWER_POTTED = new FlowerPotBlock(newBlock, Blocks.createFlowerPotSettings());
+                final Block FLOWER_POTTED = new FlowerPotBlock(newBlock, Blocks.createFlowerPotSettings().registryKey(registryKeyBlock("potted_"+blockID)));
                 BLOCKS_ITEMLESS.add(FLOWER_POTTED);
                 BLOCK_IDS_ITEMLESS.add("potted_"+blockID);
                 addTransparentBlock(FLOWER_POTTED);
