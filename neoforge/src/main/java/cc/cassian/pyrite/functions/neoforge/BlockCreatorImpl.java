@@ -22,6 +22,8 @@ import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.Map;
 import java.util.Objects;
 import java.util.function.Supplier;
 
@@ -54,7 +56,7 @@ public class BlockCreatorImpl {
     public static final ArrayList<DeferredHolder<?, ?>> REDSTONE_BLOCKS = new ArrayList<>();
     public static final ArrayList<DeferredHolder<?, ?>> MISC_BLOCKS = new ArrayList<>();
     public static final ArrayList<Block> MISC_BLOCKS_UNSORTED = new ArrayList<>();
-    public static final ArrayList<DeferredHolder<Block, ?>> FLOWERS = new ArrayList<>();
+    public static final LinkedHashMap<String, Supplier<FlowerPotBlock>> POTTED_FLOWERS = new LinkedHashMap<>();
 
 
 
@@ -164,7 +166,7 @@ public class BlockCreatorImpl {
             case "flower":
                 newBlock = BLOCKS.register(blockID, () -> new FlowerBlock(StatusEffects.NIGHT_VISION, 5, blockSettings));
                 var pot = BLOCKS.register("potted_"+blockID, () -> new FlowerPotBlock(null, newBlock, AbstractBlock.Settings.create().breakInstantly().nonOpaque().pistonBehavior(PistonBehavior.DESTROY)));
-                FLOWERS.add(pot);
+                POTTED_FLOWERS.put(blockID, pot);
                 break;
             case "fence_gate":
                 newBlock = BLOCKS.register(blockID, () -> new FenceGateBlock(woodType, blockSettings));
@@ -332,8 +334,10 @@ public class BlockCreatorImpl {
     @SubscribeEvent
     public static void commonSetup(FMLCommonSetupEvent event) {
         FlowerPotBlock pot = (FlowerPotBlock) Blocks.FLOWER_POT;
-        for (DeferredHolder<Block, ?> flower : FLOWERS) {
-            pot.addPlant(Identifier.of(MOD_ID, flower.getId().getPath().replace("potted_", "")), flower);
+        for (Map.Entry<String, Supplier<FlowerPotBlock>> entry : POTTED_FLOWERS.entrySet()) {
+            String flowerID = entry.getKey();
+            Supplier<FlowerPotBlock> flowerPot = entry.getValue();
+            pot.addPlant(Identifier.of(MOD_ID, flowerID), flowerPot);
         }
     }
 }
