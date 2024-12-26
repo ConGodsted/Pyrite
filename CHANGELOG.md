@@ -6,6 +6,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## Changed
+- Crafters can now be made out of Pyrite Crafting tables
+
 ## Fixed
 - Slabs now drop the correct number of slabs.
 - Grass Turf should no longer cause a crash in an Infinite Dimension.
