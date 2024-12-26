@@ -16,6 +16,7 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.neoforge.event.BlockEntityTypeAddBlocksEvent;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
@@ -53,6 +54,8 @@ public class BlockCreatorImpl {
     public static final ArrayList<DeferredHolder<?, ?>> REDSTONE_BLOCKS = new ArrayList<>();
     public static final ArrayList<DeferredHolder<?, ?>> MISC_BLOCKS = new ArrayList<>();
     public static final ArrayList<Block> MISC_BLOCKS_UNSORTED = new ArrayList<>();
+    public static final ArrayList<DeferredHolder<Block, ?>> FLOWERS = new ArrayList<>();
+
 
 
     /**
@@ -160,7 +163,8 @@ public class BlockCreatorImpl {
                 break;
             case "flower":
                 newBlock = BLOCKS.register(blockID, () -> new FlowerBlock(StatusEffects.NIGHT_VISION, 5, blockSettings));
-                BLOCKS.register("potted_"+blockID, () -> new FlowerPotBlock(newBlock.get(), AbstractBlock.Settings.create().breakInstantly().nonOpaque().pistonBehavior(PistonBehavior.DESTROY)));
+                var pot = BLOCKS.register("potted_"+blockID, () -> new FlowerPotBlock(null, newBlock, AbstractBlock.Settings.create().breakInstantly().nonOpaque().pistonBehavior(PistonBehavior.DESTROY)));
+                FLOWERS.add(pot);
                 break;
             case "fence_gate":
                 newBlock = BLOCKS.register(blockID, () -> new FenceGateBlock(woodType, blockSettings));
@@ -222,7 +226,7 @@ public class BlockCreatorImpl {
                 REDSTONE_BLOCKS.add(newBlock);
                 break;
             default:
-                LOGGER.error("{}created as a generic block, block provided{}", blockID, blockType);
+//                LOGGER.error("{}created as a generic block, block provided{}", blockID, blockType);
                 newBlock = BLOCKS.register(blockID, () -> new Block(blockSettings));
                 break;
         }
@@ -321,6 +325,15 @@ public class BlockCreatorImpl {
         }
         for (DeferredHolder<Block, ?> sign : HANGING_SIGN_BLOCKS) {
             event.modify(BlockEntityType.HANGING_SIGN, sign.get());
+        }
+    }
+
+    // Adds Pyrite's flowers to the flower pot block.
+    @SubscribeEvent
+    public static void commonSetup(FMLCommonSetupEvent event) {
+        FlowerPotBlock pot = (FlowerPotBlock) Blocks.FLOWER_POT;
+        for (DeferredHolder<Block, ?> flower : FLOWERS) {
+            pot.addPlant(Identifier.of(MOD_ID, flower.getId().getPath().replace("potted_", "")), flower);
         }
     }
 }
