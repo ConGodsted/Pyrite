@@ -6,6 +6,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+- Potted variants for Pyrite's flowers.
+
+### Changed
+- Crafters can now be made out of Pyrite Crafting tables
+
+### Fixed
+- Slabs now drop the correct number of slabs.
+- Grass Turf should no longer cause a crash in an Infinite Dimension.
+- Rendering issues with flowers on Neoforge.
+- Minecraft data should no longer be transformed by Forgix.
+
 ## [0.15.7] - 2024-12-21
 
 ### Added
