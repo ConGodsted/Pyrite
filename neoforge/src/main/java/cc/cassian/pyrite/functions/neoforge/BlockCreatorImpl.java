@@ -165,7 +165,7 @@ public class BlockCreatorImpl {
                 break;
             case "flower":
                 newBlock = BLOCKS.register(blockID, () -> new FlowerBlock(StatusEffects.NIGHT_VISION, 5, blockSettings));
-                var pot = BLOCKS.register("potted_"+blockID, () -> new FlowerPotBlock(null, newBlock, AbstractBlock.Settings.create().breakInstantly().nonOpaque().pistonBehavior(PistonBehavior.DESTROY)));
+                var pot = BLOCKS.register("potted_"+blockID, () -> new FlowerPotBlock(null, newBlock, AbstractBlock.Settings.create().breakInstantly().nonOpaque().pistonBehavior(PistonBehavior.DESTROY).registryKey(registryKeyBlock("potted_"+blockID))));
                 POTTED_FLOWERS.put(blockID, pot);
                 break;
             case "fence_gate":
