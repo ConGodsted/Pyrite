@@ -1,6 +1,5 @@
 modLoader = "javafml"
 loaderVersion = "[2,)"
-#issueTrackerURL = ""
 license = "MIT"
 
 [[mods]]
@@ -12,6 +11,8 @@ description = '''
 Variations of Vanilla blocks, including dyed wood, dyed bricks, new material blocks and more to complete your colourful builds.
 '''
 logoFile = "assets/pyrite/icon.png"
+issueTrackerURL = "https://github.com/cassiancc/Pyrite/issues"
+displayURL = "https://pyrite.cassian.cc"
 
 [[dependencies.pyrite]]
 modId = "neoforge"
@@ -23,6 +24,6 @@ side = "BOTH"
 [[dependencies.pyrite]]
 modId = "minecraft"
 type = "required"
-versionRange = "[1.21,)"
+versionRange = "[1.21.2,1.21.4)"
 ordering = "NONE"
 side = "BOTH"
