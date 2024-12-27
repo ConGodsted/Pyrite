@@ -1,1 +1,0 @@
-{"type":"minecraft:crafting_shaped","category":"building","pattern":["SCS","SCS"],"key":{"C":{"item":"aether:angelic_stone"},"S":{"item":"aether:angelic_stone_wall"}},"fabric:load_conditions":[{"condition":"fabric:all_mods_loaded","values":["aether"]}],"neoforge:conditions":[{"type":"neoforge:mod_loaded","modid":"aether"}],"result":{"id":"pyrite:angelic_wall_gate","count":6}}

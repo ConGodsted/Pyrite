@@ -8,6 +8,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 - Andesite Bricks now have correct shortcut recipes.
+- Resource blocks now have correct shortcut recipes.
+- Aether compat blocks now have correct models.
 
 ## [0.15.8] - 2024-12-26
 

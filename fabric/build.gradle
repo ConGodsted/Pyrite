@@ -36,14 +36,9 @@ dependencies {
 
     common(project(path: ':common', configuration: 'namedElements')) { transitive false }
     shadowBundle project(path: ':common', configuration: 'transformProductionFabric')
-//    modImplementation("com.aetherteam.aether:aether:${minecraft_version}-${project.aether_version}-fabric")
 
-
-//    modImplementation "maven.modrinth:aether:${minecraft_version}-${aether_version}-fabric"
-//    modImplementation "io.wispforest:owo-lib:${project.owo_version}"
-//    modApi "fuzs.forgeconfigapiport:forgeconfigapiport-fabric:${forgeconfigapiport_version}"
-
-
+    // Compatibility dependencies
+    modImplementation("com.aetherteam.aether:aether:${minecraft_version}-${project.aether_version}-fabric")
 }
 
 processResources {
