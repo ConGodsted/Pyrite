@@ -1,1 +1,1 @@
-{"type":"minecraft:crafting_shapeless","ingredients":[{"item":"minecraft:copper_block"},{"tag":"minecraft:buttons"}],"result":{"item":"pyrite:copper_button","count":1}}
+{"type":"minecraft:crafting_shapeless","category":"building","ingredients":[{"item":"minecraft:copper_block"},{"tag":"minecraft:buttons"}],"result":{"item":"pyrite:copper_button","count":1}}

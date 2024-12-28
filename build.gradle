@@ -1,8 +1,8 @@
 plugins {
-    id 'dev.architectury.loom' version '1.6-SNAPSHOT' apply false
+    id 'dev.architectury.loom' version '1.7-SNAPSHOT' apply false
     id 'architectury-plugin' version '3.4-SNAPSHOT'
     id 'com.github.johnrengelman.shadow' version '8.1.1' apply false
-    id "io.github.pacifistmc.forgix" version "1.2.9-local.7"
+    id "io.github.pacifistmc.forgix" version "1.2.9-local.10"
 }
 
 architectury {
@@ -11,12 +11,20 @@ architectury {
 
 allprojects {
     group = rootProject.maven_group
-    version = rootProject.mod_version
-}
+    version = mod_version + "+" + minecraft_version}
 
 forgix {
     group = "cc.cassian.pyrite"
     mergedJarName = "pyrite-${version}.jar"
+    forge {
+        projectName = "forge"
+        jarLocation = "build/libs/pyrite-forge-${version}.jar"
+    }
+
+    fabric {
+        projectName = "fabric"
+        jarLocation = "build/libs/pyrite-fabric-${version}.jar"
+    }
 }
 
 subprojects {

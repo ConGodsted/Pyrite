@@ -1,1 +1,1 @@
-{"type":"minecraft:crafting_shaped","pattern":["C"],"key":{"C":{"item":"pyrite:magenta_stained_planks"}},"result":{"item":"pyrite:magenta_stained_button","count":1}}
+{"type":"minecraft:crafting_shaped","category":"building","pattern":["C"],"key":{"C":{"item":"pyrite:magenta_stained_planks"}},"result":{"item":"pyrite:magenta_stained_button","count":1}}

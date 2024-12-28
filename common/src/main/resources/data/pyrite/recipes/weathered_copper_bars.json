@@ -1,1 +1,1 @@
-{"type":"minecraft:crafting_shaped","pattern":["DDD","DDD"],"key":{"D":{"item":"minecraft:weathered_cut_copper"}},"result":{"item":"pyrite:weathered_copper_bars","count":32}}
+{"type":"minecraft:crafting_shaped","category":"building","pattern":["DDD","DDD"],"key":{"D":{"item":"minecraft:weathered_cut_copper"}},"result":{"item":"pyrite:weathered_copper_bars","count":32}}

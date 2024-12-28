@@ -1,1 +1,1 @@
-{"type":"minecraft:crafting_shapeless","ingredients":[{"item":"minecraft:oxidized_copper"},{"tag":"minecraft:buttons"}],"result":{"item":"pyrite:oxidized_copper_button","count":1}}
+{"type":"minecraft:crafting_shapeless","category":"building","ingredients":[{"item":"minecraft:oxidized_copper"},{"tag":"minecraft:buttons"}],"result":{"item":"pyrite:oxidized_copper_button","count":1}}

@@ -58,15 +58,15 @@ public class BlockCreatorImpl {
     }
 
     /**
-     * Implements {@link cc.cassian.pyrite.functions.BlockCreator#platfomRegister(String, String, AbstractBlock.Settings, WoodType, BlockSetType, ParticleEffect, Block)} on NeoForge.
+     * Implements {@link cc.cassian.pyrite.functions.BlockCreator#platformRegister(String, String, AbstractBlock.Settings, WoodType, BlockSetType, ParticleEffect, Block)} on NeoForge.
      */
-    public static void platfomRegister(String blockID, String blockType, AbstractBlock.Settings blockSettings, WoodType woodType, BlockSetType blockSetType, ParticleEffect particle, Block copyBlock) {
+    public static void platformRegister(String blockID, String blockType, AbstractBlock.Settings blockSettings, WoodType woodType, BlockSetType blockSetType, ParticleEffect particle, Block copyBlock) {
         int power;
         if (blockID.contains("redstone")) power = 15;
         else power = 0;
         RegistryObject<Block> newBlock;
         switch (blockType.toLowerCase()) {
-            case "block":
+            case "block", "lamp":
                 newBlock = BLOCKS.register(blockID, () -> new ModBlock(blockSettings, power));
                 if (power == 15)
                     if (blockID.equals("lit_redstone_lamp"))
@@ -153,10 +153,13 @@ public class BlockCreatorImpl {
             case "flower":
                 newBlock = BLOCKS.register(blockID, () -> new FlowerBlock(StatusEffects.NIGHT_VISION, 5, blockSettings));
                 break;
-            case "fence_gate", "wall_gate":
+            case "fence_gate":
                 newBlock = BLOCKS.register(blockID, () -> new FenceGateBlock(blockSettings, woodType));
                 if (blockID.contains("_stained") || blockID.contains("mushroom"))
                     WOOD_BLOCKS.add(newBlock);
+                break;
+            case "wall_gate":
+                newBlock = BLOCKS.register(blockID, () -> new WallGateBlock(blockSettings));
                 break;
             case "sign":
                 newBlock = BLOCKS.register(blockID, () -> new SignBlock(blockSettings, woodType));

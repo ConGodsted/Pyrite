@@ -1,1 +1,1 @@
-{"type":"minecraft:crafting_shapeless","ingredients":[{"item":"pyrite:rose_dye"},{"item":"minecraft:white_wool"}],"result":{"item":"pyrite:rose_wool","count":1}}
+{"type":"minecraft:crafting_shapeless","category":"building","ingredients":[{"item":"pyrite:rose_dye"},{"item":"minecraft:white_wool"}],"result":{"item":"pyrite:rose_wool","count":1}}

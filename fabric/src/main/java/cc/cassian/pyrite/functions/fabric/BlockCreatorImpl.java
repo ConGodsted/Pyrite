@@ -51,9 +51,9 @@ public class BlockCreatorImpl {
     }
 
     /**
-     * Implements {@link BlockCreator#platfomRegister(String, String, AbstractBlock.Settings, WoodType, BlockSetType, ParticleEffect, Block)} on Fabric.
+     * Implements {@link BlockCreator#platformRegister(String, String, AbstractBlock.Settings, WoodType, BlockSetType, ParticleEffect, Block)} on Fabric.
      */
-    public static void platfomRegister(String blockID, String blockType, AbstractBlock.Settings blockSettings, WoodType woodType, BlockSetType blockSetType, ParticleEffect particle, Block copyBlock) {
+    public static void platformRegister(String blockID, String blockType, AbstractBlock.Settings blockSettings, WoodType woodType, BlockSetType blockSetType, ParticleEffect particle, Block copyBlock) {
         int index = -1;
         int power;
         if (blockID.contains("redstone")) power = 15;
@@ -62,7 +62,7 @@ public class BlockCreatorImpl {
         Block woodBlock;
         boolean isWood = blockID.contains("_stained") || blockID.contains("mushroom") || blockID.contains("azalea");
         switch (blockType.toLowerCase()) {
-            case "block":
+            case "block", "lamp":
                 newBlock = new ModBlock(blockSettings, power);
                 if (power == 15)
                     if (blockID.equals("lit_redstone_lamp"))
@@ -169,10 +169,13 @@ public class BlockCreatorImpl {
                 newBlock = new FlowerBlock(StatusEffects.NIGHT_VISION, 5, blockSettings);
                 addTransparentBlock(newBlock);
                 break;
-            case "fence_gate", "wall_gate":
+            case "fence_gate":
                 newBlock = new FenceGateBlock(blockSettings, woodType);
                 if (blockID.contains("_stained") || blockID.contains("mushroom"))
                     WOOD_BLOCKS.add(newBlock);
+                break;
+            case "wall_gate":
+                newBlock = new WallGateBlock(blockSettings);
                 break;
             case "sign":
                 //Sign Blocks
