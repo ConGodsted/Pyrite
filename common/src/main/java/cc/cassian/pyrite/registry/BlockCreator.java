@@ -5,6 +5,8 @@ import net.minecraft.block.*;
 import net.minecraft.block.piston.PistonBehavior;
 import net.minecraft.particle.ParticleEffect;
 import net.minecraft.sound.BlockSoundGroup;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.BlockView;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Map;
@@ -68,10 +70,10 @@ public class BlockCreator {
             sendToRegistry(blockID, "block", settings.strength(strength, 1200f).pistonBehavior(PistonBehavior.BLOCK), group);
         }
         else if (blockType.equals("lamp")) {
-            sendToRegistry(blockID, blockType, settings.sounds(BlockSoundGroup.GLASS));
+            sendToRegistry(blockID, blockType, settings.sounds(BlockSoundGroup.GLASS), group);
         }
         else {
-            sendToRegistry(blockID, blockType, settings.sounds(BlockSoundGroup.GLASS).nonOpaque().solidBlock(BlockCreator::never));
+            sendToRegistry(blockID, blockType, settings.sounds(BlockSoundGroup.GLASS).nonOpaque().solidBlock(BlockCreator::never), group);
         }
     }
 
@@ -190,7 +192,7 @@ public class BlockCreator {
     }
 
     public static void generateBrickSet(String blockID, Block copyBlock) {
-        generateBrickSet(blockID, copyBlock, copyBlock.getDefaultMapColor(), 0);
+        generateBrickSet(blockID, copyBlock, copyBlock.getDefaultMapColor());
     }
 
     public static void generateBrickSet(String blockID, Block copyBlock, MapColor color, boolean generateMossySet) {
@@ -316,7 +318,7 @@ public class BlockCreator {
         //Block set for modded blocks
         BlockSetType set = getBlockSetType(blockID);
         //Create Bars/Doors/Trapdoors/Plates for those that don't already exist (Iron)
-        if (!Objects.equals(blockID, "iron")) {
+        if (!blockID.equals("iron")) {
             //Bars
             createPyriteBlock("%s_bars".formatted(blockID),"bars", block, blockID);
             //Disable Copper doors in 1.21+

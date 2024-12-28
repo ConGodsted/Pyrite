@@ -1,21 +1,14 @@
 package cc.cassian.pyrite.registry;
 
-import cc.cassian.pyrite.functions.ModLists;
 import dev.architectury.injectables.annotations.ExpectPlatform;
 import net.minecraft.block.Block;
-import net.minecraft.block.Blocks;
 import net.minecraft.item.*;
-import net.minecraft.registry.Registries;
-import net.minecraft.util.Identifier;
 
 import java.util.*;
 import java.util.function.Supplier;
 
-import static cc.cassian.pyrite.Pyrite.MOD_ID;
-import static cc.cassian.pyrite.functions.ModLists.VANILLA_DYES;
-
 public class PyriteItemGroups {
-    public static final ArrayList<Object> REDSTONE_BLOCKS = new ArrayList<>();
+    public static final ArrayList<Supplier<Block>> REDSTONE_BLOCKS = new ArrayList<>();
     public static final ArrayList<Supplier<Item>> SIGNS = new ArrayList<>();
     public static final ArrayList<Supplier<Block>> CRAFTING_TABLES = new ArrayList<>();
     public static final ArrayList<Supplier<Block>> FLOWERS = new ArrayList<>();
@@ -75,13 +68,18 @@ public class PyriteItemGroups {
     public static final LinkedHashMap<Item, Collection<ItemStack>> INGREDIENTS_CHANGES = new LinkedHashMap<>();
 
 
-    public static Collection<ItemStack> getCollectionList(ArrayList<?> items) {
+    public static Collection<ItemStack> getBlockCollectionList(ArrayList<Supplier<Block>> items) {
         ArrayList<ItemStack> stacks = new ArrayList<>();
-        for (Object object : items) {
-            if (object instanceof Item item)
-                stacks.add(item.getDefaultStack());
-            else if (object instanceof Block block)
-                stacks.add(block.asItem().getDefaultStack());
+        for (Supplier<Block> block : items) {
+            stacks.add(block.get().asItem().getDefaultStack());
+        }
+        return stacks;
+    }
+
+    public static Collection<ItemStack> getItemCollectionList(ArrayList<Supplier<Item>> items) {
+        ArrayList<ItemStack> stacks = new ArrayList<>();
+        for (Supplier<Item> item : items) {
+            stacks.add(item.get().getDefaultStack());
         }
         return stacks;
     }
@@ -237,8 +235,8 @@ public class PyriteItemGroups {
             case "colored_blocks":
                 COLORED_BLOCKS.put(copyBlock, newBlock);
                 break;
-            default:
-                System.out.println(group);
+//            default:
+//                System.out.println(group);
         }
     }
 

@@ -19,8 +19,7 @@ import java.util.*;
 import static cc.cassian.pyrite.Pyrite.LOGGER;
 import static cc.cassian.pyrite.functions.ModHelpers.*;
 import static cc.cassian.pyrite.functions.fabric.FabricHelpers.*;
-import static cc.cassian.pyrite.registry.PyriteItemGroups.DYES;
-import static cc.cassian.pyrite.registry.PyriteItemGroups.SIGNS;
+import static cc.cassian.pyrite.registry.PyriteItemGroups.*;
 import static cc.cassian.pyrite.registry.fabric.PyriteItemGroupsImpl.*;
 
 @SuppressWarnings("unused")
@@ -128,8 +127,7 @@ public class BlockCreatorImpl {
                 addTransparentBlock(newBlock);
                 // register flower pot
                 final Block FLOWER_POTTED = Blocks.createFlowerPotBlock(newBlock);
-                BLOCKS_ITEMLESS.add(FLOWER_POTTED);
-                BLOCK_IDS_ITEMLESS.add("potted_"+blockID);
+                ITEMLESS_BLOCKS.put("potted_"+blockID, FLOWER_POTTED);
                 addTransparentBlock(FLOWER_POTTED);
                 break;
             case "fence_gate":
@@ -252,6 +250,6 @@ public class BlockCreatorImpl {
         // Register item group.
         addItemGroup("pyrite_group", "glowing_obsidian", BLOCKS);
         // Add items to item group.
-        PyriteItemGroups.modifyEntries();
+        PyriteItemGroupsImpl.modifyEntries();
     }
 }

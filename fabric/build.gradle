@@ -38,7 +38,7 @@ dependencies {
     shadowBundle project(path: ':common', configuration: 'transformProductionFabric')
 
     // Compatibility dependencies
-    modImplementation("com.aetherteam.aether:aether:${minecraft_version}-${project.aether_version}-fabric")
+//    modImplementation("com.aetherteam.aether:aether:${minecraft_version}-${project.aether_version}-fabric")
 }
 
 processResources {

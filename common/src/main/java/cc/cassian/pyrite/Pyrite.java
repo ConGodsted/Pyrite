@@ -29,7 +29,7 @@ public class Pyrite {
 		// Cobblestone Bricks
 		generateBrickSet("cobblestone_brick", Blocks.COBBLESTONE, MapColor.STONE_GRAY, true);
 		// Smooth Stone Set
-		createPyriteBlock("smooth_stone_stairs", "stairs", Blocks.SMOOTH_STONE);
+		createPyriteBlock("smooth_stone_stairs", "stairs", Blocks.SMOOTH_STONE, "building_blocks");
 		generateBrickSet("smooth_stone_brick", Blocks.SMOOTH_STONE, MapColor.STONE_GRAY, true);
 		// Granite Bricks
 		generateBrickSet("granite_brick", Blocks.GRANITE, MapColor.DIRT_BROWN, true);
