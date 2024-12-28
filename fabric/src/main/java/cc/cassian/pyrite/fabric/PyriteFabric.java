@@ -1,7 +1,7 @@
 package cc.cassian.pyrite.fabric;
 
 import cc.cassian.pyrite.Pyrite;
-import cc.cassian.pyrite.functions.fabric.BlockCreatorImpl;
+import cc.cassian.pyrite.registry.fabric.BlockCreatorImpl;
 import cc.cassian.pyrite.functions.fabric.FabricHelpers;
 import net.fabricmc.api.ModInitializer;
 

@@ -1,8 +1,9 @@
-package cc.cassian.pyrite.functions.neoforge;
+package cc.cassian.pyrite.registry.neoforge;
 
 import cc.cassian.pyrite.blocks.*;
 import cc.cassian.pyrite.functions.ModHelpers;
 import cc.cassian.pyrite.functions.ModLists;
+import cc.cassian.pyrite.registry.BlockCreator;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.block.piston.PistonBehavior;
@@ -60,7 +61,7 @@ public class BlockCreatorImpl {
 
 
     /**
-     * Implements {@link cc.cassian.pyrite.functions.BlockCreator#createWoodType(String, BlockSetType)} on NeoForge.
+     * Implements {@link BlockCreator#createWoodType(String, BlockSetType)} on NeoForge.
      */
     public static WoodType createWoodType(String blockID, BlockSetType setType) {
         WoodType woodType = new WoodType(identifier(blockID).toString(), setType);
@@ -69,9 +70,9 @@ public class BlockCreatorImpl {
     }
 
     /**
-     * Implements {@link cc.cassian.pyrite.functions.BlockCreator#platformRegister(String, String, AbstractBlock.Settings, WoodType, BlockSetType, ParticleEffect, Block)} on NeoForge.
+     * Implements {@link BlockCreator#platformRegister(String, String, AbstractBlock.Settings, WoodType, BlockSetType, ParticleEffect, Block, String)} on NeoForge.
      */
-    public static void platformRegister(String blockID, String blockType, AbstractBlock.Settings blockSettings, WoodType woodType, BlockSetType blockSetType, ParticleEffect particle, Block copyBlock) {
+    public static void platformRegister(String blockID, String blockType, AbstractBlock.Settings blockSettings, WoodType woodType, BlockSetType blockSetType, ParticleEffect particle, Block copyBlock, String group) {
         int power;
         if (blockID.contains("redstone")) power = 15;
         else power = 0;
@@ -295,7 +296,7 @@ public class BlockCreatorImpl {
     }
 
     /**
-     * Implements {@link cc.cassian.pyrite.functions.BlockCreator#registerPyriteItem(String)} on NeoForge.
+     * Implements {@link BlockCreator#registerPyriteItem(String)} on NeoForge.
      * This registers a basic item with no additional settings - primarily used for Dye.
      */
     public static void registerPyriteItem(String itemID) {

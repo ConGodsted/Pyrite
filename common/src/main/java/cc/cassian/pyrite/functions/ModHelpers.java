@@ -74,6 +74,11 @@ public class ModHelpers {
         return (SharedConstants.getGameVersion().getName().contains("potato"));
     }
 
+    public static int power(String blockID) {
+        if (blockID.contains("redstone")) return 15;
+        else return 0;
+    }
+
     public static DyeColor getDyeColorFromFramedId(String blockID) {
         var dye = blockID.split("_framed")[0];
         return switch (dye) {
