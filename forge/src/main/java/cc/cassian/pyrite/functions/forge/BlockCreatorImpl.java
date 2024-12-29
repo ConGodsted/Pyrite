@@ -3,6 +3,7 @@ package cc.cassian.pyrite.functions.forge;
 import cc.cassian.pyrite.blocks.*;
 import cc.cassian.pyrite.functions.ModLists;
 import net.minecraft.block.*;
+import net.minecraft.block.piston.PistonBehavior;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.item.*;
 import net.minecraft.particle.ParticleEffect;
@@ -10,11 +11,16 @@ import net.minecraft.particle.ParticleTypes;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.text.Text;
+import net.minecraft.util.Identifier;
 import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.RegistryObject;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.Map;
 import java.util.Objects;
 import java.util.function.Supplier;
 
@@ -46,6 +52,7 @@ public class BlockCreatorImpl {
     public static final ArrayList<RegistryObject<?>> REDSTONE_BLOCKS = new ArrayList<>();
     public static final ArrayList<RegistryObject<?>> MISC_BLOCKS = new ArrayList<>();
     public static final ArrayList<Block> MISC_BLOCKS_UNSORTED = new ArrayList<>();
+    public static final LinkedHashMap<String, Supplier<FlowerPotBlock>> POTTED_FLOWERS = new LinkedHashMap<>();
 
 
     /**
@@ -151,7 +158,9 @@ public class BlockCreatorImpl {
                 newBlock = BLOCKS.register(blockID, () -> new FallingBlock(blockSettings));
                 break;
             case "flower":
-                newBlock = BLOCKS.register(blockID, () -> new FlowerBlock(StatusEffects.NIGHT_VISION, 5, blockSettings));
+                newBlock = BLOCKS.register(blockID, () -> new FlowerBlock(() -> StatusEffects.NIGHT_VISION, 5, blockSettings));
+                var pot = BLOCKS.register("potted_"+blockID, () -> new FlowerPotBlock(() -> (FlowerPotBlock) Blocks.FLOWER_POT, newBlock, AbstractBlock.Settings.create().breakInstantly().nonOpaque().pistonBehavior(PistonBehavior.DESTROY)));
+                POTTED_FLOWERS.put(blockID, pot);
                 break;
             case "fence_gate":
                 newBlock = BLOCKS.register(blockID, () -> new FenceGateBlock(blockSettings, woodType));
@@ -300,5 +309,16 @@ public class BlockCreatorImpl {
         addItemGroup("brick_group", BRICK_ICON, BRICK_BLOCKS);
         addItemGroup("redstone_group", REDSTONE_ICON, REDSTONE_BLOCKS);
         addItemGroup("pyrite_group", MISC_ICON, MISC_BLOCKS);
+    }
+
+    // Adds Pyrite's flowers to the flower pot block.
+    @SubscribeEvent
+    public static void commonSetup(FMLCommonSetupEvent event) {
+        FlowerPotBlock pot = (FlowerPotBlock) Blocks.FLOWER_POT;
+        for (Map.Entry<String, Supplier<FlowerPotBlock>> entry : POTTED_FLOWERS.entrySet()) {
+            String flowerID = entry.getKey();
+            Supplier<FlowerPotBlock> flowerPot = entry.getValue();
+            pot.addPlant(Identifier.of(MOD_ID, flowerID), flowerPot);
+        }
     }
 }

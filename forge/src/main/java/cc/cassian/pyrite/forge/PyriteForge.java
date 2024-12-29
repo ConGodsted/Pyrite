@@ -21,6 +21,7 @@ public final class PyriteForge {
             modEventBus.addListener(PyriteForgeClient::registerBlockColors);
             modEventBus.addListener(PyriteForgeClient::registerItemColorHandlers);
         }
+        modEventBus.addListener(BlockCreatorImpl::commonSetup);
 
 
 

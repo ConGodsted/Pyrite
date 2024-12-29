@@ -1,8 +1,1 @@
-    {
-      "replace": false,
-      "values": [
-        "#pyrite:bricks",
-        "#pyrite:wall_gates"
-      ]
-    }
-
+{"replace":false,"values":["#pyrite:wall_gates","#pyrite:bricks"]}

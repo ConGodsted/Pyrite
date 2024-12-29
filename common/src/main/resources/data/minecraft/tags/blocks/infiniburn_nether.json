@@ -1,8 +1,1 @@
-{
-  "replace": false,
-  "values": [
-    "pyrite:nostalgia_netherrack"
-
-  ]
-}
-
+{"replace":false,"values":[{"id":"pyrite:nostalgia_netherrack","required":false}]}

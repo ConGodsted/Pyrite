@@ -168,6 +168,11 @@ public class BlockCreatorImpl {
             case "flower":
                 newBlock = new FlowerBlock(StatusEffects.NIGHT_VISION, 5, blockSettings);
                 addTransparentBlock(newBlock);
+                // register flower pot
+                final Block FLOWER_POTTED = Blocks.createFlowerPotBlock(newBlock);
+                BLOCKS_ITEMLESS.add(FLOWER_POTTED);
+                BLOCK_IDS_ITEMLESS.add("potted_"+blockID);
+                addTransparentBlock(FLOWER_POTTED);
                 break;
             case "fence_gate":
                 newBlock = new FenceGateBlock(blockSettings, woodType);
