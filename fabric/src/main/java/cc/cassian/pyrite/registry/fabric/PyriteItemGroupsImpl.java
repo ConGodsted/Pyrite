@@ -58,10 +58,10 @@ public class PyriteItemGroupsImpl {
             itemGroup.addAfter(Items.NETHERITE_BLOCK, getBlockCollectionList(NETHERITE_BLOCKS));
             itemGroup.addAfter(Items.QUARTZ_BLOCK, getBlockCollectionList(QUARTZ_BLOCKS));
             itemGroup.addAfter(Items.AMETHYST_BLOCK, getBlockCollectionList(AMETHYST_BLOCKS));
-            itemGroup.addAfter(Items.CUT_COPPER_SLAB, getBlockCollectionList(COPPER_BLOCKS));
-            itemGroup.addAfter(Items.EXPOSED_CUT_COPPER_SLAB, getBlockCollectionList(EXPOSED_COPPER_BLOCKS));
-            itemGroup.addAfter(Items.WEATHERED_CUT_COPPER_SLAB, getBlockCollectionList(WEATHERED_COPPER_BLOCKS));
-            itemGroup.addAfter(Items.OXIDIZED_CUT_COPPER_SLAB, getBlockCollectionList(OXIDIZED_COPPER_BLOCKS));
+            itemGroup.addAfter(Items.CUT_COPPER_SLAB, getBlockCollectionList(COPPER_BLOCKS.values()));
+            itemGroup.addAfter(Items.EXPOSED_CUT_COPPER_SLAB, getBlockCollectionList(EXPOSED_COPPER_BLOCKS.values()));
+            itemGroup.addAfter(Items.WEATHERED_CUT_COPPER_SLAB, getBlockCollectionList(WEATHERED_COPPER_BLOCKS.values()));
+            itemGroup.addAfter(Items.OXIDIZED_CUT_COPPER_SLAB, getBlockCollectionList(OXIDIZED_COPPER_BLOCKS.values()));
             itemGroup.addAfter(Items.RED_NETHER_BRICK_WALL, getBlockCollectionList(COLOURED_NETHER_BRICKS));
             itemGroup.addAfter(Items.COBBLESTONE_WALL, getBlockCollectionList(COBBLESTONE));
             itemGroup.addAfter(Items.GRANITE_SLAB, getBlockCollectionList(GRANITE));

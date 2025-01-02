@@ -22,10 +22,10 @@ public class PyriteItemGroups {
     public static final ArrayList<Supplier<Block>> NETHERITE_BLOCKS = new ArrayList<>();
     public static final ArrayList<Supplier<Block>> QUARTZ_BLOCKS = new ArrayList<>();
     public static final ArrayList<Supplier<Block>> AMETHYST_BLOCKS = new ArrayList<>();
-    public static final ArrayList<Supplier<Block>> COPPER_BLOCKS = new ArrayList<>();
-    public static final ArrayList<Supplier<Block>> EXPOSED_COPPER_BLOCKS = new ArrayList<>();
-    public static final ArrayList<Supplier<Block>> WEATHERED_COPPER_BLOCKS = new ArrayList<>();
-    public static final ArrayList<Supplier<Block>> OXIDIZED_COPPER_BLOCKS = new ArrayList<>();
+    public static final LinkedHashMap<String, Supplier<Block>> COPPER_BLOCKS = new LinkedHashMap<>();
+    public static final LinkedHashMap<String, Supplier<Block>> EXPOSED_COPPER_BLOCKS = new LinkedHashMap<>();
+    public static final LinkedHashMap<String, Supplier<Block>> WEATHERED_COPPER_BLOCKS = new LinkedHashMap<>();
+    public static final LinkedHashMap<String, Supplier<Block>> OXIDIZED_COPPER_BLOCKS = new LinkedHashMap<>();
     public static final ArrayList<Supplier<Block>> COLOURED_NETHER_BRICKS = new ArrayList<>();
     public static final ArrayList<Supplier<Block>> COBBLESTONE = new ArrayList<>();
     public static final ArrayList<Supplier<Block>> SMOOTH_STONE = new ArrayList<>();
@@ -68,7 +68,7 @@ public class PyriteItemGroups {
     public static final LinkedHashMap<Item, Collection<ItemStack>> INGREDIENTS_CHANGES = new LinkedHashMap<>();
 
 
-    public static Collection<ItemStack> getBlockCollectionList(ArrayList<Supplier<Block>> items) {
+    public static Collection<ItemStack> getBlockCollectionList(Collection<Supplier<Block>> items) {
         ArrayList<ItemStack> stacks = new ArrayList<>();
         for (Supplier<Block> block : items) {
             stacks.add(block.get().asItem().getDefaultStack());
@@ -122,16 +122,16 @@ public class PyriteItemGroups {
                 AMETHYST_BLOCKS.add(newBlock);
                 break;
             case "copper":
-                COPPER_BLOCKS.add(newBlock);
+                COPPER_BLOCKS.put(blockID, newBlock);
                 break;
             case "exposed_copper":
-                EXPOSED_COPPER_BLOCKS.add(newBlock);
+                EXPOSED_COPPER_BLOCKS.put(blockID, newBlock);
                 break;
             case "weathered_copper":
-                WEATHERED_COPPER_BLOCKS.add(newBlock);
+                WEATHERED_COPPER_BLOCKS.put(blockID, newBlock);
                 break;
             case "oxidized_copper":
-                OXIDIZED_COPPER_BLOCKS.add(newBlock);
+                OXIDIZED_COPPER_BLOCKS.put(blockID, newBlock);
                 break;
             case "coloured_nether_bricks":
                 COLOURED_NETHER_BRICKS.add(newBlock);

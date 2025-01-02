@@ -5,6 +5,7 @@ import cc.cassian.pyrite.registry.BlockCreator;
 import cc.cassian.pyrite.functions.ModHelpers;
 import cc.cassian.pyrite.registry.PyriteItemGroups;
 import net.fabricmc.fabric.api.object.builder.v1.block.type.WoodTypeBuilder;
+import net.fabricmc.fabric.api.registry.OxidizableBlocksRegistry;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.effect.StatusEffects;
@@ -15,6 +16,7 @@ import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 
 import java.util.*;
+import java.util.function.Supplier;
 
 import static cc.cassian.pyrite.Pyrite.LOGGER;
 import static cc.cassian.pyrite.functions.ModHelpers.*;
@@ -35,10 +37,10 @@ public class BlockCreatorImpl {
      * Implements {@link BlockCreator#createWoodType(String, BlockSetType)} on Fabric.
      */
     public static WoodType createWoodType(String blockID, BlockSetType setType) {
-        return WoodTypeBuilder.copyOf(WoodType.OAK).register(identifier(blockID), setType);
+        return WoodTypeBuilder.copyOf(WoodType.OAK).register(ModHelpers.locate(blockID), setType);
     }
 
-    /**
+	/**
      * Implements {@link BlockCreator#platformRegister(String, String, AbstractBlock.Settings, WoodType, BlockSetType, ParticleEffect, Block, String)} on Fabric.
      */
     public static void platformRegister(String blockID, String blockType, AbstractBlock.Settings blockSettings, WoodType woodType, BlockSetType blockSetType, ParticleEffect particle, Block copyBlock, String group) {
@@ -46,25 +48,23 @@ public class BlockCreatorImpl {
         Block newBlock;
         switch (blockType.toLowerCase()) {
             case "block", "lamp":
-                newBlock = new ModBlock(blockSettings, power);
+                if (shouldOxidize(blockID)) {
+					newBlock = new OxidizableBlock(ModHelpers.getOxidizationState(blockID), blockSettings.ticksRandomly());
+					var waxedBlock = new ModBlock(blockSettings);
+					BLOCKS.put("waxed_"+blockID, waxedBlock);
+					OxidizableBlocksRegistry.registerWaxableBlockPair(newBlock, waxedBlock);
+				}
+                else
+                    newBlock = new ModBlock(blockSettings, power);
                 break;
             case "crafting":
-                AbstractBlock.Settings craftingSettings;
-                boolean burnable;
-                // If block is not composed of flammable wood, make it burnable.
-                if (!(blockID.contains("crimson") || blockID.contains("warped"))) {
-                    craftingSettings = blockSettings.burnable();
-                    burnable = true;
-                }
-                else {
-                    craftingSettings = blockSettings;
-                    burnable = false;
-                }
-                // Register Crafting table.
-                newBlock = new ModCraftingTable(craftingSettings);
-                // If block is not composed of flammable wood, make it furnace fuel.
-                if (burnable)
-                    FUEL_BLOCKS.put(newBlock, 300);
+                boolean burnable = !(blockID.contains("crimson") || blockID.contains("warped"));
+				// Register Crafting table.
+				if (burnable) {
+					newBlock = new ModCraftingTable(blockSettings.burnable());
+					FUEL_BLOCKS.put(newBlock, 300);
+				} else
+					newBlock = new ModCraftingTable(blockSettings);
                 break;
             case "ladder":
                 newBlock = new LadderBlock(blockSettings);
@@ -74,10 +74,17 @@ public class BlockCreatorImpl {
                 newBlock = new ModCarpet(blockSettings);
                 break;
             case "slab":
-                newBlock = new ModSlab(blockSettings, power);
+                if (shouldOxidize(blockID)) {
+					newBlock = new OxidizableSlabBlock(ModHelpers.getOxidizationState(blockID), blockSettings);
+					BLOCKS.put("waxed_"+blockID, new ModSlab(blockSettings));
+				} else
+                     newBlock = new ModSlab(blockSettings, power);
                 break;
             case "stairs":
-                newBlock = new ModStairs(copyBlock.getDefaultState(), blockSettings);
+                if (shouldOxidize(blockID))
+					newBlock = new OxidizableStairsBlock(ModHelpers.getOxidizationState(blockID), copyBlock.getDefaultState(), blockSettings);
+				else
+					newBlock = new ModStairs(copyBlock.getDefaultState(), blockSettings);
                 break;
             case "wall":
                 newBlock = new ModWall(blockSettings, power);
@@ -169,7 +176,10 @@ public class BlockCreatorImpl {
                 addTransparentBlock(newBlock);
                 break;
             case "trapdoor":
-                newBlock = new TrapdoorBlock(blockSetType, blockSettings.nonOpaque());
+                if (shouldOxidize(blockID))
+                    newBlock = new OxidizableTrapdoorBlock(blockSetType, getOxidizationState(blockID), blockSettings.nonOpaque());
+                else
+                    newBlock = new TrapdoorBlock(blockSetType, blockSettings.nonOpaque());
                 addTransparentBlock(newBlock);
                 break;
             case "button":
@@ -232,21 +242,33 @@ public class BlockCreatorImpl {
         for (Map.Entry<String, Block> entry : BLOCKS.entrySet()) {
             final Block block = entry.getValue();
             final String blockID = entry.getKey();
-            Registry.register(Registries.BLOCK, identifier(blockID), block);
-            Registry.register(Registries.ITEM, identifier(blockID), addBlockItem(blockID, block));
+            Registry.register(Registries.BLOCK, ModHelpers.locate(blockID), block);
+            Registry.register(Registries.ITEM, ModHelpers.locate(blockID), addBlockItem(blockID, block));
         }
         //Registers blocks without block items.
         for (Map.Entry<String, Block> entry : ITEMLESS_BLOCKS.entrySet()) {
             final Block block = entry.getValue();
             final String blockID = entry.getKey();
-            Registry.register(Registries.BLOCK, identifier(blockID), block);
+            Registry.register(Registries.BLOCK, ModHelpers.locate(blockID), block);
         }
         //Registers items.
         for (Map.Entry<String, Item> entry : ITEMS.entrySet()) {
             final Item item = entry.getValue();
             final String itemID = entry.getKey();
-            Registry.register(Registries.ITEM, identifier(itemID), item);
+            Registry.register(Registries.ITEM, ModHelpers.locate(itemID), item);
         }
+
+
+		for (Map.Entry<String, Supplier<Block>> entry : COPPER_BLOCKS.entrySet()) {
+			OxidizableBlocksRegistry.registerOxidizableBlockPair(entry.getValue().get(), ModHelpers.getBlock(entry.getKey().replace("copper", "exposed_copper")));
+		}
+		for (Map.Entry<String, Supplier<Block>> entry : EXPOSED_COPPER_BLOCKS.entrySet()) {
+			OxidizableBlocksRegistry.registerOxidizableBlockPair(entry.getValue().get(), ModHelpers.getBlock(entry.getKey().replace("exposed", "weathered")));
+		}
+		for (Map.Entry<String, Supplier<Block>> entry : WEATHERED_COPPER_BLOCKS.entrySet()) {
+			OxidizableBlocksRegistry.registerOxidizableBlockPair(entry.getValue().get(), ModHelpers.getBlock(entry.getKey().replace("weathered", "oxidized")));
+		}
+
         // Register item group.
         addItemGroup("pyrite_group", "glowing_obsidian", BLOCKS);
         // Add items to item group.

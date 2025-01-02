@@ -14,7 +14,6 @@ import net.minecraft.particle.ParticleTypes;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.text.Text;
-import net.minecraft.util.Identifier;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
@@ -28,10 +27,9 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.function.Supplier;
 
-import static cc.cassian.pyrite.Pyrite.LOGGER;
 import static cc.cassian.pyrite.Pyrite.MOD_ID;
 import static cc.cassian.pyrite.functions.ModHelpers.getDyeColorFromFramedId;
-import static cc.cassian.pyrite.functions.ModHelpers.identifier;
+import static cc.cassian.pyrite.functions.ModHelpers.locate;
 import static cc.cassian.pyrite.functions.neoforge.NeoHelpers.*;
 
 @SuppressWarnings("unused")
@@ -64,7 +62,7 @@ public class BlockCreatorImpl {
      * Implements {@link BlockCreator#createWoodType(String, BlockSetType)} on NeoForge.
      */
     public static WoodType createWoodType(String blockID, BlockSetType setType) {
-        WoodType woodType = new WoodType(identifier(blockID).toString(), setType);
+        WoodType woodType = new WoodType(locate(blockID).toString(), setType);
         WoodType.register(woodType);
         return woodType;
     }
@@ -115,7 +113,7 @@ public class BlockCreatorImpl {
                     REDSTONE_BLOCKS.add(newBlock);
                 break;
             case "stairs":
-                newBlock = BLOCKS.register(blockID, () -> new ModStairs(copyBlock.getDefaultState(), blockSettings));
+                newBlock = BLOCKS.register(blockID, () -> new ModStairs(copyBlock.getDefaultState(), blockSettings, blockID.replace("waxed_", "")));
                 if (Objects.equals(copyBlock, Blocks.OAK_STAIRS))
                     WOOD_BLOCKS.add(newBlock);
                 break;
@@ -220,7 +218,7 @@ public class BlockCreatorImpl {
                 REDSTONE_BLOCKS.add(newBlock);
                 break;
             case "concrete_powder":
-                newBlock = BLOCKS.register(blockID, () -> new ConcretePowderBlock(BLOCKS.getRegistry().get().get(Identifier.of(MOD_ID, blockID.replace("_powder", ""))), blockSettings));
+                newBlock = BLOCKS.register(blockID, () -> new ConcretePowderBlock((ModHelpers.getBlock(blockID.replace("_powder", ""))), blockSettings));
                 break;
             case "switchable_glass":
                 newBlock = BLOCKS.register(blockID, () -> new SwitchableGlass(blockSettings));
@@ -334,7 +332,7 @@ public class BlockCreatorImpl {
         for (Map.Entry<String, Supplier<FlowerPotBlock>> entry : POTTED_FLOWERS.entrySet()) {
             String flowerID = entry.getKey();
             Supplier<FlowerPotBlock> flowerPot = entry.getValue();
-            pot.addPlant(Identifier.of(MOD_ID, flowerID), flowerPot);
+            pot.addPlant(ModHelpers.locate(flowerID), flowerPot);
         }
     }
 }
