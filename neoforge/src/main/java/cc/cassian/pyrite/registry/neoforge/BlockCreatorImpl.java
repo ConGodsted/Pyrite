@@ -28,8 +28,7 @@ import java.util.Objects;
 import java.util.function.Supplier;
 
 import static cc.cassian.pyrite.Pyrite.MOD_ID;
-import static cc.cassian.pyrite.functions.ModHelpers.getDyeColorFromFramedId;
-import static cc.cassian.pyrite.functions.ModHelpers.locate;
+import static cc.cassian.pyrite.functions.ModHelpers.*;
 import static cc.cassian.pyrite.functions.neoforge.NeoHelpers.*;
 
 @SuppressWarnings("unused")
@@ -77,7 +76,12 @@ public class BlockCreatorImpl {
         DeferredHolder<Block, ?> newBlock;
         switch (blockType.toLowerCase()) {
             case "block", "lamp":
-                newBlock = BLOCKS.register(blockID, () -> new ModBlock(blockSettings, power));
+                if (shouldOxidize(blockID)) {
+                    newBlock = BLOCKS.register(blockID, () -> new OxidizableBlock(ModHelpers.getOxidizationState(blockID), blockSettings));
+                    BLOCKS.register("waxed_"+blockID, () -> new ModBlock(blockSettings));
+                } else {
+                    newBlock = BLOCKS.register(blockID, () -> new ModBlock(blockSettings, power));
+                }
                 if (power == 15)
                     if (blockID.equals("lit_redstone_lamp"))
                         REDSTONE_BLOCKS.addFirst(newBlock);
@@ -106,14 +110,23 @@ public class BlockCreatorImpl {
                 newBlock = BLOCKS.register(blockID, () -> new ModCarpet(blockSettings));
                 break;
             case "slab":
-                newBlock = BLOCKS.register(blockID, () -> new ModSlab(blockSettings, power));
+                if (shouldOxidize(blockID)) {
+                    newBlock = BLOCKS.register(blockID, () -> new OxidizableSlabBlock(ModHelpers.getOxidizationState(blockID), blockSettings));
+                    BLOCKS.register("waxed_"+blockID, () -> new ModSlab(blockSettings));
+                } else {
+                    newBlock = BLOCKS.register(blockID, () -> new ModSlab(blockSettings, power));
+                }
                 if (Objects.equals(copyBlock, Blocks.OAK_SLAB))
                     WOOD_BLOCKS.add(newBlock);
                 if (power == 15)
                     REDSTONE_BLOCKS.add(newBlock);
                 break;
             case "stairs":
-                newBlock = BLOCKS.register(blockID, () -> new ModStairs(copyBlock.getDefaultState(), blockSettings, blockID.replace("waxed_", "")));
+                if (shouldOxidize(blockID)) {
+					newBlock = BLOCKS.register(blockID, () -> new OxidizableStairsBlock(ModHelpers.getOxidizationState(blockID), copyBlock.getDefaultState(), blockSettings));
+                    BLOCKS.register("waxed_"+blockID, () -> new ModStairs(copyBlock.getDefaultState(), blockSettings));
+                } else
+                    newBlock = BLOCKS.register(blockID, () -> new ModStairs(copyBlock.getDefaultState(), blockSettings));
                 if (Objects.equals(copyBlock, Blocks.OAK_STAIRS))
                     WOOD_BLOCKS.add(newBlock);
                 break;
@@ -225,7 +238,7 @@ public class BlockCreatorImpl {
                 REDSTONE_BLOCKS.add(newBlock);
                 break;
             default:
-//                LOGGER.error("{}created as a generic block, block provided{}", blockID, blockType);
+                log("%s created as a generic block, block provided: %s".formatted(blockID, blockType));
                 newBlock = BLOCKS.register(blockID, () -> new Block(blockSettings));
                 break;
         }

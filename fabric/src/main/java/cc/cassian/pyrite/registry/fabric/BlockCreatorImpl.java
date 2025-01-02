@@ -18,7 +18,6 @@ import net.minecraft.registry.Registry;
 import java.util.*;
 import java.util.function.Supplier;
 
-import static cc.cassian.pyrite.Pyrite.LOGGER;
 import static cc.cassian.pyrite.functions.ModHelpers.*;
 import static cc.cassian.pyrite.functions.fabric.FabricHelpers.*;
 import static cc.cassian.pyrite.registry.PyriteItemGroups.*;
@@ -52,6 +51,7 @@ public class BlockCreatorImpl {
 					newBlock = new OxidizableBlock(ModHelpers.getOxidizationState(blockID), blockSettings.ticksRandomly());
 					var waxedBlock = new ModBlock(blockSettings);
 					BLOCKS.put("waxed_"+blockID, waxedBlock);
+					PyriteItemGroups.match(()->waxedBlock, copyBlock, "waxed_"+group,"waxed_"+ blockID);
 					OxidizableBlocksRegistry.registerWaxableBlockPair(newBlock, waxedBlock);
 				}
                 else
@@ -76,24 +76,42 @@ public class BlockCreatorImpl {
             case "slab":
                 if (shouldOxidize(blockID)) {
 					newBlock = new OxidizableSlabBlock(ModHelpers.getOxidizationState(blockID), blockSettings);
-					BLOCKS.put("waxed_"+blockID, new ModSlab(blockSettings));
+					Block waxed = new ModSlab(blockSettings);
+					BLOCKS.put("waxed_" + blockID, waxed);
+					PyriteItemGroups.match(()->waxed, copyBlock, "waxed_"+group, "waxed_" + blockID);
+					OxidizableBlocksRegistry.registerWaxableBlockPair(newBlock, waxed);
 				} else
                      newBlock = new ModSlab(blockSettings, power);
                 break;
             case "stairs":
-                if (shouldOxidize(blockID))
+                if (shouldOxidize(blockID)) {
 					newBlock = new OxidizableStairsBlock(ModHelpers.getOxidizationState(blockID), copyBlock.getDefaultState(), blockSettings);
-				else
+					BLOCKS.put("waxed_"+blockID, new ModStairs(copyBlock.getDefaultState(), blockSettings));
+				} else
 					newBlock = new ModStairs(copyBlock.getDefaultState(), blockSettings);
                 break;
             case "wall":
-                newBlock = new ModWall(blockSettings, power);
+				if (shouldOxidize(blockID)) {
+					newBlock = new OxidizableWallBlock(ModHelpers.getOxidizationState(blockID), blockSettings);
+					Block waxed = new ModWall(blockSettings);
+					BLOCKS.put("waxed_" + blockID, waxed);
+					PyriteItemGroups.match(()->waxed, copyBlock, "waxed_"+group, "waxed_" + blockID);
+					OxidizableBlocksRegistry.registerWaxableBlockPair(newBlock, waxed);
+				} else
+					newBlock = new ModWall(blockSettings, power);
                 break;
             case "fence":
                 newBlock = new FenceBlock(blockSettings);
                 break;
             case "log":
-                newBlock = new ModPillar(blockSettings, power);
+				if (shouldOxidize(blockID)) {
+					newBlock = new OxidizablePillarBlock(ModHelpers.getOxidizationState(blockID), blockSettings);
+					Block waxed = new ModPillar(blockSettings);
+					BLOCKS.put("waxed_" + blockID, waxed);
+					PyriteItemGroups.match(()->waxed, copyBlock, "waxed_"+group, "waxed_" + blockID);
+					OxidizableBlocksRegistry.registerWaxableBlockPair(newBlock, waxed);
+				} else
+					newBlock = new ModPillar(blockSettings, power);
                 break;
             case "wood":
                 newBlock = new ModWood(blockSettings);
@@ -141,7 +159,14 @@ public class BlockCreatorImpl {
                 newBlock = new FenceGateBlock(woodType, blockSettings);
                 break;
             case "wall_gate":
-                newBlock = new WallGateBlock(blockSettings);
+				if (shouldOxidize(blockID)) {
+					newBlock = new OxidizableWallGateBlock(ModHelpers.getOxidizationState(blockID), blockSettings);
+					Block waxed = new WallGateBlock(blockSettings);
+					BLOCKS.put("waxed_" + blockID, waxed);
+					PyriteItemGroups.match(()->waxed, copyBlock, "waxed_"+group, "waxed_" + blockID);
+					OxidizableBlocksRegistry.registerWaxableBlockPair(newBlock, waxed);
+				} else
+					newBlock = new WallGateBlock(blockSettings);
                 break;
             case "sign":
                 //Sign Blocks
@@ -172,12 +197,25 @@ public class BlockCreatorImpl {
                 BlockEntityType.HANGING_SIGN.addSupportedBlock(HANGING_WALL_SIGN);
                 break;
             case "door":
-                newBlock = new DoorBlock(blockSetType, blockSettings.nonOpaque());
+				if (shouldOxidize(blockID)) {
+					newBlock = new OxidizableDoorBlock(blockSetType, getOxidizationState(blockID), blockSettings.nonOpaque());
+					Block waxed = new DoorBlock(blockSetType, blockSettings.nonOpaque());
+					BLOCKS.put("waxed_" + blockID, waxed);
+					PyriteItemGroups.match(()->waxed, copyBlock, "waxed_"+group, "waxed_" + blockID);
+					OxidizableBlocksRegistry.registerWaxableBlockPair(newBlock, waxed);
+				}
+				else
+					newBlock = new DoorBlock(blockSetType, blockSettings.nonOpaque());
                 addTransparentBlock(newBlock);
                 break;
             case "trapdoor":
-                if (shouldOxidize(blockID))
-                    newBlock = new OxidizableTrapdoorBlock(blockSetType, getOxidizationState(blockID), blockSettings.nonOpaque());
+                if (shouldOxidize(blockID)) {
+					newBlock = new OxidizableTrapdoorBlock(blockSetType, getOxidizationState(blockID), blockSettings.nonOpaque());
+					Block waxed = new TrapdoorBlock(blockSetType, blockSettings.nonOpaque());
+					BLOCKS.put("waxed_" + blockID, waxed);
+					PyriteItemGroups.match(()->waxed, copyBlock, "waxed_"+group, "waxed_" + blockID);
+					OxidizableBlocksRegistry.registerWaxableBlockPair(newBlock, waxed);
+				}
                 else
                     newBlock = new TrapdoorBlock(blockSetType, blockSettings.nonOpaque());
                 addTransparentBlock(newBlock);
@@ -207,7 +245,7 @@ public class BlockCreatorImpl {
                 addTranslucentBlock(newBlock);
                 break;
             default:
-                LOGGER.error("{}created as a generic block, block provided type: {}", blockID, blockType);
+				log("%s created as a generic block, block provided: %s".formatted(blockID, blockType));
                 newBlock = new Block(blockSettings);
                 break;
         }

@@ -6,6 +6,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+- Waxed variants of Pyrite copper blocks.
+
+### Changed
+- Unwaxed copper blocks now properly oxidize, can be stripped, and waxed.
+- On Fabric 1.21 and above, Pyrite's items have been added to the vanilla item groups. 
+- On Fabric 1.21 and above, Pyrite also now has only one item group containing all of its items.
+
+## [0.15.10] - 2024-12-28
+
+### Fixed
+- On 1.20, fixed issues with 1.21 tag paths.
+- On 1.20, fixed issues with Wall Gate models.
+
+## [0.15.9] - 2024-12-28
+
 ### Fixed
 - Stone Brick variants now have correct shortcut recipes.
 - Resource block variants now have correct shortcut recipes.

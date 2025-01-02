@@ -1,5 +1,6 @@
 package cc.cassian.pyrite.registry;
 
+import cc.cassian.pyrite.functions.ModHelpers;
 import dev.architectury.injectables.annotations.ExpectPlatform;
 import net.minecraft.block.Block;
 import net.minecraft.item.*;
@@ -26,6 +27,10 @@ public class PyriteItemGroups {
     public static final LinkedHashMap<String, Supplier<Block>> EXPOSED_COPPER_BLOCKS = new LinkedHashMap<>();
     public static final LinkedHashMap<String, Supplier<Block>> WEATHERED_COPPER_BLOCKS = new LinkedHashMap<>();
     public static final LinkedHashMap<String, Supplier<Block>> OXIDIZED_COPPER_BLOCKS = new LinkedHashMap<>();
+    public static final LinkedHashMap<String, Supplier<Block>> WAXED_COPPER_BLOCKS = new LinkedHashMap<>();
+    public static final LinkedHashMap<String, Supplier<Block>> WAXED_EXPOSED_COPPER_BLOCKS = new LinkedHashMap<>();
+    public static final LinkedHashMap<String, Supplier<Block>> WAXED_WEATHERED_COPPER_BLOCKS = new LinkedHashMap<>();
+    public static final LinkedHashMap<String, Supplier<Block>> WAXED_OXIDIZED_COPPER_BLOCKS = new LinkedHashMap<>();
     public static final ArrayList<Supplier<Block>> COLOURED_NETHER_BRICKS = new ArrayList<>();
     public static final ArrayList<Supplier<Block>> COBBLESTONE = new ArrayList<>();
     public static final ArrayList<Supplier<Block>> SMOOTH_STONE = new ArrayList<>();
@@ -59,13 +64,6 @@ public class PyriteItemGroups {
     public static final LinkedHashMap<Block, Supplier<Block>> BUILDING_BLOCKS = new LinkedHashMap<>();
     public static final LinkedHashMap<Block, Supplier<Block>> COLORED_BLOCKS = new LinkedHashMap<>();
     public static final LinkedHashMap<Block, Supplier<Block>> NATURAL = new LinkedHashMap<>();
-
-
-    public static final LinkedHashMap<Item, Collection<ItemStack>> FUNCTIONAL_CHANGES = new LinkedHashMap<>();
-    public static final LinkedHashMap<Item, Collection<ItemStack>> BUILDING_BLOCKS_CHANGES = new LinkedHashMap<>();
-    public static final LinkedHashMap<Item, Collection<ItemStack>> COLORED_BLOCKS_CHANGES = new LinkedHashMap<>();
-    public static final LinkedHashMap<Item, Collection<ItemStack>> NATURAL_CHANGES = new LinkedHashMap<>();
-    public static final LinkedHashMap<Item, Collection<ItemStack>> INGREDIENTS_CHANGES = new LinkedHashMap<>();
 
 
     public static Collection<ItemStack> getBlockCollectionList(Collection<Supplier<Block>> items) {
@@ -132,6 +130,18 @@ public class PyriteItemGroups {
                 break;
             case "oxidized_copper":
                 OXIDIZED_COPPER_BLOCKS.put(blockID, newBlock);
+                break;
+            case "waxed_copper":
+                WAXED_COPPER_BLOCKS.put(blockID, newBlock);
+                break;
+            case "waxed_exposed_copper":
+                WAXED_EXPOSED_COPPER_BLOCKS.put(blockID, newBlock);
+                break;
+            case "waxed_weathered_copper":
+                WAXED_WEATHERED_COPPER_BLOCKS.put(blockID, newBlock);
+                break;
+            case "waxed_oxidized_copper":
+                WAXED_OXIDIZED_COPPER_BLOCKS.put(blockID, newBlock);
                 break;
             case "coloured_nether_bricks":
                 COLOURED_NETHER_BRICKS.add(newBlock);
@@ -235,13 +245,8 @@ public class PyriteItemGroups {
             case "colored_blocks":
                 COLORED_BLOCKS.put(copyBlock, newBlock);
                 break;
-//            default:
-//                System.out.println(group);
+            default:
+                ModHelpers.log(group);
         }
-    }
-
-    @ExpectPlatform
-    public static void modifyEntries() {
-        throw new AssertionError();
     }
 }

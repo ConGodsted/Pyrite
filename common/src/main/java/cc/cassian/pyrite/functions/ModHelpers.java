@@ -13,6 +13,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.function.ToIntFunction;
 
+import static cc.cassian.pyrite.Pyrite.LOGGER;
 import static cc.cassian.pyrite.Pyrite.MOD_ID;
 
 
@@ -131,5 +132,15 @@ public class ModHelpers {
         else if (blockID.contains("exposed"))
             return Oxidizable.OxidationLevel.EXPOSED;
         return Oxidizable.OxidationLevel.UNAFFECTED;
+    }
+
+    public static void log(String log) {
+        if (isDevEnvironment())
+            LOGGER.info(log);
+    }
+
+    @ExpectPlatform
+    public static boolean isDevEnvironment() {
+        throw new AssertionError();
     }
 }
