@@ -188,17 +188,21 @@ public class BlockCreator {
     }
 
     public static void generateBrickSet(String blockID, Block copyBlock, MapColor color) {
-        generateBrickSet(blockID, copyBlock, color, 0, "bricks");
+        generateBrickSet(blockID, copyBlock, color, 0, blockID);
     }
 
     public static void generateBrickSet(String blockID, Block copyBlock) {
         generateBrickSet(blockID, copyBlock, copyBlock.getDefaultMapColor());
     }
 
-    public static void generateBrickSet(String blockID, Block copyBlock, MapColor color, boolean generateMossySet) {
-        generateBrickSet(blockID, copyBlock, color, 0, "bricks");
+    public static void generateBrickSet(String blockID, Block copyBlock, MapColor color, boolean generateMossySet, String group) {
+        generateBrickSet(blockID, copyBlock, color, 0, group);
         if (generateMossySet)
             generateBrickSet("mossy_"+blockID, copyBlock, color, 0, null);
+    }
+
+    public static void generateBrickSet(String blockID, Block copyBlock, MapColor color, boolean generateMossySet) {
+        generateBrickSet(blockID, copyBlock, color, generateMossySet, blockID);
     }
 
         //Generate a Turf block set - including block and its slab, stair, and carpet variants.

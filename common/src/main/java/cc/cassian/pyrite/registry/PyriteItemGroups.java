@@ -62,6 +62,8 @@ public class PyriteItemGroups {
     public static final ArrayList<Supplier<Block>> DIRT_PATH = new ArrayList<>();
     public static final ArrayList<Supplier<Block>> LAMPS = new ArrayList<>();
     public static final ArrayList<Supplier<Block>> DYED_BRICKS = new ArrayList<>();
+    public static final ArrayList<Supplier<Block>> DYED_WOOD = new ArrayList<>();
+    public static final ArrayList<Supplier<Block>> WOOD = new ArrayList<>();
     public static final LinkedHashMap<Block, Supplier<Block>> FUNCTIONAL = new LinkedHashMap<>();
     public static final LinkedHashMap<Block, Supplier<Block>> BUILDING_BLOCKS = new LinkedHashMap<>();
     public static final LinkedHashMap<Block, Supplier<Block>> COLORED_BLOCKS = new LinkedHashMap<>();
@@ -205,7 +207,7 @@ public class PyriteItemGroups {
             case "terracotta":
                 TERRACOTTA.add(newBlock);
                 break;
-            case "terracotta_bricks":
+            case "terracotta_bricks", "terracotta_brick":
                 TERRACOTTA_BRICKS.add(newBlock);
                 break;
             case "lamp":
@@ -238,6 +240,12 @@ public class PyriteItemGroups {
             case "dyed_bricks":
                 DYED_BRICKS.add(newBlock);
                 break;
+            case "dyed_wood":
+                DYED_WOOD.add(newBlock);
+                break;
+            case "wood":
+                WOOD.add(newBlock);
+                break;
             case "functional":
                 FUNCTIONAL.put(copyBlock, newBlock);
                 break;
@@ -248,7 +256,7 @@ public class PyriteItemGroups {
                 COLORED_BLOCKS.put(copyBlock, newBlock);
                 break;
             default:
-                ModHelpers.log(group);
+                ModHelpers.log("%s provided group %s".formatted(blockID, group));
         }
     }
 }

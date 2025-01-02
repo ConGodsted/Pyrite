@@ -77,6 +77,7 @@ public class PyriteItemGroupsImpl {
             itemGroup.addAfter(Items.CALCITE, getBlockCollectionList(CALCITE));
             itemGroup.addAfter(Items.CUT_SANDSTONE_SLAB, getBlockCollectionList(SANDSTONE));
             addMapToItemGroup(itemGroup, BUILDING_BLOCKS);
+            itemGroup.addAfter(Items.CHERRY_BUTTON, getBlockCollectionList(WOOD));
         });
 
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.COLORED_BLOCKS).register((itemGroup) -> {
@@ -91,6 +92,7 @@ public class PyriteItemGroupsImpl {
             addMapToItemGroup(itemGroup, COLORED_BLOCKS);
             itemGroup.addAfter(Blocks.PINK_CARPET, getBlockCollectionList(CARPET));
             itemGroup.addAfter(Blocks.PINK_SHULKER_BOX, getBlockCollectionList(DYED_BRICKS));
+            itemGroup.addAll(getBlockCollectionList(DYED_WOOD));
             itemGroup.addBefore(Blocks.SHULKER_BOX, getBlockCollectionList(LAMPS));
         });
 

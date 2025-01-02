@@ -4,6 +4,7 @@ import cc.cassian.pyrite.blocks.*;
 import cc.cassian.pyrite.functions.ModHelpers;
 import cc.cassian.pyrite.functions.ModLists;
 import cc.cassian.pyrite.registry.BlockCreator;
+import cc.cassian.pyrite.registry.PyriteItemGroups;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.block.piston.PistonBehavior;
@@ -18,7 +19,6 @@ import net.neoforged.bus.api.IEventBus;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.neoforge.event.BlockEntityTypeAddBlocksEvent;
-import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
 import java.util.ArrayList;
@@ -34,23 +34,23 @@ import static cc.cassian.pyrite.registry.PyriteItemGroups.POTTED_FLOWERS;
 @SuppressWarnings("unused")
 public class BlockCreatorImpl {
     // Creative tab icon holders
-    public static DeferredHolder<Block, ?> WOOD_ICON;
-    public static DeferredHolder<Block, ?> RESOURCE_ICON;
-    public static DeferredHolder<Block, ?> BRICK_ICON;
-    public static DeferredHolder<Block, ?> MISC_ICON;
+    public static Supplier<Block> WOOD_ICON;
+    public static Supplier<Block> RESOURCE_ICON;
+    public static Supplier<Block> BRICK_ICON;
+    public static Supplier<Block> MISC_ICON;
     //Deferred registry entries
     public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(RegistryKeys.BLOCK, MOD_ID);
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(RegistryKeys.ITEM, MOD_ID);
     public static final DeferredRegister<ItemGroup> TABS = DeferredRegister.create(RegistryKeys.ITEM_GROUP, MOD_ID);
-    public static final ArrayList<DeferredHolder<Item, ?>> ALL_ITEMS = new ArrayList<>();
-    public static final ArrayList<DeferredHolder<Block, ?>> SIGN_BLOCKS = new ArrayList<>();
-    public static final ArrayList<DeferredHolder<Block, ?>> HANGING_SIGN_BLOCKS = new ArrayList<>();
+    public static final ArrayList<Supplier<Item>> ALL_ITEMS = new ArrayList<>();
+    public static final ArrayList<Supplier<Block>> SIGN_BLOCKS = new ArrayList<>();
+    public static final ArrayList<Supplier<Block>> HANGING_SIGN_BLOCKS = new ArrayList<>();
     // Sublists for Item Groups
-    public static final ArrayList<DeferredHolder<?, ?>> WOOD_BLOCKS = new ArrayList<>();
-    public static final ArrayList<DeferredHolder<?, ?>> RESOURCE_BLOCKS = new ArrayList<>();
-    public static final ArrayList<DeferredHolder<?, ?>> BRICK_BLOCKS = new ArrayList<>();
-    public static final ArrayList<DeferredHolder<Block, ?>> REDSTONE_BLOCKS = new ArrayList<>();
-    public static final ArrayList<DeferredHolder<?, ?>> MISC_BLOCKS = new ArrayList<>();
+    public static final ArrayList<Supplier<?>> WOOD_BLOCKS = new ArrayList<>();
+    public static final ArrayList<Supplier<?>> RESOURCE_BLOCKS = new ArrayList<>();
+    public static final ArrayList<Supplier<?>> BRICK_BLOCKS = new ArrayList<>();
+    public static final ArrayList<Supplier<Block>> REDSTONE_BLOCKS = new ArrayList<>();
+    public static final ArrayList<Supplier<?>> MISC_BLOCKS = new ArrayList<>();
 
     /**
      * Implements {@link BlockCreator#createWoodType(String, BlockSetType)} on NeoForge.
@@ -68,13 +68,12 @@ public class BlockCreatorImpl {
         int power;
         if (blockID.contains("redstone")) power = 15;
         else power = 0;
-        DeferredHolder<Block, ?> newBlock;
+        Supplier<Block> newBlock;
         switch (blockType.toLowerCase()) {
             case "block", "lamp":
                 if (isCopper(blockID)) {
-                    log(blockID);
                     newBlock = BLOCKS.register(blockID, () -> new OxidizableBlock(ModHelpers.getOxidizationState(blockID), blockSettings));
-                    BLOCKS.register("waxed_"+blockID, () -> new ModBlock(blockSettings));
+                    registerBlock("waxed_"+blockID, () -> new ModBlock(blockSettings), "waxed_"+group);
                 } else {
                     newBlock = BLOCKS.register(blockID, () -> new ModBlock(blockSettings, power));
                     if (power == 15) {
@@ -109,7 +108,7 @@ public class BlockCreatorImpl {
             case "slab":
                 if (isCopper(blockID)) {
                     newBlock = BLOCKS.register(blockID, () -> new OxidizableSlabBlock(ModHelpers.getOxidizationState(blockID), blockSettings));
-                    BLOCKS.register("waxed_"+blockID, () -> new ModSlab(blockSettings));
+                    registerBlock("waxed_"+blockID, () -> new ModSlab(blockSettings), "waxed_"+group);
                 } else {
                     newBlock = BLOCKS.register(blockID, () -> new ModSlab(blockSettings, power));
                 }
@@ -121,7 +120,7 @@ public class BlockCreatorImpl {
             case "stairs":
                 if (isCopper(blockID)) {
 					newBlock = BLOCKS.register(blockID, () -> new OxidizableStairsBlock(ModHelpers.getOxidizationState(blockID), copyBlock.getDefaultState(), blockSettings));
-                    BLOCKS.register("waxed_"+blockID, () -> new ModStairs(copyBlock.getDefaultState(), blockSettings));
+                    registerBlock("waxed_"+blockID, () -> new ModStairs(copyBlock.getDefaultState(), blockSettings), "waxed_"+group);
                 } else
                     newBlock = BLOCKS.register(blockID, () -> new ModStairs(copyBlock.getDefaultState(), blockSettings));
                 if (Objects.equals(copyBlock, Blocks.OAK_STAIRS))
@@ -140,7 +139,7 @@ public class BlockCreatorImpl {
             case "log":
                 if (isCopper(blockID)) {
                     newBlock = BLOCKS.register(blockID, () -> new OxidizablePillarBlock(ModHelpers.getOxidizationState(blockID), blockSettings));
-                    BLOCKS.register("waxed_"+blockID, () -> new ModPillar(blockSettings));
+                    registerBlock("waxed_"+blockID, () -> new ModPillar(blockSettings), "waxed_"+group);
                 } else {
                     newBlock = BLOCKS.register(blockID, () -> new ModPillar(blockSettings, power));
                     if (blockID.contains("mushroom") || blockID.contains("log"))
@@ -190,17 +189,17 @@ public class BlockCreatorImpl {
                 break;
             case "sign":
                 newBlock = BLOCKS.register(blockID, () -> new SignBlock(woodType, blockSettings));
-                DeferredHolder<Block, WallSignBlock> wallSign = BLOCKS.register(blockID.replace("_sign", "_wall_sign"), () -> new WallSignBlock(woodType, blockSettings));
+                Supplier<Block> wallSign = BLOCKS.register(blockID.replace("_sign", "_wall_sign"), () -> new WallSignBlock(woodType, blockSettings));
                 SIGN_BLOCKS.add(newBlock);
                 SIGN_BLOCKS.add(wallSign);
-                addSignItem(newBlock, wallSign);
+                registerSignItem(newBlock, wallSign, blockID);
                 break;
             case "hanging_sign":
                 newBlock = BLOCKS.register(blockID, () -> new HangingSignBlock(woodType, blockSettings));
-                DeferredHolder<Block, WallHangingSignBlock> hangingWallSign = BLOCKS.register(blockID.replace("_sign", "_wall_sign"), () -> new WallHangingSignBlock(woodType, blockSettings));
+                Supplier<Block> hangingWallSign = BLOCKS.register(blockID.replace("_sign", "_wall_sign"), () -> new WallHangingSignBlock(woodType, blockSettings));
                 HANGING_SIGN_BLOCKS.add(newBlock);
                 HANGING_SIGN_BLOCKS.add(hangingWallSign);
-                addHangingSignItem(newBlock, hangingWallSign);
+                registerHangingSignItem(newBlock, hangingWallSign, blockID);
                 break;
             case "door":
                 newBlock = BLOCKS.register(blockID, () -> new DoorBlock(blockSetType, blockSettings.nonOpaque()));
@@ -256,30 +255,37 @@ public class BlockCreatorImpl {
         else if (blockID.equals("glowing_obsidian")) MISC_ICON = newBlock;
         else if (blockID.contains("grass")) addGrassBlock(newBlock);
         if (!blockType.equals("sign") && !blockType.equals("hanging_sign")) {
-            addBlockItem(blockID, newBlock);
+            registerBlockItem(blockID, newBlock);
             if (!inGroup(newBlock)) {
                 MISC_BLOCKS.add(newBlock);
             }
         }
+        PyriteItemGroups.match(newBlock, copyBlock, group, blockID);
 
     }
 
-    public static void addBlockItem(String blockID, DeferredHolder<Block, ? extends Block> newBlock) {
+    public static void registerBlock(String blockID, Supplier<Block> block, String group) {
+        var newBlock = BLOCKS.register(blockID, block);
+        registerBlockItem(blockID, newBlock);
+        PyriteItemGroups.match(newBlock, null, group, blockID);
+    }
+
+    public static void registerBlockItem(String blockID, Supplier<Block> newBlock) {
         Item.Settings settings = new Item.Settings();
         if (blockID.contains("netherite"))
             settings = settings.fireproof();
         final Item.Settings finalSettings = settings;
-        ALL_ITEMS.add(ITEMS.register(newBlock.getId().getPath(), () -> new BlockItem(newBlock.get(), finalSettings)));
+        ALL_ITEMS.add(ITEMS.register(blockID, () -> new BlockItem(newBlock.get(), finalSettings)));
     }
 
-    public static void addSignItem(DeferredHolder<Block, ? extends Block> newBlock, DeferredHolder<Block, ? extends Block> wallSign) {
-        DeferredHolder<Item, SignItem> newItem = ITEMS.register(newBlock.getId().getPath(), () -> new SignItem(new Item.Settings().maxCount(16), newBlock.get(), wallSign.get()));
+    public static void registerSignItem(Supplier<Block> newBlock, Supplier<Block> wallSign, String blockID) {
+        Supplier<Item> newItem = ITEMS.register(blockID, () -> new SignItem(new Item.Settings().maxCount(16), newBlock.get(), wallSign.get()));
         ALL_ITEMS.add(newItem);
         WOOD_BLOCKS.add(newItem);
     }
 
-    public static void addHangingSignItem(DeferredHolder<Block, ? extends Block> newBlock, DeferredHolder<Block, ? extends Block> wallSign) {
-        DeferredHolder<Item, HangingSignItem> newItem = ITEMS.register(newBlock.getId().getPath(), () -> new HangingSignItem(newBlock.get(), wallSign.get(), new Item.Settings().maxCount(16)));
+    public static void registerHangingSignItem(Supplier<Block> newBlock, Supplier<Block> wallSign, String blockID) {
+        Supplier<Item> newItem = ITEMS.register(blockID, () -> new HangingSignItem(newBlock.get(), wallSign.get(), new Item.Settings().maxCount(16)));
         ALL_ITEMS.add(newItem);
         WOOD_BLOCKS.add(newItem);
     }
@@ -288,7 +294,7 @@ public class BlockCreatorImpl {
         return WOOD_BLOCKS.contains(obj) || BRICK_BLOCKS.contains(obj) || RESOURCE_BLOCKS.contains(obj) || REDSTONE_BLOCKS.contains(obj) || MISC_BLOCKS.contains(obj);
     }
 
-    public static void addItemGroup(String id, DeferredHolder<Block, ?> icon, ArrayList<DeferredHolder<?, ?>> blocks) {
+    public static void addItemGroup(String id, Supplier<Block> icon, ArrayList<Supplier<?>> blocks) {
         Supplier<ItemGroup> PYRITE_GROUP = TABS.register(id, () -> ItemGroup.builder()
             //Set the title of the tab.
             .displayName(Text.translatable("itemGroup." + MOD_ID + "." + id))
@@ -296,7 +302,7 @@ public class BlockCreatorImpl {
             .icon(() -> new ItemStack(icon.get()))
             //Add your items to the tab.
             .entries((params, entries) -> {
-                for (DeferredHolder<?, ?> obj : blocks) {
+                for (Supplier<?> obj : blocks) {
                     if (obj.get() instanceof Block block)
                         entries.add(block);
                     else if (obj.get() instanceof Item item)
@@ -320,6 +326,11 @@ public class BlockCreatorImpl {
         BLOCKS.register(eventBus);
         ITEMS.register(eventBus);
         TABS.register(eventBus);
+        // Add block groups to legacy item groups
+        RESOURCE_BLOCKS.addAll(PyriteItemGroups.WAXED_COPPER_BLOCKS.values());
+        RESOURCE_BLOCKS.addAll(PyriteItemGroups.WAXED_EXPOSED_COPPER_BLOCKS.values());
+        RESOURCE_BLOCKS.addAll(PyriteItemGroups.WAXED_WEATHERED_COPPER_BLOCKS.values());
+        RESOURCE_BLOCKS.addAll(PyriteItemGroups.WAXED_OXIDIZED_COPPER_BLOCKS.values());
         // Add item groups
         addItemGroup("wood_group", WOOD_ICON, WOOD_BLOCKS);
         addItemGroup("resource_group", RESOURCE_ICON, RESOURCE_BLOCKS);
@@ -330,10 +341,10 @@ public class BlockCreatorImpl {
     // Adds Pyrite's signs to the list of blockstates that the Sign block entities support.
     @SubscribeEvent
     public static void addSignsToSupports(BlockEntityTypeAddBlocksEvent event) {
-        for (DeferredHolder<Block, ?> sign : SIGN_BLOCKS) {
+        for (Supplier<Block> sign : SIGN_BLOCKS) {
             event.modify(BlockEntityType.SIGN, sign.get());
         }
-        for (DeferredHolder<Block, ?> sign : HANGING_SIGN_BLOCKS) {
+        for (Supplier<Block> sign : HANGING_SIGN_BLOCKS) {
             event.modify(BlockEntityType.HANGING_SIGN, sign.get());
         }
     }

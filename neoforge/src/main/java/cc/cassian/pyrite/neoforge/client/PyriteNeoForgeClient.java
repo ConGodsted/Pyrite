@@ -12,6 +12,8 @@ import net.neoforged.fml.loading.FMLEnvironment;
 import net.neoforged.neoforge.client.event.RegisterColorHandlersEvent;
 import net.neoforged.neoforge.registries.DeferredHolder;
 
+import java.util.function.Supplier;
+
 import static cc.cassian.pyrite.functions.neoforge.NeoHelpers.GRASS_BLOCKS;
 
 
@@ -27,7 +29,7 @@ public class PyriteNeoForgeClient {
 
     @SubscribeEvent
     public static void registerBlockColors(RegisterColorHandlersEvent.Block event){
-        for (DeferredHolder<Block, ?> pyriteBlock : GRASS_BLOCKS) {
+        for (Supplier<Block> pyriteBlock : GRASS_BLOCKS) {
             event.register(((state, view, pos, tintIndex) -> {
                 if (view == null) return 9551193;
                 return BiomeColors.getGrassColor(view, pos);
@@ -39,7 +41,7 @@ public class PyriteNeoForgeClient {
     // Client-side mod bus event handler
     @SubscribeEvent
     public static void registerItemColorHandlers(RegisterColorHandlersEvent.Item event) {
-        for (DeferredHolder<Block, ?> pyriteBlock : GRASS_BLOCKS) {
+        for (Supplier<Block> pyriteBlock : GRASS_BLOCKS) {
             event.register((stack, tintIndex) -> 9551193, pyriteBlock.get());
         }
     }
