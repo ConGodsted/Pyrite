@@ -116,10 +116,6 @@ public class ModHelpers {
         throw new AssertionError();
     }
 
-    public static boolean shouldOxidize(String blockID) {
-        return isCopper(blockID) && !blockID.contains("waxed");
-    }
-
     public static boolean isCopper(String blockID) {
         return blockID.contains("copper");
     }

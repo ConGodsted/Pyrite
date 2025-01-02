@@ -13,6 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Unwaxed copper blocks now properly oxidize, can be stripped, and waxed.
 - On Fabric 1.21 and above, Pyrite's items have been added to the vanilla item groups. 
 - On Fabric 1.21 and above, Pyrite also now has only one item group containing all of its items.
+- On NeoForge 1.21 and above, Pyrite's Redstone group has been integrated into the vanilla item group.
 
 ## [0.15.10] - 2024-12-28
 

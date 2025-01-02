@@ -22,7 +22,6 @@ import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Objects;
 import java.util.function.Supplier;
@@ -30,13 +29,13 @@ import java.util.function.Supplier;
 import static cc.cassian.pyrite.Pyrite.MOD_ID;
 import static cc.cassian.pyrite.functions.ModHelpers.*;
 import static cc.cassian.pyrite.functions.neoforge.NeoHelpers.*;
+import static cc.cassian.pyrite.registry.PyriteItemGroups.POTTED_FLOWERS;
 
 @SuppressWarnings("unused")
 public class BlockCreatorImpl {
     // Creative tab icon holders
     public static DeferredHolder<Block, ?> WOOD_ICON;
     public static DeferredHolder<Block, ?> RESOURCE_ICON;
-    public static DeferredHolder<Block, ?> REDSTONE_ICON;
     public static DeferredHolder<Block, ?> BRICK_ICON;
     public static DeferredHolder<Block, ?> MISC_ICON;
     //Deferred registry entries
@@ -50,12 +49,8 @@ public class BlockCreatorImpl {
     public static final ArrayList<DeferredHolder<?, ?>> WOOD_BLOCKS = new ArrayList<>();
     public static final ArrayList<DeferredHolder<?, ?>> RESOURCE_BLOCKS = new ArrayList<>();
     public static final ArrayList<DeferredHolder<?, ?>> BRICK_BLOCKS = new ArrayList<>();
-    public static final ArrayList<DeferredHolder<?, ?>> REDSTONE_BLOCKS = new ArrayList<>();
+    public static final ArrayList<DeferredHolder<Block, ?>> REDSTONE_BLOCKS = new ArrayList<>();
     public static final ArrayList<DeferredHolder<?, ?>> MISC_BLOCKS = new ArrayList<>();
-    public static final ArrayList<Block> MISC_BLOCKS_UNSORTED = new ArrayList<>();
-    public static final LinkedHashMap<String, Supplier<FlowerPotBlock>> POTTED_FLOWERS = new LinkedHashMap<>();
-
-
 
     /**
      * Implements {@link BlockCreator#createWoodType(String, BlockSetType)} on NeoForge.
@@ -76,19 +71,21 @@ public class BlockCreatorImpl {
         DeferredHolder<Block, ?> newBlock;
         switch (blockType.toLowerCase()) {
             case "block", "lamp":
-                if (shouldOxidize(blockID)) {
+                if (isCopper(blockID)) {
+                    log(blockID);
                     newBlock = BLOCKS.register(blockID, () -> new OxidizableBlock(ModHelpers.getOxidizationState(blockID), blockSettings));
                     BLOCKS.register("waxed_"+blockID, () -> new ModBlock(blockSettings));
                 } else {
                     newBlock = BLOCKS.register(blockID, () -> new ModBlock(blockSettings, power));
+                    if (power == 15) {
+                        if (blockID.equals("lit_redstone_lamp"))
+                            REDSTONE_BLOCKS.addFirst(newBlock);
+                        else
+                            REDSTONE_BLOCKS.add(newBlock);
+                    }
+                    if (Objects.equals(copyBlock, Blocks.OAK_PLANKS))
+                        WOOD_BLOCKS.add(newBlock);
                 }
-                if (power == 15)
-                    if (blockID.equals("lit_redstone_lamp"))
-                        REDSTONE_BLOCKS.addFirst(newBlock);
-                    else
-                        REDSTONE_BLOCKS.add(newBlock);
-                if (Objects.equals(copyBlock, Blocks.OAK_PLANKS))
-                    WOOD_BLOCKS.add(newBlock);
                 break;
             case "crafting":
                 AbstractBlock.Settings craftingSettings;
@@ -110,7 +107,7 @@ public class BlockCreatorImpl {
                 newBlock = BLOCKS.register(blockID, () -> new ModCarpet(blockSettings));
                 break;
             case "slab":
-                if (shouldOxidize(blockID)) {
+                if (isCopper(blockID)) {
                     newBlock = BLOCKS.register(blockID, () -> new OxidizableSlabBlock(ModHelpers.getOxidizationState(blockID), blockSettings));
                     BLOCKS.register("waxed_"+blockID, () -> new ModSlab(blockSettings));
                 } else {
@@ -122,7 +119,7 @@ public class BlockCreatorImpl {
                     REDSTONE_BLOCKS.add(newBlock);
                 break;
             case "stairs":
-                if (shouldOxidize(blockID)) {
+                if (isCopper(blockID)) {
 					newBlock = BLOCKS.register(blockID, () -> new OxidizableStairsBlock(ModHelpers.getOxidizationState(blockID), copyBlock.getDefaultState(), blockSettings));
                     BLOCKS.register("waxed_"+blockID, () -> new ModStairs(copyBlock.getDefaultState(), blockSettings));
                 } else
@@ -141,11 +138,16 @@ public class BlockCreatorImpl {
                     REDSTONE_BLOCKS.add(newBlock);
                 break;
             case "log":
-                newBlock = BLOCKS.register(blockID, () -> new ModPillar(blockSettings, power));
-                if (blockID.contains("mushroom") || blockID.contains("log"))
-                    WOOD_BLOCKS.add(newBlock);
-                else if (power == 15)
-                    REDSTONE_BLOCKS.add(newBlock);
+                if (isCopper(blockID)) {
+                    newBlock = BLOCKS.register(blockID, () -> new OxidizablePillarBlock(ModHelpers.getOxidizationState(blockID), blockSettings));
+                    BLOCKS.register("waxed_"+blockID, () -> new ModPillar(blockSettings));
+                } else {
+                    newBlock = BLOCKS.register(blockID, () -> new ModPillar(blockSettings, power));
+                    if (blockID.contains("mushroom") || blockID.contains("log"))
+                        WOOD_BLOCKS.add(newBlock);
+                    else if (power == 15)
+                        REDSTONE_BLOCKS.add(newBlock);
+                }
                 break;
             case "wood":
                 newBlock = BLOCKS.register(blockID, () -> new ModWood(blockSettings));
@@ -175,7 +177,7 @@ public class BlockCreatorImpl {
                 break;
             case "flower":
                 newBlock = BLOCKS.register(blockID, () -> new FlowerBlock(StatusEffects.NIGHT_VISION, 5, blockSettings));
-                var pot = BLOCKS.register("potted_"+blockID, () -> new FlowerPotBlock(() -> (FlowerPotBlock) Blocks.FLOWER_POT, newBlock, AbstractBlock.Settings.create().breakInstantly().nonOpaque().pistonBehavior(PistonBehavior.DESTROY)));
+                Supplier<FlowerPotBlock> pot = BLOCKS.register("potted_"+blockID, () -> new FlowerPotBlock(() -> (FlowerPotBlock) Blocks.FLOWER_POT, newBlock, AbstractBlock.Settings.create().breakInstantly().nonOpaque().pistonBehavior(PistonBehavior.DESTROY)));
                 POTTED_FLOWERS.put(blockID, pot);
                 break;
             case "fence_gate":
@@ -251,7 +253,6 @@ public class BlockCreatorImpl {
         if (blockID.equals("dragon_stained_crafting_table")) WOOD_ICON = newBlock;
         else if (blockID.equals("cut_emerald")) RESOURCE_ICON = newBlock;
         else if (blockID.equals("cobblestone_bricks")) BRICK_ICON = newBlock;
-        else if (blockID.equals("chiseled_redstone_block")) REDSTONE_ICON = newBlock;
         else if (blockID.equals("glowing_obsidian")) MISC_ICON = newBlock;
         else if (blockID.contains("grass")) addGrassBlock(newBlock);
         if (!blockType.equals("sign") && !blockType.equals("hanging_sign")) {
@@ -323,7 +324,6 @@ public class BlockCreatorImpl {
         addItemGroup("wood_group", WOOD_ICON, WOOD_BLOCKS);
         addItemGroup("resource_group", RESOURCE_ICON, RESOURCE_BLOCKS);
         addItemGroup("brick_group", BRICK_ICON, BRICK_BLOCKS);
-        addItemGroup("redstone_group", REDSTONE_ICON, REDSTONE_BLOCKS);
         addItemGroup("pyrite_group", MISC_ICON, MISC_BLOCKS);
     }
 

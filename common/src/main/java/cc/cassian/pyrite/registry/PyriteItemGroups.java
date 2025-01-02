@@ -3,6 +3,7 @@ package cc.cassian.pyrite.registry;
 import cc.cassian.pyrite.functions.ModHelpers;
 import dev.architectury.injectables.annotations.ExpectPlatform;
 import net.minecraft.block.Block;
+import net.minecraft.block.FlowerPotBlock;
 import net.minecraft.item.*;
 
 import java.util.*;
@@ -13,6 +14,7 @@ public class PyriteItemGroups {
     public static final ArrayList<Supplier<Item>> SIGNS = new ArrayList<>();
     public static final ArrayList<Supplier<Block>> CRAFTING_TABLES = new ArrayList<>();
     public static final ArrayList<Supplier<Block>> FLOWERS = new ArrayList<>();
+    public static final LinkedHashMap<String, Supplier<FlowerPotBlock>> POTTED_FLOWERS = new LinkedHashMap<>();
     public static final ArrayList<Supplier<Item>> DYES = new ArrayList<>();
     public static final ArrayList<Supplier<Block>> IRON_BLOCKS = new ArrayList<>();
     public static final ArrayList<Supplier<Block>> GOLD_BLOCKS = new ArrayList<>();

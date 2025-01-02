@@ -47,7 +47,7 @@ public class BlockCreatorImpl {
         Block newBlock;
         switch (blockType.toLowerCase()) {
             case "block", "lamp":
-                if (shouldOxidize(blockID)) {
+                if (isCopper(blockID)) {
 					newBlock = new OxidizableBlock(ModHelpers.getOxidizationState(blockID), blockSettings.ticksRandomly());
 					var waxedBlock = new ModBlock(blockSettings);
 					BLOCKS.put("waxed_"+blockID, waxedBlock);
@@ -74,7 +74,7 @@ public class BlockCreatorImpl {
                 newBlock = new ModCarpet(blockSettings);
                 break;
             case "slab":
-                if (shouldOxidize(blockID)) {
+                if (isCopper(blockID)) {
 					newBlock = new OxidizableSlabBlock(ModHelpers.getOxidizationState(blockID), blockSettings);
 					Block waxed = new ModSlab(blockSettings);
 					BLOCKS.put("waxed_" + blockID, waxed);
@@ -84,14 +84,14 @@ public class BlockCreatorImpl {
                      newBlock = new ModSlab(blockSettings, power);
                 break;
             case "stairs":
-                if (shouldOxidize(blockID)) {
+                if (isCopper(blockID)) {
 					newBlock = new OxidizableStairsBlock(ModHelpers.getOxidizationState(blockID), copyBlock.getDefaultState(), blockSettings);
 					BLOCKS.put("waxed_"+blockID, new ModStairs(copyBlock.getDefaultState(), blockSettings));
 				} else
 					newBlock = new ModStairs(copyBlock.getDefaultState(), blockSettings);
                 break;
             case "wall":
-				if (shouldOxidize(blockID)) {
+				if (isCopper(blockID)) {
 					newBlock = new OxidizableWallBlock(ModHelpers.getOxidizationState(blockID), blockSettings);
 					Block waxed = new ModWall(blockSettings);
 					BLOCKS.put("waxed_" + blockID, waxed);
@@ -104,7 +104,7 @@ public class BlockCreatorImpl {
                 newBlock = new FenceBlock(blockSettings);
                 break;
             case "log":
-				if (shouldOxidize(blockID)) {
+				if (isCopper(blockID)) {
 					newBlock = new OxidizablePillarBlock(ModHelpers.getOxidizationState(blockID), blockSettings);
 					Block waxed = new ModPillar(blockSettings);
 					BLOCKS.put("waxed_" + blockID, waxed);
@@ -159,7 +159,7 @@ public class BlockCreatorImpl {
                 newBlock = new FenceGateBlock(woodType, blockSettings);
                 break;
             case "wall_gate":
-				if (shouldOxidize(blockID)) {
+				if (isCopper(blockID)) {
 					newBlock = new OxidizableWallGateBlock(ModHelpers.getOxidizationState(blockID), blockSettings);
 					Block waxed = new WallGateBlock(blockSettings);
 					BLOCKS.put("waxed_" + blockID, waxed);
@@ -197,7 +197,7 @@ public class BlockCreatorImpl {
                 BlockEntityType.HANGING_SIGN.addSupportedBlock(HANGING_WALL_SIGN);
                 break;
             case "door":
-				if (shouldOxidize(blockID)) {
+				if (isCopper(blockID)) {
 					newBlock = new OxidizableDoorBlock(blockSetType, getOxidizationState(blockID), blockSettings.nonOpaque());
 					Block waxed = new DoorBlock(blockSetType, blockSettings.nonOpaque());
 					BLOCKS.put("waxed_" + blockID, waxed);
@@ -209,7 +209,7 @@ public class BlockCreatorImpl {
                 addTransparentBlock(newBlock);
                 break;
             case "trapdoor":
-                if (shouldOxidize(blockID)) {
+                if (isCopper(blockID)) {
 					newBlock = new OxidizableTrapdoorBlock(blockSetType, getOxidizationState(blockID), blockSettings.nonOpaque());
 					Block waxed = new TrapdoorBlock(blockSetType, blockSettings.nonOpaque());
 					BLOCKS.put("waxed_" + blockID, waxed);

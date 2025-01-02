@@ -16,7 +16,7 @@ import static cc.cassian.pyrite.functions.ModHelpers.*;
 
 public class Pyrite {
 	public static final String MOD_ID = "pyrite";
-	public static final Logger LOGGER = LogManager.getLogger(MOD_ID);
+	public static final Logger LOGGER = LogManager.getLogger("Pyrite");
 
     public static void init() {
 		ModLists.populateLinkedHashMaps();
