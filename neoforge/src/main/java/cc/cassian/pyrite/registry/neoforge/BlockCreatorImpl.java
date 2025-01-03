@@ -129,7 +129,7 @@ public class BlockCreatorImpl {
             case "wall":
                 if (isCopper(blockID)) {
                     newBlock = BLOCKS.register(blockID, () -> new OxidizableWallBlock(ModHelpers.getOxidizationState(blockID), blockSettings));
-                    registerBlock("waxed_"+blockID, () -> new ModStairs(copyBlock.getDefaultState(), blockSettings), "waxed_"+group);
+                    registerBlock("waxed_"+blockID, () -> new ModWall(blockSettings), "waxed_"+group);
                 } else {
                     newBlock = BLOCKS.register(blockID, () -> new ModWall(blockSettings, power));
                     if (power == 15)
@@ -190,7 +190,12 @@ public class BlockCreatorImpl {
                     WOOD_BLOCKS.add(newBlock);
                 break;
             case "wall_gate":
-                newBlock = BLOCKS.register(blockID, () -> new WallGateBlock(blockSettings));
+                if (isCopper(blockID)) {
+                    newBlock = BLOCKS.register(blockID, () -> new OxidizableWallGateBlock(ModHelpers.getOxidizationState(blockID), blockSettings));
+                    registerBlock("waxed_"+blockID, () -> new WallGateBlock(blockSettings), "waxed_"+group);
+                } else {
+                    newBlock = BLOCKS.register(blockID, () -> new WallGateBlock(blockSettings));
+                }
                 break;
             case "sign":
                 newBlock = BLOCKS.register(blockID, () -> new SignBlock(woodType, blockSettings));
