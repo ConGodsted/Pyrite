@@ -127,9 +127,14 @@ public class BlockCreatorImpl {
                     WOOD_BLOCKS.add(newBlock);
                 break;
             case "wall":
-                newBlock = BLOCKS.register(blockID, () -> new ModWall(blockSettings, power));
-                if (power == 15)
-                    REDSTONE_BLOCKS.add(newBlock);
+                if (isCopper(blockID)) {
+                    newBlock = BLOCKS.register(blockID, () -> new OxidizableWallBlock(ModHelpers.getOxidizationState(blockID), blockSettings));
+                    registerBlock("waxed_"+blockID, () -> new ModStairs(copyBlock.getDefaultState(), blockSettings), "waxed_"+group);
+                } else {
+                    newBlock = BLOCKS.register(blockID, () -> new ModWall(blockSettings, power));
+                    if (power == 15)
+                        REDSTONE_BLOCKS.add(newBlock);
+                }
                 break;
             case "fence":
                 newBlock = BLOCKS.register(blockID, () -> new FenceBlock(blockSettings));
