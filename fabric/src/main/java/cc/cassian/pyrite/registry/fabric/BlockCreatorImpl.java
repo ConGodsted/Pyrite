@@ -86,7 +86,9 @@ public class BlockCreatorImpl {
             case "stairs":
                 if (isCopper(blockID)) {
 					newBlock = new OxidizableStairsBlock(ModHelpers.getOxidizationState(blockID), copyBlock.getDefaultState(), blockSettings);
-					BLOCKS.put("waxed_"+blockID, new ModStairs(copyBlock.getDefaultState(), blockSettings));
+					Block waxed = new ModStairs(copyBlock.getDefaultState(), blockSettings);
+					BLOCKS.put("waxed_"+blockID, waxed);
+					OxidizableBlocksRegistry.registerWaxableBlockPair(newBlock, waxed);
 				} else
 					newBlock = new ModStairs(copyBlock.getDefaultState(), blockSettings);
                 break;
