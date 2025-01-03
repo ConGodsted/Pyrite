@@ -16,6 +16,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - On NeoForge 1.21 and above, Pyrite's Redstone group has been integrated into the vanilla item group.
 - Stone brick blocks now have an alternate texture for slabs and stairs.
 
+### Fixed
+- On NeoForge, fixed transparency issues with bars.
+
 ## [0.15.10] - 2024-12-28
 
 ### Fixed
