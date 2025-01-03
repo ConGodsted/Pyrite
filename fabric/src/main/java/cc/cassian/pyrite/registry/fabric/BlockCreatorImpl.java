@@ -126,6 +126,7 @@ public class BlockCreatorImpl {
 					BLOCKS.put("waxed_" + blockID, waxed);
 					PyriteItemGroups.match(()->waxed, copyBlock, "waxed_"+group, "waxed_" + blockID);
 					OxidizableBlocksRegistry.registerWaxableBlockPair(newBlock, waxed);
+					addTransparentBlock(waxed);
 				} else {
 					newBlock = new ModPane(blockSettings, power);
 				}
