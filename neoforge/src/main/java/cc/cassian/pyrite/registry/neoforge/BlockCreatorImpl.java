@@ -163,9 +163,14 @@ public class BlockCreatorImpl {
                     REDSTONE_BLOCKS.add(newBlock);
                 break;
             case "bars", "glass_pane", "tinted_glass_pane":
-                newBlock = BLOCKS.register(blockID, () -> new ModPane(blockSettings, power));
-                if (power == 15)
-                    REDSTONE_BLOCKS.add(newBlock);
+                if (isCopper(blockID)) {
+                    newBlock = BLOCKS.register(blockID, () -> new OxidizableBarsBlock(ModHelpers.getOxidizationState(blockID), blockSettings));
+                    registerBlock("waxed_"+blockID, () -> new ModPane(blockSettings), "waxed_"+group);
+                } else {
+                    newBlock = BLOCKS.register(blockID, () -> new ModPane(blockSettings, power));
+                    if (power == 15)
+                        REDSTONE_BLOCKS.add(newBlock);
+                }
                 break;
             case "stained_framed_glass_pane":
                 newBlock = BLOCKS.register(blockID, () -> new StainedGlassPaneBlock(getDyeColorFromFramedId(blockID), blockSettings));

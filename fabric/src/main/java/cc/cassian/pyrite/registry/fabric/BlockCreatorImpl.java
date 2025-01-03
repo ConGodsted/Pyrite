@@ -120,7 +120,15 @@ public class BlockCreatorImpl {
                 newBlock = new ModFacingBlock(blockSettings, power);
                 break;
             case "bars", "glass_pane":
-                newBlock = new ModPane(blockSettings, power);
+				if (isCopper(blockID)) {
+					newBlock = new OxidizableBarsBlock(getOxidizationState(blockID), blockSettings);
+					Block waxed = new ModPane(blockSettings);
+					BLOCKS.put("waxed_" + blockID, waxed);
+					PyriteItemGroups.match(()->waxed, copyBlock, "waxed_"+group, "waxed_" + blockID);
+					OxidizableBlocksRegistry.registerWaxableBlockPair(newBlock, waxed);
+				} else {
+					newBlock = new ModPane(blockSettings, power);
+				}
                 addTransparentBlock(newBlock);
                 break;
             case "tinted_glass_pane":
