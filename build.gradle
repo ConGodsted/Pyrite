@@ -5,6 +5,7 @@ plugins {
     id "io.github.pacifistmc.forgix" version "1.2.9-local.10"
     id 'io.github.0ffz.github-packages' version '[1,2)'
     id "me.modmuss50.mod-publish-plugin" version "0.8.1"
+    id "org.moddedmc.wiki.toolkit" version "0.2.4"
 }
 
 architectury {
@@ -14,6 +15,17 @@ architectury {
 allprojects {
     group = maven_group
     version = mod_version + "+" + minecraft_version
+}
+
+
+wiki {
+    docs {
+        // The name of the object (examplemod) should match the registered wiki project ID (if it exists).
+        "pyrite" {
+            // The path to the folder containing the documentation metadata file (sinytra-wiki.json)
+            root = file('docs')
+        }
+    }
 }
 
 forgix {
