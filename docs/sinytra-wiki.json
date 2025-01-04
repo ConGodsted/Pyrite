@@ -1,5 +1,7 @@
 {
   "id": "pyrite",
-  "platform": "modrinth",
-  "slug": "pyrite"
+  "platforms": {
+    "modrinth": "pyrite",
+    "curseforge": "pyrite" 
+  }
 }
