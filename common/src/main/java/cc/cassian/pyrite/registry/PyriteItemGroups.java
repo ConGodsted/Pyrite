@@ -42,6 +42,7 @@ public class PyriteItemGroups {
     public static final ArrayList<Supplier<Block>> CALCITE = new ArrayList<>();
     public static final ArrayList<Supplier<Block>> TUFF = new ArrayList<>();
     public static final ArrayList<Supplier<Block>> DEEPSLATE = new ArrayList<>();
+    public static final ArrayList<Supplier<Block>> COBBLED_DEEPSLATE = new ArrayList<>();
     public static final ArrayList<Supplier<Block>> SANDSTONE = new ArrayList<>();
     public static final ArrayList<Supplier<Block>> STAINED_GLASS = new ArrayList<>();
     public static final ArrayList<Supplier<Block>> STAINED_GLASS_PANES = new ArrayList<>();
@@ -61,6 +62,7 @@ public class PyriteItemGroups {
     public static final ArrayList<Supplier<Block>> MYCELIUM = new ArrayList<>();
     public static final ArrayList<Supplier<Block>> DIRT_PATH = new ArrayList<>();
     public static final ArrayList<Supplier<Block>> LAMPS = new ArrayList<>();
+    public static final ArrayList<Supplier<Block>> OBSIDIAN = new ArrayList<>();
     public static final ArrayList<Supplier<Block>> DYED_BRICKS = new ArrayList<>();
     public static final ArrayList<Supplier<Block>> DYED_WOOD = new ArrayList<>();
     public static final ArrayList<Supplier<Block>> WOOD = new ArrayList<>();
@@ -174,6 +176,9 @@ public class PyriteItemGroups {
             case "mossy_deepslate_brick":
                 DEEPSLATE.add(newBlock);
                 break;
+            case "cobbled_deepslate_brick", "mossy_cobbled_deepslate_brick":
+                COBBLED_DEEPSLATE.add(newBlock);
+                break;
             case "sandstone_brick":
                 SANDSTONE.add(newBlock);
                 break;
@@ -225,6 +230,9 @@ public class PyriteItemGroups {
             case "nostalgia_grass_block":
                 NOSTALGIA_GRASS.addFirst(newBlock);
                 break;
+            case "obsidian":
+                OBSIDIAN.add(newBlock);
+                break;
             case "path":
                 DIRT_PATH.add(newBlock);
                 break;
@@ -254,6 +262,8 @@ public class PyriteItemGroups {
                 break;
             case "colored_blocks":
                 COLORED_BLOCKS.put(copyBlock, newBlock);
+                break;
+            case "concrete_stairs", "concrete_slab":
                 break;
             default:
                 ModHelpers.log("%s provided group %s".formatted(blockID, group));

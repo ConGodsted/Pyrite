@@ -62,9 +62,9 @@ public class Pyrite {
 		createPyriteBlock("lit_redstone_lamp", "lamp", Blocks.REDSTONE_LAMP, 15, "functional");
 		createPyriteBlock("glowstone_lamp","lamp", Blocks.GLOWSTONE, 15, "functional");
 		// Classic Features
-		createPyriteBlock("glowing_obsidian","obsidian", 50f, MapColor.RED, 15, "misc");
-		createPyriteBlock("nostalgia_glowing_obsidian","obsidian", 50f, MapColor.RED, 15, "misc");
-		createPyriteBlock("locked_chest", "facing", Blocks.CHEST, 15, "misc");
+		createPyriteBlock("glowing_obsidian","obsidian", 50f, MapColor.RED, 15, "obsidian");
+		createPyriteBlock("nostalgia_glowing_obsidian","obsidian", 50f, MapColor.RED, 15, "obsidian");
+		createPyriteBlock("locked_chest", "facing", Blocks.CHEST, 15, "functional");
 		generateNostalgiaBlocks();
 		// Classic Flowers
 		generateFlowers();
@@ -113,9 +113,9 @@ public class Pyrite {
 				createPyriteBlock(dye+"_concrete_powder", "concrete_powder", Blocks.WHITE_CONCRETE_POWDER, color, blockLux, "concrete_powder");
 			}
 			// Dyed Concrete Stairs
-			createPyriteBlock(dye+"_concrete_stairs", "stairs", Blocks.WHITE_CONCRETE, color, blockLux, dye);
+			createPyriteBlock(dye+"_concrete_stairs", "stairs", Blocks.WHITE_CONCRETE, color, blockLux, "concrete_stairs");
 			// Dyed Concrete Slab
-			createPyriteBlock(dye+"_concrete_slab", "slab", Blocks.WHITE_CONCRETE, color, blockLux, dye);
+			createPyriteBlock(dye+"_concrete_slab", "slab", Blocks.WHITE_CONCRETE, color, blockLux, "concrete_slab");
 			//Dyed Planks and plank products
 			createWoodSet(dye + "_stained", color, blockLux, "dyed_wood");
 			// Dyed Bricks and brick products

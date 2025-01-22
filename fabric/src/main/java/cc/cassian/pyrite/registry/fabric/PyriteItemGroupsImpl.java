@@ -68,11 +68,13 @@ public class PyriteItemGroupsImpl {
             itemGroup.addAfter(Items.WAXED_OXIDIZED_CUT_COPPER_SLAB, getBlockCollectionList(WAXED_OXIDIZED_COPPER_BLOCKS.values()));
             itemGroup.addAfter(Items.RED_NETHER_BRICK_WALL, getBlockCollectionList(COLOURED_NETHER_BRICKS));
             itemGroup.addAfter(Items.COBBLESTONE_WALL, getBlockCollectionList(COBBLESTONE));
+            itemGroup.addAfter(Items.COBBLED_DEEPSLATE_WALL, getBlockCollectionList(COBBLED_DEEPSLATE));
             itemGroup.addAfter(Items.GRANITE_SLAB, getBlockCollectionList(GRANITE));
             itemGroup.addAfter(Items.ANDESITE_SLAB, getBlockCollectionList(ANDESITE));
             itemGroup.addAfter(Items.POLISHED_DIORITE_SLAB, getBlockCollectionList(DIORITE));
             itemGroup.addAfter(Items.SMOOTH_STONE_SLAB, getBlockCollectionList(SMOOTH_STONE));
             itemGroup.addAfter(Items.TUFF_BRICK_SLAB, getBlockCollectionList(TUFF));
+            itemGroup.addAfter(Items.DEEPSLATE_TILE_WALL, getBlockCollectionList(TUFF));
             itemGroup.addBefore(Items.TUFF, Items.CALCITE);
             itemGroup.addAfter(Items.CALCITE, getBlockCollectionList(CALCITE));
             itemGroup.addAfter(Items.CUT_SANDSTONE_SLAB, getBlockCollectionList(SANDSTONE));
@@ -109,6 +111,7 @@ public class PyriteItemGroupsImpl {
             itemGroup.addAfter(Items.WARPED_HANGING_SIGN, getItemCollectionList(SIGNS));
             itemGroup.addAfter(Items.CRAFTING_TABLE, getBlockCollectionList(CRAFTING_TABLES));
             itemGroup.addAfter(Items.TORCH, getBlockCollectionList(TORCH));
+            itemGroup.addAfter(Items.CRYING_OBSIDIAN, getBlockCollectionList(OBSIDIAN));
             addMapToItemGroup(itemGroup, FUNCTIONAL);
         });
 
