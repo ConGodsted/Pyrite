@@ -58,6 +58,7 @@ public class PyriteItemGroups {
     public static final ArrayList<Supplier<Block>> TORCH_LEVER = new ArrayList<>();
     public static final ArrayList<Supplier<Block>> GRASS = new ArrayList<>();
     public static final ArrayList<Supplier<Block>> NOSTALGIA_GRASS = new ArrayList<>();
+    public static final ArrayList<Supplier<Block>> GRAVEL = new ArrayList<>();
     public static final ArrayList<Supplier<Block>> PODZOL = new ArrayList<>();
     public static final ArrayList<Supplier<Block>> MYCELIUM = new ArrayList<>();
     public static final ArrayList<Supplier<Block>> DIRT_PATH = new ArrayList<>();
@@ -226,6 +227,9 @@ public class PyriteItemGroups {
                 break;
             case "nostalgia_grass":
                 NOSTALGIA_GRASS.add(newBlock);
+                break;
+            case "gravel":
+                GRAVEL.add(newBlock);
                 break;
             case "nostalgia_grass_block":
                 NOSTALGIA_GRASS.addFirst(newBlock);

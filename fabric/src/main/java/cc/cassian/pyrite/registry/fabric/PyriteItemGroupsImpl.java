@@ -105,6 +105,7 @@ public class PyriteItemGroupsImpl {
             itemGroup.addAfter(Items.GRASS_BLOCK, getBlockCollectionList(GRASS));
             itemGroup.addAfter(Items.PODZOL, getBlockCollectionList(PODZOL));
             itemGroup.addAfter(Items.MYCELIUM, getBlockCollectionList(MYCELIUM));
+            itemGroup.addAfter(Items.GRAVEL, getBlockCollectionList(GRAVEL));
         });
 
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.FUNCTIONAL).register((itemGroup) -> {

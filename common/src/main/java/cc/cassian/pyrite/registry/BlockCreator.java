@@ -168,7 +168,7 @@ public class BlockCreator {
         for (Map.Entry<String, Block> entry : NOSTALGIA_BLOCKS.entrySet()) {
             createPyriteBlock(entry.getKey(), "block", entry.getValue(), entry.getKey());
         }
-        createPyriteBlock("nostalgia_gravel", "gravel", Blocks.GRAVEL, "nostalgia");
+        createPyriteBlock("nostalgia_gravel", "gravel", Blocks.GRAVEL, "gravel");
     }
 
     //Generate an entire brick set.
