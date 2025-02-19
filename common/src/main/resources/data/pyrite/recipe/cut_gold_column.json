@@ -1,0 +1,1 @@
+{"type":"minecraft:crafting_shaped","category":"building","pattern":["###"," # ","###"],"key":{"#":{"item":"pyrite:cut_gold"}},"result":{"id":"pyrite:cut_gold_column","count":6}}

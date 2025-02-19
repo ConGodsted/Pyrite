@@ -89,6 +89,17 @@ subprojects {
             name = "TerraformersMC"
             url = "https://maven.terraformersmc.com/"
         }
+        exclusiveContent {
+            forRepository {
+                maven {
+                    name = "Modrinth"
+                    url = "https://api.modrinth.com/maven"
+                }
+            }
+            filter {
+                includeGroup "maven.modrinth"
+            }
+        }
         maven githubPackage.invoke("The-Aether-Team/The-Aether")
 
     }

@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - Waxed variants of Pyrite copper blocks.
 - Cobbled Deepslate and Mossy Cobbled Deepslate Bricks.
+- Optional compatibility for [Columns](https://modrinth.com/mod/columns) by haykam.
 
 ### Changed
 - Unwaxed copper blocks now properly oxidize, can be stripped, and waxed.
@@ -18,6 +19,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Stone brick blocks now have an alternate texture for slabs and stairs.
 - Nostalgia Copper Blocks now have a more pleasant texture.
 - Azalea Logs can now be smelted into Charcoal.
+- Vanilla Deepslate recipes have been changed to accomodate Cobbled Deepslate Bricks.
 
 ### Fixed
 - On NeoForge, transparency issues with bars.

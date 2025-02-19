@@ -1,11 +1,15 @@
 package cc.cassian.pyrite.registry.fabric;
 
 import cc.cassian.pyrite.blocks.*;
+import cc.cassian.pyrite.blocks.fabric.OxidizableColumnBlock;
+import cc.cassian.pyrite.compat.ColumnsCompat;
 import cc.cassian.pyrite.registry.BlockCreator;
 import cc.cassian.pyrite.functions.ModHelpers;
 import cc.cassian.pyrite.registry.PyriteItemGroups;
+import io.github.haykam821.columns.block.ColumnBlock;
 import net.fabricmc.fabric.api.object.builder.v1.block.type.WoodTypeBuilder;
 import net.fabricmc.fabric.api.registry.OxidizableBlocksRegistry;
+import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.effect.StatusEffects;
@@ -94,13 +98,20 @@ public class BlockCreatorImpl {
                 break;
             case "wall":
 				if (isCopper(blockID)) {
+                    // wall
 					newBlock = new OxidizableWallBlock(ModHelpers.getOxidizationState(blockID), blockSettings);
 					Block waxed = new ModWall(blockSettings);
 					BLOCKS.put("waxed_" + blockID, waxed);
 					PyriteItemGroups.match(()->waxed, copyBlock, "waxed_"+group, "waxed_" + blockID);
 					OxidizableBlocksRegistry.registerWaxableBlockPair(newBlock, waxed);
-				} else
-					newBlock = new ModWall(blockSettings, power);
+                    // column
+                    if (FabricLoader.getInstance().isModLoaded("columns"))
+                        ColumnsCompat.registerCopperColumn(blockID, blockSettings, group, copyBlock);
+				} else {
+                    newBlock = new ModWall(blockSettings, power);
+                    if (FabricLoader.getInstance().isModLoaded("columns"))
+                        ColumnsCompat.registerColumn(blockID.replace("wall", "column"), blockSettings, group, copyBlock);
+                }
                 break;
             case "fence":
                 newBlock = new FenceBlock(blockSettings);
