@@ -75,7 +75,27 @@ public class ModHelpers {
     }
 
     public static DyeColor getDyeColorFromFramedId(String blockID) {
-        var dye = blockID.split("_framed")[0];
+        String dye;
+        if (blockID.contains("framed"))
+            dye = blockID.split("_framed")[0];
+        else if (blockID.contains("stained"))
+            dye = blockID.split("_stained")[0];
+        else dye = "";
+        return switch (dye) {
+            case "glow" -> DyeColor.CYAN;
+            case "dragon" -> DyeColor.BLACK;
+            case "star" -> DyeColor.LIGHT_BLUE;
+            case "honey" -> DyeColor.YELLOW;
+            case "nostalgia" -> DyeColor.BROWN;
+            case "rose" -> DyeColor.PINK;
+            case "poisonous" -> DyeColor.LIME;
+            default -> DyeColor.byName(dye, DyeColor.WHITE);
+        };
+    }
+
+    public static DyeColor getDyeColorFromStainedId(String blockID) {
+        var dye = blockID.split("_stained")[0];
+        System.out.println(dye);
         return switch (dye) {
             case "glow" -> DyeColor.CYAN;
             case "dragon" -> DyeColor.BLACK;

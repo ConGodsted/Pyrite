@@ -25,6 +25,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - On NeoForge, transparency issues with bars.
 - Missing mineable tag on copper blocks.
 - Duplication exploit with Pyrite's logs.
+- Stained glass not tinting beacons.
 
 ## [0.15.10] - 2024-12-28
 
